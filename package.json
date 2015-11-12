@@ -40,6 +40,7 @@
     "grunt-shell": "^1.1.2",
     "bluebird": "^3.0.5",
     "express": "^4.13.3",
+    "joi": "^7.0.0",
     "neo4j-simple": "^0.7.12"
   }
 }
