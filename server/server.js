@@ -21,57 +21,57 @@ app.use(express.static(__dirname + '../../app'));
 
 
 var userNode= db.defineNode({
-	label: ['User']
+	label: ['User'],
 	schema:{
-		'userName': db.Joi.string().min(8).max(15).required()
-		'password': db.Joi.string().min(6).max(10).required()
+		'userName': db.Joi.string().min(8).max(15).required(),
+		'password': db.Joi.string().min(6).max(10).required(),
 		'email': db.Joi.string().email().required()
 	}
 });
 
 var cliprNode= db.defineNode({
-	label: ['Clip']
+	label: ['Clip'],
 	schema:{
-		'siteUrl': db.Joi.string().required()
-		'mediaUrl': db.Joi.string().optional()
+		'siteUrl': db.Joi.string().required(),
+		'mediaUrl': db.Joi.string().optional(),
 		'title': db.Joi.string().max(20).required()
 	}
 });
 
 var categoryNode= db.defineNode({
-	label: ['Category']
+	label: ['Category'],
 	schema:{
 		'category': db.Joi.string().required()
 	}
 });
 
 var topicNode= db.defineNode({
-	label: ['Topic']
+	label: ['Topic'],
 	schema:{
 		'topic': db.Joi.string().required()
 	}
 });
 
 var siteToUser= db.defineRelationship({
-	type: 'bookmark'
+	type: 'bookmark',
 	schema:{
 		'description': db.Joi.string()
 	}
 });
 
 var categoryToSite= db.defineRelationship({
-	type: 'subject'
+	type: 'subject',
 	schema:{
-		'relevancy': db.Joi.integer()
+		'relevancy': db.Joi.number().integer(),
 		'sentiment': db.Joi.string()
 	}
 });
 
 var topicToCategory= db.defineRelationship({
-	type: 'subject'
+	type: 'subject',
 	schema:{
-		'contains': db.Joi.string()
-		'relevancy': db.Joi.integer()
+		'contains': db.Joi.string(),
+		'relevancy': db.Joi.number().integer()
 	}
 });
 
