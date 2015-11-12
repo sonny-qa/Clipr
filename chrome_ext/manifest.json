@@ -3,8 +3,7 @@
   "version": "1.1",
   "description": "A browser action with a popup dump of all bookmarks, including search, add, edit and delete.",
   "permissions": [
-    "bookmarks",
-    "https://ajax.googleapis.com/"
+    "tabs"
   ],
   "icons": {
     "16": "dragon.png",
@@ -21,3 +20,4 @@
   },
   "manifest_version": 2
 }
+
