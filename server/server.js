@@ -56,9 +56,8 @@ var createWatsonUrl = function(url) {
   var endUrl = 'url/URLGetRankedKeywords?apikey=' + API + '&outputMode=json&url='
   var fullUrl = baseUrl + endUrl + url
   console.log(fullUrl)
-  request(fullUrl,  function(response, body){
-  var escaped = escapeSpecialChars(JSON.stringify(body));
-  	console.log('RESPONSE:',JSON.parse(escaped))
+  request(fullUrl,  function(err, response, body){
+  	console.log('RESPONSE:',JSON.parse(body));
   	response.end()
   })
 }
