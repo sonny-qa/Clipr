@@ -26,16 +26,24 @@ var app = express();
 app.use(express.static(__dirname + '../../app'));
 
 app.post('/user/post/storeclip', function(req, res) {
-	console.log(req)
+  console.log(req.query)
   db.save({
     clipUrl: req.query.clipUrl,
     clipImage: req.query.clipImage,
     title: req.query.title
   }, function(err, node) {
     if (err) throw err;
-    console.log(node.clipUrl + "was inserted into DB");
+    db.label(node, ['Clip'],
+      function(err) {
+        if (err) throw err;
+        console.log(node.clipUrl + "was inserted into DB");
+
+      })
   })
 })
+
+
+app.post('/user/post/')
 
 
 
