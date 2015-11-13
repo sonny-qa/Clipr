@@ -37,6 +37,10 @@
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "grunt-sass": "^1.1.0",
-    "grunt-shell": "^1.1.2"
+    "bluebird": "^3.0.5",
+    "express": "^4.13.3",
+    "joi": "^7.0.0",
+    "request": "^2.65.0",
+    "seraph": "^0.14.0"
   }
 }
