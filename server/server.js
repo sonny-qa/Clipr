@@ -25,28 +25,29 @@ var app = express();
 
 app.use(express.static(__dirname + '../../app'));
 
-app.post('/user/post/storeClip', function(req, res) {
+app.post('/user/post/storeclip', function(req, res) {
+	console.log(req)
   db.save({
     clipUrl: req.query.clipUrl,
     clipImage: req.query.clipImage,
     title: req.query.title
   }, function(err, node) {
     if (err) throw err;
-    console.log(req.query.clipUrl + "was inserted into DB");
-  }).then(function(req,res){
-  	res.send(200)
+    console.log(node.clipUrl + "was inserted into DB");
   })
 })
 
 
 
-db.save({
-  name: "RACHELLL",
-  age: 25
-}, function(err, node) {
-  if (err) throw err;
-  console.log("Test-Man inserted.");
-});
+
+
+// db.save({
+//   name: "RACHELLL",
+//   age: 25
+// }, function(err, node) {
+//   if (err) throw err;
+//   console.log("Test-Man inserted.");
+// });
 
 
 
