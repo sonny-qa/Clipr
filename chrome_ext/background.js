@@ -4,7 +4,7 @@ function sendBookmark(url) {
   var params = '?url=' + url;
   
   // The URL to post our data to
-  var postUrl = "http://localhost:3000/test" + params;
+  var postUrl = "http://localhost:3000/user/post/storeClip" + params;
 
   // Set up an async AJAX POST request
   var xhr = new XMLHttpRequest();

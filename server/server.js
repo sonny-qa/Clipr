@@ -105,9 +105,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post("/test", function(req, res) {
-  console.log("Im a request: ", req.query);
-});
 
 
 
