@@ -34,11 +34,9 @@ app.use(bodyParser.json());
 
 
 app.post('/user/post/storeclip', function(req, res) {
-  console.log(req.body)
+  console.log('QUERY:', req.query)
   db.save({
-    clipUrl: req.body.clipUrl,
-    clipImage: req.body.clipImage,
-    title: req.body.title
+    clipUrl: req.query.url,
   }, function(err, node) {
     if (err) throw err;
     db.label(node, ['Clip'], function(err) {
