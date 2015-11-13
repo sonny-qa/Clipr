@@ -5,3 +5,8 @@ node_js:
 before_script:
   -npm install -g grunt
 script: grunt
+notifications:
+  slack:
+    on_sucess: always
+    on_failure: always
+    travis encrypt "mks25:qYSMSKnP0ZQerzjYAi8sJ1iT" --add notifications.slack
