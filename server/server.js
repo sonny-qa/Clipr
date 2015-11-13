@@ -10,6 +10,8 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 3000;
 var Promise = require('bluebird');
+var request = require('request');
+var http= require('http');
 
 
 var db = require('seraph')({
@@ -21,8 +23,11 @@ var db = require('seraph')({
 
 
 
+
 var app = express();
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(express.static(__dirname + '../../app'));
 app.use(bodyParser.json());
 
@@ -39,15 +44,24 @@ app.post('/user/post/storeclip', function(req, res) {
       function(err) {
         if (err) throw err;
         console.log(node.clipUrl + "was inserted into DB");
-
+        createWatsonUrl(node.clipUrl)
       })
   })
 })
 
-
-app.post('/user/post/')
-
-
+var createWatsonUrl = function(url) {
+  console.log('inside watson')
+  var API = '5770c0482acff843085443bfe94677476ed180e5'
+  var baseUrl = 'http://gateway-a.watsonplatform.net/calls/'
+  var endUrl = 'url/URLGetRankedKeywords?apikey=' + API + '&outputMode=json&url='
+  var fullUrl = baseUrl + endUrl + url
+  console.log(fullUrl)
+  request(fullUrl,  function(response, body){
+  var escaped = escapeSpecialChars(JSON.stringify(body));
+  	console.log('RESPONSE:',JSON.parse(escaped))
+  	response.end()
+  })
+}
 
 
 
