@@ -12,7 +12,8 @@
   },
   "browser_action": {
       "default_title": "My Bookmarks",
-      "default_icon": "dragon.png"
+      "default_icon": "dragon.png",
+      "default_popup": "popup.html"
   },
   "background": {
     "scripts": ["jquery.js", "background.js"],
