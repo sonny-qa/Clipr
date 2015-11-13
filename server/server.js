@@ -46,21 +46,21 @@ app.post('/user/post/storeclip', function(req, res) {
       console.log(node.clipUrl + "was inserted as a Clip into DB");
       createWatsonUrl(node.clipUrl, function(keywords) {
         for (var i = 0; i < 3; i++) {
-          storeTags(keywords[i], function(tagNode) {
-              createRelation(node, tagNode);
-            })
-          }
+          storeTags(keywords[i], function(tagNode, relevance) {
+            createRelation(node, tagNode, relevance);
+          })
+        }
       })
     })
   })
 })
 
 
-var createRelation = function(clip, tag) {
+var createRelation = function(clip, tag, relevance) {
   console.log('clip:', clip)
   console.log('tag:', tag)
   db.relate(clip, 'contains', tag, {
-    relevance: tag.relevance
+    relevance: relevance
   }, function(err, relationship) {
     console.log('RELATIONSHIP:', relationship)
   })
@@ -84,9 +84,9 @@ var createWatsonUrl = function(url, cb) {
 
 var storeTags = function(tag, cb) {
   console.log('in storeTags')
+  var relevance= tag.relevance;
   db.save({
     tagName: tag.text
-      // relevance: tag.relevance
   }, function(err, node) {
     if (err) throw err;
     db.label(node, ['Tag'],
@@ -95,9 +95,8 @@ var storeTags = function(tag, cb) {
         console.log(node.tagName + " was inserted as a Topic into DB")
         console.log('TAGNODE:', node)
       })
-    cb(node)
+    cb(node, relevance)
   })
-
 }
 
 
