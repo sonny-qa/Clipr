@@ -157,6 +157,7 @@ module.exports = function(grunt) {
         tasks: ['jshint', 'concat', 'uglify']
       },
 
+
       //when the CSS files change, we need to lint and minify
       css: {
         files: 'app/styles/*.css',
