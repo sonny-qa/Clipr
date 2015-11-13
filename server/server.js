@@ -22,15 +22,17 @@ var db = require('seraph')({
 
 
 var app = express();
-
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + '../../app'));
+app.use(bodyParser.json());
+
 
 app.post('/user/post/storeclip', function(req, res) {
-  console.log(req.query)
+  console.log(req.body)
   db.save({
-    clipUrl: req.query.clipUrl,
-    clipImage: req.query.clipImage,
-    title: req.query.title
+    clipUrl: req.body.clipUrl,
+    clipImage: req.body.clipImage,
+    title: req.body.title
   }, function(err, node) {
     if (err) throw err;
     db.label(node, ['Clip'],
