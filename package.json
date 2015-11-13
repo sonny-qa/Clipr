@@ -1,6 +1,10 @@
 {
   "name": "clipr",
   "private": true,
+  "scripts": {
+    "postinstall": "bower install && ./node_modules/grunt-cli/bin/grunt build",
+    "start": "nodemon server/server.js"
+  },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
     "grunt": "^0.4.5",
