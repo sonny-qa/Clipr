@@ -99,5 +99,18 @@ var storeTags = function(tag, cb) {
 
 
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.post("/test", function(req, res) {
+  console.log("Im a request: ", req.query);
+});
+
+
+
 app.listen(port);
 console.log('Bits please server is now running at ' + port);
+

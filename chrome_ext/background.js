@@ -1,18 +1,23 @@
+// POST data to server using XMLHttpRequest
+function sendBookmark(url) {
+
+  var params = '?url=' + url;
+  
+  // The URL to post our data to
+  var postUrl = "http://localhost:3000/test" + params;
+
+  // Set up an async AJAX POST request
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', postUrl, true);
+
+  // Send the request
+  xhr.send(params);
+} 
+
 // On click, get open tabs url.
-chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
-    var url = tabs[0].url;
-    console.log("Page url: ", url);
+chrome.browserAction.onClicked.addListener(function(tab) {
+  var tabUrl = tab.url
+  console.log("tabUrl: ", tabUrl);
+  sendBookmark(tabUrl);
 });
 
-
-
-
-// template for future AJAX post request
-// jQuery.ajax({
-//   type: "POST",
-//   url: "http://www.API.com/endpoint", // change this
-//   data: {url: url, date: date, clientId: clientId},
-//   sucess: function(data) {
-//     console.log(data);
-//   }
-// });
