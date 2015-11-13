@@ -3,7 +3,7 @@
   "version": "1.1",
   "description": "A browser action with a popup dump of all bookmarks, including search, add, edit and delete.",
   "permissions": [
-    "tabs"
+    "tabs", "http://*/*","https://*/*","file://*/*"
   ],
   "icons": {
     "16": "dragon.png",

@@ -1,7 +1,7 @@
 // On click, get open tabs url.
 chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
     var url = tabs[0].url;
-    console.log("Hello", "url: ", url);
+    console.log("Page url: ", url);
 });
 
 
