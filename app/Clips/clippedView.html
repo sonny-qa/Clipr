@@ -1,1 +1,5 @@
 //actual rendering of clipped sites
+
+<div ng-repeat="clip in clips" ng-init= 'loadClips()'> 
+	<a ng-href='{{clip.clipUrl}}'>{{clip.clipUrl}}</a> 
+</div>

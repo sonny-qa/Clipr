@@ -1,4 +1,4 @@
-angular.module('clipr.header',[])
+angular.module('clipr.header',['ui.router'])
 
 .controller('HeaderController', function($scope){
 

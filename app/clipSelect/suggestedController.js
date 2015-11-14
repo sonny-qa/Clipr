@@ -1,4 +1,4 @@
-angular.module('clipr.suggested',[])
+angular.module('clipr.suggested',['ui.router'])
 
 .controller('SuggestedController', function($scope){
 

@@ -7,18 +7,20 @@ angular
         'ui.bootstrap',
         'ngAnimate',
         'ngTouch',
+        'clipr.services',
         'clipr.clipped',
         'clipr.header',
         'clipr.sidebar',
         'clipr.suggested',
+        'clipr.auth'
     ])
 
-.controller("AppController", function($scope, $location, Auth) {
-
+.controller("AppController", function($scope, $location) {
+  //authentication 
 })
 
-.config(["$stateProvider","$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
+    //$urlRouterProvider.otherwise('/');
 
     $stateProvider
         .state('landing', {
@@ -30,21 +32,21 @@ angular
                 }
             }
         })
-        .state('main',{
-          url: "/",
-          views:{
-            "main": {
-              templateUrl: 'Clips/clippedView.html',
-              controller: 'ClippedController'
-            },
-            'header@main': {
-              templateUrl: 'Clips/headerView.html',
-              controller:'HeaderController'
-            },
-            'sidebar@main': {
-              templateUrl: 'Clips/sidebarView.html',
-              controller: 'SidebarController'
+        .state('main', {
+            url: "/clips",
+            views: {
+                "main": {
+                    templateUrl: 'Clips/clippedView.html',
+                    controller: 'ClipController'
+                },
+                'header@main': {
+                    templateUrl: 'Clips/headerView.html',
+                    controller: 'HeaderController'
+                },
+                'sidebar@main': {
+                    templateUrl: 'Clips/sidebarView.html',
+                    controller: 'SidebarController'
+                }
             }
-          }
         })
 }])
