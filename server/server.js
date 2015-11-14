@@ -56,8 +56,8 @@ app.post('/user/post/storeclip', function(req, res) {
 app.get('/loadClips', function(req,res){
   db.nodesWithLabel('Clip',function(err,results){
     console.log('server results', results);
-    res.send(results)
-  })
+    res.send(results);
+  });
 });
 
 
