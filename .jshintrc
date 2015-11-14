@@ -1,16 +1,10 @@
 {
-  "bitwise": true,
-  "browser": true,
-  "curly": true,
-  "eqeqeq": true,
-  "esnext": true,
-  "latedef": true,
-  "noarg": true,
   "node": true,
-  "strict": true,
-  "undef": true,
-  "unused": true,
+  "-W097": true, // Ignores "use strict" warning
+  "browser": true,
+  "devel": true,
+  "validthis": true, // Avoids a warning using `this`
   "globals": {
-    "angular": false
+    "angular": true
   }
 }

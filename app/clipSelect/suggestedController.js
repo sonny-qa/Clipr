@@ -1,8 +1,5 @@
-angular.module('clipr.suggested',['ui.router'])
+angular.module('clipr.suggested',['ui.router']);
 
-.controller('SuggestedController', function($scope){
-
-})
 
 
 	
