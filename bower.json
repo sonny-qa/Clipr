@@ -12,7 +12,8 @@
     "angular-touch": "^1.4.0"
   },
   "devDependencies": {
-    "angular-mocks": "^1.4.0"
+    "angular-mocks": "^1.4.0",
+    "livereload-js": "~2.2.1"
   },
   "appPath": "app",
   "moduleName": "cliprApp",
