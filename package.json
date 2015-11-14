@@ -2,7 +2,7 @@
   "name": "clipr",
   "private": true,
   "scripts": {
-    "postinstall": "bower install && ./node_modules/grunt-cli/bin/grunt build",
+    "test" : "grunt test",
     "start": "nodemon server/server.js"
   },
   "devDependencies": {
