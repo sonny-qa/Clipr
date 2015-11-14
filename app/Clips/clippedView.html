@@ -1,5 +1,8 @@
-//actual rendering of clipped sites
-
-<div ng-repeat="clip in clips" ng-init= 'loadClips()'> 
-	<a ng-href='{{clip.clipUrl}}'>{{clip.clipUrl}}</a> 
+<div class="row">
+    <div class="col-xs-6 col-lg-4" id="clipBox" ng-repeat="clip in clips">
+        <a ng-href='{{clip.clipUrl}}'>{{clip.clipUrl}}</a>
+        <p>Clip Info </p>
+        <p><a class="btn btn-default" href="#" role="button">Click for more»</a></p>
+    </div>
+</div>
 </div>
