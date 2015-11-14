@@ -1,7 +1,8 @@
-angular.controller('clipr.clipped',[])
+angular.module('clipr.clipped',[])
 
-.controller(){
+.controller('ClipController', function($scope){
+
+})
 
 
 	
-}

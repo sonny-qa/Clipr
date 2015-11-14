@@ -1,39 +1,50 @@
-//all angular routing using ui-router 
-	//check out states       ex. search
-
-'use strict';
-
 /**
- * @ngdoc overview
- * @name cliprApp
- * @description
- * # cliprApp
- *
  * Main module of the application.
  */
 angular
-  .module('cliprApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
-  
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+    .module('cliprApp', [
+        'ui.router',
+        'ui.bootstrap',
+        'ngAnimate',
+        'ngTouch',
+        'clipr.clipped',
+        'clipr.header',
+        'clipr.sidebar',
+        'clipr.suggested',
+    ])
+
+.controller("AppController", function($scope, $location, Auth) {
+
+})
+
+.config(["$stateProvider","$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider
+        .state('landing', {
+            url: "/landing",
+            views: {
+                "main": {
+                    templateUrl: 'Landing/landingView.html',
+                    controller: 'AuthController'
+                }
+            }
+        })
+        .state('main',{
+          url: "/",
+          views:{
+            "main": {
+              templateUrl: 'Clips/clippedView.html',
+              controller: 'ClippedController'
+            },
+            'header@main': {
+              templateUrl: 'Clips/headerView.html',
+              controller:'HeaderController'
+            },
+            'sidebar@main': {
+              templateUrl: 'Clips/sidebarView.html',
+              controller: 'SidebarController'
+            }
+          }
+        })
+}])

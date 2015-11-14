@@ -18,17 +18,17 @@ module.exports = function(grunt){
       }
     },
 
-    sass: {
-      dist: {
-        options: {
-          sourceMap: true,
-          outputStyle: 'compressed'
-        },
-        files: {
-          'app/dist/css/app.css': 'app/assets/scss/app.scss'
-        }
-      }
-    },
+    // css: {
+    //   dist: {
+    //     options: {
+    //       sourceMap: true,
+    //       outputStyle: 'compressed'
+    //     },
+    //     files: {
+    //       'app/dist/css/app.css': 'app/assets/scss/app.scss'
+    //     }
+    //   }
+    // },
 
     uglify: {
       options: {
@@ -72,11 +72,11 @@ module.exports = function(grunt){
         'concat',
         'uglify'
         ]
-      },
-      css: {
-        files: 'app/assets/scss/*.scss',
-        tasks: ['sass']
       }
+      // css: {
+      //   files: 'app/styles/*.css',
+      //   tasks: ['css']
+      // }
     },
 
     shell: {
@@ -99,7 +99,7 @@ grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-contrib-concat');
 grunt.loadNpmTasks('grunt-shell');
-grunt.loadNpmTasks('grunt-sass');
+// grunt.loadNpmTasks('grunt-sass');
 
 
   ////////////////////////////////////////////////////
@@ -112,16 +112,16 @@ grunt.loadNpmTasks('grunt-sass');
   ]);
 
   // Compile all sass files
-  grunt.registerTask('sass-compile', [
-    'sass'
-  ]);
+  // grunt.registerTask('sass-compile', [
+  //   'sass'
+  // ]);
 
   // Create and check file
   grunt.registerTask('build', [
     'jshint',
     'concat',
     'uglify',
-    'sass'
+    // 'sass'
   ]);
 
 

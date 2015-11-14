@@ -1,1 +1,2 @@
-//factories 
+angular.module('clipr.services',[])
+
