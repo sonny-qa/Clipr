@@ -20,11 +20,17 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-xs-6 col-lg-4" id="clipBox" ng-repeat="clip in clips">
+
+<div id="page-content-wrapper">
+  <div class="page-content">
+    <div class="container">
+    <div class="row">
+      <div class="col-xs-6 col-lg-4" id="clipBox" ng-repeat="clip in clips">
         <a ng-href='{{clip.clipUrl}}'>{{clip.clipUrl}}</a>
         <p>Clip Info </p>
         <p><a class="btn btn-default" href="#" role="button">Click for more»</a></p>
     </div>
+</div>
+</div>
 </div>
 </div>
