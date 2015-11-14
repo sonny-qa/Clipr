@@ -4,4 +4,5 @@ app/dist
 /dist
 /.tmp
 /.sass-cache
+.travis.yml
 
