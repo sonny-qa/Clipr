@@ -1,0 +1,32 @@
+#landing {
+    width: 120%;
+    height: auto;
+    position: relative;
+    margin-left: -90px;
+    z-index: -1;
+}
+
+#brand {
+    font-family: 'Anton', sans-serif;
+    position: absolute;
+    color: white;
+}
+
+#brand:hover {
+    color: rgb(53, 124, 143);
+}
+
+.btn.btn-block.btn-social.btn-google {
+    width: 15%;
+    background-color: white;
+    color: black;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    text-align: center;
+}
+
+.fa.fa-google {
+    position: absolute;
+    color: rgb(53, 124, 143);
+}
