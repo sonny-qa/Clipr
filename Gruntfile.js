@@ -1,5 +1,6 @@
 // Gruntfile.js
 module.exports = function(grunt) {
+
   // tells how much time each task takes
   require('time-grunt')(grunt);
   require('jit-grunt')(grunt)({
