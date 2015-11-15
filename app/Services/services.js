@@ -11,12 +11,12 @@ angular.module('clipr.services', [])
 
         }).then(function(response) {
             console.log('factory response', response)
-            return response.data
-        })
+            return response.data;
+        });
 
-    }
+    };
 
     return {
         loadClips: loadClips
-    }
-}])
+    };
+}]);
