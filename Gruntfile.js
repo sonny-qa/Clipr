@@ -1,4 +1,5 @@
 // Gruntfile.js
+
 module.exports = function(grunt) {
   // tells how much time each task takes
   require('time-grunt')(grunt);
@@ -45,22 +46,22 @@ module.exports = function(grunt) {
   },
 
   // Lints HTML files
-  htmlangular: {
-    default_options: {
-      options: {
-        angular: true,
-        customtags: ['custom-tag', 'custom-*'],
-        customattrs: ['fixed-div-label', 'custom-*'],
-        wrapping: {
-          'tr': '<table>{0}</table>'
-        }
-      },
-      files: {
-        src: 'app/**/*.html'
-      }
-    }
-  },
-
+  // htmlangular: {
+  //   default_options: {
+  //     options: {
+  //       angular: true,
+  //       customtags: ['custom-tag', 'custom-*'],
+  //       customattrs: ['fixed-div-label', 'custom-*'],
+  //       wrapping: {
+  //         'tr': '<table>{0}</table>'
+  //       }
+  //     },
+  //     files: {
+  //       src: 'app/**/*.html'
+  //     }
+  //   }
+  // },
+  
   // Concatenates JS Files
   concat: {
     options: {
