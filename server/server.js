@@ -9,7 +9,7 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 3000;
-var Promise= require('bluebird');
+var Promise = require('bluebird');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
@@ -34,14 +34,16 @@ app.use(bodyParser.json());
 
 
 app.post('/user/post/storeclip', function(req, res) {
-  console.log('QUERY: ', req.query);
+  console.log('TITLE: ', req.query.title);
   db.save({
     clipUrl: req.query.url,
+    title: req.query.title
   }, function(err, node) {
     if (err) throw err;
+    console.log('clipnode', node)
     db.label(node, ['Clip'], function(err) {
       if (err) throw err;
-      console.log(node.clipUrl + "was inserted as a Clip into DB");
+      console.log(node + " was inserted as a Clip into DB");
       createWatsonUrl(node.clipUrl, function(keywords) {
         for (var i = 0; i < 3; i++) {
           storeTags(keywords[i], function(tagNode, relevance) {
@@ -53,8 +55,8 @@ app.post('/user/post/storeclip', function(req, res) {
   })
 })
 
-app.get('/loadClips', function(req,res){
-  db.nodesWithLabel('Clip',function(err,results){
+app.get('/loadClips', function(req, res) {
+  db.nodesWithLabel('Clip', function(err, results) {
     console.log('server results', results);
     res.send(results);
   });
@@ -89,7 +91,7 @@ var createWatsonUrl = function(url, cb) {
 
 var storeTags = function(tag, cb) {
   console.log('in storeTags')
-  var relevance= tag.relevance;
+  var relevance = tag.relevance;
   db.save({
     tagName: tag.text
   }, function(err, node) {
@@ -117,4 +119,3 @@ app.use(function(req, res, next) {
 
 app.listen(port);
 console.log('Bits please server is now running at ' + port);
-
