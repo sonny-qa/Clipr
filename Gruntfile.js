@@ -45,6 +45,7 @@ module.exports = function(grunt) {
     },
 
     // Lints HTML files
+    // Work-in-Progress
     // htmlangular: {
     //   default_options: {
     //     options: {
@@ -101,6 +102,7 @@ module.exports = function(grunt) {
     },
 
     // grunt uncss
+    // Work-in-Progress
 
     // this task deletes ‘stuff’ - use with caution!
     clean: {
@@ -138,12 +140,8 @@ module.exports = function(grunt) {
     //   }
     // },
 
-    // Watches front-end files for changes and reruns tasks as needed.
-    // we have a watch set up that checks to see if
-    // any of the files listed below change, and then to execute the listed 
-    //tasks when they do. This just saves us from having to type "grunt" into
-    //the command-line every time we want to see what we're working on; we can
-    //instead just leave "grunt watch" running in a background terminal
+    // Watches for front-end file changes and reruns tasks as needed
+    // Just leave "grunt watch" running in background terminal
 
     watch: {
       options: {
