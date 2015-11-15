@@ -1,5 +1,5 @@
-angular.module('clipr.auth',[]);
+angular.module('clipr.auth',[])
 
-// .controller('AuthController', function($scope){
-
-// });
+.controller('AuthController', function($scope){
+  console.log("hello");
+}); 
