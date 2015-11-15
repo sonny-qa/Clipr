@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 
 
 app.post('/user/post/storeclip', function(req, res) {
-  console.log('QUERY:', req.query)
+  console.log('QUERY: ', req.query);
   db.save({
     clipUrl: req.query.url,
   }, function(err, node) {

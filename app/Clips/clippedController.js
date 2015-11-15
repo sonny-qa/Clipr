@@ -5,32 +5,30 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
   $scope.loadClips= function (){
 
    Clips.loadClips().then(function(clips){
-    $scope.clips= clips;
+    $scope.clips = clips;
     console.log($scope.clips);
   })};
 
    $scope.loadClips();
 
-   $scope.name = 'sample data';
-
-   $scope.showModal = function() {
-    console.log('INSIDE SHOWMODAL!');
+   $scope.showModal = function(clipIndex, size) {
+    console.log('INSIDE SHOWMODAL!', clipIndex);
     $scope.opts = {
+      size: size,
       backdrop: true,
       backdropClick: true,
       dialogFade: false,
       keyboard: true,
       templateUrl : './clipSelect/clipSelectView.html',
       controller : ModalInstanceCtrl,
-        resolve: {} // empty storage
+        resolve: {}
       };
 
   $scope.opts.resolve.item = function() {
-      return angular.copy({name:$scope.name}); // pass name to Dialog
+      return angular.copy({clipUrl:$scope.clips[clipIndex].clipUrl}); // pass name to Dialog
     }
 
   var modalInstance = $modal.open($scope.opts);
-
           modalInstance.result.then(function(){
             //on ok button press
           },function(){
@@ -41,9 +39,7 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
     }]);
 
-
 var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item) {
-
      $scope.item = item;
 
       $scope.ok = function () {
