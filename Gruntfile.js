@@ -15,6 +15,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-csslint');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-newer');
+  grunt.loadNpmTasks('grunt-html-angular-validate');
+
 
   // Project Configuration
   grunt.initConfig({
@@ -39,6 +42,23 @@ module.exports = function(grunt) {
     src: [
       'app/styles/*.css'
     ]
+  },
+
+  // Lints HTML files
+  htmlangular: {
+    default_options: {
+      options: {
+        angular: true,
+        customtags: ['custom-tag', 'custom-*'],
+        customattrs: ['fixed-div-label', 'custom-*'],
+        wrapping: {
+          'tr': '<table>{0}</table>'
+        }
+      },
+      files: {
+        src: 'app/**/*.html'
+      }
+    }
   },
 
   // Concatenates JS Files
@@ -82,53 +102,49 @@ module.exports = function(grunt) {
 
   // grunt uncss
 
-
-
   // this task deletes ‘stuff’ - use with caution!
   clean: {
     all: [
-      'app/dist/'
+      'app/dist/**/'
     ]
   },
 
-
   // Watches back-end files for changes, restarts the server
-  nodemon: {
-    dev: {
-      script: 'server/server.js',
-      options: {
-        env: {
-          PORT: 3000
-        },
-        watch: ["server"],
-        delay: 300,
-        ext: 'js,ejs,html',
-        callback: function(nodemon) {
-          nodemon.on('log', function(event) {
-            console.log(event.colour);
-          });
-          nodemon.on('config:update', function(event) {
-            console.log('custom logging');
-            console.log(event);
-          });
-          nodemon.on('restart', function() {
-            setTimeout(function() {
-              require('fs').writeFileSync('.rebooted', 'rebooted');
-            }, 1000);
-          });
-        }
-      }
-    }
-  },
+  // nodemon: {
+  //   dev: {
+  //     script: 'server/server.js',
+  //     options: {
+  //       env: {
+  //         PORT: 3000
+  //       },
+  //       watch: ["server"],
+  //       delay: 300,
+  //       ext: 'js,ejs,html',
+  //       callback: function(nodemon) {
+  //         nodemon.on('log', function(event) {
+  //           console.log(event.colour);
+  //         });
+  //         nodemon.on('config:update', function(event) {
+  //           console.log('custom logging');
+  //           console.log(event);
+  //         });
+  //         nodemon.on('restart', function() {
+  //           setTimeout(function() {
+  //             require('fs').writeFileSync('.rebooted', 'rebooted');
+  //           }, 1000);
+  //         });
+  //       }
+  //     }
+  //   }
+  // },
 
   // Watches front-end files for changes and reruns tasks as needed.
-  /*
-  we have a watch set up that checks to see if
-     * any of the files listed below change, and then to execute the listed 
-     * tasks when they do. This just saves us from having to type "grunt" into
-     * the command-line every time we want to see what we're working on; we can
-     * instead just leave "grunt watch" running in a background terminal.
-  */
+  // we have a watch set up that checks to see if
+  // any of the files listed below change, and then to execute the listed 
+  //tasks when they do. This just saves us from having to type "grunt" into
+  //the command-line every time we want to see what we're working on; we can
+  //instead just leave "grunt watch" running in a background terminal
+
   watch: {
     options: {
       livereload: true
@@ -155,12 +171,11 @@ module.exports = function(grunt) {
       tasks: ['jshint']
     },
 
-    //when the CSS files change, we need to compile and minify
-    //TODO: define tasks
-    // css: {
-    //   files: 'app/styles/*.css',
-    //    tasks : use linter, concat, place into dist folder
-    // },
+    //when the CSS files change, we need to lint and minify
+    css: {
+      files: 'app/styles/*.css',
+      tasks : ['newer:csslint', 'newer:cssmin']
+    },
 
     //when the HTML files change, we need to compile it
     //TODO: define 'tasks'
@@ -170,8 +185,8 @@ module.exports = function(grunt) {
     //     '!app/bower_components/',
     //     '!app/dist/'
     //   ],
-    //   tasks: //[something:build]
-    // },
+    //   tasks: ['htmllint']
+    // }
 
     //When JavaScript unit test file changes we only need to lint it
     //and run the unit test. No livereloading
@@ -187,7 +202,15 @@ module.exports = function(grunt) {
 
   });
 
+  // Will emit a watch event when watched files are modified
+  // grunt.event.on('watch', function(action, filename, target) {
+  //   grunt.log.writeln(target + ': ' + filename + ' has ' + action);
+  // });
+
   // Default Tasks
-  grunt.registerTask('test', ['jshint']);
-  grunt.registerTask('build', ['jshint']);
+  grunt.registerTask('dev', ['build','watch']);
+  // grunt.registerTask('jshint', ['jshint']);
+  grunt.registerTask('default', ['build']);
+  // grunt.registerTask('test', ['jshint']);
+  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin']);
 };
