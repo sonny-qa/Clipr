@@ -1,12 +1,15 @@
 # clipr
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.14.0.
+## Installing Chrome Extension
+
+- Open Chrome Extension by typing 'chrome://extensions' in the browser.
+- Click 'Load uppacked extension...' button.
+- Navigate to Clipr/chrome_ext folder and click 'Select'
 
 ## Build & development
 
-Run `grunt dev` in command line for dev environment.
+Run `grunt dev` in command line for development environment
 
 ## Testing
 
-Coming soon
+COMING SOON
