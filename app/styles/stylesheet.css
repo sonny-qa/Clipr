@@ -16,8 +16,12 @@
 #brand:hover {
     color: rgb(53, 124, 143);
 }
-
-.btn.btn-block.btn-social.btn-google {
+#clipSelectWebsite{
+	width: 100%;
+	height: 100%;
+	overflow-y:scroll;
+}
+#googlebox.btn.btn-block.btn-social.btn-google {
     width: 15%;
     background-color: white;
     color: black;
@@ -27,7 +31,11 @@
     text-align: center;
 }
 
-.fa.fa-google {
+#modal{
+	height: 500px;
+}
+
+#googlebutton.fa.fa-google {
     position: absolute;
     color: rgb(53, 124, 143);
 }

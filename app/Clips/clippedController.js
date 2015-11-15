@@ -39,8 +39,11 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
     }]);
 
-var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item) {
+var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce) {
      $scope.item = item;
+     $scope.notes=[];
+
+     $scope.sceUrl= $sce.trustAsResourceUrl($scope.item.clipUrl);
 
       $scope.ok = function () {
         $modalInstance.close();
