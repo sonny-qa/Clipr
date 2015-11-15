@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     pluginsRoot: 'node_modules'
   });
 
-  // // Load Plugins
+  // Load Plugins
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -44,8 +44,7 @@ module.exports = function(grunt) {
       ]
     },
 
-    // Lints HTML files
-    // Work-in-Progress
+    // Lints HTML files - Work-in-Progress
     // htmlangular: {
     //   default_options: {
     //     options: {
@@ -101,8 +100,7 @@ module.exports = function(grunt) {
       }
     },
 
-    // grunt uncss
-    // Work-in-Progress
+    // grunt uncss - Work-in-Progress
 
     // this task deletes ‘stuff’ - use with caution!
     clean: {
@@ -142,7 +140,6 @@ module.exports = function(grunt) {
 
     // Watches for front-end file changes and reruns tasks as needed
     // Just leave "grunt watch" running in background terminal
-
     watch: {
       options: {
         livereload: true
