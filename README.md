@@ -5,8 +5,8 @@ version 0.14.0.
 
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+Run `grunt dev` in command line for dev environment.
 
 ## Testing
 
-Running `grunt test` will run the unit tests with karma.
+Coming soon
