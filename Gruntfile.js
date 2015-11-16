@@ -124,10 +124,10 @@ module.exports = function(grunt) {
             nodemon.on('log', function(event) {
               console.log(event.colour);
             });
-            nodemon.on('config:update', function(event) {
-              console.log('custom logging');
-              console.log(event);
-            });
+            // nodemon.on('config:update', function(event) {
+            //   console.log('custom logging');
+            //   console.log(event);
+            // });
             nodemon.on('restart', function() {
               setTimeout(function() {
                 require('fs').writeFileSync('.rebooted', 'rebooted');
@@ -160,7 +160,8 @@ module.exports = function(grunt) {
         files: [
           'app/*/*.js',
           '!app/bower_components/**/*.js',
-          // 'server/**/*.js',
+          'server/**/*.js',
+          'server/server.js',
           'chrome_ext/**/*.js'
         ],
         tasks: ['jshint']
@@ -197,14 +198,9 @@ module.exports = function(grunt) {
     }
   });
 
-  // Will emit a watch event when watched files are modified
-  // Does anything change
-  grunt.event.on('watch', function(action, filename, target) {
-    grunt.log.writeln(target + ': ' + filename + ' has ' + action);
-  });
-
   // Default Tasks
-  grunt.registerTask('dev', ['build','watch']);
+  grunt.registerTask('dev', ['build','nodemon']);
+  grunt.registerTask('watch', ['watch']);
   // grunt.registerTask('jshint', ['jshint']);
   grunt.registerTask('default', ['build']);
   // grunt.registerTask('test', ['jshint']);

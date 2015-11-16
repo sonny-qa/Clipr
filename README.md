@@ -10,7 +10,8 @@
 
 - Run bower install
 - Run npm install
-- Run `node server/server.js' in command line
+- Run `grunt dev' in 1 shell window
+- Run 'grunt watch' in another shell window
 - Open http://localhost:3000/#/clips
 
 
