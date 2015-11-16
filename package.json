@@ -52,11 +52,6 @@
     "joi": "^7.0.0",
     "request": "^2.65.0",
     "seraph": "^0.14.0"
-<<<<<<< 837a9a9d5c3db910efebd03133ed7517fd2588d9
   },
   "license": "MIT"
 }
-=======
-  }
-}
->>>>>>> [chore]: Update .travis.yml
