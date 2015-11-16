@@ -10,7 +10,7 @@
 
 - Run bower install
 - Run npm install
-- Run `grunt dev` in command line for development environment
+- Run `node server/server.js' in command line
 - Open http://localhost:3000/#/clips
 
 ## Testing
