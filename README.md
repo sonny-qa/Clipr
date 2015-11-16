@@ -13,6 +13,7 @@
 - Run `node server/server.js' in command line
 - Open http://localhost:3000/#/clips
 
+
 ## Testing
 
 COMING SOON

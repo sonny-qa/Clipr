@@ -110,33 +110,33 @@ module.exports = function(grunt) {
     },
 
     // Watches back-end files for changes, restarts the server
-    // nodemon: {
-    //   dev: {
-    //     script: 'server/server.js',
-    //     options: {
-    //       env: {
-    //         PORT: 3000
-    //       },
-    //       watch: ["server"],
-    //       delay: 300,
-    //       ext: 'js,ejs,html',
-    //       callback: function(nodemon) {
-    //         nodemon.on('log', function(event) {
-    //           console.log(event.colour);
-    //         });
-    //         nodemon.on('config:update', function(event) {
-    //           console.log('custom logging');
-    //           console.log(event);
-    //         });
-    //         nodemon.on('restart', function() {
-    //           setTimeout(function() {
-    //             require('fs').writeFileSync('.rebooted', 'rebooted');
-    //           }, 1000);
-    //         });
-    //       }
-    //     }
-    //   }
-    // },
+    nodemon: {
+      dev: {
+        script: 'server/server.js',
+        options: {
+          env: {
+            PORT: 3000
+          },
+          watch: ["server"],
+          delay: 300,
+          ext: 'js,ejs,html',
+          callback: function(nodemon) {
+            nodemon.on('log', function(event) {
+              console.log(event.colour);
+            });
+            nodemon.on('config:update', function(event) {
+              console.log('custom logging');
+              console.log(event);
+            });
+            nodemon.on('restart', function() {
+              setTimeout(function() {
+                require('fs').writeFileSync('.rebooted', 'rebooted');
+              }, 1000);
+            });
+          }
+        }
+      }
+    },
 
     // Watches for front-end file changes and reruns tasks as needed
     // Just leave "grunt watch" running in background terminal
