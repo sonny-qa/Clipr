@@ -2,7 +2,7 @@
 // Helper Functions
 //*******************************************************************
 
-// POST data to server using XMLHttpRequest
+// POST url to server using XMLHttpRequest
 function sendBookmark(url, title) {
   var params = '?url=' + url + '&title=' + title;
 
@@ -17,39 +17,7 @@ function sendBookmark(url, title) {
   xhr.send(params);
 }
 
-// // Send all existing bookmarks to server
-// function sendAllBookmarks(bookmarkObj) {
-
-//   // The URL to post our data to 
-//   var postUrl = "http://localhost:3000/user/post/getAllBookmarks";
-
-//   // Set up an async POST Request
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('POST', postUrl, true);
-//   xhr.setRequestHeader('Content-Type', 'application/json');
-  
-//   // Convert to JSON
-//   var sendData = JSON.stringify(bookmarkObj);
-
-//   // Send the request
-//   xhr.send(sendData);
-// }
-
-//*******************************************************************
-// Event Listeners
-//*******************************************************************
-
-// On click, get open tabs url
-chrome.browserAction.onClicked.addListener(function(tab) {
-  var tabUrl = tab.url;
-  var tabTitle = tab.title;
-  console.log("tabUrl: ", tabUrl);
-  console.log('tabTitle: ', tabTitle);
-  sendBookmark(tabUrl, tabTitle);
-});
-
-
-// Send all existing bookmarks to server
+// POST existing chrome bookmarks to server
 function sendAllBookmarks(bookmarkObj) {
 
   // The URL to post our data to 
@@ -68,8 +36,20 @@ function sendAllBookmarks(bookmarkObj) {
   xhr.send(bookmarkObj);
 }
 
+//*******************************************************************
+// Event Listeners
+//*******************************************************************
 
-// On Install, get all bookmarks
+// On click, get open tabs url
+chrome.browserAction.onClicked.addListener(function(tab) {
+  var tabUrl = tab.url;
+  var tabTitle = tab.title;
+  console.log("tabUrl: ", tabUrl);
+  console.log('tabTitle: ', tabTitle);
+  sendBookmark(tabUrl, tabTitle);
+});
+
+// On Install, get all chrome bookmarks
 chrome.runtime.onInstalled.addListener(function() {
   
   var bm_urls = [];
@@ -90,7 +70,6 @@ chrome.runtime.onInstalled.addListener(function() {
     console.log("Stringifed Array: ", JSON.stringify(bm_urls));
     sendAllBookmarks(JSON.stringify(bm_urls));
   });
-
 });
 
 // Logs new bookmark url
