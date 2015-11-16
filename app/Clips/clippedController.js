@@ -19,11 +19,16 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
       note : note,
       url : url
     };
-    Notes.storeNotes($scope.NoteAndUrl);
+    console.log('Notes being passed to server', $scope.NoteAndUrl);
+    Notes.addNotes($scope.NoteAndUrl);
+  };
+
+  $scope.loadNote = function(clipUrl){
+    console.log('INSIDE loadNote!', clipUrl);
+    Notes.loadNotes(clipUrl);
   };
 
   $scope.showModal = function(clipIndex, size) {
-    console.log('INSIDE SHOWMODAL!', clipIndex);
     $scope.opts = {
       size: size,
       backdrop: true,
@@ -54,11 +59,10 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
   }]);
 
-var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, addNote) {
+var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, addNote, Notes) {
 
  $scope.item = item;
  $scope.notes=[];
-
  $scope.sceUrl= $sce.trustAsResourceUrl($scope.item.clipUrl);
 
 $scope.ok = function () {
@@ -72,6 +76,14 @@ $scope.cancel = function () {
 $scope.save = function(userNotes){
   console.log('save function!!!', userNotes);
   addNote(userNotes, $scope.item.clipUrl);
+};
+
+$scope.display = function(){
+  console.log('display function!!!');
+  Notes.loadNotes($scope.item.clipUrl).
+    then(function(data){
+      console.log('NOTES FROM DATABASE', data);
+    }).catch(function(err){ console.log('Loading Notes Error:', err); });
 };
 
 };

@@ -84,24 +84,25 @@ app.post('/user/post/addNote', function(req, res) {
   }, function(err, clip) {
     if (err) throw err;
     clipNode = clip;
-  });
   console.log(req.query.note)
   db.save({
     note: req.query.note
   }, function(err, noteNode) {
-    console.log(' note was saved', noteNode)
+    console.log(' note was saved', noteNode);
     if (err) throw err;
     db.label(noteNode, ['Note'], function(err, labeledNode) {
       if (err) throw err;
-      console.log('noteNode', labeledNode)
-      console.log('clipNode', clipNode)
-    })
+      // console.log('noteNode', labeledNode)
+      // console.log('clipNode', clipNode)
+    });
+    console.log('clipNode -', clipNode);
     createRelation(noteNode, clipNode, 3, 'belongsTo');
+  });
     // createRelation(userNode, noteNode, 3, 'owns');
   })
 });
 
-app.post('/user/post/loadNotes', function(req, res) {
+app.get('/user/get/loadNotes', function(req, res) {
   console.log('inloadnotes')
 
   var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes"
@@ -116,6 +117,45 @@ app.post('/user/post/loadNotes', function(req, res) {
 var createRelation = function(clip, tag, relevance) {
   console.log('clip:', clip)
   console.log('tag:', tag)
+    console.log('NOTESRESULT', result);
+    res.send(result);
+  });
+});
+
+
+app.post('/user/post/storeclip', function(req, res) {
+  console.log('TITLE: ', req.query.title);
+  db.save({
+    clipUrl: req.query.url,
+    title: req.query.title
+  }, function(err, node) {
+    if (err) throw err;
+    console.log('clipnode', node)
+    db.label(node, ['Clip'], function(err) {
+      if (err) throw err;
+      console.log(node + " was inserted as a Clip into DB");
+      createWatsonUrl(node.clipUrl, function(keywords) {
+        for (var i = 0; i < 3; i++) {
+          storeTags(keywords[i], function(tagNode, relevance) {
+            createRelation(node, tagNode, relevance, 'contains');
+          })
+        }
+      })
+    })
+  })
+})
+
+app.get('/loadClips', function(req, res) {
+  db.nodesWithLabel('Clip', function(err, results) {
+    console.log('server results', results);
+    res.send(results);
+  });
+});
+
+
+var createRelation = function(clip, tag, relevance, how) {
+  console.log('clip:', clip);
+  console.log('tag:', tag);
   db.relate(clip, how, tag, {
     relevance: relevance
   }, function(err, relationship) {
