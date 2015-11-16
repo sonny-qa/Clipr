@@ -22,15 +22,51 @@ var db = require('seraph')({
 });
 
 
-
-
-
 var app = express();
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(express.static(__dirname + '../../app'));
 app.use(bodyParser.json());
+
+app.post('/user/post/addNote', function(req, res) {
+  console.log('in addNote')
+  console.log('url', req.query.url)
+    // console.log('url', req.query.user)
+
+  var clipNode;
+  db.find({
+    clipUrl: req.query.url
+  }, function(err, clip) {
+    if (err) throw err;
+    clipNode = clip;
+  });
+  console.log(req.query.note)
+  db.save({
+    note: req.query.note
+  }, function(err, noteNode) {
+    console.log(' note was saved', noteNode)
+    if (err) throw err;
+    db.label(noteNode, ['Note'], function(err, labeledNode) {
+      if (err) throw err;
+      console.log('noteNode', labeledNode)
+      console.log('clipNode', clipNode)
+    })
+    createRelation(noteNode, clipNode, 3, 'belongsTo');
+    // createRelation(userNode, noteNode, 3, 'owns');
+  })
+})
+
+app.post('/user/post/loadNotes', function(req, res) {
+  console.log('inloadnotes')
+
+  var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes"
+
+  db.query(cypher, function(err, result) {
+    if (err) throw err;
+    console.log('NOTESRESULT', result)
+  })
+})
 
 
 app.post('/user/post/storeclip', function(req, res) {
@@ -47,7 +83,7 @@ app.post('/user/post/storeclip', function(req, res) {
       createWatsonUrl(node.clipUrl, function(keywords) {
         for (var i = 0; i < 3; i++) {
           storeTags(keywords[i], function(tagNode, relevance) {
-            createRelation(node, tagNode, relevance);
+            createRelation(node, tagNode, relevance, 'contains');
           })
         }
       })
@@ -63,10 +99,10 @@ app.get('/loadClips', function(req, res) {
 });
 
 
-var createRelation = function(clip, tag, relevance) {
+var createRelation = function(clip, tag, relevance, how) {
   console.log('clip:', clip)
   console.log('tag:', tag)
-  db.relate(clip, 'contains', tag, {
+  db.relate(clip, how, tag, {
     relevance: relevance
   }, function(err, relationship) {
     console.log('RELATIONSHIP:', relationship)
