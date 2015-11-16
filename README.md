@@ -8,7 +8,10 @@
 
 ## Build & development
 
-Run `grunt dev` in command line for development environment
+- Run bower install
+- Run npm install
+- Run `grunt dev` in command line for development environment
+- Open http://localhost:3000/#/clips
 
 ## Testing
 
