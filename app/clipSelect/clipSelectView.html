@@ -8,9 +8,9 @@
     <form>
         <div class="form-group">
             <label for="exampleInputEmail1">Notes:</label>
-            <textarea type="text" class="form-control" id="notes" placeholder="Save notes on this article here"></textarea>
+            <textarea type="text" class="form-control" id="notes" placeholder="Save notes on this article here" ng-model="userNotes"></textarea>
         </div>
-        <button type="submit" ng-click="addNote($value)" class="btn btn-default">Save</button>
+        <button type="submit" ng-click="save(userNotes)" class="btn btn-default">Save</button>
     </form>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">OK</button>

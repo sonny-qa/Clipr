@@ -22,7 +22,7 @@ module.exports = function(grunt) {
   // Project Configuration
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-  
+
     // Runs JS Hint on JavaScript files
     jshint: {
       options: {
@@ -60,22 +60,22 @@ module.exports = function(grunt) {
     //     }
     //   }
     // },
-    
+
     // Concatenates JS Files
     concat: {
       options: {
-      //Defines string to put between each file  
+      //Defines string to put between each file
         separator: ';'
       },
       dist: {
-       //files to concatenate 
-        src: [ 
+       //files to concatenate
+        src: [
         'app/**/*.js',
         '!app/bower_components/**/*.js',
         '!app/assets/**/*.js',
         '!app/dist/**/*.js'
         ],
-       //the location of the resulting JS file 
+       //the location of the resulting JS file
         dest: 'app/dist/js/app.concat.js'
       }
     },

@@ -19,4 +19,23 @@ angular.module('clipr.services', [])
     return {
         loadClips: loadClips
     };
+}])
+
+.factory('Notes', ["$http", function($http) {
+
+    var addNote = function(param){
+        return $http({
+            method: 'POST',
+            url: '/user/post/addNote',
+            params: param
+        })
+          .then(function(response) {
+            console.log('factory response', response);
+            return response.data;
+        });
+    };
+    return {
+      addNote : addNote
+    };
+
 }]);
