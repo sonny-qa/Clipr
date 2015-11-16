@@ -1,33 +1,35 @@
-/**
-
- *Server Configuration File
-
-**/
-
-//External Resources
+// LOAD DEPENDENCIES
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-var port = process.env.PORT || 3000;
-var Promise = require('bluebird');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
 
+// INITIALIZE SERVER
+var port = process.env.PORT || 3000;
+var app = express();
 
+
+// INITIALIZE DB CONNECTION
 var db = require('seraph')({
   server: "http://clipr.sb02.stations.graphenedb.com:24789",
   user: "clipr",
   pass: 'oSvInWIWVVCQIbxLbfTu'
 });
 
-
-var app = express();
+// SERVER CONFIG
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(express.static(__dirname + '../../app'));
 app.use(bodyParser.json());
+// Set Response Headers
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.post('/user/post/addNote', function(req, res) {
   console.log('in addNote')
@@ -69,6 +71,7 @@ app.post('/user/post/loadNotes', function(req, res) {
 })
 
 
+// ROUTES
 app.post('/user/post/storeclip', function(req, res) {
   console.log('TITLE: ', req.query.title);
   db.save({
@@ -89,7 +92,7 @@ app.post('/user/post/storeclip', function(req, res) {
       })
     })
   })
-})
+});
 
 app.get('/loadClips', function(req, res) {
   db.nodesWithLabel('Clip', function(err, results) {
@@ -98,8 +101,8 @@ app.get('/loadClips', function(req, res) {
   });
 });
 
-
-var createRelation = function(clip, tag, relevance, how) {
+// DB HELPER FUNCTIONS
+var createRelation = function(clip, tag, relevance) {
   console.log('clip:', clip)
   console.log('tag:', tag)
   db.relate(clip, how, tag, {
@@ -107,9 +110,7 @@ var createRelation = function(clip, tag, relevance, how) {
   }, function(err, relationship) {
     console.log('RELATIONSHIP:', relationship)
   })
-}
-
-
+};
 
 var createWatsonUrl = function(url, cb) {
   console.log('inside watson')
@@ -123,7 +124,7 @@ var createWatsonUrl = function(url, cb) {
     console.log('WATSON KEYWORDS:', bodyParsed.keywords)
     cb(bodyParsed.keywords)
   })
-}
+};
 
 var storeTags = function(tag, cb) {
   console.log('in storeTags')
@@ -140,18 +141,7 @@ var storeTags = function(tag, cb) {
       })
     cb(node, relevance)
   })
-}
-
-
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-
-
+};
 
 app.listen(port);
 console.log('Bits please server is now running at ' + port);
