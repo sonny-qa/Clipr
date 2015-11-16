@@ -169,7 +169,7 @@ module.exports = function(grunt) {
       //when the CSS files change, we need to lint and minify
       css: {
         files: 'app/styles/*.css',
-        tasks : ['newer:csslint', 'newer:cssmin']
+        tasks : ['csslint', 'cssmin']
       },
 
       //when the HTML files change, we need to compile it
@@ -198,9 +198,10 @@ module.exports = function(grunt) {
   });
 
   // Will emit a watch event when watched files are modified
-  // grunt.event.on('watch', function(action, filename, target) {
-  //   grunt.log.writeln(target + ': ' + filename + ' has ' + action);
-  // });
+  // Does anything change
+  grunt.event.on('watch', function(action, filename, target) {
+    grunt.log.writeln(target + ': ' + filename + ' has ' + action);
+  });
 
   // Default Tasks
   grunt.registerTask('dev', ['build','watch']);
