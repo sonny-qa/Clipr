@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     chrome.tabs.getSelected(null, function(tab) {
       d = document;
       var f = d.createElement('form');
-      f.action = 'http://gtmetrix.com/analyze.html?bm';
+      f.action = 'http://localhost:3000/#/clips';
       f.method = 'post';
       var i = d.createElement('input');
       i.type = 'hidden';

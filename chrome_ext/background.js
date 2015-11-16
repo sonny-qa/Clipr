@@ -1,12 +1,15 @@
-// POST data to server using XMLHttpRequest
-function sendBookmark(url, title) {
+//*******************************************************************
+// Helper Functions
+//*******************************************************************
 
+// POST url to server using XMLHttpRequest
+function sendBookmark(url, title) {
   var params = '?url=' + url + '&title=' + title;
 
   // The URL to post our data to
   var postUrl = "http://localhost:3000/user/post/storeClip" + params;
 
-  // Set up an async AJAX POST request
+  // Set up an async POST Request
   var xhr = new XMLHttpRequest();
   xhr.open('POST', postUrl, true);
 
@@ -14,7 +17,30 @@ function sendBookmark(url, title) {
   xhr.send(params);
 }
 
-// On click, get open tabs url.
+// POST existing chrome bookmarks to server
+function sendAllBookmarks(bookmarkObj) {
+
+  // The URL to post our data to 
+  var postUrl = "http://localhost:3000/user/post/getAllBookmarks";
+
+  // Set up an async POST Request
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', postUrl, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+    
+  // Convert to JSON
+  var sendData = JSON.stringify(bookmarkObj);
+
+  console.log("Im the bookmark obj: ", bookmarkObj);
+  // Send the request
+  xhr.send(bookmarkObj);
+}
+
+//*******************************************************************
+// Event Listeners
+//*******************************************************************
+
+// On click, get open tabs url
 chrome.browserAction.onClicked.addListener(function(tab) {
   var tabUrl = tab.url;
   var tabTitle = tab.title;
@@ -22,4 +48,44 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   console.log('tabTitle: ', tabTitle);
   sendBookmark(tabUrl, tabTitle);
 });
+
+// On Install, get all chrome bookmarks
+chrome.runtime.onInstalled.addListener(function() {
+  
+  var bm_urls = [];
+
+  function fetch_bookmarks(parentNode) {
+    parentNode.forEach(function(bookmark) {
+      if(!(bookmark.url === undefined || bookmark.url === null)) {
+        bm_urls.push(bookmark.url);
+      }
+      if(bookmark.children) {
+        fetch_bookmarks(bookmark.children);
+      }
+    });    
+  }
+
+  chrome.bookmarks.getTree(function(rootNode) {
+    fetch_bookmarks(rootNode);
+    console.log("Stringifed Array: ", JSON.stringify(bm_urls));
+    sendAllBookmarks(JSON.stringify(bm_urls));
+  });
+});
+
+// Logs new bookmark url
+chrome.bookmarks.onCreated.addListener(function(id, bookmark) {
+  console.log("bookmark added.. " + bookmark.url);
+});
+
+// Logs deleted bookmark id
+chrome.bookmarks.onRemoved.addListener(function(id, removeInfo) {
+  console.log("bookmark removed.. " + id);
+});
+
+// Logs id of changed bookmark
+chrome.bookmarks.onChanged.addListener(function(id, changeInfo) {
+  console.log("bookmark changed.. " + id);
+});
+
+
 

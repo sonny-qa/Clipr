@@ -200,7 +200,7 @@ module.exports = function(grunt) {
 
   // Default Tasks
   grunt.registerTask('dev', ['build','nodemon']);
-  grunt.registerTask('watch', ['watch']);
+  // grunt.registerTask('watch', ['watch']);
   // grunt.registerTask('jshint', ['jshint']);
   grunt.registerTask('default', ['build']);
   // grunt.registerTask('test', ['jshint']);
