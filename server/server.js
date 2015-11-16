@@ -31,46 +31,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post('/user/post/addNote', function(req, res) {
-  console.log('in addNote')
-  console.log('url', req.query.url)
-    // console.log('url', req.query.user)
-
-  var clipNode;
-  db.find({
-    clipUrl: req.query.url
-  }, function(err, clip) {
-    if (err) throw err;
-    clipNode = clip;
-  });
-  console.log(req.query.note)
-  db.save({
-    note: req.query.note
-  }, function(err, noteNode) {
-    console.log(' note was saved', noteNode)
-    if (err) throw err;
-    db.label(noteNode, ['Note'], function(err, labeledNode) {
-      if (err) throw err;
-      console.log('noteNode', labeledNode)
-      console.log('clipNode', clipNode)
-    })
-    createRelation(noteNode, clipNode, 3, 'belongsTo');
-    // createRelation(userNode, noteNode, 3, 'owns');
-  })
-})
-
-app.post('/user/post/loadNotes', function(req, res) {
-  console.log('inloadnotes')
-
-  var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes"
-
-  db.query(cypher, function(err, result) {
-    if (err) throw err;
-    console.log('NOTESRESULT', result)
-  })
-})
-
-
 // ROUTES
 
 // Get all existing bookmarks from users google bookmarks
@@ -111,6 +71,45 @@ app.get('/loadClips', function(req, res) {
     console.log('server results', results);
     res.send(results);
   });
+});
+
+app.post('/user/post/addNote', function(req, res) {
+  console.log('in addNote')
+  console.log('url', req.query.url)
+    // console.log('url', req.query.user)
+
+  var clipNode;
+  db.find({
+    clipUrl: req.query.url
+  }, function(err, clip) {
+    if (err) throw err;
+    clipNode = clip;
+  });
+  console.log(req.query.note)
+  db.save({
+    note: req.query.note
+  }, function(err, noteNode) {
+    console.log(' note was saved', noteNode)
+    if (err) throw err;
+    db.label(noteNode, ['Note'], function(err, labeledNode) {
+      if (err) throw err;
+      console.log('noteNode', labeledNode)
+      console.log('clipNode', clipNode)
+    })
+    createRelation(noteNode, clipNode, 3, 'belongsTo');
+    // createRelation(userNode, noteNode, 3, 'owns');
+  })
+});
+
+app.post('/user/post/loadNotes', function(req, res) {
+  console.log('inloadnotes')
+
+  var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes"
+
+  db.query(cypher, function(err, result) {
+    if (err) throw err;
+    console.log('NOTESRESULT', result)
+  })
 });
 
 // DB HELPER FUNCTIONS
