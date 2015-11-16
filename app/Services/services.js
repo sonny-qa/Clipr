@@ -10,7 +10,7 @@ angular.module('clipr.services', [])
             url: '/loadclips'
 
         }).then(function(response) {
-            console.log('factory response', response)
+            console.log('factory response', response);
             return response.data;
         });
 

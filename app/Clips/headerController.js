@@ -1,8 +1,5 @@
-angular.module('clipr.header',['ui.router'])
+angular.module('clipr.header',['ui.router']);
 
-.controller('HeaderController', function($scope){
-
-})
 
 
 	

@@ -4,10 +4,11 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
   $scope.loadClips= function (){
 
-   Clips.loadClips().then(function(clips){
-    $scope.clips = clips;
-    console.log($scope.clips);
-  })};
+    Clips.loadClips().then(function(clips){
+      $scope.clips = clips;
+      console.log($scope.clips);
+    });
+  };
 
    $scope.loadClips();
 
@@ -26,7 +27,7 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
   $scope.opts.resolve.item = function() {
       return angular.copy({clipUrl:$scope.clips[clipIndex].clipUrl}); // pass name to Dialog
-    }
+    };
 
   var modalInstance = $modal.open($scope.opts);
           modalInstance.result.then(function(){
@@ -52,4 +53,4 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce) {
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
       };
-}
+};
