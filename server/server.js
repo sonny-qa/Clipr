@@ -72,6 +72,18 @@ app.post('/user/post/loadNotes', function(req, res) {
 
 
 // ROUTES
+
+// Get all existing bookmarks from users google bookmarks
+// THIS ROUTE IS USED TO TEST THAT SERVER IS GETTING ALL BOOKMARKS
+app.post('/user/post/getAllBookmarks', function(req, res) {
+  console.log("--------------");
+  console.dir(req.body);
+  console.log(req);
+  console.log("--------------");
+  console.log("");
+});
+
+// Get a new bookmark from client
 app.post('/user/post/storeclip', function(req, res) {
   console.log('TITLE: ', req.query.title);
   db.save({
