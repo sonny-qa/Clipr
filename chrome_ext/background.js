@@ -9,7 +9,7 @@ function sendBookmark(url, title) {
   // The URL to post our data to
   var postUrl = "http://localhost:3000/user/post/storeClip" + params;
 
-  // Set up an async AJAX POST request
+  // Set up an async POST Request
   var xhr = new XMLHttpRequest();
   xhr.open('POST', postUrl, true);
 
@@ -17,10 +17,23 @@ function sendBookmark(url, title) {
   xhr.send(params);
 }
 
-// Send all existing bookmarks to server
-function sendAllBookmarks(bookmarkObj) {
-  console.log('placeholder');
-}
+// // Send all existing bookmarks to server
+// function sendAllBookmarks(bookmarkObj) {
+
+//   // The URL to post our data to 
+//   var postUrl = "http://localhost:3000/user/post/getAllBookmarks";
+
+//   // Set up an async POST Request
+//   var xhr = new XMLHttpRequest();
+//   xhr.open('POST', postUrl, true);
+//   xhr.setRequestHeader('Content-Type', 'application/json');
+  
+//   // Convert to JSON
+//   var sendData = JSON.stringify(bookmarkObj);
+
+//   // Send the request
+//   xhr.send(sendData);
+// }
 
 //*******************************************************************
 // Event Listeners
@@ -35,11 +48,32 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   sendBookmark(tabUrl, tabTitle);
 });
 
+
+// Send all existing bookmarks to server
+function sendAllBookmarks(bookmarkObj) {
+
+  // The URL to post our data to 
+  var postUrl = "http://localhost:3000/user/post/getAllBookmarks";
+
+  // Set up an async POST Request
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', postUrl, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+    
+  // Convert to JSON
+  var sendData = JSON.stringify(bookmarkObj);
+
+  console.log("Im the bookmark obj: ", bookmarkObj);
+  // Send the request
+  xhr.send(bookmarkObj);
+}
+
+
 // On Install, get all bookmarks
 chrome.runtime.onInstalled.addListener(function() {
-  console.log("bookmark search exporter extension installed");
+  
   var bm_urls = [];
-  console.log("bm_urls: ", bm_urls);
+
   function fetch_bookmarks(parentNode) {
     parentNode.forEach(function(bookmark) {
       if(!(bookmark.url === undefined || bookmark.url === null)) {
@@ -48,13 +82,15 @@ chrome.runtime.onInstalled.addListener(function() {
       if(bookmark.children) {
         fetch_bookmarks(bookmark.children);
       }
-    });
+    });    
   }
 
   chrome.bookmarks.getTree(function(rootNode) {
     fetch_bookmarks(rootNode);
-    console.log(JSON.stringify(bm_urls));
+    console.log("Stringifed Array: ", JSON.stringify(bm_urls));
+    sendAllBookmarks(JSON.stringify(bm_urls));
   });
+
 });
 
 // Logs new bookmark url
