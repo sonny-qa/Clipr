@@ -22,6 +22,10 @@ angular.module('clipr.services', [])
 
 .factory('Notes', ["$http", function($http) {
 
+  var notesObj = {
+    data: []
+  };
+
     var loadNotes = function(param){
       return $http({
         method: 'GET',
@@ -32,7 +36,8 @@ angular.module('clipr.services', [])
       })
         .then(function(response) {
         console.log('factory response', response);
-        return response.data;
+        notesArr.data= response.data;
+        console.log(notesArr);
       });
     };
 
@@ -44,12 +49,14 @@ angular.module('clipr.services', [])
         })
           .then(function(response) {
             console.log('factory response', response);
-            return response.data;
+            notesArr.data.push(response.data);
+            console.log('notesArr inside addNotes', notesArr);
         });
     };
     return {
       loadNotes: loadNotes,
-      addNotes : addNotes
+      addNotes : addNotes,
+      notesObj: notesObj
     };
 
 }]);

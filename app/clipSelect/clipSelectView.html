@@ -2,8 +2,8 @@
     <iframe id="clipSelectWebsite" src="{{sceUrl}}" style="width:100%;height:100%"></iframe>
 </div>
 <div class="modal-body" ng-init="display()">
-	<div class="savedNotes" ng-repeat="note in notes">
-		<li>{{note}}</li>
+	<div class="savedNotes" ng-repeat="item in notes.data">
+		<li>{{item.note}}</li>
 	</div>
     <form>
         <div class="form-group">

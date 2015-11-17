@@ -12,21 +12,6 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
   $scope.loadClips();
 
-  //On 'save', make call to server with notes and site url
-  //fetch Notes and display it
-  $scope.addNote = function(note, url) {
-    $scope.NoteAndUrl = {
-      note : note,
-      url : url
-    };
-    console.log('Notes being passed to server', $scope.NoteAndUrl);
-    Notes.addNotes($scope.NoteAndUrl);
-  };
-
-  $scope.loadNote = function(clipUrl){
-    console.log('INSIDE loadNote!', clipUrl);
-    Notes.loadNotes(clipUrl);
-  };
 
   $scope.showModal = function(clipIndex, size) {
     $scope.opts = {
@@ -37,11 +22,7 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
       keyboard: true,
       templateUrl : './clipSelect/clipSelectView.html',
       controller : ModalInstanceCtrl,
-      resolve: {
-        addNote :function(){
-          return $scope.addNote;
-        }
-      }
+      resolve: {}
     };
 
     $scope.opts.resolve.item = function() {
@@ -59,11 +40,11 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
   }]);
 
-var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, addNote, Notes) {
+var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes) {
 
  $scope.item = item;
- $scope.notes=[];
  $scope.sceUrl= $sce.trustAsResourceUrl($scope.item.clipUrl);
+ $scope.notes= Notes.notesObj;
 
 $scope.ok = function () {
   $modalInstance.close();
@@ -73,17 +54,20 @@ $scope.cancel = function () {
   $modalInstance.dismiss('cancel');
 };
 
+//On 'save', make call to server with notes and site url
+//fetch Notes and display it
 $scope.save = function(userNotes){
-  console.log('save function!!!', userNotes);
-  addNote(userNotes, $scope.item.clipUrl);
+    $scope.NoteAndUrl = {
+      note : userNotes,
+      url : $scope.item.clipUrl
+    };
+    console.log('Notes being passed to server', $scope.NoteAndUrl);
+    Notes.addNotes($scope.NoteAndUrl);
 };
 
 $scope.display = function(){
   console.log('display function!!!');
-  Notes.loadNotes($scope.item.clipUrl).
-    then(function(data){
-      console.log('NOTES FROM DATABASE', data);
-    }).catch(function(err){ console.log('Loading Notes Error:', err); });
-};
+  Notes.loadNotes($scope.item.clipUrl);
+  };
 
 };

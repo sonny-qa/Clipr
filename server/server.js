@@ -77,14 +77,13 @@ app.post('/user/post/addNote', function(req, res) {
   console.log('in addNote');
   console.log('url', req.query.url);
     // console.log('url', req.query.user)
-
   var clipNode;
   db.find({
     clipUrl: req.query.url
   }, function(err, clip) {
     if (err) throw err;
     clipNode = clip;
-  console.log(req.query.note)
+  console.log(req.query.note);
   db.save({
     note: req.query.note
   }, function(err, noteNode) {
@@ -97,8 +96,8 @@ app.post('/user/post/addNote', function(req, res) {
     });
     console.log('clipNode -', clipNode);
     createRelation(noteNode, clipNode, 3, 'belongsTo');
+    res.send(noteNode);
   });
-    // createRelation(userNode, noteNode, 3, 'owns');
   });
 });
 
@@ -109,7 +108,8 @@ app.get('/user/get/loadNotes', function(req, res) {
 
   db.query(cypher, function(err, result) {
     if (err) throw err;
-    console.log('NOTESRESULT', result)
+    console.log('NOTESRESULT', result);
+    res.send(result);
   })
 });
 
@@ -120,22 +120,22 @@ var createRelation = function(clip, tag, relevance, how) {
   db.relate(clip, how, tag, {
     relevance: relevance
   }, function(err, relationship) {
-    console.log('RELATIONSHIP:', relationship)
-  })
+    console.log('RELATIONSHIP:', relationship);
+  });
 };
 
 var createWatsonUrl = function(url, cb) {
-  console.log('inside watson')
+  console.log('inside watson');
   var API = '5770c0482acff843085443bfe94677476ed180e5'
   var baseUrl = 'http://gateway-a.watsonplatform.net/calls/'
   var endUrl = 'url/URLGetRankedKeywords?apikey=' + API + '&outputMode=json&url='
-  var fullUrl = baseUrl + endUrl + url
-  console.log(fullUrl)
+  var fullUrl = baseUrl + endUrl + url;
+  console.log(fullUrl);
   request(fullUrl, function(err, response, body) {
     var bodyParsed = JSON.parse(body);
     console.log('WATSON KEYWORDS:', bodyParsed.keywords)
-    cb(bodyParsed.keywords)
-  })
+    cb(bodyParsed.keywords);
+  });
 };
 
 var storeTags = function(tag, cb) {
@@ -151,8 +151,8 @@ var storeTags = function(tag, cb) {
         console.log(node.tagName + " was inserted as a Topic into DB")
         console.log('TAGNODE:', node)
       })
-    cb(node, relevance)
-  })
+    cb(node, relevance);
+  });
 };
 
 app.listen(port);
