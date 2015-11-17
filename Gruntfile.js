@@ -18,6 +18,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-html-angular-validate');
+  grunt.loadNpmTasks('grunt-open');
+  grunt.loadNpmTasks('grunt-express');
 
   // Project Configuration
   grunt.initConfig({
@@ -65,7 +67,7 @@ module.exports = function(grunt) {
     //     }
     //   }
     // },
-
+    
     // Concatenates JS Files
     concat: {
       options: {
@@ -115,31 +117,22 @@ module.exports = function(grunt) {
     },
 
     // Watches back-end files for changes, restarts the server
-    nodemon: {
-      dev: {
-        script: 'server/server.js',
+    express: {
+      all: {
         options: {
-          env: {
-            PORT: 3000
-          },
-          watch: ["server"],
-          delay: 300,
-          ext: 'js,ejs,html',
-          callback: function(nodemon) {
-            nodemon.on('log', function(event) {
-              console.log(event.colour);
-            });
-            // nodemon.on('config:update', function(event) {
-            //   console.log('custom logging');
-            //   console.log(event);
-            // });
-            nodemon.on('restart', function() {
-              setTimeout(function() {
-                require('fs').writeFileSync('.rebooted', 'rebooted');
-              }, 1000);
-            });
-          }
+          port: 3000,
+          hostname: "0.0.0.0",
+          bases: [__dirname + '../../app'], // replace with the directory you want files served from
+          livereload: true
         }
+      }
+    },
+
+    // grunt-open will open your browser at the projects URL
+    open: {
+      all: {
+        // Gets the port from the connect configuration
+        path: 'http://localhost:3000/#/clips'
       }
     },
 
@@ -204,7 +197,8 @@ module.exports = function(grunt) {
   });
 
   // Default Tasks
-  grunt.registerTask('dev', ['build','nodemon']);
+  grunt.registerTask('dev', ['build']);
+  grunt.registerTask('server', ['express', 'open', 'watch']);
   // grunt.registerTask('watch', ['watch']);
   // grunt.registerTask('jshint', ['jshint']);
   grunt.registerTask('default', ['build']);
