@@ -102,15 +102,15 @@ app.post('/user/post/addNote', function(req, res) {
 });
 
 app.get('/user/get/loadNotes', function(req, res) {
-  console.log('inloadnotes')
+  console.log('inloadnotes');
 
-  var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes"
+  var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
 
   db.query(cypher, function(err, result) {
     if (err) throw err;
     console.log('NOTESRESULT', result);
     res.send(result);
-  })
+  });
 });
 
 // DB HELPER FUNCTIONS
@@ -126,20 +126,20 @@ var createRelation = function(clip, tag, relevance, how) {
 
 var createWatsonUrl = function(url, cb) {
   console.log('inside watson');
-  var API = '5770c0482acff843085443bfe94677476ed180e5'
-  var baseUrl = 'http://gateway-a.watsonplatform.net/calls/'
-  var endUrl = 'url/URLGetRankedKeywords?apikey=' + API + '&outputMode=json&url='
+  var API = '5770c0482acff843085443bfe94677476ed180e5';
+  var baseUrl = 'http://gateway-a.watsonplatform.net/calls/';
+  var endUrl = 'url/URLGetRankedKeywords?apikey=' + API + '&outputMode=json&url=';
   var fullUrl = baseUrl + endUrl + url;
   console.log(fullUrl);
   request(fullUrl, function(err, response, body) {
     var bodyParsed = JSON.parse(body);
-    console.log('WATSON KEYWORDS:', bodyParsed.keywords)
+    console.log('WATSON KEYWORDS:', bodyParsed.keywords);
     cb(bodyParsed.keywords);
   });
 };
 
 var storeTags = function(tag, cb) {
-  console.log('in storeTags')
+  console.log('in storeTags');
   var relevance = tag.relevance;
   db.save({
     tagName: tag.text
@@ -148,8 +148,8 @@ var storeTags = function(tag, cb) {
     db.label(node, ['Tag'],
       function(err) {
         if (err) throw err;
-        console.log(node.tagName + " was inserted as a Topic into DB")
-        console.log('TAGNODE:', node)
+        console.log(node.tagName + " was inserted as a Topic into DB");
+        console.log('TAGNODE:', node);
       })
     cb(node, relevance);
   });
