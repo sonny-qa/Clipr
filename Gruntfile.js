@@ -11,6 +11,7 @@ module.exports = function(grunt) {
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
   // Project Configuration
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
@@ -156,6 +157,7 @@ module.exports = function(grunt) {
         tasks: ['jshint', 'concat', 'uglify']
       },
 
+
       //when the CSS files change, we need to lint and minify
       css: {
         files: 'app/styles/*.css',
@@ -195,4 +197,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
   // grunt.registerTask('test', ['jshint']);
   grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin']);
+
+
 };

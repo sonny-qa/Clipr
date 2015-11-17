@@ -6,11 +6,19 @@ var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
 var compression = require('compression'); 
+var passport = require('passport');
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+// var router = require('./router.js');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+
+var clientID   = '956444297317-c7q8o48o6trac3u2c81l5q6vf31r30up.apps.googleusercontent.com';
+var clientSecret = 'reN8EHttjTzrGmvC6_C4oivR';
+var callbackURL  = 'http://localhost:3000/auth/google/callback';
 
 // INITIALIZE SERVER
 var port = process.env.PORT || 3000;
 var app = express();
-
 
 // INITIALIZE DB CONNECTION
 var db = require('seraph')({
@@ -19,12 +27,51 @@ var db = require('seraph')({
   pass: 'oSvInWIWVVCQIbxLbfTu'
 });
 
-// SERVER CONFIG
+app.use(passport.initialize());
+app.use(passport.session());
+
+/**
+  Google OAuth2
+  Google Strategy will search for a user based on google.id and 
+  correspond to their profile.id we get back from Google
+**/
+passport.use(new GoogleStrategy({
+  clientID : clientID,
+  clientSecret : clientSecret,
+  callbackURL  : callbackURL,
+
+}, function (accessToken, refreshToken , profile, done) {
+  //make the code asynchronous
+  //db.find won't fire until we have all our data back from Google
+  process.nextTick(function() {
+    console.log('hey',accessToken);
+  return done(null, profile);
+  });
+}));
+
+//used to serialize the user from the session
+passport.serializeUser(function (user, done) {
+  console.log("This is in serializeUser ", user);
+  done(null, user);
+});
+
+//used to deserialize the user
+passport.deserializeUser(function (obj, done) {
+  console.log("This is in deserializeUserUser ", obj);
+  done(null,obj);
+  // db.find({ googleId: id }, function (err, user) {
+  //   done(err, user);
+  // });
+});
+
+app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
 app.use(express.static(__dirname + '../../app'));
-app.use(bodyParser.json());
+
 // Set Response Headers
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -34,6 +81,19 @@ app.use(function(req, res, next) {
 app.use(compression());
 
 // ROUTES
+app.get('/auth/google', 
+  passport.authenticate('google', { scope : ['https://www.googleapis.com/auth/plus.login'] }),
+    function(req, res){
+      console.log(req);
+      console.log('HIHIHIHI');
+  });
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/#/landing' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/#/clips');
+  });
 
 // Get all existing bookmarks from users google bookmarks
 // THIS ROUTE IS USED TO TEST THAT SERVER IS GETTING ALL BOOKMARKS
@@ -135,7 +195,7 @@ var createWatsonUrl = function(url, cb) {
   request(fullUrl, function(err, response, body) {
     var bodyParsed = JSON.parse(body);
     console.log('WATSON KEYWORDS:', bodyParsed.keywords);
-    cb(bodyParsed.keywords)
+    cb(bodyParsed.keywords);
   });
 };
 
@@ -152,7 +212,7 @@ var storeTags = function(tag, cb) {
         console.log(node.tagName + " was inserted as a Topic into DB");
         console.log('TAGNODE:', node);
       });
-    cb(node, relevance)
+    cb(node, relevance);
   });
 };
 
