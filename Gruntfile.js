@@ -41,6 +41,9 @@ module.exports = function(grunt) {
 
     // Lints CSS files
     csslint: {
+      options: {
+        force: true
+      },
       src: [
         'app/styles/*.css'
       ]
@@ -166,7 +169,7 @@ module.exports = function(grunt) {
           'server/server.js',
           'chrome_ext/**/*.js'
         ],
-        tasks: ['jshint']
+        tasks: ['jshint', 'concat', 'uglify']
       },
 
       //when the CSS files change, we need to lint and minify
