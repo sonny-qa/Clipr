@@ -122,7 +122,8 @@ module.exports = function(grunt) {
         options: {
           port: 3000,
           hostname: "0.0.0.0",
-          bases: [__dirname + '../../app'], // replace with the directory you want files served from
+          // bases denotes where it will look for files
+          bases: ['app/'], // replace with the directory you want files served from
           livereload: true
         }
       }
