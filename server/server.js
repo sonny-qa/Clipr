@@ -51,7 +51,7 @@ app.post('/user/post/storeclip', function(req, res) {
     title: req.query.title
   }, function(err, node) {
     if (err) throw err;
-    console.log('clipnode', node)
+    console.log('clipnode', node);
     db.label(node, ['Clip'], function(err) {
       if (err) throw err;
       console.log(node + " was inserted as a Clip into DB");
@@ -83,6 +83,7 @@ app.post('/user/post/addNote', function(req, res) {
   }, function(err, clip) {
     if (err) throw err;
     clipNode = clip;
+  });
   console.log(req.query.note);
   db.save({
     note: req.query.note
@@ -102,6 +103,15 @@ app.post('/user/post/addNote', function(req, res) {
 });
 
 app.get('/user/get/loadNotes', function(req, res) {
+      console.log('noteNode', labeledNode);
+      console.log('clipNode', clipNode);
+    });
+    createRelation(noteNode, clipNode, 3, 'belongsTo');
+    // createRelation(userNode, noteNode, 3, 'owns');
+  });
+});
+
+app.post('/user/post/loadNotes', function(req, res) {
   console.log('inloadnotes');
 
   var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
@@ -134,7 +144,7 @@ var createWatsonUrl = function(url, cb) {
   request(fullUrl, function(err, response, body) {
     var bodyParsed = JSON.parse(body);
     console.log('WATSON KEYWORDS:', bodyParsed.keywords);
-    cb(bodyParsed.keywords);
+    cb(bodyParsed.keywords)
   });
 };
 
@@ -150,8 +160,8 @@ var storeTags = function(tag, cb) {
         if (err) throw err;
         console.log(node.tagName + " was inserted as a Topic into DB");
         console.log('TAGNODE:', node);
-      })
-    cb(node, relevance);
+      });
+    cb(node, relevance)
   });
 };
 
