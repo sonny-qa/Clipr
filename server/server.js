@@ -59,11 +59,11 @@ app.post('/user/post/storeclip', function(req, res) {
         for (var i = 0; i < 3; i++) {
           storeTags(keywords[i], function(tagNode, relevance) {
             createRelation(node, tagNode, relevance, 'contains');
-          })
+          });
         }
-      })
-    })
-  })
+      });
+    });
+  });
 });
 
 app.get('/loadClips', function(req, res) {
@@ -74,8 +74,8 @@ app.get('/loadClips', function(req, res) {
 });
 
 app.post('/user/post/addNote', function(req, res) {
-  console.log('in addNote')
-  console.log('url', req.query.url)
+  console.log('in addNote');
+  console.log('url', req.query.url);
     // console.log('url', req.query.user)
 
   var clipNode;
@@ -99,7 +99,7 @@ app.post('/user/post/addNote', function(req, res) {
     createRelation(noteNode, clipNode, 3, 'belongsTo');
   });
     // createRelation(userNode, noteNode, 3, 'owns');
-  })
+  });
 });
 
 app.get('/user/get/loadNotes', function(req, res) {
@@ -114,45 +114,6 @@ app.get('/user/get/loadNotes', function(req, res) {
 });
 
 // DB HELPER FUNCTIONS
-var createRelation = function(clip, tag, relevance) {
-  console.log('clip:', clip)
-  console.log('tag:', tag)
-    console.log('NOTESRESULT', result);
-    res.send(result);
-  });
-});
-
-
-app.post('/user/post/storeclip', function(req, res) {
-  console.log('TITLE: ', req.query.title);
-  db.save({
-    clipUrl: req.query.url,
-    title: req.query.title
-  }, function(err, node) {
-    if (err) throw err;
-    console.log('clipnode', node)
-    db.label(node, ['Clip'], function(err) {
-      if (err) throw err;
-      console.log(node + " was inserted as a Clip into DB");
-      createWatsonUrl(node.clipUrl, function(keywords) {
-        for (var i = 0; i < 3; i++) {
-          storeTags(keywords[i], function(tagNode, relevance) {
-            createRelation(node, tagNode, relevance, 'contains');
-          })
-        }
-      })
-    })
-  })
-})
-
-app.get('/loadClips', function(req, res) {
-  db.nodesWithLabel('Clip', function(err, results) {
-    console.log('server results', results);
-    res.send(results);
-  });
-});
-
-
 var createRelation = function(clip, tag, relevance, how) {
   console.log('clip:', clip);
   console.log('tag:', tag);
