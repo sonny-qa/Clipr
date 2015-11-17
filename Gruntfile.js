@@ -41,27 +41,30 @@ module.exports = function(grunt) {
 
     // Lints CSS files
     csslint: {
+      options: {
+        force: true
+      },
       src: [
         'app/styles/*.css'
       ]
     },
 
     // Lints HTML files - Work-in-Progress
-    // htmlangular: {
-    //   default_options: {
-    //     options: {
-    //       angular: true,
-    //       customtags: ['custom-tag', 'custom-*'],
-    //       customattrs: ['fixed-div-label', 'custom-*'],
-    //       wrapping: {
-    //         'tr': '<table>{0}</table>'
-    //       }
-    //     },
-    //     files: {
-    //       src: 'app/**/*.html'
-    //     }
-    //   }
-    // },
+    htmlangular: {
+      default_options: {
+        options: {
+          angular: true,
+          customtags: ['custom-tag', 'custom-*'],
+          customattrs: ['fixed-div-label', 'custom-*'],
+          wrapping: {
+            'tr': '<table>{0}</table>'
+          }
+        },
+        files: {
+          src: 'app/**/*.html'
+        }
+      }
+    },
     
     // Concatenates JS Files
     concat: {
@@ -166,7 +169,7 @@ module.exports = function(grunt) {
           'server/server.js',
           'chrome_ext/**/*.js'
         ],
-        tasks: ['jshint']
+        tasks: ['jshint', 'concat', 'uglify']
       },
 
       //when the CSS files change, we need to lint and minify
