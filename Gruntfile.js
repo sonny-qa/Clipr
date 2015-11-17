@@ -8,16 +8,7 @@ module.exports = function(grunt) {
   });
 
   // Load Plugins
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-csslint');
-  grunt.loadNpmTasks('grunt-nodemon');
-  grunt.loadNpmTasks('grunt-newer');
-  grunt.loadNpmTasks('grunt-html-angular-validate');
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
   // Project Configuration
   grunt.initConfig({
@@ -26,19 +17,24 @@ module.exports = function(grunt) {
     // Runs JS Hint on JavaScript files
     jshint: {
       options: {
+        force: true,
         jshintrc: true,
         reporter: require('jshint-stylish')
       },
       src: [
         'app/*/*.js',
         '!app/bower_components/**/*.js',
-        // 'server/**/*.js',
+        'server/**/*.js',
+        'server/config/*.js',
         'chrome_ext/**/*.js'
       ]
     },
 
     // Lints CSS files
     csslint: {
+      options: {
+        force: true
+      },
       src: [
         'app/styles/*.css'
       ]
@@ -60,7 +56,7 @@ module.exports = function(grunt) {
     //     }
     //   }
     // },
-
+    
     // Concatenates JS Files
     concat: {
       options: {
@@ -110,31 +106,24 @@ module.exports = function(grunt) {
     },
 
     // Watches back-end files for changes, restarts the server
-    nodemon: {
-      dev: {
-        script: 'server/server.js',
+    express: {
+      all: {
         options: {
-          env: {
-            PORT: 3000
-          },
-          watch: ["server"],
-          delay: 300,
-          ext: 'js,ejs,html',
-          callback: function(nodemon) {
-            nodemon.on('log', function(event) {
-              console.log(event.colour);
-            });
-            // nodemon.on('config:update', function(event) {
-            //   console.log('custom logging');
-            //   console.log(event);
-            // });
-            nodemon.on('restart', function() {
-              setTimeout(function() {
-                require('fs').writeFileSync('.rebooted', 'rebooted');
-              }, 1000);
-            });
-          }
+          port: 3000,
+          hostname: "0.0.0.0",
+          // bases denotes where it will look for files
+          // replace w/ dir you want files served from
+          bases: ['app/'], 
+          livereload: true
         }
+      }
+    },
+
+    // grunt-open will open your browser at the projects URL
+    open: {
+      all: {
+        // Gets the port from the connect configuration
+        path: 'http://localhost:3000/#/clips'
       }
     },
 
@@ -164,7 +153,7 @@ module.exports = function(grunt) {
           'server/server.js',
           'chrome_ext/**/*.js'
         ],
-        tasks: ['jshint']
+        tasks: ['jshint', 'concat', 'uglify']
       },
 
       //when the CSS files change, we need to lint and minify
@@ -199,7 +188,8 @@ module.exports = function(grunt) {
   });
 
   // Default Tasks
-  grunt.registerTask('dev', ['build','nodemon']);
+  grunt.registerTask('dev', ['build']);
+  grunt.registerTask('server', ['express', 'open', 'watch']);
   // grunt.registerTask('watch', ['watch']);
   // grunt.registerTask('jshint', ['jshint']);
   grunt.registerTask('default', ['build']);

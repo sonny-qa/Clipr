@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
+var compression = require('compression'); 
 
 // INITIALIZE SERVER
 var port = process.env.PORT || 3000;
@@ -30,6 +31,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+app.use(compression());
 
 // ROUTES
 
@@ -51,7 +53,7 @@ app.post('/user/post/storeclip', function(req, res) {
     title: req.query.title
   }, function(err, node) {
     if (err) throw err;
-    console.log('clipnode', node)
+    console.log('clipnode', node);
     db.label(node, ['Clip'], function(err) {
       if (err) throw err;
       console.log(node + " was inserted as a Clip into DB");
@@ -77,12 +79,14 @@ app.post('/user/post/addNote', function(req, res) {
   console.log('in addNote');
   console.log('url', req.query.url);
     // console.log('url', req.query.user)
+
   var clipNode;
   db.find({
     clipUrl: req.query.url
   }, function(err, clip) {
     if (err) throw err;
     clipNode = clip;
+  });
   console.log(req.query.note);
   db.save({
     note: req.query.note
@@ -91,17 +95,15 @@ app.post('/user/post/addNote', function(req, res) {
     if (err) throw err;
     db.label(noteNode, ['Note'], function(err, labeledNode) {
       if (err) throw err;
-      // console.log('noteNode', labeledNode)
-      // console.log('clipNode', clipNode)
+      console.log('noteNode', labeledNode);
+      console.log('clipNode', clipNode);
     });
-    console.log('clipNode -', clipNode);
     createRelation(noteNode, clipNode, 3, 'belongsTo');
-    res.send(noteNode);
-  });
+    // createRelation(userNode, noteNode, 3, 'owns');
   });
 });
 
-app.get('/user/get/loadNotes', function(req, res) {
+app.post('/user/post/loadNotes', function(req, res) {
   console.log('inloadnotes');
 
   var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
@@ -109,12 +111,11 @@ app.get('/user/get/loadNotes', function(req, res) {
   db.query(cypher, function(err, result) {
     if (err) throw err;
     console.log('NOTESRESULT', result);
-    res.send(result);
   });
 });
 
 // DB HELPER FUNCTIONS
-var createRelation = function(clip, tag, relevance, how) {
+var createRelation = function(clip, tag, relevance) {
   console.log('clip:', clip);
   console.log('tag:', tag);
   db.relate(clip, how, tag, {
@@ -134,7 +135,7 @@ var createWatsonUrl = function(url, cb) {
   request(fullUrl, function(err, response, body) {
     var bodyParsed = JSON.parse(body);
     console.log('WATSON KEYWORDS:', bodyParsed.keywords);
-    cb(bodyParsed.keywords);
+    cb(bodyParsed.keywords)
   });
 };
 
@@ -150,8 +151,8 @@ var storeTags = function(tag, cb) {
         if (err) throw err;
         console.log(node.tagName + " was inserted as a Topic into DB");
         console.log('TAGNODE:', node);
-      })
-    cb(node, relevance);
+      });
+    cb(node, relevance)
   });
 };
 
