@@ -1,16 +1,16 @@
 <div id="modal" <div class="modal-header">
     <iframe id="clipSelectWebsite" src="{{sceUrl}}" style="width:100%;height:100%"></iframe>
 </div>
-<div class="modal-body">
-	<div class="savedNotes" ng-repeat="note in notes">
-		<li>{{note}}</li>
+<div class="modal-body" ng-init="display()">
+	<div class="savedNotes" ng-repeat="item in notes.data">
+		<li>{{item.note}}</li>
 	</div>
     <form>
         <div class="form-group">
             <label for="exampleInputEmail1">Notes:</label>
-            <textarea type="text" class="form-control" id="notes" placeholder="Save notes on this article here"></textarea>
+            <textarea type="text" class="form-control" id="notes" placeholder="Save notes on this article here" ng-model="userNotes"></textarea>
         </div>
-        <button type="submit" ng-click="addNote($value)" class="btn btn-default">Save</button>
+        <button type="submit" ng-click="save(userNotes)" class="btn btn-default">Save</button>
     </form>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">OK</button>
