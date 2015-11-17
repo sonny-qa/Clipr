@@ -11,8 +11,8 @@
 - Run bower install
 - Run npm install
 - Run `grunt dev' in 1 shell window
-- Run 'grunt watch' in another shell window
-- Open http://localhost:3000/#/clips
+- Run 'grunt server' in another shell window
+  - Grunt server will open browser at http://localhost:3000/#/clips, start server, and run watch.
 
 
 ## Testing
