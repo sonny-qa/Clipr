@@ -8,7 +8,7 @@ var http = require('http');
 var compression = require('compression'); 
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var router = require('./router.js');
+// var router = require('./router.js');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 
@@ -20,13 +20,15 @@ var callbackURL  = 'http://localhost:3000/auth/google/callback';
 var port = process.env.PORT || 3000;
 var app = express();
 
-
 // INITIALIZE DB CONNECTION
 var db = require('seraph')({
   server: "http://clipr.sb02.stations.graphenedb.com:24789",
   user: "clipr",
   pass: 'oSvInWIWVVCQIbxLbfTu'
 });
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 /**
   Google OAuth2
@@ -64,13 +66,9 @@ passport.deserializeUser(function (obj, done) {
 
 app.use(cookieParser());
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
-app.use( passport.initialize());
-app.use( passport.session());
 
 app.use(express.static(__dirname + '../../app'));
 
@@ -83,10 +81,11 @@ app.use(function(req, res, next) {
 app.use(compression());
 
 // ROUTES
-
 app.get('/auth/google', 
   passport.authenticate('google', { scope : ['https://www.googleapis.com/auth/plus.login'] }),
     function(req, res){
+      console.log(req);
+      console.log('HIHIHIHI');
   });
 
 app.get('/auth/google/callback', 
@@ -196,7 +195,7 @@ var createWatsonUrl = function(url, cb) {
   request(fullUrl, function(err, response, body) {
     var bodyParsed = JSON.parse(body);
     console.log('WATSON KEYWORDS:', bodyParsed.keywords);
-    cb(bodyParsed.keywords)
+    cb(bodyParsed.keywords);
   });
 };
 
@@ -213,7 +212,7 @@ var storeTags = function(tag, cb) {
         console.log(node.tagName + " was inserted as a Topic into DB");
         console.log('TAGNODE:', node);
       });
-    cb(node, relevance)
+    cb(node, relevance);
   });
 };
 
