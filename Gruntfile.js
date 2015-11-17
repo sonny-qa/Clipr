@@ -26,13 +26,15 @@ module.exports = function(grunt) {
     // Runs JS Hint on JavaScript files
     jshint: {
       options: {
+        force: true,
         jshintrc: true,
         reporter: require('jshint-stylish')
       },
       src: [
         'app/*/*.js',
         '!app/bower_components/**/*.js',
-        // 'server/**/*.js',
+        'server/**/*.js',
+        'server/config/*.js',
         'chrome_ext/**/*.js'
       ]
     },
