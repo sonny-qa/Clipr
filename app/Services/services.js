@@ -27,6 +27,7 @@ angular.module('clipr.services', [])
   };
 
     var loadNotes = function(param){
+      console.log('INSIDE loadNotes!');
       return $http({
         method: 'GET',
         url: '/user/get/loadNotes',
@@ -36,8 +37,8 @@ angular.module('clipr.services', [])
       })
         .then(function(response) {
         console.log('factory response', response);
-        notesArr.data= response.data;
-        console.log(notesArr);
+        notesObj.data = response.data;
+        console.log(notesObj);
       });
     };
 
@@ -49,8 +50,8 @@ angular.module('clipr.services', [])
         })
           .then(function(response) {
             console.log('factory response', response);
-            notesArr.data.push(response.data);
-            console.log('notesArr inside addNotes', notesArr);
+            notesObj.data.push(response.data);
+            console.log('notesObj inside addNotes', notesObj);
         });
     };
     return {

@@ -5,7 +5,8 @@ var bodyParser = require('body-parser');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
-// var compression = require('compression'); 
+// var compression = require('compression');
+var compression = require('compression');
 var passport = require('passport');
 // var googleAuth = require('passport-google-oauth');
 // var GoogleStrategy = googleAuth.OAuth2Strategy;
@@ -47,7 +48,7 @@ app.use(function(req, res, next) {
 
 /**
   Google OAuth2
-  Google Strategy will search for a user based on google.id and 
+  Google Strategy will search for a user based on google.id and
   correspond to their profile.id we get back from Google
 **/
 
@@ -85,14 +86,14 @@ passport.deserializeUser(function (obj, done) {
 });
 
 // ROUTES
-app.get('/auth/google', 
+app.get('/auth/google',
   passport.authenticate('google', { scope : ['https://www.googleapis.com/auth/plus.login'] }),
     function(req, res){
       console.log(req);
       console.log('HIHIHIHI');
   });
 
-app.get('/auth/google/callback', 
+app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/#/landing' }),
   function(req, res) {
     // Successful authentication, redirect home.
@@ -167,11 +168,9 @@ app.post('/user/post/addNote', function(req, res) {
   });
 });
 
-app.post('/user/post/loadNotes', function(req, res) {
+app.get('/user/get/loadNotes', function(req, res) {
   console.log('inloadnotes');
-
   var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
-
   db.query(cypher, function(err, result) {
     if (err) throw err;
     console.log('NOTESRESULT', result);
