@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-=======
-//all angular routing using ui-router 
-	//check out states       ex. search
-
-'use strict';
-
->>>>>>> Revert "[merge]: remove bower_components from repo"
 /**
  * Main module of the application.
  */
 angular
-<<<<<<< HEAD
+
     .module('cliprApp', [
         'ui.router',
         'ui.bootstrap',
@@ -67,30 +59,3 @@ angular
             }
         })
 }])
-=======
-  .module('cliprApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
-  
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
->>>>>>> Revert "[merge]: remove bower_components from repo"
