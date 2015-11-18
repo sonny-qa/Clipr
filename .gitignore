@@ -1,7 +1,5 @@
 /node_modules
 app/bower_components
-app/dist
-/dist
 /.tmp
 /.sass-cache
 .travis.yml
