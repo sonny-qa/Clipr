@@ -118,6 +118,7 @@ $scope.display = function(){
   };
 
     var loadNotes = function(param){
+      console.log('INSIDE loadNotes!');
       return $http({
         method: 'GET',
         url: '/user/get/loadNotes',
@@ -127,8 +128,8 @@ $scope.display = function(){
       })
         .then(function(response) {
         console.log('factory response', response);
-        notesArr.data= response.data;
-        console.log(notesArr);
+        notesObj.data = response.data;
+        console.log(notesObj);
       });
     };
 
@@ -140,8 +141,8 @@ $scope.display = function(){
         })
           .then(function(response) {
             console.log('factory response', response);
-            notesArr.data.push(response.data);
-            console.log('notesArr inside addNotes', notesArr);
+            notesObj.data.push(response.data);
+            console.log('notesObj inside addNotes', notesObj);
         });
     };
     return {
