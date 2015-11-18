@@ -42,22 +42,22 @@ module.exports = function(grunt) {
     },
 
     // Lints HTML files - Work-in-Progress
-    htmlangular: {
-      default_options: {
-        options: {
-          angular: true,
-          customtags: ['custom-tag', 'custom-*'],
-          customattrs: ['fixed-div-label', 'custom-*'],
-          wrapping: {
-            'tr': '<table>{0}</table>'
-          }
-        },
-        files: {
-          src: 'app/**/*.html'
-        }
-      }
-    },
-
+    // htmlangular: {
+    //   default_options: {
+    //     options: {
+    //       angular: true,
+    //       customtags: ['custom-tag', 'custom-*'],
+    //       customattrs: ['fixed-div-label', 'custom-*'],
+    //       wrapping: {
+    //         'tr': '<table>{0}</table>'
+    //       }
+    //     },
+    //     files: {
+    //       src: 'app/**/*.html'
+    //     }
+    //   }
+    // },
+    
     // Concatenates JS Files
     concat: {
       options: {
@@ -194,6 +194,4 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['build']);
   grunt.registerTask('server', ['express', 'open', 'watch']);
   grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin']);
-
-
 };
