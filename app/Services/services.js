@@ -1,5 +1,18 @@
 angular.module('clipr.services', [])
 
+//Session Service
+.service('Session', function(){
+  this.create = function(sessionId, userId) {
+    this.id = sessionId;
+    this.userId = userId;
+  };
+
+  this.destroy = function(){
+    this.id = null;
+    this.userId = null;
+  };
+})
+
 .factory('Clips', ["$http", function($http) {
     //loadClips - hhtp request to server func
     //return back array of clip objects
@@ -60,4 +73,27 @@ angular.module('clipr.services', [])
       notesObj: notesObj
     };
 
-}]);
+}])
+
+.factory('AuthService', ['$http', 'Session', function($http, Session){
+
+  var isAuthenticated = {result: false};
+
+  var login = function() {
+    return $http
+      .get('/loggedin')
+      .then(function(res){
+          console.log('authService res :', res);
+        //TODO : Create Session here
+        isAuthenticated.result = true;
+        // Session.create(res.data.id,res.data.username)
+        return res.data.user
+      });
+  }
+
+  return { 
+    isAuthenticated : isAuthenticated,
+    login : login
+  };
+
+}])
