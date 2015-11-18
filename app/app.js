@@ -14,10 +14,17 @@ angular
         'clipr.suggested',
         'clipr.auth'
     ])
-
-.controller("AppController", function($scope, $location) {
-  //authentication 
+.run(function($rootscope,$state, AuthService){
+    $rootscope.$on("$stateChangeStart", function(event,toState,toParams,fromState, fromParams){
+        if (toState.authenticate && !AuthService.isAuthenticated.result){
+            $state.transitionTo("landing");
+            event.preventDefault();
+        }
+    })
 })
+.controller("AppController", ['$scope', '$location', function($scope, $location) {
+  //authentication 
+}])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
     //$urlRouterProvider.otherwise('/');
@@ -33,6 +40,11 @@ angular
             }
         })
         .state('main', {
+            resolve: {
+                data : function(AuthService){
+                    return AuthService.login()
+                }
+            },
             url: "/clips",
             views: {
                 "main": {
