@@ -13,6 +13,19 @@ angular.module('clipr.services', ['ngCookies'])
   };
 })
 
+//Session Service
+.service('Session', function(){
+  this.create = function(sessionId, userId) {
+    this.id = sessionId;
+    this.userId = userId;
+  };
+
+  this.destroy = function(){
+    this.id = null;
+    this.userId = null;
+  };
+})
+
 .factory('Clips', ["$http", function($http) {
   //loadClips - hhtp request to server func
   //return back array of clip objects
@@ -120,3 +133,4 @@ angular.module('clipr.services', ['ngCookies'])
   };
 
 }]);
+

@@ -14,7 +14,8 @@ angular
         'clipr.suggested',
         'clipr.auth'
     ])
-    .run(function($rootScope, $state, AuthService) {
+
+.run(function($rootScope, $state, AuthService) {
         $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
             if (toState.authenticate && !AuthService.isAuthenticated()) {
                 $state.transitionTo("landing");
@@ -28,7 +29,7 @@ angular
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
     //$urlRouterProvider.otherwise('/');
-    
+
     $stateProvider
         .state('landing', {
             url: "/landing",
