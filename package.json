@@ -4,7 +4,8 @@
   "description": "App that makes it easier to store, categorize, and view your bookmarks",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "postinstall": "bower install"
   },
   "repository": {
     "type": "git",
