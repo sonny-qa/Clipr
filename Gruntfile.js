@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         }
       }
     },
-    
+
     // Concatenates JS Files
     concat: {
       options: {
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
           hostname: "0.0.0.0",
           // bases denotes where it will look for files
           // replace w/ dir you want files served from
-          bases: ['app/'], 
+          bases: ['app/'],
           livereload: true
         }
       }
