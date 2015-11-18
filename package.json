@@ -4,7 +4,7 @@
   "description": "App that makes it easier to store, categorize, and view your bookmarks",
   "main": "server/server.js",
   "scripts": {
-    "postinstall": "bower install && /node_modules/grunt-cli/bin/grunt build",
+    "postinstall": "bower install",
     "start": "node server/server.js"
   },
   "repository": {
