@@ -7,8 +7,8 @@ var request = require('request');
 var http = require('http');
 // var compression = require('compression'); 
 var passport = require('passport');
-var googleAuth = require('passport-google-oauth');
-var GoogleStrategy = googleAuth.OAuth2Strategy;
+// var googleAuth = require('passport-google-oauth');
+// var GoogleStrategy = googleAuth.OAuth2Strategy;
 // var router = require('./router.js');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -50,19 +50,24 @@ app.use(function(req, res, next) {
   Google Strategy will search for a user based on google.id and 
   correspond to their profile.id we get back from Google
 **/
-passport.use(new GoogleStrategy({
-  clientID : clientID,
-  clientSecret : clientSecret,
-  callbackURL  : callbackURL,
 
-}, function (accessToken, refreshToken , profile, done) {
-  //make the code asynchronous
-  //db.find won't fire until we have all our data back from Google
-  process.nextTick(function() {
-    console.log('hey',accessToken);
-  return done(null, profile);
-  });
-}));
+//***********************************
+// Commented out to test deploy to heroku, uncomment out later!
+//***********************************
+
+// passport.use(new GoogleStrategy({
+//   clientID : clientID,
+//   clientSecret : clientSecret,
+//   callbackURL  : callbackURL,
+
+// }, function (accessToken, refreshToken , profile, done) {
+//   //make the code asynchronous
+//   //db.find won't fire until we have all our data back from Google
+//   process.nextTick(function() {
+//     console.log('hey',accessToken);
+//   return done(null, profile);
+//   });
+// }));
 
 //used to serialize the user from the session
 passport.serializeUser(function (user, done) {
