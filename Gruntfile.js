@@ -190,12 +190,9 @@ module.exports = function(grunt) {
   });
 
   // Default Tasks
+  grunt.registerTask('default', ['build']);
   grunt.registerTask('dev', ['build']);
   grunt.registerTask('server', ['express', 'open', 'watch']);
-  // grunt.registerTask('watch', ['watch']);
-  // grunt.registerTask('jshint', ['jshint']);
-  grunt.registerTask('default', ['build']);
-  // grunt.registerTask('test', ['jshint']);
   grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin']);
 
 
