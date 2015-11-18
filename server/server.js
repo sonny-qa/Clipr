@@ -213,7 +213,6 @@ var storeTags = function(tag, cb) {
         console.log('TAGNODE:', node);
       });
     cb(node, relevance);
-
   });
 };
 
