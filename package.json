@@ -10,7 +10,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/BitsPleaseMKS/Clipr.git"
+    "url": "https://github.com/BitsPleaseMKS/Clipr.git",
+    "test" : "grunt test",
+    "start": "nodemon server/server.js"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
