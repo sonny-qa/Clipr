@@ -5,9 +5,10 @@ var bodyParser = require('body-parser');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
-var compression = require('compression'); 
+// var compression = require('compression'); 
 var passport = require('passport');
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+// var googleAuth = require('passport-google-oauth');
+// var GoogleStrategy = googleAuth.OAuth2Strategy;
 // var router = require('./router.js');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -27,27 +28,46 @@ var db = require('seraph')({
   pass: 'oSvInWIWVVCQIbxLbfTu'
 });
 
+// CONFIG SERVER
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(express.static(__dirname + '../../app'));
+// Set Response Headers
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+// app.use(compression());
 
 /**
   Google OAuth2
   Google Strategy will search for a user based on google.id and 
   correspond to their profile.id we get back from Google
 **/
-passport.use(new GoogleStrategy({
-  clientID : clientID,
-  clientSecret : clientSecret,
-  callbackURL  : callbackURL,
 
-}, function (accessToken, refreshToken , profile, done) {
-  //make the code asynchronous
-  //db.find won't fire until we have all our data back from Google
-  process.nextTick(function() {
-    console.log('hey',accessToken);
-  return done(null, profile);
-  });
-}));
+//***********************************
+// Commented out to test deploy to heroku, uncomment out later!
+//***********************************
+
+// passport.use(new GoogleStrategy({
+//   clientID : clientID,
+//   clientSecret : clientSecret,
+//   callbackURL  : callbackURL,
+
+// }, function (accessToken, refreshToken , profile, done) {
+//   //make the code asynchronous
+//   //db.find won't fire until we have all our data back from Google
+//   process.nextTick(function() {
+//     console.log('hey',accessToken);
+//   return done(null, profile);
+//   });
+// }));
 
 //used to serialize the user from the session
 passport.serializeUser(function (user, done) {
@@ -63,22 +83,6 @@ passport.deserializeUser(function (obj, done) {
   //   done(err, user);
   // });
 });
-
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
-app.use(express.static(__dirname + '../../app'));
-
-// Set Response Headers
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-app.use(compression());
 
 // ROUTES
 app.get('/auth/google', 
