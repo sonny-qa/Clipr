@@ -13,7 +13,7 @@
     <ul class="nav navbar-nav">
       <li><a id="navLink" href="#/">Home</a></li>
       <li><a id="navLink" ng-href="#/about">Explore</a></li>
-      <li><a id="navLink" ng-click='logOut()'>Logout</li>
+      <li><a id="navLink" ng-click='logOut()'>Logout</a></li>
     </ul>
   </nav>
 </div>
@@ -30,7 +30,7 @@
           <div class="page-header">
             <h3> Your Clips </h3>
           </div>
-          <div class="col-xs-6 col-lg-3"id="clipBox" ng-repeat="clip in clips">
+          <div class="col-xs-6 col-lg-3"id="clipBox" ng-repeat="clip in clips.data">
             <a ng-href='{{clip.clipUrl}}'>{{clip.title}}</a>
             <p>Clip Info </p>
             <p><a ng-click="showModal($index, 'lg')" a class="btn btn-default" href="#" role="button">Click for more»</a></p>
@@ -39,5 +39,4 @@
       </div>
     </div>
   </div>
-
 </div><!-- Closing div for #wrapper -->

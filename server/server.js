@@ -177,10 +177,12 @@ app.post('/user/post/storeclip', function(req, res) {
   });
 });
 
-app.get('/loadClipsByCategory', function(req, res) {
-  var cypher = "MATCH(clips)-[:subsetOf]->(category) WHERE category.category='" + req.query.category + "' RETURN clips";
+app.post('/loadClipsByCategory', function(req, res) {
+	console.log('in clips by category', req.query.category)
+  var cypher = "MATCH(clips)-[:BELONGSTO]->(category) WHERE category.category='" + req.query.category + "' RETURN clips";
    db.query(cypher, function(err, results) {
     if (err) throw err;
+    console.log('category results', results)
     res.send(results);
   });
 });
@@ -233,7 +235,8 @@ app.get('/user/get/loadNotes', function(req, res) {
 });
 
 // DB HELPER FUNCTIONS
-var createRelation = function(clip, tag, relevance, how) {
+
+var createRelation = function(clip, tag, how, relevance) {
   console.log('clip:', clip);
   console.log('tag:', tag);
   db.relate(clip, how, tag, {

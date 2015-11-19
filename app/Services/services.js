@@ -2,35 +2,35 @@ angular.module('clipr.services', ['ngCookies'])
 
 //Session Service
 .service('Session', function() {
-    this.create = function(sessionId, userId) {
-        this.id = sessionId;
-        this.userId = userId;
-    };
+  this.create = function(sessionId, userId) {
+    this.id = sessionId;
+    this.userId = userId;
+  };
 
-    this.destroy = function() {
-        this.id = null;
-        this.userId = null;
-    };
+  this.destroy = function() {
+    this.id = null;
+    this.userId = null;
+  };
 })
 
 .factory('Clips', ["$http", function($http) {
   //loadClips - hhtp request to server func
   //return back array of clip objects
   var clips = {
-    data: null;
+    data: null
   }
 
   var loadClipsByCategory = function(category) {
+    console.log('category', category)
     return $http({
-      method: 'GET',
+      method: 'POST',
       url: '/loadClipsByCategory',
       params: {
         category: category
       }
-
     }).then(function(response) {
-      console.log('factory response', response);
-      return response.data;
+      console.log('category response yo', response);
+      clips.data = response.data
     });
   };
 
@@ -39,7 +39,9 @@ angular.module('clipr.services', ['ngCookies'])
       method: 'GET',
       url: '/loadAllClips'
     }).then(function(response) {
+      console.log('load all clips response', response.data)
       clips.data = response.data
+      console.log(clips)
     })
   }
 
@@ -53,6 +55,7 @@ angular.module('clipr.services', ['ngCookies'])
 
 .factory('Notes', ["$http", function($http) {
 
+<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
     var notesObj = {
         data: []
     };
@@ -88,11 +91,50 @@ angular.module('clipr.services', ['ngCookies'])
         addNotes: addNotes,
         notesObj: notesObj
     };
+=======
+  var notesObj = {
+    data: []
+  };
+
+  var loadNotes = function(param) {
+    return $http({
+        method: 'GET',
+        url: '/user/get/loadNotes',
+        params: {
+          url: param
+        }
+      })
+      .then(function(response) {
+        console.log('factory response', response);
+        notesArr.data = response.data;
+        console.log(notesArr);
+      });
+  };
+
+  var addNotes = function(param) {
+    return $http({
+        method: 'POST',
+        url: '/user/post/addNote',
+        params: param
+      })
+      .then(function(response) {
+        console.log('factory response', response);
+        notesArr.data.push(response.data);
+        console.log('notesArr inside addNotes', notesArr);
+      });
+  };
+  return {
+    loadNotes: loadNotes,
+    addNotes: addNotes,
+    notesObj: notesObj
+  };
+>>>>>>> [Fix]: Fix categories in view
 
 }])
 
 .factory('AuthService', ['$http', 'Session', '$cookies', '$state', function($http, Session, $cookies, $state) {
 
+<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
     var isAuthenticated = function() {
         //check local storage return true or false depending on prescence of Clipr cookie
         //console.log('cookies are delish',$cookies.get('connect.sid'))
@@ -102,17 +144,31 @@ angular.module('clipr.services', ['ngCookies'])
             return false;
         }
     };
+=======
+  var isAuthenticated = function() {
+    //check local storage return true or false depending on prescence of Clipr cookie
+    //console.log('cookies are delish',$cookies.get('connect.sid'))
+    if ($cookies.get('clipr')) {
+      console.log('trueeee')
+      return true
+    } else {
+      console.log('falseee')
+      return false
+    }
+  };
+>>>>>>> [Fix]: Fix categories in view
 
-    var logOut = function() {
-        //remove cookie on logout
-        $cookies.remove('clipr');
-        $state.go('landing')
-    };
+  var logOut = function() {
+    console.log('in logout yo')
+      //remove cookie on logout
+    $cookies.remove('clipr');
+    $state.go('landing')
+  };
 
 
-    return {
-        isAuthenticated: isAuthenticated,
-        logOut: logOut
-    };
+  return {
+    isAuthenticated: isAuthenticated,
+    logOut: logOut
+  };
 
 }])

@@ -6,15 +6,17 @@ angular.module('clipr.auth',[])
 
 .controller('ClipController',['$scope', 'Clips', '$modal', 'Notes', 'AuthService', function($scope, Clips, $modal, Notes, AuthService){
 
-  $scope.loadClips= function (){
+$scope.clips= Clips.clips
 
-    Clips.loadClips().then(function(clips){
-      $scope.clips = clips;
-      console.log($scope.clips);
-    });
+  $scope.loadAllClips= function (){
+    Clips.loadAllClips()
   };
 
-  $scope.loadClips();
+  $scope.loadAllClips();
+
+  $scope.logOut = function(){
+    AuthService.logOut();
+  }
 
   $scope.logOut = function(){
     AuthService.logOut();
@@ -86,9 +88,14 @@ $scope.display = function(){
 	
 ;angular.module('clipr.sidebar',['ui.router'])
 
-.controller('SidebarController', function($scope){
+.controller('SidebarController',['$scope', 'Clips', function($scope, Clips){
   console.log("placeholder to make linter happy");
-});
+
+  $scope.loadClipsByCategory= function(category){
+  	Clips.loadClipsByCategory(category);
+  }
+
+}]);
 
 
 
@@ -97,6 +104,7 @@ $scope.display = function(){
 
 //Session Service
 .service('Session', function() {
+<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
     this.create = function(sessionId, userId) {
         this.id = sessionId;
         this.userId = userId;
@@ -106,26 +114,57 @@ $scope.display = function(){
         this.id = null;
         this.userId = null;
     };
+=======
+  this.create = function(sessionId, userId) {
+    this.id = sessionId;
+    this.userId = userId;
+  };
+
+  this.destroy = function() {
+    this.id = null;
+    this.userId = null;
+  };
+>>>>>>> [Fix]: Fix categories in view
 })
 
 .factory('Clips', ["$http", function($http) {
-    //loadClips - hhtp request to server func
-    //return back array of clip objects
+  //loadClips - hhtp request to server func
+  //return back array of clip objects
+  var clips = {
+    data: null
+  }
 
-    var loadClips = function() {
-        return $http({
-            method: 'GET',
-            url: '/loadclips'
+  var loadClipsByCategory = function(category) {
+    console.log('category', category)
+    return $http({
+      method: 'POST',
+      url: '/loadClipsByCategory',
+      params: {
+        category: category
+      }
+    }).then(function(response) {
+      console.log('category response yo', response);
+      clips.data = response.data
+    });
+  };
 
-        }).then(function(response) {
-            console.log('factory response', response);
-            return response.data;
-        });
-    };
+  var loadAllClips = function() {
+    return $http({
+      method: 'GET',
+      url: '/loadAllClips'
+    }).then(function(response) {
+      console.log('load all clips response', response.data)
+      clips.data = response.data
+      console.log(clips)
+    })
+  }
 
-    return {
-        loadClips: loadClips
-    };
+  return {
+    loadClipsByCategory: loadClipsByCategory,
+    loadAllClips: loadAllClips,
+    clips: clips
+  };
+
 }])
 
 .factory('Notes', ["$http", function($http) {
@@ -134,6 +173,7 @@ $scope.display = function(){
         data: []
     };
 
+<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
     var loadNotes = function(param) {
         return $http({
                 method: 'GET',
@@ -192,6 +232,70 @@ $scope.display = function(){
         logOut: logOut
     };
 
+=======
+  var loadNotes = function(param) {
+    return $http({
+        method: 'GET',
+        url: '/user/get/loadNotes',
+        params: {
+          url: param
+        }
+      })
+      .then(function(response) {
+        console.log('factory response', response);
+        notesArr.data = response.data;
+        console.log(notesArr);
+      });
+  };
+
+  var addNotes = function(param) {
+    return $http({
+        method: 'POST',
+        url: '/user/post/addNote',
+        params: param
+      })
+      .then(function(response) {
+        console.log('factory response', response);
+        notesArr.data.push(response.data);
+        console.log('notesArr inside addNotes', notesArr);
+      });
+  };
+  return {
+    loadNotes: loadNotes,
+    addNotes: addNotes,
+    notesObj: notesObj
+  };
+
+}])
+
+.factory('AuthService', ['$http', 'Session', '$cookies', '$state', function($http, Session, $cookies, $state) {
+
+  var isAuthenticated = function() {
+    //check local storage return true or false depending on prescence of Clipr cookie
+    //console.log('cookies are delish',$cookies.get('connect.sid'))
+    if ($cookies.get('clipr')) {
+      console.log('trueeee')
+      return true
+    } else {
+      console.log('falseee')
+      return false
+    }
+  };
+
+  var logOut = function() {
+    console.log('in logout yo')
+      //remove cookie on logout
+    $cookies.remove('clipr');
+    $state.go('landing')
+  };
+
+
+  return {
+    isAuthenticated: isAuthenticated,
+    logOut: logOut
+  };
+
+>>>>>>> [Fix]: Fix categories in view
 }]);/**
  * Main module of the application.
  */
@@ -214,10 +318,17 @@ angular
             $state.transitionTo("landing");
             event.preventDefault();
         }
+<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
     });
 })
 .controller("AppController", ['$scope', '$location', function($scope, $location) {
   //authentication
+=======
+    })
+})
+.controller("AppController", ['$scope', '$location', function($scope, $location) {
+  //authentication 
+>>>>>>> [Fix]: Fix categories in view
 }])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {

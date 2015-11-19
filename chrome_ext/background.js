@@ -42,27 +42,28 @@ function sendBookmark(url, title, imgUrl) {
 }
 
 // On Install, get all chrome bookmarks
-chrome.runtime.onInstalled.addListener(function() {
 
-  var bm_urls = [];
+// chrome.runtime.onInstalled.addListener(function() {
+  
+//   var bm_urls = [];
 
-  function fetch_bookmarks(parentNode) {
-    parentNode.forEach(function(bookmark) {
-      if(!(bookmark.url === undefined || bookmark.url === null)) {
-        bm_urls.push(bookmark.url);
-      }
-      if(bookmark.children) {
-        fetch_bookmarks(bookmark.children);
-      }
-    });
-  }
+//   function fetch_bookmarks(parentNode) {
+//     parentNode.forEach(function(bookmark) {
+//       if(!(bookmark.url === undefined || bookmark.url === null)) {
+//         bm_urls.push(bookmark.url);
+//       }
+//       if(bookmark.children) {
+//         fetch_bookmarks(bookmark.children);
+//       }
+//     });    
+//   }
 
-  chrome.bookmarks.getTree(function(rootNode) {
-    fetch_bookmarks(rootNode);
-    // console.log("Stringifed Array: ", JSON.stringify(bm_urls));
-    sendAllBookmarks(JSON.stringify(bm_urls));
-  });
-});
+//   chrome.bookmarks.getTree(function(rootNode) {
+//     fetch_bookmarks(rootNode);
+//     console.log("Stringifed Array: ", JSON.stringify(bm_urls));
+//     sendAllBookmarks(JSON.stringify(bm_urls));
+//   });
+// });
 
 // On click, get open tabs url
 chrome.browserAction.onClicked.addListener(function(tab) {
