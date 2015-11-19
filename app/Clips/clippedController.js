@@ -7,6 +7,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
   $scope.loadAllClips = function() {
     Clips.loadAllClips();
+
   };
 
   $scope.loadAllClips();

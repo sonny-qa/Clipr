@@ -104,6 +104,24 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
+
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(express.static(__dirname + '../../app'));
+
+// Set Response Headers
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.use(compression());
+
 // ROUTES
 
 app.get('/auth/google',
@@ -174,7 +192,7 @@ app.get('/loadAllClips', function(req, res) {
     console.log('server results', results);
     res.send(results);
   });
-});
+})
 
 app.post('/user/post/addNote', function(req, res) {
   console.log('in addNote');
