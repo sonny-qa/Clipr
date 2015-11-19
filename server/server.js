@@ -76,9 +76,13 @@ passport.use(new GoogleStrategy({
           
       }
 <<<<<<< HEAD
+<<<<<<< HEAD
       //attach user node and acces token to user
 =======
 >>>>>>> browser setting cookies, not destroying
+=======
+      //attach user node and acces token to user
+>>>>>>> [chore]: google signin implemented
      profile.userOne = result[0];
      profile.accessToken = accessToken;
 
@@ -88,6 +92,7 @@ passport.use(new GoogleStrategy({
 
 }));
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 //used to serialize the user from the session
@@ -111,6 +116,8 @@ passport.use(new GoogleStrategy({
 //   });
 // });
 >>>>>>> browser setting cookies, not destroying
+=======
+>>>>>>> [chore]: google signin implemented
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -149,6 +156,7 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/#/landing' }),
   function(req, res) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     //swhen they come back after a successful login, etup clipr cookie
     res.cookie('clipr',req.session.passport.user.accessToken)
 =======
@@ -158,6 +166,10 @@ app.get('/auth/google/callback',
     res.cookie('clipr',req.session.passport.user.accessToken)
   
 >>>>>>> browser setting cookies, not destroying
+=======
+    //swhen they come back after a successful login, etup clipr cookie
+    res.cookie('clipr',req.session.passport.user.accessToken)
+>>>>>>> [chore]: google signin implemented
     // Successful authentication, redirect home.
     res.redirect('/#/clips');
   });
