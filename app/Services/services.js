@@ -53,7 +53,6 @@ angular.module('clipr.services', ['ngCookies'])
 
 .factory('Notes', ["$http", function($http) {
 
-<<<<<<< 68e85233ef1428e423f63436516eeb5f26295efa
     var notesObj = {
         data: []
     };
@@ -115,44 +114,5 @@ angular.module('clipr.services', ['ngCookies'])
         isAuthenticated: isAuthenticated,
         logOut: logOut
     };
-=======
-  var notesObj = {
-    data: []
-  };
-
-  var loadNotes = function(param) {
-    console.log('INSIDE loadNotes!');
-    return $http({
-        method: 'GET',
-        url: '/user/get/loadNotes',
-        params: {
-          url: param
-        }
-      })
-      .then(function(response) {
-        console.log('factory response', response);
-        notesObj.data = response.data;
-        console.log(notesObj);
-      });
-  };
-
-  var addNotes = function(param) {
-    return $http({
-        method: 'POST',
-        url: '/user/post/addNote',
-        params: param
-      })
-      .then(function(response) {
-        console.log('factory response', response);
-        notesObj.data.push(response.data);
-        console.log('notesObj inside addNotes', notesObj);
-      });
-  };
-  return {
-    loadNotes: loadNotes,
-    addNotes: addNotes,
-    notesObj: notesObj
-  };
->>>>>>> [Feat]: Add categorization element to clipView
 
 }])
