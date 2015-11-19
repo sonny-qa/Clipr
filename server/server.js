@@ -1,5 +1,4 @@
 // LOAD DEPENDENCIES
-// TEST COMMENT - everything works
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
