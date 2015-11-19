@@ -27,7 +27,7 @@ function sendAllBookmarks(bookmarkObj) {
 // POST url to server using XMLHttpRequest
 function sendBookmark(url, title, imgUrl) {
   console.log('SEND BOOKMARK FUNCTION BEING CALLED');
-  console.log('imgUrl', newImgUrl);
+  console.log('imgUrl', imgUrl);
 
   var params = {
     url: url,
@@ -36,10 +36,11 @@ function sendBookmark(url, title, imgUrl) {
   };
   // The URL to post our data to
   var postUrl = "http://localhost:3000/user/post/storeclip";
-  xhr.setRequestHeader('Content-Type', 'application/json');
+
   // Set up an async POST Request
   var xhr = new XMLHttpRequest();
   xhr.open('POST', postUrl, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
   // Send the request
   xhr.send(JSON.stringify(params));
 }
