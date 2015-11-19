@@ -75,14 +75,7 @@ passport.use(new GoogleStrategy({
       } else {
           
       }
-<<<<<<< HEAD
-<<<<<<< HEAD
       //attach user node and acces token to user
-=======
->>>>>>> browser setting cookies, not destroying
-=======
-      //attach user node and acces token to user
->>>>>>> [chore]: google signin implemented
      profile.userOne = result[0];
      profile.accessToken = accessToken;
 
@@ -92,32 +85,6 @@ passport.use(new GoogleStrategy({
 
 }));
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-//used to serialize the user from the session
-// passport.serializeUser(function (node, done) {
-//   console.log("This is in serializeUser ", node);
-//   done(null, node.username);
-// });
-
-// //used to deserialize the user
-// passport.deserializeUser(function (name, done) {
-//   console.log("This is in deserializeUserUser ", name);
-//   var cypher = "MATCH (node: User)" +
-//                  " WHERE node.username = " +
-//                  "'" + name + "'" +
-//                  " RETURN node";
-// console.log("This is the------  ", cypher);
-//   db.query(cypher, function (err, result) {
-//     console.log("This is the result  ", result);
-//     if(err) { throw err; }
-//     return done(err, result[0]);
-//   });
-// });
->>>>>>> browser setting cookies, not destroying
-=======
->>>>>>> [chore]: google signin implemented
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -155,21 +122,8 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/#/landing' }),
   function(req, res) {
-<<<<<<< HEAD
-<<<<<<< HEAD
     //swhen they come back after a successful login, etup clipr cookie
     res.cookie('clipr',req.session.passport.user.accessToken)
-=======
-    //console.log('cookie', res.cookie.connect.sid)
-    console.log('hello token',req.session.passport)
-    console.log('hello token',req.session.passport.user.accessToken)
-    res.cookie('clipr',req.session.passport.user.accessToken)
-  
->>>>>>> browser setting cookies, not destroying
-=======
-    //swhen they come back after a successful login, etup clipr cookie
-    res.cookie('clipr',req.session.passport.user.accessToken)
->>>>>>> [chore]: google signin implemented
     // Successful authentication, redirect home.
     res.redirect('/#/clips');
   });
