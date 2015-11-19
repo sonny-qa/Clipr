@@ -152,6 +152,8 @@ $scope.display = function(){
 }])
 
 .factory('Notes', ["$http", function($http) {
+
+<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
     var notesObj = {
         data: []
     };
@@ -187,12 +189,50 @@ $scope.display = function(){
         addNotes: addNotes,
         notesObj: notesObj
     };
+=======
+  var notesObj = {
+    data: []
+  };
 
+  var loadNotes = function(param) {
+    return $http({
+        method: 'GET',
+        url: '/user/get/loadNotes',
+        params: {
+          url: param
+        }
+      })
+      .then(function(response) {
+        console.log('factory response', response);
+        notesArr.data = response.data;
+        console.log(notesArr);
+      });
+  };
+
+  var addNotes = function(param) {
+    return $http({
+        method: 'POST',
+        url: '/user/post/addNote',
+        params: param
+      })
+      .then(function(response) {
+        console.log('factory response', response);
+        notesArr.data.push(response.data);
+        console.log('notesArr inside addNotes', notesArr);
+      });
+  };
+  return {
+    loadNotes: loadNotes,
+    addNotes: addNotes,
+    notesObj: notesObj
+  };
+>>>>>>> [Fix]: Fix categories in view
 
 }])
 
 .factory('AuthService', ['$http', 'Session', '$cookies', '$state', function($http, Session, $cookies, $state) {
 
+<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
     var isAuthenticated = function() {
         //check local storage return true or false depending on prescence of Clipr cookie
         //console.log('cookies are delish',$cookies.get('connect.sid'))
@@ -202,6 +242,19 @@ $scope.display = function(){
             return false;
         }
     };
+=======
+  var isAuthenticated = function() {
+    //check local storage return true or false depending on prescence of Clipr cookie
+    //console.log('cookies are delish',$cookies.get('connect.sid'))
+    if ($cookies.get('clipr')) {
+      console.log('trueeee')
+      return true
+    } else {
+      console.log('falseee')
+      return false
+    }
+  };
+>>>>>>> [Fix]: Fix categories in view
 
   var logOut = function() {
     console.log('in logout yo')
