@@ -40,7 +40,11 @@ body {
 }
 
 #header.head {
+<<<<<<< HEAD
     background-color: #2F2933;
+=======
+    background-color: rgb(53, 124, 143);
+>>>>>>> [style]: Changes to landing page and clipView
     color: white;
 }
 
@@ -50,12 +54,17 @@ body {
 
 #navbrand {
     font-family: 'Anton', sans-serif;
+<<<<<<< HEAD
     color: #FFFEFF;
     background-color: #01A2A6;
 }
 
 #navbrand:hover {
     color: #01A2A6;
+=======
+    color: rgb(53, 124, 143);
+    background-color: white;
+>>>>>>> [style]: Changes to landing page and clipView
 }
 
 #brand {
@@ -78,6 +87,7 @@ a {
     color: #2F2933;
 }
 
+<<<<<<< HEAD
 a:hover {
     color: #01A2A6;
 }
@@ -89,23 +99,50 @@ a:hover {
     border-radius: 20px;
     size: 50%;
     -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+=======
+#clipSelectWebsite {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: rgb(53, 124, 143);
+>>>>>>> [style]: Changes to landing page and clipView
 }
 
 #clipBox {
     font-size: 14px;
     border-radius: 20px;
+<<<<<<< HEAD
     background-color: #D1D9D8;
     border: 2px solid #D1D9D8;
+=======
+    background-color: #fafafa;
+    border: 2px solid #fafafa;
+>>>>>>> [style]: Changes to landing page and clipView
     color: white;
     margin-top: 5px;
     padding-top: 15px;
     margin-left: 10px;
     text-align: center;
+<<<<<<< HEAD
     height: 250px;
 }
 
 #clipBox:hover {
     border: 2px solid #2F2933;
+=======
+    height: 175px;
+}
+
+#clipBox:hover{
+	border:2px solid #d7d7d7;
+>>>>>>> [style]: Changes to landing page and clipView
 }
 
 #googlebox.btn.btn-block.btn-social.btn-google {
@@ -176,6 +213,7 @@ body {
     border-left: 0;
     border-right: 0;
     border-top: 0;
+<<<<<<< HEAD
     background-color: #FFFEFF;
     color: #2F2933;
 }
@@ -186,6 +224,8 @@ body {
 
 h3 {
     color: #2F2933;
+=======
+>>>>>>> [style]: Changes to landing page and clipView
 }
 
 @media (max-width: 992px) {
