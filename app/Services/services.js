@@ -1,4 +1,4 @@
-angular.module('clipr.services', [])
+angular.module('clipr.services', ['ngCookies'])
 
 //Session Service
 .service('Session', function(){
@@ -75,9 +75,26 @@ angular.module('clipr.services', [])
 
 }])
 
-.factory('AuthService', ['$http', 'Session', function($http, Session){
+.factory('AuthService', ['$http', 'Session', '$cookies','$state', function($http, Session, $cookies, $state){
 
-  var isAuthenticated = {result: false};
+  var isAuthenticated = function(){
+    //check local storage return true or false
+
+    if ($cookies.get('clipr')){
+      return true
+    } else {
+      return false
+    }
+
+  };
+
+  var logOut = function(){
+    console.log('removing cookie')
+    $cookies.remove('clipr');
+    $state.go('landing')
+  };
+
+
 
   var login = function() {
     return $http
@@ -89,11 +106,12 @@ angular.module('clipr.services', [])
         // Session.create(res.data.id,res.data.username)
         return res.data.user
       });
-  }
+  };
 
   return { 
     isAuthenticated : isAuthenticated,
-    login : login
+    login : login,
+    logOut : logOut
   };
 
 }])

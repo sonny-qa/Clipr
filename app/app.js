@@ -14,9 +14,9 @@ angular
         'clipr.suggested',
         'clipr.auth'
     ])
-.run(function($rootscope,$state, AuthService){
-    $rootscope.$on("$stateChangeStart", function(event,toState,toParams,fromState, fromParams){
-        if (toState.authenticate && !AuthService.isAuthenticated.result){
+.run(function($rootScope,$state, AuthService){
+    $rootScope.$on("$stateChangeStart", function(event,toState,toParams,fromState, fromParams){
+        if (toState.authenticate && !AuthService.isAuthenticated()){
             $state.transitionTo("landing");
             event.preventDefault();
         }
@@ -40,11 +40,7 @@ angular
             }
         })
         .state('main', {
-            resolve: {
-                data : function(AuthService){
-                    return AuthService.login()
-                }
-            },
+            authenticate : true,
             url: "/clips",
             views: {
                 "main": {
