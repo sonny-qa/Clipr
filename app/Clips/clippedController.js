@@ -2,15 +2,13 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
 .controller('ClipController',['$scope', 'Clips', '$modal', 'Notes', 'AuthService', function($scope, Clips, $modal, Notes, AuthService){
 
-  $scope.loadClips= function (){
+$scope.clips= Clips.clips
 
-    Clips.loadClips().then(function(clips){
-      $scope.clips = clips;
-      console.log($scope.clips);
-    });
+  $scope.loadAllClips= function (){
+    Clips.loadAllClips()
   };
 
-  $scope.loadClips();
+  $scope.loadAllClips();
 
   $scope.logOut = function(){
     AuthService.logOut();
@@ -30,7 +28,7 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
     };
 
     $scope.opts.resolve.item = function() {
-      return angular.copy({clipUrl:$scope.clips[clipIndex].clipUrl}); // pass name to Dialog
+      return angular.copy({clipUrl:$scope.clips.data[clipIndex].clipUrl}); // pass name to Dialog
     };
 
   var modalInstance = $modal.open($scope.opts);

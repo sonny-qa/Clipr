@@ -6,15 +6,13 @@ angular.module('clipr.auth',[])
 
 .controller('ClipController',['$scope', 'Clips', '$modal', 'Notes', 'AuthService', function($scope, Clips, $modal, Notes, AuthService){
 
-  $scope.loadClips= function (){
+$scope.clips= Clips.clips
 
-    Clips.loadClips().then(function(clips){
-      $scope.clips = clips;
-      console.log($scope.clips);
-    });
+  $scope.loadAllClips= function (){
+    Clips.loadAllClips()
   };
 
-  $scope.loadClips();
+  $scope.loadAllClips();
 
   $scope.logOut = function(){
     AuthService.logOut();
@@ -34,7 +32,7 @@ angular.module('clipr.auth',[])
     };
 
     $scope.opts.resolve.item = function() {
-      return angular.copy({clipUrl:$scope.clips[clipIndex].clipUrl}); // pass name to Dialog
+      return angular.copy({clipUrl:$scope.clips.data[clipIndex].clipUrl}); // pass name to Dialog
     };
 
   var modalInstance = $modal.open($scope.opts);
@@ -86,9 +84,14 @@ $scope.display = function(){
 	
 ;angular.module('clipr.sidebar',['ui.router'])
 
-.controller('SidebarController', function($scope){
+.controller('SidebarController',['$scope', 'Clips', function($scope, Clips){
   console.log("placeholder to make linter happy");
-});
+
+  $scope.loadClipsByCategory= function(category){
+  	Clips.loadClipsByCategory(category);
+  }
+
+}]);
 
 
 
@@ -97,35 +100,55 @@ $scope.display = function(){
 
 //Session Service
 .service('Session', function() {
-    this.create = function(sessionId, userId) {
-        this.id = sessionId;
-        this.userId = userId;
-    };
+  this.create = function(sessionId, userId) {
+    this.id = sessionId;
+    this.userId = userId;
+  };
 
-    this.destroy = function() {
-        this.id = null;
-        this.userId = null;
-    };
+  this.destroy = function() {
+    this.id = null;
+    this.userId = null;
+  };
 })
 
 .factory('Clips', ["$http", function($http) {
-    //loadClips - hhtp request to server func
-    //return back array of clip objects
+  //loadClips - hhtp request to server func
+  //return back array of clip objects
+  var clips = {
+    data: null
+  }
 
-    var loadClips = function() {
-        return $http({
-            method: 'GET',
-            url: '/loadclips'
+  var loadClipsByCategory = function(category) {
+    console.log('category', category)
+    return $http({
+      method: 'POST',
+      url: '/loadClipsByCategory',
+      params: {
+        category: category
+      }
+    }).then(function(response) {
+      console.log('category response yo', response);
+      clips.data = response.data
+    });
+  };
 
-        }).then(function(response) {
-            console.log('factory response', response);
-            return response.data;
-        });
-    };
+  var loadAllClips = function() {
+    return $http({
+      method: 'GET',
+      url: '/loadAllClips'
+    }).then(function(response) {
+      console.log('load all clips response', response.data)
+      clips.data = response.data
+      console.log(clips)
+    })
+  }
 
-    return {
-        loadClips: loadClips
-    };
+  return {
+    loadClipsByCategory: loadClipsByCategory,
+    loadAllClips: loadAllClips,
+    clips: clips
+  };
+
 }])
 
 .factory('Notes', ["$http", function($http) {
@@ -166,6 +189,7 @@ $scope.display = function(){
         notesObj: notesObj
     };
 
+
 }])
 
 .factory('AuthService', ['$http', 'Session', '$cookies', '$state', function($http, Session, $cookies, $state) {
@@ -180,17 +204,18 @@ $scope.display = function(){
         }
     };
 
-    var logOut = function() {
-        //remove cookie on logout
-        $cookies.remove('clipr');
-        $state.go('landing')
-    };
+  var logOut = function() {
+    console.log('in logout yo')
+      //remove cookie on logout
+    $cookies.remove('clipr');
+    $state.go('landing')
+  };
 
 
-    return {
-        isAuthenticated: isAuthenticated,
-        logOut: logOut
-    };
+  return {
+    isAuthenticated: isAuthenticated,
+    logOut: logOut
+  };
 
 }]);/**
  * Main module of the application.
