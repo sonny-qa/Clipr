@@ -3,17 +3,16 @@
   "version": "1.1",
   "description": "A browser action with a popup dump of all bookmarks, including search, add, edit and delete.",
   "permissions": [
-    "tabs","activeTab","http://*/*","https://*/*","file://*/*", "bookmarks"
+    "tabs","activeTab","http://*/*","https://*/*","file://*/*", "bookmarks", "<all_urls>"
   ],
   "icons": {
     "16": "dragon.png",
     "42": "dragon.png",
-    "128": "dragon.png"      
+    "128": "dragon.png"
   },
   "browser_action": {
       "default_title": "My Bookmarks",
-      "default_icon": "dragon.png",
-      "default_popup": "popup.html"
+      "default_icon": "dragon.png"
   },
   "background": {
     "scripts": ["background.js"],
