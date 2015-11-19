@@ -28,7 +28,7 @@ $scope.clips= Clips.clips
     };
 
     $scope.opts.resolve.item = function() {
-      return angular.copy({clipUrl:$scope.clips[clipIndex].clipUrl}); // pass name to Dialog
+      return angular.copy({clipUrl:$scope.clips.data[clipIndex].clipUrl}); // pass name to Dialog
     };
 
   var modalInstance = $modal.open($scope.opts);

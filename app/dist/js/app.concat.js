@@ -18,10 +18,6 @@ $scope.clips= Clips.clips
     AuthService.logOut();
   }
 
-  $scope.logOut = function(){
-    AuthService.logOut();
-  }
-
 
   $scope.showModal = function(clipIndex, size) {
     $scope.opts = {
@@ -36,7 +32,7 @@ $scope.clips= Clips.clips
     };
 
     $scope.opts.resolve.item = function() {
-      return angular.copy({clipUrl:$scope.clips[clipIndex].clipUrl}); // pass name to Dialog
+      return angular.copy({clipUrl:$scope.clips.data[clipIndex].clipUrl}); // pass name to Dialog
     };
 
   var modalInstance = $modal.open($scope.opts);
@@ -104,17 +100,6 @@ $scope.display = function(){
 
 //Session Service
 .service('Session', function() {
-<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
-    this.create = function(sessionId, userId) {
-        this.id = sessionId;
-        this.userId = userId;
-    };
-
-    this.destroy = function() {
-        this.id = null;
-        this.userId = null;
-    };
-=======
   this.create = function(sessionId, userId) {
     this.id = sessionId;
     this.userId = userId;
@@ -124,7 +109,6 @@ $scope.display = function(){
     this.id = null;
     this.userId = null;
   };
->>>>>>> [Fix]: Fix categories in view
 })
 
 .factory('Clips', ["$http", function($http) {
@@ -169,11 +153,11 @@ $scope.display = function(){
 
 .factory('Notes', ["$http", function($http) {
 
+<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
     var notesObj = {
         data: []
     };
 
-<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
     var loadNotes = function(param) {
         return $http({
                 method: 'GET',
@@ -205,34 +189,11 @@ $scope.display = function(){
         addNotes: addNotes,
         notesObj: notesObj
     };
-
-}])
-
-.factory('AuthService', ['$http', 'Session', '$cookies', '$state', function($http, Session, $cookies, $state) {
-
-    var isAuthenticated = function() {
-        //check local storage return true or false depending on prescence of Clipr cookie
-        //console.log('cookies are delish',$cookies.get('connect.sid'))
-        if ($cookies.get('clipr')) {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    var logOut = function() {
-        //remove cookie on logout
-        $cookies.remove('clipr');
-        $state.go('landing')
-    };
-
-
-    return {
-        isAuthenticated: isAuthenticated,
-        logOut: logOut
-    };
-
 =======
+  var notesObj = {
+    data: []
+  };
+
   var loadNotes = function(param) {
     return $http({
         method: 'GET',
@@ -265,11 +226,23 @@ $scope.display = function(){
     addNotes: addNotes,
     notesObj: notesObj
   };
+>>>>>>> [Fix]: Fix categories in view
 
 }])
 
 .factory('AuthService', ['$http', 'Session', '$cookies', '$state', function($http, Session, $cookies, $state) {
 
+<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
+    var isAuthenticated = function() {
+        //check local storage return true or false depending on prescence of Clipr cookie
+        //console.log('cookies are delish',$cookies.get('connect.sid'))
+        if ($cookies.get('clipr')) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+=======
   var isAuthenticated = function() {
     //check local storage return true or false depending on prescence of Clipr cookie
     //console.log('cookies are delish',$cookies.get('connect.sid'))
@@ -281,6 +254,7 @@ $scope.display = function(){
       return false
     }
   };
+>>>>>>> [Fix]: Fix categories in view
 
   var logOut = function() {
     console.log('in logout yo')
@@ -295,7 +269,6 @@ $scope.display = function(){
     logOut: logOut
   };
 
->>>>>>> [Fix]: Fix categories in view
 }]);/**
  * Main module of the application.
  */
@@ -318,17 +291,10 @@ angular
             $state.transitionTo("landing");
             event.preventDefault();
         }
-<<<<<<< be855591883b3b3c1f9e4184f07f7b5e40ae7929
     });
 })
 .controller("AppController", ['$scope', '$location', function($scope, $location) {
   //authentication
-=======
-    })
-})
-.controller("AppController", ['$scope', '$location', function($scope, $location) {
-  //authentication 
->>>>>>> [Fix]: Fix categories in view
 }])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
