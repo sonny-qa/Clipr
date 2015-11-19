@@ -220,7 +220,7 @@ app.post('/user/post/addNote', function(req, res) {
       console.log('clipNode', clipNode);
     });
     createRelation(noteNode, clipNode[0],'belongsTo', 3);
-    res.send(noteNode);
+    res.send(noteNode)
     // createRelation(userNode, noteNode, 3, 'owns');
   });
 });
