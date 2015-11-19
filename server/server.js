@@ -1,4 +1,3 @@
-// IM A TEST COMMENT
 // LOAD DEPENDENCIES
 var express = require('express');
 var path = require('path');
@@ -6,11 +5,9 @@ var bodyParser = require('body-parser');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
-// var compression = require('compression');
-var compression = require('compression');
+var compression = require('compression'); 
 var passport = require('passport');
-// var googleAuth = require('passport-google-oauth');
-// var GoogleStrategy = googleAuth.OAuth2Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // var router = require('./router.js');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -30,73 +27,103 @@ var db = require('seraph')({
   pass: 'oSvInWIWVVCQIbxLbfTu'
 });
 
-// CONFIG SERVER
+
+app.use(session({ 
+  secret: 'this is a secret',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly : false  
+  }
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+
+/**
+  Google OAuth2
+**/
+passport.use(new GoogleStrategy({
+  clientID : clientID,
+  clientSecret : clientSecret,
+  callbackURL  : callbackURL,
+
+}, function (accessToken, refreshToken , profile, done) {
+
+    var cypher = "MATCH (node: User)" +
+                 " WHERE node.username = " +
+                 "'" + profile.displayName + "'" +
+                 " RETURN node";
+    db.query(cypher, function (err, result) {
+
+      if (err) { throw err; }
+
+      if(result.length === 0) {
+        //create node
+        db.save({
+          username: profile.displayName,
+          sessionToken: accessToken
+        }, function (err, node) {
+          if(err) { throw err; }
+
+          db.label(node, ['User'], function (err) {
+            if(err) { throw err; }
+            
+            return done(null, node);
+          });
+
+        });
+      } else {
+          
+      }
+      //attach user node and acces token to user
+     profile.userOne = result[0];
+     profile.accessToken = accessToken;
+
+      return done(null, profile);
+
+    });
+
+}));
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
 app.use(express.static(__dirname + '../../app'));
+
 // Set Response Headers
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-// app.use(compression());
-
-/**
-  Google OAuth2
-  Google Strategy will search for a user based on google.id and
-  correspond to their profile.id we get back from Google
-**/
-
-//***********************************
-// Commented out to test deploy to heroku, uncomment out later!
-//***********************************
-
-// passport.use(new GoogleStrategy({
-//   clientID : clientID,
-//   clientSecret : clientSecret,
-//   callbackURL  : callbackURL,
-
-// }, function (accessToken, refreshToken , profile, done) {
-//   //make the code asynchronous
-//   //db.find won't fire until we have all our data back from Google
-//   process.nextTick(function() {
-//     console.log('hey',accessToken);
-//   return done(null, profile);
-//   });
-// }));
-
-//used to serialize the user from the session
-passport.serializeUser(function (user, done) {
-  console.log("This is in serializeUser ", user);
-  done(null, user);
-});
-
-//used to deserialize the user
-passport.deserializeUser(function (obj, done) {
-  console.log("This is in deserializeUserUser ", obj);
-  done(null,obj);
-  // db.find({ googleId: id }, function (err, user) {
-  //   done(err, user);
-  // });
-});
+app.use(compression());
 
 // ROUTES
-app.get('/auth/google',
+
+app.get('/auth/google', 
   passport.authenticate('google', { scope : ['https://www.googleapis.com/auth/plus.login'] }),
     function(req, res){
-      console.log(req);
-      console.log('HIHIHIHI');
+   //send user to google to authenticate
+     
   });
 
-app.get('/auth/google/callback',
+app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/#/landing' }),
   function(req, res) {
+    //swhen they come back after a successful login, etup clipr cookie
+    res.cookie('clipr',req.session.passport.user.accessToken)
     // Successful authentication, redirect home.
     res.redirect('/#/clips');
   });
@@ -169,9 +196,11 @@ app.post('/user/post/addNote', function(req, res) {
   });
 });
 
-app.get('/user/get/loadNotes', function(req, res) {
+app.post('/user/post/loadNotes', function(req, res) {
   console.log('inloadnotes');
+
   var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
+
   db.query(cypher, function(err, result) {
     if (err) throw err;
     console.log('NOTESRESULT', result);
