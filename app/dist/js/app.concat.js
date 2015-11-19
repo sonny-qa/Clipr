@@ -1,8 +1,14 @@
 angular.module('clipr.auth',[])
 
 .controller('AuthController', function($scope){
+<<<<<<< HEAD
  // console.log("hello");
 }); ;angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
+=======
+  console.log("hello");
+});
+;angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
+>>>>>>> [fix]: fix grunt errors
 
 .controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', function($scope, Clips, $modal, Notes, AuthService, $aside) {
 
@@ -123,6 +129,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
 
 
 	
+<<<<<<< HEAD
 ;angular.module('clipr.services', ['ngCookies'])
 
 //Session Service
@@ -137,6 +144,9 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
     this.userId = null;
   };
 })
+=======
+;LandingController.js;ProfileController.js;angular.module('clipr.services', [])
+>>>>>>> [fix]: fix grunt errors
 
 .factory('Clips', ["$http", function($http) {
   //loadClips - hhtp request to server func
@@ -260,6 +270,7 @@ angular
         'clipr.suggested',
         'clipr.auth'
     ])
+<<<<<<< HEAD
 .run(function($rootScope,$state, AuthService){
     $rootScope.$on("$stateChangeStart", function(event,toState,toParams,fromState, fromParams){
         if (toState.authenticate && !AuthService.isAuthenticated()){
@@ -272,9 +283,13 @@ angular
   //authentication
 }])
 
+=======
+.controller("AppController", function($scope, $location) {
+  //authentication
+})
+>>>>>>> [fix]: fix grunt errors
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
     //$urlRouterProvider.otherwise('/');
-
     $stateProvider
         .state('landing', {
             url: "/landing",
@@ -302,8 +317,8 @@ angular
                     controller: 'SidebarController'
                 }
             }
-        })
-}]);angular.module('clipr.suggested',['ui.router']);
+        });
+}]);;angular.module('clipr.suggested',['ui.router']);
 
 
 
