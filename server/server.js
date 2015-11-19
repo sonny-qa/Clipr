@@ -12,9 +12,9 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 
-var clientID   = '956444297317-c7q8o48o6trac3u2c81l5q6vf31r30up.apps.googleusercontent.com';
+var clientID = '956444297317-c7q8o48o6trac3u2c81l5q6vf31r30up.apps.googleusercontent.com';
 var clientSecret = 'reN8EHttjTzrGmvC6_C4oivR';
-var callbackURL  = 'http://localhost:3000/auth/google/callback';
+var callbackURL = 'http://localhost:3000/auth/google/callback';
 
 // INITIALIZE SERVER
 var port = process.env.PORT || 3000;
@@ -104,6 +104,24 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
+
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(express.static(__dirname + '../../app'));
+
+// Set Response Headers
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.use(compression());
+
 // ROUTES
 
 app.get('/auth/google',
@@ -114,9 +132,10 @@ app.get('/auth/google',
   });
 
 app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/#/landing' }),
-  function(req, res) {
-    //swhen they come back after a successful login, etup clipr cookie
+  passport.authenticate('google', {
+    failureRedirect: '/#/landing'
+  }), function(req, res) {
+    //when they come back after a successful login, setup clipr cookie
     res.cookie('clipr',req.session.passport.user.accessToken)
     // Successful authentication, redirect home.
     res.redirect('/#/clips');
@@ -158,17 +177,25 @@ app.post('/user/post/storeclip', function(req, res) {
   });
 });
 
-app.get('/loadClips', function(req, res) {
-  db.nodesWithLabel('Clip', function(err, results) {
-    console.log('server results', results);
+app.get('/loadClipsByCategory', function(req, res) {
+  var cypher = "MATCH(clips)-[:subsetOf]->(category) WHERE category.category='" + req.query.category + "' RETURN clips";
+   db.query(cypher, function(err, results) {
+    if (err) throw err;
     res.send(results);
   });
 });
 
+app.get('/loadAllClips', function(req, res) {
+  db.nodesWithLabel('Clip', function(err, results) {
+    console.log('server results', results);
+    res.send(results);
+  });
+})
+
 app.post('/user/post/addNote', function(req, res) {
   console.log('in addNote');
   console.log('url', req.query.url);
-    // console.log('url', req.query.user)
+  // console.log('url', req.query.user)
 
   var clipNode;
   var noteNode;

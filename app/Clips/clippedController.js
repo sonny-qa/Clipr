@@ -2,15 +2,13 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
 .controller('ClipController',['$scope', 'Clips', '$modal', 'Notes', 'AuthService', function($scope, Clips, $modal, Notes, AuthService){
 
-  $scope.loadClips= function (){
+$scope.clips= Clips.clips.data
 
-    Clips.loadClips().then(function(clips){
-      $scope.clips = clips;
-      console.log($scope.clips);
-    });
+  $scope.loadAllClips= function (){
+    Clips.loadClips()
   };
 
-  $scope.loadClips();
+  $scope.loadAllClips();
 
   $scope.logOut = function(){
     AuthService.logOut();
