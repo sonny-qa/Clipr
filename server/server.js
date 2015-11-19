@@ -219,7 +219,8 @@ app.post('/user/post/addNote', function(req, res) {
       console.log('noteNode', noteNode);
       console.log('clipNode', clipNode);
     });
-    createRelation(noteNode, clipNode[0], 3, 'belongsTo');
+    createRelation(noteNode, clipNode[0],'belongsTo', 3);
+    res.send(noteNode)
     // createRelation(userNode, noteNode, 3, 'owns');
   });
 });
@@ -240,9 +241,10 @@ var createRelation = function(clip, tag, how, relevance) {
   console.log('clip:', clip);
   console.log('tag:', tag);
   db.relate(clip, how, tag, {
-    relevance: relevance
+    relevance: 3
   }, function(err, relationship) {
     console.log('RELATIONSHIP:', relationship);
+
   });
 };
 
