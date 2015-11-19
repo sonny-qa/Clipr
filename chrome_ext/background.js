@@ -3,65 +3,69 @@
 //*******************************************************************
 
 // POST existing chrome bookmarks to server
-// function sendAllBookmarks(bookmarkObj) {
+function sendAllBookmarks(bookmarkObj) {
 
-//   // The URL to post our data to
-//   var postUrl = "http://localhost:3000/user/post/getAllBookmarks";
+  // The URL to post our data to
+  var postUrl = "http://localhost:3000/user/post/getAllBookmarks";
 
-//   // Set up an async POST Request
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('POST', postUrl, true);
-//   xhr.setRequestHeader('Content-Type', 'application/json');
+  // Set up an async POST Request
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', postUrl, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
 
-//   // Convert to JSON
-//   var sendData = JSON.stringify(bookmarkObj);
+  // Convert to JSON
+  var sendData = JSON.stringify(bookmarkObj);
 
-//   // console.log("Im the bookmark obj: ", bookmarkObj);
-//   // Send the request
-//   xhr.send(bookmarkObj);
-// }
+  // console.log("Im the bookmark obj: ", bookmarkObj);
+  // Send the request
+  xhr.send(bookmarkObj);
+}
 
 //*******************************************************************
 // Event Listeners
 //*******************************************************************
 // POST url to server using XMLHttpRequest
-function sendBookmark(url, title) {
+function sendBookmark(url, title, imgUrl) {
   console.log('SEND BOOKMARK FUNCTION BEING CALLED');
-  var params = '?url=' + url + '&title=' + title;
+  console.log('imgUrl', newImgUrl);
 
+  var params = {
+    url: url,
+    title: title,
+    imgUrl: imgUrl
+  };
   // The URL to post our data to
-  var postUrl = "http://localhost:3000/user/post/storeClip" + params;
-
+  var postUrl = "http://localhost:3000/user/post/storeclip";
+  xhr.setRequestHeader('Content-Type', 'application/json');
   // Set up an async POST Request
   var xhr = new XMLHttpRequest();
   xhr.open('POST', postUrl, true);
-
   // Send the request
-  xhr.send(params);
+  xhr.send(JSON.stringify(params));
 }
 
-// // On Install, get all chrome bookmarks
-// chrome.runtime.onInstalled.addListener(function() {
+// On Install, get all chrome bookmarks
+chrome.runtime.onInstalled.addListener(function() {
 
-//   var bm_urls = [];
+  var bm_urls = [];
 
-//   function fetch_bookmarks(parentNode) {
-//     parentNode.forEach(function(bookmark) {
-//       if(!(bookmark.url === undefined || bookmark.url === null)) {
-//         bm_urls.push(bookmark.url);
-//       }
-//       if(bookmark.children) {
-//         fetch_bookmarks(bookmark.children);
-//       }
-//     });
-//   }
+  function fetch_bookmarks(parentNode) {
+    parentNode.forEach(function(bookmark) {
+      if(!(bookmark.url === undefined || bookmark.url === null)) {
+        bm_urls.push(bookmark.url);
+      }
+      if(bookmark.children) {
+        fetch_bookmarks(bookmark.children);
+      }
+    });
+  }
 
-//   chrome.bookmarks.getTree(function(rootNode) {
-//     fetch_bookmarks(rootNode);
-//     // console.log("Stringifed Array: ", JSON.stringify(bm_urls));
-//     sendAllBookmarks(JSON.stringify(bm_urls));
-//   });
-// });
+  chrome.bookmarks.getTree(function(rootNode) {
+    fetch_bookmarks(rootNode);
+    // console.log("Stringifed Array: ", JSON.stringify(bm_urls));
+    sendAllBookmarks(JSON.stringify(bm_urls));
+  });
+});
 
 // On click, get open tabs url
 chrome.browserAction.onClicked.addListener(function(tab) {
@@ -75,11 +79,15 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     chrome.tabs.captureVisibleTab(win.id, {"format": "png"}, function(imgUrl) {
       console.log('PREVIEW IMAGE URL : ===============');
       console.log(imgUrl);
+      var tabImgUrl = imgUrl;
+      console.log('INSIDE CHROME EXT CALLBACK');
+      sendBookmark(tabUrl, tabTitle, tabImgUrl);
     });
   });
+
   console.log("tabUrl: ", tabUrl);
   console.log('tabTitle: ', tabTitle);
-  sendBookmark(tabUrl, tabTitle);
+
 });
 
 

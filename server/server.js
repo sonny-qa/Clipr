@@ -5,12 +5,12 @@ var bodyParser = require('body-parser');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
-var compression = require('compression'); 
+var compression = require('compression');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // var router = require('./router.js');
 var session = require('express-session');
-var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-pagrser');
 
 var clientID   = '956444297317-c7q8o48o6trac3u2c81l5q6vf31r30up.apps.googleusercontent.com';
 var clientSecret = 'reN8EHttjTzrGmvC6_C4oivR';
@@ -28,12 +28,12 @@ var db = require('seraph')({
 });
 
 
-app.use(session({ 
+app.use(session({
   secret: 'this is a secret',
   resave: true,
   saveUninitialized: true,
   cookie: {
-    httpOnly : false  
+    httpOnly : false
   }
 }));
 app.use(passport.initialize());
@@ -67,13 +67,13 @@ passport.use(new GoogleStrategy({
 
           db.label(node, ['User'], function (err) {
             if(err) { throw err; }
-            
+
             return done(null, node);
           });
 
         });
       } else {
-          
+
       }
       //attach user node and acces token to user
      profile.userOne = result[0];
@@ -99,7 +99,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
 app.use(express.static(__dirname + '../../app'));
 
 // Set Response Headers
@@ -112,14 +111,14 @@ app.use(compression());
 
 // ROUTES
 
-app.get('/auth/google', 
+app.get('/auth/google',
   passport.authenticate('google', { scope : ['https://www.googleapis.com/auth/plus.login'] }),
     function(req, res){
    //send user to google to authenticate
-     
+
   });
 
-app.get('/auth/google/callback', 
+app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/#/landing' }),
   function(req, res) {
     //swhen they come back after a successful login, etup clipr cookie
@@ -140,10 +139,13 @@ app.post('/user/post/getAllBookmarks', function(req, res) {
 
 // Get a new bookmark from client
 app.post('/user/post/storeclip', function(req, res) {
+  console.log('REQUEST', req);
+  console.log('IMG URL', req.query.imgUrl);
   console.log('TITLE: ', req.query.title);
   db.save({
     clipUrl: req.query.url,
-    title: req.query.title
+    title: req.query.title,
+    imgUrl : req.query.imgUrl
   }, function(err, node) {
     if (err) throw err;
     console.log('clipnode', node);
