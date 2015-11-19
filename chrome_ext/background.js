@@ -29,20 +29,16 @@ function sendBookmark(url, title, imgUrl) {
   console.log('SEND BOOKMARK FUNCTION BEING CALLED');
   console.log('imgUrl', imgUrl);
 
-  var params = {
-    url: url,
-    title: title,
-    imgUrl: imgUrl
-  };
+  var params = '?url=' + url + '&title=' + title;
   // The URL to post our data to
-  var postUrl = "http://localhost:3000/user/post/storeclip";
+  var postUrl = "http://localhost:3000/user/post/storeclip" + params;
 
   // Set up an async POST Request
   var xhr = new XMLHttpRequest();
   xhr.open('POST', postUrl, true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
+  // xhr.setRequestHeader('Content-Type', 'application/json');
   // Send the request
-  xhr.send(JSON.stringify(params));
+  xhr.send(params);
 }
 
 // On Install, get all chrome bookmarks

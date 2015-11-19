@@ -10,7 +10,7 @@ var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // var router = require('./router.js');
 var session = require('express-session');
-var cookieParser = require('cookie-pagrser');
+var cookieParser = require('cookie-parser');
 
 var clientID   = '956444297317-c7q8o48o6trac3u2c81l5q6vf31r30up.apps.googleusercontent.com';
 var clientSecret = 'reN8EHttjTzrGmvC6_C4oivR';
@@ -135,12 +135,12 @@ app.post('/user/post/getAllBookmarks', function(req, res) {
 // Get a new bookmark from client
 app.post('/user/post/storeclip', function(req, res) {
   console.log('REQUEST', req);
-  console.log('IMG URL', req.query.imgUrl);
+  // console.log('IMG URL', req.query.imgUrl);
   console.log('TITLE: ', req.query.title);
   db.save({
     clipUrl: req.query.url,
-    title: req.query.title,
-    imgUrl : req.query.imgUrl
+    title: req.query.title
+    // imgUrl : req.query.imgUrl
   }, function(err, node) {
     if (err) throw err;
     console.log('clipnode', node);
@@ -205,7 +205,7 @@ app.post('/user/post/loadNotes', function(req, res) {
 });
 
 // DB HELPER FUNCTIONS
-var createRelation = function(clip, tag, relevance) {
+var createRelation = function(clip, tag, how, relevance) {
   console.log('clip:', clip);
   console.log('tag:', tag);
   db.relate(clip, how, tag, {
