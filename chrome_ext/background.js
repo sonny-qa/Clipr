@@ -2,21 +2,6 @@
 // Helper Functions
 //*******************************************************************
 
-// // POST url to server using XMLHttpRequest
-// function sendBookmark(url, title) {
-//   var params = '?url=' + url + '&title=' + title;
-
-//   // The URL to post our data to
-//   var postUrl = "http://localhost:3000/user/post/storeClip" + params;
-
-//   // Set up an async POST Request
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('POST', postUrl, true);
-
-//   // Send the request
-//   xhr.send(params);
-// }
-
 // POST existing chrome bookmarks to server
 function sendAllBookmarks(bookmarkObj) {
 
