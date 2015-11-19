@@ -4,9 +4,10 @@
   "description": "App that makes it easier to store, categorize, and view your bookmarks",
   "main": "server/server.js",
   "scripts": {
-    "prepublish": "grunt build",
-    "postinstall": "bower install",
-    "start": "node server/server.js"
+    // "prepublish": "grunt build",
+    // "postinstall": "bower install",
+    "start": "node server/server.js",
+    "postinstall": "bower install && grunt build"
   },
   "repository": {
     "type": "git",
