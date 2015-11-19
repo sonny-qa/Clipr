@@ -1,19 +1,25 @@
-document.addEventListener('DOMContentLoaded', function() {
-  var checkPageButton = document.getElementById('checkPage');
-  checkPageButton.addEventListener('click', function() {
+// POST url to server using XMLHttpRequest
+function sendBookmark(url, title) {
+  var params = '?url=' + url + '&title=' + title;
 
-    chrome.tabs.getSelected(null, function(tab) {
-      d = document;
-      var f = d.createElement('form');
-      f.action = 'http://localhost:3000/#/clips';
-      f.method = 'post';
-      var i = d.createElement('input');
-      i.type = 'hidden';
-      i.name = 'url';
-      i.value = tab.url;
-      f.appendChild(i);
-      d.body.appendChild(f);
-      f.submit();
-    });
-  }, false);
-}, false);
+  // The URL to post our data to
+  var postUrl = "http://localhost:3000/user/post/storeClip" + params;
+
+  // Set up an async POST Request
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', postUrl, true);
+
+  // Send the request
+  xhr.send(params);
+}
+
+
+
+// On click, get open tabs url
+chrome.browserAction.onClicked.addListener(function(tab) {
+  var tabUrl = tab.url;
+  var tabTitle = tab.title;
+  console.log("tabUrl: ", tabUrl);
+  console.log('tabTitle: ', tabTitle);
+  sendBookmark(tabUrl, tabTitle);
+});
