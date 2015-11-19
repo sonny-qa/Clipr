@@ -6,6 +6,10 @@
     z-index: -1;
 }
 
+#landingHeader{
+	z-index: 1;
+}
+
 #brand {
     font-family: 'Anton', sans-serif;
     position: absolute;
