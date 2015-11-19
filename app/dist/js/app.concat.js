@@ -143,9 +143,8 @@ $scope.display = function(){
                 }
             })
             .then(function(response) {
-                console.log('factory response', response);
-                notesArr.data = response.data;
-                console.log(notesArr);
+                notesObj.data = response.data;
+                console.log(notesObj);
             });
     };
 
@@ -157,8 +156,8 @@ $scope.display = function(){
             })
             .then(function(response) {
                 console.log('factory response', response);
-                notesArr.data.push(response.data);
-                console.log('notesArr inside addNotes', notesArr);
+                notesObj.data.push(response.data);
+                console.log('notesArr inside addNotes', notesObj);
             });
     };
     return {
@@ -175,9 +174,9 @@ $scope.display = function(){
         //check local storage return true or false depending on prescence of Clipr cookie
         //console.log('cookies are delish',$cookies.get('connect.sid'))
         if ($cookies.get('clipr')) {
-            return true
+            return true;
         } else {
-            return false
+            return false;
         }
     };
 
@@ -215,10 +214,10 @@ angular
             $state.transitionTo("landing");
             event.preventDefault();
         }
-    })
+    });
 })
 .controller("AppController", ['$scope', '$location', function($scope, $location) {
-  //authentication 
+  //authentication
 }])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {

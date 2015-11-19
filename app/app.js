@@ -20,10 +20,10 @@ angular
             $state.transitionTo("landing");
             event.preventDefault();
         }
-    })
+    });
 })
 .controller("AppController", ['$scope', '$location', function($scope, $location) {
-  //authentication 
+  //authentication
 }])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {

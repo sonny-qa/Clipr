@@ -171,6 +171,7 @@ app.post('/user/post/addNote', function(req, res) {
     // console.log('url', req.query.user)
 
   var clipNode;
+  var noteNode;
   db.find({
     clipUrl: req.query.url
   }, function(err, clip) {
@@ -180,32 +181,32 @@ app.post('/user/post/addNote', function(req, res) {
   console.log(req.query.note);
   db.save({
     note: req.query.note
-  }, function(err, noteNode) {
-    console.log(' note was saved', noteNode);
+  }, function(err, note) {
+    console.log(' note was saved', note);
+    noteNode = note;
     if (err) throw err;
-    db.label(noteNode, ['Note'], function(err, labeledNode) {
+    db.label(noteNode, ['Note'], function(err) {
       if (err) throw err;
-      console.log('noteNode', labeledNode);
+      console.log('noteNode', noteNode);
       console.log('clipNode', clipNode);
     });
-    createRelation(noteNode, clipNode, 3, 'belongsTo');
+    createRelation(noteNode, clipNode[0], 3, 'belongsTo');
     // createRelation(userNode, noteNode, 3, 'owns');
   });
 });
 
-app.post('/user/post/loadNotes', function(req, res) {
+app.get('/user/get/loadNotes', function(req, res) {
   console.log('inloadnotes');
-
   var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
-
   db.query(cypher, function(err, result) {
     if (err) throw err;
     console.log('NOTESRESULT', result);
+    res.send(result);
   });
 });
 
 // DB HELPER FUNCTIONS
-var createRelation = function(clip, tag, how, relevance) {
+var createRelation = function(clip, tag, relevance, how) {
   console.log('clip:', clip);
   console.log('tag:', tag);
   db.relate(clip, how, tag, {
