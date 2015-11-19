@@ -13,9 +13,13 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var clientID = '956444297317-c7q8o48o6trac3u2c81l5q6vf31r30up.apps.googleusercontent.com';
 var clientSecret = 'reN8EHttjTzrGmvC6_C4oivR';
+// var callbackURL = 'https://clipr-app-1.herokuapp.com/auth/google/callback';
 
 var website = (process.env.SITE || "http://localhost:3000");
 var callbackURL = website + '/auth/google/callback';
+// var callbackURL = 'http://localhost:3000/auth/google/callback';
+
+
 
 // INITIALIZE SERVER
 var port = process.env.PORT || 3000;
@@ -103,24 +107,6 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
-
-
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
-app.use(express.static(__dirname + '../../app'));
-
-// Set Response Headers
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-app.use(compression());
 
 // ROUTES
 
