@@ -190,6 +190,7 @@ module.exports = function(grunt) {
   });
 
   // Default Tasks
+  // TEST BUILD
   grunt.registerTask('default', ['build']);
   grunt.registerTask('dev', ['build']);
   grunt.registerTask('server', ['express', 'open', 'watch']);
