@@ -139,7 +139,7 @@ app.post('/user/post/getAllBookmarks', function(req, res) {
 
 // Get a new bookmark from client
 app.post('/user/post/storeclip', function(req, res) {
-  console.log('REQUEST', req);
+  console.log('REQUEST', req.query);
   // console.log('IMG URL', req.query.imgUrl);
   console.log('TITLE: ', req.query.title);
   db.save({
