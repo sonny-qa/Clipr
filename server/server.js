@@ -118,7 +118,7 @@ app.get('/auth/google/callback',
     failureRedirect: '/#/landing'
   }), function(req, res) {
     //when they come back after a successful login, setup clipr cookie
-    res.cookie('clipr',req.session.passport.user.accessToken)
+    res.cookie('clipr',req.session.passport.user.accessToken);
     // Successful authentication, redirect home.
     res.redirect('/#/clips');
 });
@@ -160,11 +160,11 @@ app.post('/user/post/storeclip', function(req, res) {
 });
 
 app.post('/loadClipsByCategory', function(req, res) {
-	console.log('in clips by category', req.query.category)
+	console.log('in clips by category', req.query.category);
   var cypher = "MATCH(clips)-[:BELONGSTO]->(category) WHERE category.category='" + req.query.category + "' RETURN clips";
    db.query(cypher, function(err, results) {
     if (err) throw err;
-    console.log('category results', results)
+    console.log('category results', results);
     res.send(results);
   });
 });
@@ -174,7 +174,7 @@ app.get('/loadAllClips', function(req, res) {
     console.log('server results', results);
     res.send(results);
   });
-})
+});
 
 app.post('/user/post/addNote', function(req, res) {
   console.log('in addNote');
@@ -202,7 +202,7 @@ app.post('/user/post/addNote', function(req, res) {
       console.log('clipNode', clipNode);
     });
     createRelation(noteNode, clipNode[0],'belongsTo', 3);
-    res.send(noteNode)
+    res.send(noteNode);
     // createRelation(userNode, noteNode, 3, 'owns');
   });
 });
