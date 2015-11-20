@@ -178,7 +178,7 @@ app.get('/loadAllClips', function(req, res) {
     console.log('server results', results);
     res.send(results);
   });
-})
+});
 
 app.post('/user/post/addNote', function(req, res) {
   console.log('in addNote');
@@ -206,7 +206,7 @@ app.post('/user/post/addNote', function(req, res) {
       console.log('clipNode', clipNode);
     });
     createRelation(noteNode, clipNode[0],'belongsTo', 3);
-    res.send(noteNode)
+    res.send(noteNode);
     // createRelation(userNode, noteNode, 3, 'owns');
   });
 });
