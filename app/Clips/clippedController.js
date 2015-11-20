@@ -2,7 +2,7 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
 .controller('ClipController',['$scope', 'Clips', '$modal', 'Notes', 'AuthService', function($scope, Clips, $modal, Notes, AuthService){
 
-$scope.clips= Clips.clips
+  $scope.clips= Clips.clips
 
   $scope.loadAllClips= function (){
     Clips.loadAllClips()
