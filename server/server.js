@@ -1,3 +1,4 @@
+// TESTing 123
 // LOAD DEPENDENCIES
 var express = require('express');
 var path = require('path');
@@ -5,16 +6,16 @@ var bodyParser = require('body-parser');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
-var compression = require('compression');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // var router = require('./router.js');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
-
 var clientID = '956444297317-c7q8o48o6trac3u2c81l5q6vf31r30up.apps.googleusercontent.com';
 var clientSecret = 'reN8EHttjTzrGmvC6_C4oivR';
-var callbackURL = 'http://localhost:3000/auth/google/callback';
+
+var website = (process.env.SITE || "http://localhost:3000");
+var callbackURL = website + '/auth/google/callback';
 
 // INITIALIZE SERVER
 var port = process.env.PORT || 3000;
@@ -42,6 +43,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '../../app'));
+app.use(express.static(__dirname+ '../bower_components/'));
 // Set Response Headers
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -57,7 +59,7 @@ passport.use(new GoogleStrategy({
   clientSecret : clientSecret,
   callbackURL  : callbackURL,
 
-}, function (accessToken, refreshToken , profile, done) {
+  }, function (accessToken, refreshToken , profile, done) {
 
     var cypher = "MATCH (node: User)" +
                  " WHERE node.username = " +
@@ -92,9 +94,7 @@ passport.use(new GoogleStrategy({
       return done(null, profile);
 
     });
-
 }));
-
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -111,25 +111,25 @@ app.get('/auth/google',
     function(req, res){
    //send user to google to authenticate
 
-  });
+});
 
 app.get('/auth/google/callback',
   passport.authenticate('google', {
     failureRedirect: '/#/landing'
   }), function(req, res) {
     //when they come back after a successful login, setup clipr cookie
-    res.cookie('clipr',req.session.passport.user.accessToken)
+    res.cookie('clipr',req.session.passport.user.accessToken);
     // Successful authentication, redirect home.
     res.redirect('/#/clips');
-  });
+});
 
 // Get all existing bookmarks from users google bookmarks
 // THIS ROUTE IS USED TO TEST THAT SERVER IS GETTING ALL BOOKMARKS
 app.post('/user/post/getAllBookmarks', function(req, res) {
-  // console.log("--------------");
-  // console.dir(req.body);
+  console.log("--------------");
+  console.dir(req.body);
   // console.log(req);
-  // console.log("--------------");
+  console.log("--------------");
   // console.log("");
 });
 
@@ -160,11 +160,11 @@ app.post('/user/post/storeclip', function(req, res) {
 });
 
 app.post('/loadClipsByCategory', function(req, res) {
-	console.log('in clips by category', req.query.category)
+	console.log('in clips by category', req.query.category);
   var cypher = "MATCH(clips)-[:BELONGSTO]->(category) WHERE category.category='" + req.query.category + "' RETURN clips";
    db.query(cypher, function(err, results) {
     if (err) throw err;
-    console.log('category results', results)
+    console.log('category results', results);
     res.send(results);
   });
 });
@@ -174,7 +174,7 @@ app.get('/loadAllClips', function(req, res) {
     console.log('server results', results);
     res.send(results);
   });
-})
+});
 
 app.post('/user/post/addNote', function(req, res) {
   console.log('in addNote');
@@ -202,7 +202,7 @@ app.post('/user/post/addNote', function(req, res) {
       console.log('clipNode', clipNode);
     });
     createRelation(noteNode, clipNode[0],'belongsTo', 3);
-    res.send(noteNode)
+    res.send(noteNode);
     // createRelation(userNode, noteNode, 3, 'owns');
   });
 });
