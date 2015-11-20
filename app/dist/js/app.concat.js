@@ -2,15 +2,26 @@ angular.module('clipr.auth',[])
 
 .controller('AuthController', function($scope){
 <<<<<<< HEAD
+<<<<<<< HEAD
  // console.log("hello");
 }); ;angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 =======
+=======
+
+>>>>>>> [fix]: Fixed identation errors and syntax errors
   console.log("hello");
 });
 ;angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 >>>>>>> [fix]: fix grunt errors
 
+<<<<<<< HEAD
 .controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', function($scope, Clips, $modal, Notes, AuthService, $aside) {
+=======
+=======
+ // console.log("hello");
+}); ;;angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
+>>>>>>> [fix]: Fixed identation errors and syntax errors
+>>>>>>> [fix]: Fixed identation errors and syntax errors
 
   $scope.clips = Clips.clips;
   $scope.clipShow= false;
@@ -46,11 +57,17 @@ angular.module('clipr.auth',[])
       resolve: {}
     };
 
+<<<<<<< HEAD
     $scope.opts.resolve.item = function() {
       return angular.copy({
         clipUrl: $scope.clips.data[clipIndex].clipUrl
       }); // pass name to Dialog
     };
+=======
+  $scope.opts.resolve.item = function() {
+    return angular.copy({clipUrl:$scope.clips.data[clipIndex].clipUrl}); // pass name to Dialog
+  };
+>>>>>>> [fix]: Fixed identation errors and syntax errors
 
     var modalInstance = $modal.open($scope.opts);
     modalInstance.result.then(function() {
