@@ -5,7 +5,7 @@ angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
   $scope.clips = Clips.clips;
 
   $scope.loadAllClips= function (){
-    Clips.loadAllClips()
+    Clips.loadAllClips();
   };
 
   $scope.loadAllClips();

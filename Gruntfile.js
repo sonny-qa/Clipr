@@ -11,7 +11,6 @@ module.exports = function(grunt) {
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
   // Project Configuration
-
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
@@ -25,6 +24,7 @@ module.exports = function(grunt) {
       src: [
         'app/*/*.js',
         '!app/bower_components/**/*.js',
+        '!app/dist/',
         'server/**/*.js',
         'server/config/*.js',
         'chrome_ext/**/*.js'

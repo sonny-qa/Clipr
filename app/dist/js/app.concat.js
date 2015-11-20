@@ -6,7 +6,7 @@ angular.module('clipr.auth',[])
 
 .controller('ClipController',['$scope', 'Clips', '$modal', 'Notes', 'AuthService', function($scope, Clips, $modal, Notes, AuthService){
 
-  $scope.clips= Clips.clips
+  $scope.clips = Clips.clips;
 
   $scope.loadAllClips= function (){
     Clips.loadAllClips()
@@ -16,8 +16,7 @@ angular.module('clipr.auth',[])
 
   $scope.logOut = function(){
     AuthService.logOut();
-  }
-
+  };
 
   $scope.showModal = function(clipIndex, size) {
     $scope.opts = {
@@ -31,51 +30,50 @@ angular.module('clipr.auth',[])
       resolve: {}
     };
 
-  $scope.opts.resolve.item = function() {
-    return angular.copy({clipUrl:$scope.clips.data[clipIndex].clipUrl}); // pass name to Dialog
-  };
-
-  var modalInstance = $modal.open($scope.opts);
-      modalInstance.result.then(function(){
-            //on ok button press
-          },function(){
-            //on cancel button press
-            console.log("Modal Closed");
-          });
+    $scope.opts.resolve.item = function() {
+      return angular.copy({clipUrl:$scope.clips.data[clipIndex].clipUrl}); // pass name to Dialog
     };
 
-  }]);
+    var modalInstance = $modal.open($scope.opts);
+        modalInstance.result.then(function(){
+              //on ok button press
+            },function(){
+              //on cancel button press
+              console.log("Modal Closed");
+            });
+  };
+
+}]);
 
 var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes) {
 
- $scope.item = item;
- $scope.sceUrl= $sce.trustAsResourceUrl($scope.item.clipUrl);
- $scope.notes= Notes.notesObj;
+  $scope.item = item;
+  $scope.sceUrl= $sce.trustAsResourceUrl($scope.item.clipUrl);
+  $scope.notes= Notes.notesObj;
 
-$scope.ok = function () {
-  $modalInstance.close();
-};
-
-$scope.cancel = function () {
-  $modalInstance.dismiss('cancel');
-};
-
-//On 'save', make call to server with notes and site url
-//fetch Notes and display it
-$scope.save = function(userNotes){
-    $scope.NoteAndUrl = {
-      note : userNotes,
-      url : $scope.item.clipUrl
-    };
-    console.log('Notes being passed to server', $scope.NoteAndUrl);
-    Notes.addNotes($scope.NoteAndUrl);
-};
-
-$scope.display = function(){
-  console.log('display function!!!');
-  Notes.loadNotes($scope.item.clipUrl);
+  $scope.ok = function () {
+    $modalInstance.close();
   };
 
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+
+  //On 'save', make call to server with notes and site url
+  //fetch Notes and display it
+  $scope.save = function(userNotes){
+      $scope.NoteAndUrl = {
+        note : userNotes,
+        url : $scope.item.clipUrl
+      };
+      console.log('Notes being passed to server', $scope.NoteAndUrl);
+      Notes.addNotes($scope.NoteAndUrl);
+  };
+
+  $scope.display = function(){
+    console.log('display function!!!');
+    Notes.loadNotes($scope.item.clipUrl);
+  };
 };
 ;angular.module('clipr.header',['ui.router']);
 
@@ -116,10 +114,10 @@ $scope.display = function(){
   //return back array of clip objects
   var clips = {
     data: null
-  }
+  };
 
   var loadClipsByCategory = function(category) {
-    console.log('category', category)
+    console.log('category', category);
     return $http({
       method: 'POST',
       url: '/loadClipsByCategory',
@@ -128,7 +126,7 @@ $scope.display = function(){
       }
     }).then(function(response) {
       console.log('category response yo', response);
-      clips.data = response.data
+      clips.data = response.data;
     });
   };
 
@@ -137,11 +135,11 @@ $scope.display = function(){
       method: 'GET',
       url: '/loadAllClips'
     }).then(function(response) {
-      console.log('load all clips response', response.data)
-      clips.data = response.data
-      console.log(clips)
-    })
-  }
+      console.log('load all clips response', response.data);
+      clips.data = response.data;
+      console.log(clips);
+    });
+  };
 
   return {
     loadClipsByCategory: loadClipsByCategory,
@@ -205,10 +203,10 @@ $scope.display = function(){
     };
 
   var logOut = function() {
-    console.log('in logout yo')
+    console.log('in logout yo');
       //remove cookie on logout
     $cookies.remove('clipr');
-    $state.go('landing')
+    $state.go('landing');
   };
 
 
@@ -217,7 +215,7 @@ $scope.display = function(){
     logOut: logOut
   };
 
-}]);/**
+}]);;/**
  * Main module of the application.
  */
 angular
