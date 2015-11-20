@@ -2,7 +2,7 @@ angular.module('clipr.auth',[])
 
 .controller('AuthController', function($scope){
  // console.log("hello");
-}); ;angular.controller('clipr.clipped',[]);;angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
+}); ;;angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
 .controller('ClipController',['$scope', 'Clips', '$modal', 'Notes', 'AuthService', function($scope, Clips, $modal, Notes, AuthService){
 
@@ -31,9 +31,9 @@ angular.module('clipr.auth',[])
       resolve: {}
     };
 
-    $scope.opts.resolve.item = function() {
-      return angular.copy({clipUrl:$scope.clips.data[clipIndex].clipUrl}); // pass name to Dialog
-    };
+  $scope.opts.resolve.item = function() {
+    return angular.copy({clipUrl:$scope.clips.data[clipIndex].clipUrl}); // pass name to Dialog
+  };
 
   var modalInstance = $modal.open($scope.opts);
       modalInstance.result.then(function(){
