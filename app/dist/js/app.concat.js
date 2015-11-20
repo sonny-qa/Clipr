@@ -2,7 +2,7 @@ angular.module('clipr.auth',[])
 
 .controller('AuthController', function($scope){
  // console.log("hello");
-}); ;angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
+}); ;angular.controller('clipr.clipped',[]);;angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 
 .controller('ClipController',['$scope', 'Clips', '$modal', 'Notes', 'AuthService', function($scope, Clips, $modal, Notes, AuthService){
 
