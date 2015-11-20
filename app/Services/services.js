@@ -18,10 +18,10 @@ angular.module('clipr.services', ['ngCookies'])
   //return back array of clip objects
   var clips = {
     data: null
-  }
+  };
 
   var loadClipsByCategory = function(category) {
-    console.log('category', category)
+    console.log('category', category);
     return $http({
       method: 'POST',
       url: '/loadClipsByCategory',
@@ -30,7 +30,7 @@ angular.module('clipr.services', ['ngCookies'])
       }
     }).then(function(response) {
       console.log('category response yo', response);
-      clips.data = response.data
+      clips.data = response.data;
     });
   };
 
@@ -39,11 +39,11 @@ angular.module('clipr.services', ['ngCookies'])
       method: 'GET',
       url: '/loadAllClips'
     }).then(function(response) {
-      console.log('load all clips response', response.data)
-      clips.data = response.data
-      console.log(clips)
-    })
-  }
+      console.log('load all clips response', response.data);
+      clips.data = response.data;
+      console.log(clips);
+    });
+  };
 
   return {
     loadClipsByCategory: loadClipsByCategory,
@@ -107,10 +107,10 @@ angular.module('clipr.services', ['ngCookies'])
     };
 
   var logOut = function() {
-    console.log('in logout yo')
+    console.log('in logout yo');
       //remove cookie on logout
     $cookies.remove('clipr');
-    $state.go('landing')
+    $state.go('landing');
   };
 
 
@@ -119,4 +119,4 @@ angular.module('clipr.services', ['ngCookies'])
     logOut: logOut
   };
 
-}])
+}]);
