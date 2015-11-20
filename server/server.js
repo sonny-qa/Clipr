@@ -11,13 +11,11 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // var router = require('./router.js');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
-
 var clientID = '956444297317-c7q8o48o6trac3u2c81l5q6vf31r30up.apps.googleusercontent.com';
 var clientSecret = 'reN8EHttjTzrGmvC6_C4oivR';
-var callbackURL = 'https://clipr-app-1.herokuapp.com/auth/google/callback';
-// var callbackURL = 'http://localhost:3000/auth/google/callback';
 
-
+var website = (process.env.SITE || "http://localhost:3000");
+var callbackURL = website + '/auth/google/callback';
 
 // INITIALIZE SERVER
 var port = process.env.PORT || 3000;
