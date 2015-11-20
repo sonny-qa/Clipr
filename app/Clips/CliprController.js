@@ -1,1 +1,0 @@
-angular.controller('clipr.clipped',[]);
