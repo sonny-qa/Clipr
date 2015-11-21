@@ -1,43 +1,43 @@
 <div id="header" class="head navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" id="navbrand" href="#/">CLIPR</a>
-    </div>
-    <nav class="collapse navbar-collapse" id="js-navbar-collapse">
-        <ul class="nav navbar-nav">
-            <li><a id="navLink" href="#/">Home</a></li>
-            <li><a id="navLink" ng-click="toggleMenu()">Explore</a></li>
-            <li><a id="navLink" ng-click='logOut()'>Logout</a></li>
-            <li>
-                <input type="checkbox" ng-model="checked" ng-init="clipShow=false" ng-click="clipShow=true" />
-            </li>
-        </ul>
-    </nav>
+   <div class="navbar-header">
+       <a class="navbar-brand" id="navbrand" href="#/">CLIPR</a>
+   </div>
+   <nav class="collapse navbar-collapse" id="js-navbar-collapse">
+       <ul class="nav navbar-nav">
+           <li><a id="navLink" ng-click="loadAllClips()">Home</a></li>
+           <li><a id="navLink" ng-click="toggleMenu()">Explore</a></li>
+           <li><a id="navLink" ng-click='logOut()'>Logout</a></li>
+           <li>
+               <input type="checkbox" ng-model="checked" ng-init="clipShow=false" ng-click="clipShow=true" />
+           </li>
+       </ul>
+   </nav>
 </div>
 <div id="wrapper">
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper" class="col-lg-2" ui-view="sidebar">
-    </div>
-    <!-- Clips -->
-    <div id="main-wrapper" ng-class="!clipShow? 'col-lg-10 pull-right': 'col-lg-8'">
-        <div id="main">
-            <div class="page-content">
-                <div class="container">
-                    <div class="page-header">
-                        <h3> Your Clips </h3>
-                    </div>
-                    <div ng-class="!clipShow? 'col-xs-6 col-lg-3' : 'col-xs-6 col-lg-3'" id="clipBox" ng-repeat="clip in clips.data">
-                        <img id="clipBackground" data-ng-src="{{clip.tabImgUrl}}">
-                        </br>
-                        </br>
-                        <a id="clipTitle" ng-href='{{clip.clipUrl}}'>{{clip.title}}</a>
-                        <p><a ng-click="showModal($index, 'lg')" a class="btn btn-default" href="#" role="button">Click for more»</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 pull-right" id="suggestions" ng-if="clipShow">
-        <h1>test test</h1>
-    </div>
+   <!-- Sidebar -->
+   <div id="sidebar-wrapper" class="col-lg-2" ui-view="sidebar">
+   </div>
+   <!-- Clips -->
+   <div id="main-wrapper" ng-class="!clipShow? 'col-lg-10 pull-right': 'col-lg-8'">
+       <div id="main">
+           <div class="page-content">
+               <div class="container">
+                   <div class="page-header">
+                       <h3> Your Clips </h3>
+                   </div>
+                   <div ng-class="!clipShow? 'col-xs-6 col-lg-3' : 'col-xs-6 col-lg-3'" id="clipBox" ng-repeat="clip in clips.data">
+                       <img id="clipBackground" data-ng-src="{{clip.tabImgUrl}}">
+                       </br>
+                       </br>
+                       <a id="clipTitle" ng-href='{{clip.clipUrl}}'>{{clip.title}}</a>
+                       <p><a ng-click="showModal($index, 'lg')" a class="btn btn-default" href="#" role="button">Click for more»</a></p>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <div class="col-lg-2 pull-right" id="suggestions" ng-if="clipShow">
+       <h1>test test</h1>
+   </div>
 </div>
 <!-- Closing div for #wrapper -->

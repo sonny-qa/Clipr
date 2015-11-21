@@ -8,7 +8,7 @@ angular.module('clipr.sidebar',['ui.router'])
   	Clips.loadClipsByCategory(category);
   }
 
-});
+}]);
 
 
 

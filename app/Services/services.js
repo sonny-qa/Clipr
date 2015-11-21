@@ -96,29 +96,29 @@ angular.module('clipr.services', ['ngCookies'])
 
 .factory('AuthService', ['$http', 'Session', '$cookies', '$state', function($http, Session, $cookies, $state) {
 
-   var isAuthenticated = function() {
-       //check local storage return true or false depending on prescence of Clipr cookie
-       //console.log('cookies are delish',$cookies.get('connect.sid'))
-       if ($cookies.get('clipr')) {
-           return true;
-       } else {
-           return false;
-       }
-   };
 
- var logOut = function() {
-   console.log('in logout yo');
-     //remove cookie on logout
-   $cookies.remove('clipr');
-   $state.go('landing');
- };
+    var isAuthenticated = function() {
+        //check local storage return true or false depending on prescence of Clipr cookie
+        console.log('cookies are delish',$cookies.get('clipr'))
+        
+        if ($cookies.get('clipr')) {
+            return true;
+        } else {
+            return false;
+        }
+    };
 
-
- return {
-   isAuthenticated: isAuthenticated,
-   logOut: logOut
- };
-
-}]);
+  var logOut = function() {
+    console.log('in logout yo')
+      //remove cookie on logout
+    $cookies.remove('clipr');
+    $state.go('landing')
+  };
 
 
+  return {
+    isAuthenticated: isAuthenticated,
+    logOut: logOut
+  };
+
+}])

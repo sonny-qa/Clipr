@@ -13,7 +13,9 @@ chrome.browserAction.onClicked.addListener(function(tab) {
         bkmrkObj.url = tab.url;
         bkmrkObj.title = tab.title;
 
+        //add the page image to the bookmark object, and supply a callback to getPageImg
         getPageImg(bkmrkObj,function(data){
+
           //stringify immediately before send
           sendBookmark(JSON.stringify(data))})
 
@@ -48,7 +50,7 @@ var checkAuth = new Promise(function(resolve, reject) {
             });
         });
     };
-    //triiger out auth request immediately upon chrome ext
+    //triger out auth request immediately upon chrome ext
     x.send();
 
 })
@@ -56,13 +58,14 @@ var checkAuth = new Promise(function(resolve, reject) {
 //--------sends creates a bookmark from the current tab & sends to server. expects user email
 function sendBookmark(bkmrkObj) {
 
+<<<<<<< HEAD
     //NOTE change this to https://clipr-app-1.herokuapp.com for heroku
+=======
+    //***NOTE: when hosting on heroku, website variable should be: https://clipr-app-1.herokuapp.com
+>>>>>>> [fix] clips now display, added comments to chrome ext, reenabled image capture on ext
     var website = "http://localhost:3000";
     var postUrl = website + "/user/post/storeclip";
 
-    //var params = '?url=' + url + '&title=' + title.toString() + '&email=' + email.toString();
-
-    //var postUrl = "http://localhost:3000/user/post/storeclip" + params;
 
     // Set up an async POST Request
     var xhr = new XMLHttpRequest();
@@ -85,7 +88,11 @@ var getPageImg = function(bkmrkObj,cb) {
             //disabled this for now
             bkmrkObj.imgUrl = imgUrl;
           
+<<<<<<< HEAD
             //callback for sending bookmark
+=======
+            //apply callback to bookmark object (callback in our case is the send bookmark function)
+>>>>>>> [fix] clips now display, added comments to chrome ext, reenabled image capture on ext
             cb(bkmrkObj)
 
         });

@@ -3,14 +3,18 @@ angular.module('clipr.auth',[])
 .controller('AuthController', function($scope){
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  // console.log("hello");
 }); ;angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 =======
 =======
+=======
+>>>>>>> [fix] clips now display, added comments to chrome ext, reenabled image capture on ext
 
 >>>>>>> [fix]: Fixed identation errors and syntax errors
   console.log("hello");
 });
+<<<<<<< HEAD
 ;angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
 >>>>>>> [fix]: fix grunt errors
 
@@ -27,6 +31,20 @@ angular.module('clipr.auth',[])
   $scope.clipShow= false;
 
   $scope.loadAllClips = function() {
+=======
+
+
+
+;;angular.module('clipr.clipped',['ui.router', 'ui.bootstrap'])
+
+.controller('ClipController',['$scope', 'Clips', '$modal', 'Notes', 'AuthService', function($scope, Clips, $modal, Notes, AuthService){
+
+$scope.clips= Clips.clips
+
+
+  $scope.loadAllClips= function (){
+    console.log('calling load all clips')
+>>>>>>> [fix] clips now display, added comments to chrome ext, reenabled image capture on ext
     Clips.loadAllClips();
   };
 
@@ -58,16 +76,22 @@ angular.module('clipr.auth',[])
     };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> [fix] clips now display, added comments to chrome ext, reenabled image capture on ext
     $scope.opts.resolve.item = function() {
       return angular.copy({
         clipUrl: $scope.clips.data[clipIndex].clipUrl
       }); // pass name to Dialog
     };
+<<<<<<< HEAD
 =======
   $scope.opts.resolve.item = function() {
     return angular.copy({clipUrl:$scope.clips.data[clipIndex].clipUrl}); // pass name to Dialog
   };
 >>>>>>> [fix]: Fixed identation errors and syntax errors
+=======
+>>>>>>> [fix] clips now display, added comments to chrome ext, reenabled image capture on ext
 
     var modalInstance = $modal.open($scope.opts);
     modalInstance.result.then(function() {
@@ -147,7 +171,11 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
 
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 ;angular.module('clipr.services', ['ngCookies'])
+=======
+;;;angular.module('clipr.services', ['ngCookies'])
+>>>>>>> [fix] clips now display, added comments to chrome ext, reenabled image capture on ext
 
 //Session Service
 .service('Session', function() {
@@ -161,19 +189,22 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
     this.userId = null;
   };
 })
+<<<<<<< HEAD
 =======
 ;LandingController.js;ProfileController.js;angular.module('clipr.services', [])
 >>>>>>> [fix]: fix grunt errors
+=======
+>>>>>>> [fix] clips now display, added comments to chrome ext, reenabled image capture on ext
 
 .factory('Clips', ["$http", function($http) {
   //loadClips - hhtp request to server func
   //return back array of clip objects
   var clips = {
     data: null
-  };
+  }
 
   var loadClipsByCategory = function(category) {
-    console.log('category', category);
+    console.log('category', category)
     return $http({
       method: 'POST',
       url: '/loadClipsByCategory',
@@ -182,7 +213,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
       }
     }).then(function(response) {
       console.log('category response yo', response);
-      clips.data = response.data;
+      clips.data = response.data
     });
   };
 
@@ -191,11 +222,19 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
       method: 'GET',
       url: '/loadAllClips'
     }).then(function(response) {
+<<<<<<< HEAD
       console.log('load all clips response', response.data);
       clips.data = response.data;
       console.log(clips);
     });
   };
+=======
+      console.log('load all clips response', response.data)
+      clips.data = response.data
+      console.log(clips)
+    })
+  }
+>>>>>>> [fix] clips now display, added comments to chrome ext, reenabled image capture on ext
 
   return {
     loadClipsByCategory: loadClipsByCategory,
@@ -250,7 +289,8 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
 
     var isAuthenticated = function() {
         //check local storage return true or false depending on prescence of Clipr cookie
-        //console.log('cookies are delish',$cookies.get('connect.sid'))
+        console.log('cookies are delish',$cookies.get('clipr'))
+        
         if ($cookies.get('clipr')) {
             return true;
         } else {
@@ -259,10 +299,10 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
     };
 
   var logOut = function() {
-    console.log('in logout yo');
+    console.log('in logout yo')
       //remove cookie on logout
     $cookies.remove('clipr');
-    $state.go('landing');
+    $state.go('landing')
   };
 
 
@@ -271,7 +311,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
     logOut: logOut
   };
 
-}]);;/**
+}]);/**
  * Main module of the application.
  */
 angular
@@ -288,9 +328,18 @@ angular
         'clipr.auth'
     ])
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+
+.controller("AppController", function($scope, $location) {
+  //authentication
+})
+
+>>>>>>> [fix] clips now display, added comments to chrome ext, reenabled image capture on ext
 .run(function($rootScope,$state, AuthService){
     $rootScope.$on("$stateChangeStart", function(event,toState,toParams,fromState, fromParams){
-        if (toState.authenticate && !AuthService.isAuthenticated()){
+        if (toState.authenticate && !AuthService.isAuthenticated){
             $state.transitionTo("landing");
             event.preventDefault();
         }
@@ -300,11 +349,15 @@ angular
   //authentication
 }])
 
+<<<<<<< HEAD
 =======
 .controller("AppController", function($scope, $location) {
   //authentication
 })
 >>>>>>> [fix]: fix grunt errors
+=======
+
+>>>>>>> [fix] clips now display, added comments to chrome ext, reenabled image capture on ext
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
     //$urlRouterProvider.otherwise('/');
     $stateProvider
