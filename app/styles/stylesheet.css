@@ -1,229 +1,265 @@
 body {
-   background-color: #FFFEFF ;
+    background-color: #FFFEFF;
 }
 
 #suggestions {
-   position: fixed;
-   height: 100%;
-   width: 30%;
-   top: 40px;
-   right: 0px;
-   background-color: #01A2A6 ;
-   overflow: hidden;
+    position: fixed;
+    color: #FFFEFF;
+    height: 100%;
+    width: 30%;
+    top: 40px;
+    right: 0px;
+    background-color: #01A2A6;
+    overflow: hidden;
 }
 
+#suggestTitle {
+    color: #FFFEFF;
+}
 
-.suggestions.ng-enter, .suggestions.ng-leave {
- transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+.suggestions.ng-enter,
+.suggestions.ng-leave {
+    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
 }
 
 .suggestions.ng-enter,
 .suggestions.ng-leave.ng-leave-active {
- opacity:0;
+    opacity: 0;
 }
 
 .suggestions.ng-leave,
 .suggestions.ng-enter.ng-enter-active {
- opacity:1;
+    opacity: 1;
 }
+
 #clipTitle {
-   font-size: 12px;
+    font-size: 12px;
 }
 
 #landing {
-   width: 120%;
-   height: auto;
-   position: relative;
-   margin-left: -90px;
-   margin-top: -50px;
-   z-index: -1;
+    width: 120%;
+    height: auto;
+    position: relative;
+    margin-left: -90px;
+    margin-top: -50px;
+    z-index: -1;
 }
 
 #header.head {
-   background-color: #00657F ;
-   color: white;
+    background-color: #00657F;
+    color: white;
 }
 
 #navLink {
-   color: #FFFEFF ;
+    color: #FFFEFF;
 }
 
 #navbrand {
-   font-family: 'Anton', sans-serif;
-   color: #00657F ;
-   background-color: #FFFEFF ;
+    font-family: 'Anton', sans-serif;
+    color: #00657F;
+    background-color: #FFFEFF;
+    background-color: #00657F;
+    color: white;
+}
+
+#navLink {
+    color: #FFFEFF;
+}
+
+#navbrand {
+    font-family: 'Anton', sans-serif;
+    color: #00657F;
+    background-color: #FFFEFF;
 }
 
 #navbrand:hover {
-   color: #01A2A6 ;
+    color: #01A2A6;
 }
 
 #brand {
-   font-family: 'Anton', sans-serif;
-   position: absolute;
-   color: #FFFEFF ;
+    font-family: 'Anton', sans-serif;
+    position: absolute;
+    color: #FFFEFF;
 }
 
 #brand:hover {
-   color: #00657F ;
+    color: #00657F;
+    font-family: 'Anton', sans-serif;
+    position: absolute;
+    color: #FFFEFF;
+}
+
+#brand:hover {
+    color: #00657F;
 }
 
 #clipSelectWebsite {
-   width: 100%;
-   height: 100%;
-   overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 a {
-   color: #00657F ;
+    color: #00657F;
 }
 
 a:hover {
-   color: #01A2A6 ;
+    color: #01A2A6;
 }
 
-.clipShowWrapper{
-   position: absolute;
-   left: 25%;
+.clipShowWrapper {
+    position: absolute;
+    left: 25%;
+}
 
+.clipShowWrapper {
+    position: absolute;
+    left: 25%;
 }
 
 #clipBackground {
-   width: 60%;
-   height: 60%;
-   position: relative;
-   border-radius: 20px;
-   size: 50%;
-   -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+    width: 60%;
+    height: 60%;
+    position: relative;
+    border-radius: 20px;
+    size: 50%;
+    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
 }
 
 #clipBox {
-   font-size: 14px;
-   border-radius: 20px;
-   background-color: #E8FFE5 ;
-   border: 2px solid #E8FFE5 ;
-   color: #FFFEFF ;
-   margin-top: 5px;
-   padding-top: 15px;
-   margin-left: 10px;
-   text-align: center;
-   height: 250px;
+    font-size: 14px;
+    border-radius: 20px;
+    background-color: #E8FFE5;
+    border: 2px solid #E8FFE5;
+    color: #FFFEFF;
+    margin-top: 5px;
+    padding-top: 15px;
+    margin-left: 10px;
+    text-align: center;
+    height: 250px;
 }
 
 #clipBox:hover {
-   border: 2px solid #E8D3D1 ;
+    border: 2px solid #E8D3D1;
 }
 
+
 #googlebox.btn.btn-block.btn-social.btn-google {
-   width: 15%;
-   background-color: #FFFEFF ;
-   color: black;
-   position: absolute;
-   right: 10px;
-   top: 10px;
-   text-align: center;
-   z-index: 1;
+    width: 15%;
+    background-color: #FFFEFF;
+    color: black;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    text-align: center;
+    z-index: 1;
 }
 
 #modal {
-   height: 500px;
+    height: 500px;
 }
 
 #googlebutton.fa.fa-google {
-   position: absolute;
-   color: #01A2A6 ;
+    position: absolute;
+    color: #01A2A6;
 }
 
 body {
-   padding-top: 50px;
-   overflow: hidden;
-   font-family: 'Raleway', sans-serif;
-   font-size: 20px;
+    padding-top: 50px;
+    overflow: hidden;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
 }
 
 #wrapper {
-   min-height: 100%;
-   height: 100%;
-   width: 100%;
-   position: absolute;
-   top: 0px;
-   left: 0;
-   display: inline-block;
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    display: inline-block;
 }
 
 #main-wrapper {
-   height: 100%;
-   overflow-y: auto;
-   padding: 50px 0 0px 0;
+    height: 100%;
+    overflow-y: auto;
+    padding: 50px 0 0px 0;
 }
 
 #main {
-   position: relative;
-   height: 100%;
-   overflow-y: auto;
-   padding: 0 15px;
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0 15px;
 }
 
 #sidebar-wrapper {
-   height: 100%;
-   padding: 50px 0 0px 0;
-   position: fixed;
-   border-right: 1px solid gray;
+    height: 100%;
+    padding: 50px 0 0px 0;
+    position: fixed;
+    border-right: 1px solid gray;
 }
 
 #sidebar {
-   position: relative;
-   height: 100%;
-   overflow: hidden;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
 }
 
 #sidebar .list-group-item {
-   border-radius: 0;
-   border-left: 0;
-   border-right: 0;
-   border-top: 0;
-   background-color: #FFFEFF ;
-   color: #00657F ;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    background-color: #FFFEFF;
+    color: #00657F;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    background-color: #FFFEFF;
+    color: #00657F;
 }
 
 .list-group-item:hover {
-   color: #01A2A6 
+    color: #01A2A6
 }
 
 h3 {
-   color: #00657F ;
+    color: #00657F;
 }
 
 @media (max-width: 992px) {
-   body {
-       padding-top: 0px;
-   }
+    body {
+        padding-top: 0px;
+    }
 }
 
 @media (min-width: 992px) {
-   #main-wrapper {
-       float: right;
-   }
+    #main-wrapper {
+        float: right;
+    }
 }
 
 @media (max-width: 992px) {
-   #main-wrapper {
-       padding-top: 0px;
-   }
+    #main-wrapper {
+        padding-top: 0px;
+    }
 }
 
 @media (max-width: 992px) {
-   #sidebar-wrapper {
-       position: static;
-       height: auto;
-       max-height: 300px;
-       border-right: 0;
-   }
+    #sidebar-wrapper {
+        position: static;
+        height: auto;
+        max-height: 300px;
+        border-right: 0;
+    }
 }
 
 .footer {
-   background-color: #ffffff ;
-   bottom: 0;
-   position: fixed;
-   padding: 10px;
+    background-color: #ffffff;
+    bottom: 0;
+    position: fixed;
+    padding: 10px;
 }
