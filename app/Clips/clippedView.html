@@ -15,45 +15,40 @@
     <div id="sidebar-wrapper" class="col-lg-2" ui-view="sidebar">
     </div>
     <!-- Clips -->
-    <div id="main-wrapper" ng-class="col-lg-10" ng-if="!clipShow">
+    <div id="main-wrapper" class="col-lg-10" ng-if="!clipShow">
         <div id="main">
             <div class="page-content">
                 <div class="page-header">
                     <h3> Your Clips </h3>
                 </div>
-                <div class="row">
-                    <div class="col-xs-6 col-lg-3" id="clipBox" ng-repeat="clip in clips.data">
-                        <img id="clipBackground" data-ng-src="{{clip.tabImgUrl}}">
-                        </br>
-                        </br>
-                        <a id="clipTitle" ng-href='{{clip.clipUrl}}'>{{clip.title}}</a>
-                        <p><a ng-click="showModal($index, 'lg')" a class="btn btn-default" href="#" role="button">Click for more»</a></p>
-                    </div>
+                <div class="col-xs-6 col-lg-3" id="clipBox" ng-repeat="clip in clips.data">
+                    <img id="clipBackground" data-ng-src="{{clip.tabImgUrl}}">
+                    </br>
+                    </br>
+                    <a id="clipTitle" ng-href='{{clip.clipUrl}}'>{{clip.title}}</a>
+                    <p><a ng-click="showModal($index, 'lg')" a class="btn btn-default" href="#" role="button">Click for more»</a></p>
                 </div>
             </div>
         </div>
     </div>
-    <div id="main-wrapper" ng-class="col-lg-8" ng-if="clipShow">
+    <div id="main-wrapper" class="col-lg-8" ng-if="clipShow">
         <div id="main">
             <div class="page-content">
                 <div class="page-header">
                     <h3> Your Clips </h3>
                 </div>
-                <div class="row">
-                    <div class="col-xs-6" id="clipBox" ng-repeat="clip in clips.data">
-                        <img id="clipBackground" data-ng-src="{{clip.tabImgUrl}}">
-                        </br>
-                        </br>
-                        <a id="clipTitle" ng-href='{{clip.clipUrl}}'>{{clip.title}}</a>
-                        <p><a ng-click="showModal($index, 'lg')" a class="btn btn-default" href="#" role="button">Click for more»</a></p>
-                    </div>
+                <div class="col-xs-6" id="clipBox" ng-repeat="clip in clips.data">
+                    <img id="clipBackground" data-ng-src="{{clip.tabImgUrl}}">
+                    </br>
+                    </br>
+                    <a id="clipTitle" ng-href='{{clip.clipUrl}}'>{{clip.title}}</a>
+                    <p><a ng-click="showModal($index, 'lg')" a class="btn btn-default" href="#" role="button">Click for more»</a></p>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="col-lg-2 pull-right" id="suggestions" ng-if="clipShow">
-    <h3 id="suggestTitle">Suggested Clips</h3>
-</div>
+    <div class="col-lg-2 pull-right" id="suggestions" ng-if="clipShow">
+        <h3 id="suggestTitle">Suggested Clips</h3>
+    </div>
 </div>
 <!-- Closing div for #wrapper -->
