@@ -143,30 +143,6 @@ a:hover {
     border: 2px solid #E8D3D1;
 }
 
-#googlebox.btn.btn-block.btn-social.btn-google {
-    width: 15%;
-    background-color: #FFFEFF;
-    color: black;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    text-align: center;
-    z-index: 1;
-    =======font-size: 14px;
-    border-radius: 20px;
-    background-color: #E8FFE5;
-    border: 2px solid #E8FFE5;
-    color: #FFFEFF;
-    margin-top: 5px;
-    padding-top: 15px;
-    margin-left: 10px;
-    text-align: center;
-    height: 250px;
-}
-
-#clipBox:hover {
-    border: 2px solid #E8D3D1;
-}
 
 #googlebox.btn.btn-block.btn-social.btn-google {
     width: 15%;
