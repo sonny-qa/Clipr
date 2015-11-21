@@ -1,111 +1,116 @@
 angular.module('clipr.auth',[])
 
 .controller('AuthController', function($scope){
- // console.log("hello");
-}); ;angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
+
+  console.log("hello");
+
+});;;angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
 .controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', function($scope, Clips, $modal, Notes, AuthService, $aside) {
 
-  $scope.clips = Clips.clips;
-  $scope.clipShow= false;
+ $scope.clips = Clips.clips;
+ $scope.clipShow= false;
 
-  $scope.loadAllClips = function() {
-    Clips.loadAllClips();
-  };
+ $scope.loadAllClips = function() {
+   Clips.loadAllClips();
+ };
 
-  $scope.loadAllClips();
+ $scope.loadAllClips();
 
-  $scope.logOut = function() {
-    AuthService.logOut();
-  };
+ $scope.logOut = function() {
+   AuthService.logOut();
+ };
 
-  $scope.clipToggle = function() {
-  	if($scope.clipShow===false){
-  		$scope.clipShow=true;
-  	}
-  	if($scope.clipShow===true){
-  		$scope.clipShow=false;
-  	}
-  }
+ $scope.clipToggle = function() {
+     if($scope.clipShow===false){
+         $scope.clipShow=true;
+     }
+     if($scope.clipShow===true){
+         $scope.clipShow=false;
+     }
+ }
 
-  $scope.showModal = function(clipIndex, size) {
-    $scope.opts = {
-      size: size,
-      backdrop: true,
-      backdropClick: true,
-      dialogFade: false,
-      keyboard: true,
-      templateUrl: './clipSelect/clipSelectView.html',
-      controller: ModalInstanceCtrl,
-      resolve: {}
-    };
+ $scope.showModal = function(clipIndex, size) {
+   $scope.opts = {
+     size: size,
+     backdrop: true,
+     backdropClick: true,
+     dialogFade: false,
+     keyboard: true,
+     templateUrl: './clipSelect/clipSelectView.html',
+     controller: ModalInstanceCtrl,
+     resolve: {}
+   };
 
-    $scope.opts.resolve.item = function() {
-      return angular.copy({
-        clipUrl: $scope.clips.data[clipIndex].clipUrl
-      }); // pass name to Dialog
-    };
+   $scope.opts.resolve.item = function() {
+     return angular.copy({
+       clipUrl: $scope.clips.data[clipIndex].clipUrl
+     }); // pass name to Dialog
+   };
 
-    var modalInstance = $modal.open($scope.opts);
-    modalInstance.result.then(function() {
-      //on ok button press
-    }, function() {
-      //on cancel button press
-      console.log("Modal Closed");
-    });
-  };
+   var modalInstance = $modal.open($scope.opts);
+   modalInstance.result.then(function() {
+     //on ok button press
+   }, function() {
+     //on cancel button press
+     console.log("Modal Closed");
+   });
+ };
 
-  $scope.openAside = function(position) {
-    console.log('inside asiiiiideee');
-    $aside.open({
-      templateUrl: './Suggestions/categorySuggestionsView.html',
-      placement: position,
-      backdrop: false,
-      controller: function($scope, $modalInstance) {
-        $scope.ok = function(e) {
-          $modalInstance.close();
-          e.stopPropagation();
-        };
-        $scope.cancel = function(e) {
-          $modalInstance.dismiss();
-          e.stopPropagation();
-        };
-      }
-    })
-  }
+ $scope.openAside = function(position) {
+   console.log('inside asiiiiideee');
+   $aside.open({
+     templateUrl: './Suggestions/categorySuggestionsView.html',
+     placement: position,
+     backdrop: false,
+     controller: function($scope, $modalInstance) {
+       $scope.ok = function(e) {
+         $modalInstance.close();
+         e.stopPropagation();
+       };
+       $scope.cancel = function(e) {
+         $modalInstance.dismiss();
+         e.stopPropagation();
+       };
+     }
+   })
+ }
 
 }]);
 
 var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes) {
 
-  $scope.item = item;
-  $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clipUrl);
-  $scope.notes = Notes.notesObj;
+ $scope.item = item;
+ $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clipUrl);
+ $scope.notes = Notes.notesObj;
 
-  $scope.ok = function() {
-    $modalInstance.close();
-  };
+ $scope.ok = function() {
+   $modalInstance.close();
+ };
 
-  $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
-  };
+ $scope.cancel = function() {
+   $modalInstance.dismiss('cancel');
+ };
 
-  //On 'save', make call to server with notes and site url
-  //fetch Notes and display it
-  $scope.save = function(userNotes) {
-    $scope.NoteAndUrl = {
-      note: userNotes,
-      url: $scope.item.clipUrl
-    };
-    console.log('Notes being passed to server', $scope.NoteAndUrl);
-    Notes.addNotes($scope.NoteAndUrl);
-  };
+ //On 'save', make call to server with notes and site url
+ //fetch Notes and display it
+ $scope.save = function(userNotes) {
+   $scope.NoteAndUrl = {
+     note: userNotes,
+     url: $scope.item.clipUrl
+   };
+   console.log('Notes being passed to server', $scope.NoteAndUrl);
+   Notes.addNotes($scope.NoteAndUrl);
+ };
 
-  $scope.display = function() {
-    console.log('display function!!!');
-    Notes.loadNotes($scope.item.clipUrl);
-  };
-};;angular.module('clipr.header',['ui.router']);
+ $scope.display = function() {
+   console.log('display function!!!');
+   Notes.loadNotes($scope.item.clipUrl);
+ };
+};
+
+
+;angular.module('clipr.header',['ui.router']);
 
 
 
@@ -114,116 +119,120 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
 
 .controller('SidebarController',['$scope', 'Clips', function($scope, Clips){
 
+  console.log("placeholder to make linter happy");
+
   $scope.loadClipsByCategory= function(category){
   	Clips.loadClipsByCategory(category);
-  };
+  }
 
 }]);
 
 
 
 	
-;angular.module('clipr.services', ['ngCookies'])
+;;;angular.module('clipr.services', ['ngCookies'])
 
 //Session Service
 .service('Session', function() {
-  this.create = function(sessionId, userId) {
-    this.id = sessionId;
-    this.userId = userId;
-  };
+ this.create = function(sessionId, userId) {
+   this.id = sessionId;
+   this.userId = userId;
+ };
 
-  this.destroy = function() {
-    this.id = null;
-    this.userId = null;
-  };
+ this.destroy = function() {
+   this.id = null;
+   this.userId = null;
+ };
 })
 
 .factory('Clips', ["$http", function($http) {
-  //loadClips - hhtp request to server func
-  //return back array of clip objects
-  var clips = {
-    data: null
-  };
+ //loadClips - hhtp request to server func
+ //return back array of clip objects
+ var clips = {
+   data: null
+ };
 
-  var loadClipsByCategory = function(category) {
-    console.log('category', category);
-    return $http({
-      method: 'POST',
-      url: '/loadClipsByCategory',
-      params: {
-        category: category
-      }
-    }).then(function(response) {
-      console.log('category response yo', response);
-      clips.data = response.data;
-    });
-  };
+ var loadClipsByCategory = function(category) {
+   console.log('category', category);
+   return $http({
+     method: 'POST',
+     url: '/loadClipsByCategory',
+     params: {
+       category: category
+     }
+   }).then(function(response) {
+     console.log('category response yo', response);
+     clips.data = response.data;
+   });
+ };
 
-  var loadAllClips = function() {
-    return $http({
-      method: 'GET',
-      url: '/loadAllClips'
-    }).then(function(response) {
-      console.log('load all clips response', response.data);
-      clips.data = response.data;
-      console.log(clips);
-    });
-  };
+ var loadAllClips = function() {
+   return $http({
+     method: 'GET',
+     url: '/loadAllClips'
+   }).then(function(response) {
+     console.log('load all clips response', response.data);
+     clips.data = response.data;
+     console.log(clips);
+   });
+ };
 
-  return {
-    loadClipsByCategory: loadClipsByCategory,
-    loadAllClips: loadAllClips,
-    clips: clips
-  };
+ return {
+   loadClipsByCategory: loadClipsByCategory,
+   loadAllClips: loadAllClips,
+   clips: clips
+ };
 
 }])
 
 .factory('Notes', ["$http", function($http) {
 
-    var notesObj = {
-        data: []
-    };
+   var notesObj = {
+       data: []
+   };
 
-    var loadNotes = function(param) {
-        return $http({
-                method: 'GET',
-                url: '/user/get/loadNotes',
-                params: {
-                    url: param
-                }
-            })
-            .then(function(response) {
-                notesObj.data = response.data;
-                console.log(notesObj);
-            });
-    };
+   var loadNotes = function(param) {
+       return $http({
+               method: 'GET',
+               url: '/user/get/loadNotes',
+               params: {
+                   url: param
+               }
+           })
+           .then(function(response) {
+               notesObj.data = response.data;
+               console.log(notesObj);
+           });
+   };
 
-    var addNotes = function(param) {
-        return $http({
-                method: 'POST',
-                url: '/user/post/addNote',
-                params: param
-            })
-            .then(function(response) {
-                console.log('factory response', response);
-                notesObj.data.push(response.data);
-                console.log('notesArr inside addNotes', notesObj);
-            });
-    };
-    return {
-        loadNotes: loadNotes,
-        addNotes: addNotes,
-        notesObj: notesObj
-    };
+   var addNotes = function(param) {
+       return $http({
+               method: 'POST',
+               url: '/user/post/addNote',
+               params: param
+           })
+           .then(function(response) {
+               console.log('factory response', response);
+               notesObj.data.push(response.data);
+               console.log('notesArr inside addNotes', notesObj);
+           });
+   };
+   return {
+       loadNotes: loadNotes,
+       addNotes: addNotes,
+       notesObj: notesObj
+   };
 
 
 }])
 
 .factory('AuthService', ['$http', 'Session', '$cookies', '$state', function($http, Session, $cookies, $state) {
 
+
     var isAuthenticated = function() {
         //check local storage return true or false depending on prescence of Clipr cookie
-        //console.log('cookies are delish',$cookies.get('connect.sid'))
+        console.log('cookies are delish',$cookies.get('clipr'))
+        
         if ($cookies.get('clipr')) {
             return true;
         } else {
@@ -232,10 +241,10 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
     };
 
   var logOut = function() {
-    console.log('in logout yo');
+    console.log('in logout yo')
       //remove cookie on logout
     $cookies.remove('clipr');
-    $state.go('landing');
+    $state.go('landing')
   };
 
 
@@ -244,7 +253,8 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
     logOut: logOut
   };
 
-}]);;/**
+}])
+;/**
  * Main module of the application.
  */
 angular
@@ -260,17 +270,18 @@ angular
         'clipr.suggested',
         'clipr.auth'
     ])
-.run(function($rootScope,$state, AuthService){
-    $rootScope.$on("$stateChangeStart", function(event,toState,toParams,fromState, fromParams){
-        if (toState.authenticate && !AuthService.isAuthenticated()){
-            $state.transitionTo("landing");
-            event.preventDefault();
-        }
-    });
-})
-.controller("AppController", ['$scope', '$location', function($scope, $location) {
-  //authentication
-}])
+
+.run(function($rootScope, $state, AuthService) {
+        $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+            if (toState.authenticate && !AuthService.isAuthenticated()) {
+                $state.transitionTo("landing");
+                event.preventDefault();
+            }
+        });
+    })
+    .controller("AppController", ['$scope', '$location', function($scope, $location) {
+        //authentication
+    }])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
     //$urlRouterProvider.otherwise('/');
@@ -286,7 +297,7 @@ angular
             }
         })
         .state('main', {
-            authenticate : true,
+            authenticate: true,
             url: "/clips",
             views: {
                 "main": {
@@ -303,6 +314,7 @@ angular
                 }
             }
         })
+
 }]);angular.module('clipr.suggested',['ui.router']);
 
 
