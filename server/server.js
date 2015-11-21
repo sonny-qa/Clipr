@@ -265,7 +265,7 @@ app.get('/user/get/loadNotes', function(req, res) {
 
 //fetches a user node based on an email
 var fetchUserByEmail = function(email, cb) {
-    var cypher = "MATCH (node: User)" +
+    var cypher = "MATCH (node:User)" +
         " WHERE node.email = " +
         "'" + email + "'" +
         " RETURN node";
