@@ -1,23 +1,28 @@
 {
-  "name": "My Bookmarks",
-  "version": "1.1",
-  "description": "A browser action with a popup dump of all bookmarks, including search, add, edit and delete.",
-  "permissions": [
-    "tabs","activeTab","http://*/*","https://*/*","file://*/*", "bookmarks", "<all_urls>"
-  ],
-  "icons": {
-    "16": "dragon.png",
-    "42": "dragon.png",
-    "128": "dragon.png"
-  },
-  "browser_action": {
-      "default_title": "My Bookmarks",
-      "default_icon": "dragon.png"
-  },
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
-  "manifest_version": 2
-}
+    "name": "My Bookmarks",
+    "version": "1.1",
+    "description": "A browser action with a popup dump of all bookmarks, including search, add, edit and delete.",
+    "permissions": [
+        "tabs", "activeTab", "http://*/*", "https://*/*", "file://*/*", "bookmarks", "<all_urls>", "identity", "identity.email"
+    ],
+    "oauth2": {
+        "client_id": "313073444392-hcbme8h90e4m4vef5aqev4q2p0t4nugo.apps.googleusercontent.com",
+        "scopes": ["https://www.googleapis.com/auth/plus.login"]
+    },
+    "icons": {
+        "16": "dragon.png",
+        "42": "dragon.png",
+        "128": "dragon.png"
+    },
+    "browser_action": {
+        "default_title": "My Bookmarks",
+        "default_icon": "dragon.png"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgMcjCq0XBV1kqwy+aBc/MrPSEJ+rvYaRNSL8193hGZyb5zeQP53NwtXUuP887uPpe/8am9arb3oObShOeYoL9rxSumdXZCl/5Qc6CGPHJW2Vdzfwfca0xTJnAOippJTZjsE+jQLRU0ZE9+J5SRZ3uFVXhPiH+G6oxhlzE6IQVhe33x1ontVtqEj/YJEub+aNFm0Sz+/ZcIKU5eTgNk+gQdc1FNT7KUm+DAVdyx0QYLpqodSrXHq0m1+JVMTw8immwkxNWe0t4ovBgrA6gy2okSJr8PSzG5WWjGzhcEHrfWonX03vB8TiHjtT8ImjemBmJ5HnPYg+x+lMjekl4lIb/QIDAQAB",
+    "manifest_version": 2
 
+}
