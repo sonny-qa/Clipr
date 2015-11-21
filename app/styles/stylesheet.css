@@ -1,3 +1,35 @@
+body {
+    background-color: #FFFEFF;
+}
+
+#suggestions {
+    position: fixed;
+    height: 100%;
+    width: 30%;
+    top: 40px;
+    right: 0px;
+    background-color: #01A2A6;
+    overflow: hidden;
+}
+
+
+.suggestions.ng-enter, .suggestions.ng-leave {
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.suggestions.ng-enter,
+.suggestions.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+.suggestions.ng-leave,
+.suggestions.ng-enter.ng-enter-active {
+  opacity:1;
+}
+#clipTitle {
+    font-size: 12px;
+}
+
 #landing {
     width: 120%;
     height: auto;
@@ -8,7 +40,7 @@
 }
 
 #header.head {
-    background-color: rgb(53, 124, 143);
+    background-color: #2F2933;
     color: white;
 }
 
@@ -18,8 +50,12 @@
 
 #navbrand {
     font-family: 'Anton', sans-serif;
-    color: rgb(53, 124, 143);
-    background-color: white;
+    color: #FFFEFF;
+    background-color: #01A2A6;
+}
+
+#navbrand:hover {
+    color: #01A2A6;
 }
 
 #brand {
@@ -29,7 +65,7 @@
 }
 
 #brand:hover {
-    color: rgb(53, 124, 143);
+    color: #2F2933;
 }
 
 #clipSelectWebsite {
@@ -39,28 +75,37 @@
 }
 
 a {
-    color: black;
+    color: #2F2933;
 }
 
 a:hover {
-    color: rgb(53, 124, 143);
+    color: #01A2A6;
+}
+
+#clipBackground {
+    width: 60%;
+    height: 60%;
+    position: relative;
+    border-radius: 20px;
+    size: 50%;
+    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
 }
 
 #clipBox {
     font-size: 14px;
     border-radius: 20px;
-    background-color: #fafafa;
-    border: 2px solid #fafafa;
+    background-color: #D1D9D8;
+    border: 2px solid #D1D9D8;
     color: white;
     margin-top: 5px;
     padding-top: 15px;
     margin-left: 10px;
     text-align: center;
-    height: 175px;
+    height: 250px;
 }
 
-#clipBox:hover{
-	border:2px solid #d7d7d7;
+#clipBox:hover {
+    border: 2px solid #2F2933;
 }
 
 #googlebox.btn.btn-block.btn-social.btn-google {
@@ -80,7 +125,7 @@ a:hover {
 
 #googlebutton.fa.fa-google {
     position: absolute;
-    color: rgb(53, 124, 143);
+    color: #01A2A6;
 }
 
 body {
@@ -131,6 +176,16 @@ body {
     border-left: 0;
     border-right: 0;
     border-top: 0;
+    background-color: #FFFEFF;
+    color: #2F2933;
+}
+
+.list-group-item:hover {
+    color: #01A2A6
+}
+
+h3 {
+    color: #2F2933;
 }
 
 @media (max-width: 992px) {
