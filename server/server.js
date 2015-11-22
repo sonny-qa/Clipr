@@ -112,24 +112,6 @@ passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
 
-
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-app.use(express.static(__dirname + '../../app'));
-
-// Set Response Headers
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-
-app.use(compression());
-
 // ROUTES
 
 app.get('/auth/google',
@@ -155,11 +137,7 @@ app.get('/auth/google/callback',
 // Get all existing bookmarks from users google bookmarks
 // THIS ROUTE IS USED TO TEST THAT SERVER IS GETTING ALL BOOKMARKS
 app.post('/user/post/getAllBookmarks', function(req, res) {
-    // console.log("--------------");
-    // console.dir(req.body);
-    // console.log(req);
-    // console.log("--------------");
-    // console.log("");
+
 });
 
 // Get a new bookmark from client
@@ -277,11 +255,6 @@ var fetchUserByEmail = function(email, cb) {
 };
 
 var createRelation = function(clip, tag, how, relevance, cb) {
-    // console.log('clip:', clip);
-    // console.log('tag:', tag);
-    // console.log('how:', how);
-    // console.log('rel:', relevance);
-
 
     db.relate(clip, how, tag, {
         relevance: 3
