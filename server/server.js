@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
-var compression = require('compression');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // var router = require('./router.js');
