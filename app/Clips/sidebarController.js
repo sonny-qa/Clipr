@@ -6,10 +6,10 @@ angular.module('clipr.sidebar',['ui.router'])
 
   $scope.loadClipsByCategory= function(category){
   	Clips.loadClipsByCategory(category);
-  };
+  }
 
 }]);
 
 
 
-
+	

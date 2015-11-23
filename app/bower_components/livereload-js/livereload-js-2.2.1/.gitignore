@@ -1,5 +1,0 @@
-.DS_Store
-lib/*.js
-node_modules/
-*.tgz
-npm-debug.log
