@@ -28,7 +28,7 @@ angular.module('clipr.auth',[])
      if($scope.clipShow===true){
          $scope.clipShow=false;
      }
- };
+ }
 
  $scope.showModal = function(clipIndex, size) {
    $scope.opts = {
@@ -73,8 +73,8 @@ angular.module('clipr.auth',[])
          e.stopPropagation();
        };
      }
-   });
- };
+   })
+ }
 
 }]);
 
@@ -123,13 +123,13 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
 
   $scope.loadClipsByCategory= function(category){
   	Clips.loadClipsByCategory(category);
-  };
+  }
 
 }]);
 
 
 
-
+	
 ;;;angular.module('clipr.services', ['ngCookies'])
 
 //Session Service
@@ -231,8 +231,8 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
 
     var isAuthenticated = function() {
         //check local storage return true or false depending on prescence of Clipr cookie
-        console.log('cookies are delish',$cookies.get('clipr'));
-
+        console.log('cookies are delish',$cookies.get('clipr'))
+        
         if ($cookies.get('clipr')) {
             return true;
         } else {
@@ -241,10 +241,10 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
     };
 
   var logOut = function() {
-    console.log('in logout yo');
+    console.log('in logout yo')
       //remove cookie on logout
     $cookies.remove('clipr');
-    $state.go('landing');
+    $state.go('landing')
   };
 
 
@@ -253,7 +253,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
     logOut: logOut
   };
 
-}]);
+}])
 ;/**
  * Main module of the application.
  */

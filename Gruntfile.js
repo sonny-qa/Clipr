@@ -27,9 +27,7 @@ module.exports = function(grunt) {
         '!app/dist/',
         'server/**/*.js',
         'server/config/*.js',
-        'Gruntfile.js',
-        'chrome_ext/**/*.js',
-        'test/**/*.js'
+        'chrome_ext/**/*.js'
       ]
     },
 
@@ -59,15 +57,7 @@ module.exports = function(grunt) {
     //     }
     //   }
     // },
-
-
-    // this task deletes ‘stuff’ - use with caution!
-    clean: {
-      release: [
-        'app/dist/**/'
-      ]
-    },
-
+    
     // Concatenates JS Files
     concat: {
       options: {
@@ -107,16 +97,13 @@ module.exports = function(grunt) {
       }
     },
 
-    //Compress Images
-    imagemin : {
-      dynamic: {
-        files : [{
-          expand: true,
-          cwd: 'app/assets/',
-          src: 'images/*.{png,jpg,gif}',
-          dest: 'app/dist/'
-        }]
-      }
+    // grunt uncss - Work-in-Progress
+
+    // this task deletes ‘stuff’ - use with caution!
+    clean: {
+      all: [
+        'app/dist/**/'
+      ]
     },
 
     // Watches back-end files for changes, restarts the server
@@ -207,5 +194,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
   grunt.registerTask('dev', ['build']);
   grunt.registerTask('server', ['express', 'open', 'watch']);
-  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin', 'imagemin']);
+  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin']);
 };

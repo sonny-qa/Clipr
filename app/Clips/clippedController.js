@@ -22,7 +22,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
      if($scope.clipShow===true){
          $scope.clipShow=false;
      }
- };
+ }
 
  $scope.showModal = function(clipIndex, size) {
    $scope.opts = {
@@ -67,8 +67,8 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
          e.stopPropagation();
        };
      }
-   });
- };
+   })
+ }
 
 }]);
 
