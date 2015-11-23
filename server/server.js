@@ -10,9 +10,11 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // var router = require('./router.js');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var keysAndPassword = require('../apiKeysAndPasswords.js');
 
-var clientID = '956444297317-c7q8o48o6trac3u2c81l5q6vf31r30up.apps.googleusercontent.com';
-var clientSecret = 'reN8EHttjTzrGmvC6_C4oivR';
+// Used in Google OAuth
+var clientID = process.env.clientID || keysAndPassword.clientID;
+var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
 
 var website = (process.env.SITE || "http://localhost:3000");
 var callbackURL = website + '/auth/google/callback';
