@@ -2,3 +2,4 @@
 /.tmp
 /.sass-cache
 .travis.yml
+app/bower_components/
