@@ -2,26 +2,6 @@
 // Helper Functions
 //*******************************************************************
 
-
-//listener for sending in new bookmark
-chrome.browserAction.onClicked.addListener(function(tab) {
-
-    //check auth first to get email
-    checkAuth.then(function(bkmrkObj) {
-
-        //set tab info from current tab onto bkmrkobj
-        bkmrkObj.url = tab.url;
-        bkmrkObj.title = tab.title;
-
-        console.log('sending in ext',bkmrkObj)
-        getPageImg(bkmrkObj,function(data){
-          //stringify immediately before send
-          sendBookmark(JSON.stringify(data))})
-
-        })
-})
-
-
 //------Promisified check auth function to be run first
 var checkAuth = new Promise(function(resolve, reject) {
     //instantiate an XML request object
@@ -42,17 +22,17 @@ var checkAuth = new Promise(function(resolve, reject) {
             // async callback, once the user has signed in, we can request profile info...
             chrome.identity.getProfileUserInfo(function(userInfo) {
                 //attach email property, requested in scope, to the userObj
-                var bkmrkObj = {}
+                var bkmrkObj = {};
 
-                bkmrkObj.email = userInfo.email
-                resolve(bkmrkObj)
+                bkmrkObj.email = userInfo.email;
+                resolve(bkmrkObj);
             });
         });
     };
     //triiger out auth request immediately upon chrome ext
     x.send();
 
-})
+});
 
 //--------sends creates a bookmark from the current tab & sends to server. expects user email
 function sendBookmark(bkmrkObj) {
@@ -72,7 +52,7 @@ function sendBookmark(bkmrkObj) {
 
     // xhr.setRequestHeader('Content-Type', 'application/json');
     // Send the request
-    console.log('sending bkmrkobj',bkmrkObj)
+    console.log('sending bkmrkobj',bkmrkObj);
     xhr.send(bkmrkObj);
 }
 
@@ -84,19 +64,61 @@ var getPageImg = function(bkmrkObj,cb) {
         }, function(imgUrl) {
 
             //disabled this for now
-            bkmrkObj.imgUrl = ""
-          
+            bkmrkObj.imgUrl = imgUrl;
+
             //callback for sending bookmark
-            cb(bkmrkObj)
+            cb(bkmrkObj);
 
         });
 
-        
+
     });
 
 };
 
+//*******************************************************************
+// Event Listeners
+//*******************************************************************
 
+//listener for sending in new bookmark
+chrome.browserAction.onClicked.addListener(function(tab) {
 
+    //check auth first to get email
+    checkAuth.then(function(bkmrkObj) {
 
+        //set tab info from current tab onto bkmrkobj
+        bkmrkObj.url = tab.url;
+        bkmrkObj.title = tab.title;
+
+        console.log('sending in ext',bkmrkObj);
+        getPageImg(bkmrkObj,function(data){
+          //stringify immediately before send
+          sendBookmark(JSON.stringify(data));
+          });
+
+        });
+});
+
+//On Install, get all chrome bookmarks
+
+// chrome.runtime.onInstalled.addListener(function(){
+
+//   var bm_urls = [];
+
+//   function fetch_bookmarks(parentNode) {
+//     parentNode.forEach(function(bookmark) {
+//       if (!(bookmark.url === undefined || bookmark.url === null)) {
+//         bm_urls.push(bookmark.url);
+//     }
+//     if (bookmark.children) {
+//       fetch_bookmarks(bookmark.children);
+//     }
+//   });
+// }
+
+//   chrome.bookmarks.getTree(function(rootNode) {
+//     fetch_bookmarks(rootNode);
+//     sendAllBookmarks(JSON.stringify(bm_urls));
+//   });
+// });
 
