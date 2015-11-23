@@ -99,8 +99,8 @@ angular.module('clipr.services', ['ngCookies'])
 
     var isAuthenticated = function() {
         //check local storage return true or false depending on prescence of Clipr cookie
-        console.log('cookies are delish',$cookies.get('clipr'))
-        
+        console.log('cookies are delish',$cookies.get('clipr'));
+
         if ($cookies.get('clipr')) {
             return true;
         } else {
@@ -109,10 +109,10 @@ angular.module('clipr.services', ['ngCookies'])
     };
 
   var logOut = function() {
-    console.log('in logout yo')
+    console.log('in logout yo');
       //remove cookie on logout
     $cookies.remove('clipr');
-    $state.go('landing')
+    $state.go('landing');
   };
 
 
@@ -121,4 +121,4 @@ angular.module('clipr.services', ['ngCookies'])
     logOut: logOut
   };
 
-}])
+}]);

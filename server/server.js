@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
-var compression = require('compression');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // var router = require('./router.js');
@@ -14,7 +13,9 @@ var cookieParser = require('cookie-parser');
 
 var clientID = '956444297317-c7q8o48o6trac3u2c81l5q6vf31r30up.apps.googleusercontent.com';
 var clientSecret = 'reN8EHttjTzrGmvC6_C4oivR';
-var callbackURL = 'http://localhost:3000/auth/google/callback';
+
+var website = (process.env.SITE || "http://localhost:3000");
+var callbackURL = website + '/auth/google/callback';
 
 // INITIALIZE SERVER
 var port = process.env.PORT || 3000;
@@ -28,6 +29,7 @@ var db = require('seraph')({
 });
 
 
+//CONFIG SERVER - MIDDLEWARE
 app.use(session({
     secret: 'this is a secret',
     resave: true,
@@ -60,7 +62,7 @@ passport.use(new GoogleStrategy({
     callbackURL: callbackURL,
 
 }, function(accessToken, refreshToken, profile, done) {
-    console.log('looking for gid', profile)
+    console.log('looking for gid', profile);
     var cypher = "MATCH (node: User)" +
         " WHERE node.username = " +
         "'" + profile.displayName + "'" +
@@ -113,24 +115,6 @@ passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
 
-
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-app.use(express.static(__dirname + '../../app'));
-
-// Set Response Headers
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-
-app.use(compression());
-
 // ROUTES
 
 app.get('/auth/google',
@@ -148,7 +132,7 @@ app.get('/auth/google/callback',
     }),
     function(req, res) {
         //when they come back after a successful login, setup clipr cookie
-        res.cookie('clipr', req.session.passport.user.accessToken)
+        res.cookie('clipr', req.session.passport.user.accessToken);
             // Successful authentication, redirect home.
         res.redirect('/#/clips');
     });
@@ -156,10 +140,10 @@ app.get('/auth/google/callback',
 // Get all existing bookmarks from users google bookmarks
 // THIS ROUTE IS USED TO TEST THAT SERVER IS GETTING ALL BOOKMARKS
 app.post('/user/post/getAllBookmarks', function(req, res) {
-    // console.log("--------------");
-    // console.dir(req.body);
+    console.log("--------------");
+    console.dir(req.body);
     // console.log(req);
-    // console.log("--------------");
+    console.log("--------------");
     // console.log("");
 });
 
@@ -167,12 +151,12 @@ app.post('/user/post/getAllBookmarks', function(req, res) {
 app.post('/user/post/storeclip', function(req, res) {
     console.log('REQUEST', req.body);
 
-    var email = req.body.email
+    var email = req.body.email;
 
     db.save({
         clipUrl: req.body.url,
-        title: req.body.title
-            // imgUrl : req.query.imgUrl
+        title: req.body.title,
+        imgUrl : req.body.imgUrl
     }, function(err, clipNode) {
         if (err) throw err;
         console.log('clipnode', clipNode);
@@ -182,18 +166,18 @@ app.post('/user/post/storeclip', function(req, res) {
             //at this point we have the clip node created, so find the user and relate clip->user
 
             fetchUserByEmail(email, function(userNode) {
-                console.log('the user node:', userNode)
+                console.log('the user node:', userNode);
                 createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {
-                    console.log('relationship created from', fromNode)
-                })
-            })
+                    console.log('relationship created from', fromNode);
+                });
+            });
             //query watson, and loop over top 3 results creating a keyword node for each
             createWatsonUrl(clipNode.clipUrl, function(keywords) {
                 for (var i = 0; i < 3; i++) {
                     storeTags(keywords[i], function(tagNode, relevance) {
                         //create relationship between each keyword node and the clip node
                         createRelation(clipNode, tagNode, relevance, 'contains', function(fromNode) {
-                            console.log('relationship between clip& tag node created')
+                            console.log('relationship between clip& tag node created');
 
                         });
                     });
@@ -246,7 +230,7 @@ app.post('/user/post/addNote', function(req, res) {
             console.log('clipNode', clipNode);
         });
         createRelation(noteNode, clipNode[0], 'belongsTo', 3);
-        res.send(noteNode)
+        res.send(noteNode);
             // createRelation(userNode, noteNode, 3, 'owns');
     });
 });
@@ -289,7 +273,7 @@ var createRelation = function(clip, tag, how, relevance, cb) {
     }, function(err, relationship) {
         console.log('RELATIONSHIP:', relationship);
         //provide a callback on the clip (the 'from') node
-        cb(clip)
+        cb(clip);
 
     });
 };
