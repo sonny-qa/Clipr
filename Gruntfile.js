@@ -64,15 +64,26 @@ module.exports = function(grunt) {
     // this task deletes ‘stuff’ - use with caution!
     clean: {
       release: [
-        'app/dist/**/'
+        'app/dist/**/',
+        'app/styles/stylesheet-cleaned.css'
       ]
     },
+
+    // Copy files into the dist folder
+    // copy: {
+    //   dist: {
+    //     cwd: 'app',
+    //     expand: true,
+    //     src: 
+    //     dest:
+    //   }
+    // },
 
     // Remove css not being used
     uncss: {
       dist: {
         files: {
-          'app/dist/css/stylesheet-cleaned.css': 
+          'app/styles/stylesheet-cleaned.css': 
           [
             'app/index.html', 
             'app/Auth/*.html', 
@@ -96,15 +107,37 @@ module.exports = function(grunt) {
       js: {
        //files to concatenate
         src: [
-        'app/**/*.js',
-        '!app/bower_components/**/*.js',
-        '!app/assets/**/*.js',
-        '!app/dist/**/*.js'
+        'app/bower_components/jquery/dist/jquery.js',
+        'app/bower_components/angular/angular.js',
+        'app/bower_components/angular-animate/angular-animate.js',
+        'app/bower_components/angular-cookies/angular-cookies.js',
+        'app/bower_components/angular-resource/angular-resource.js',
+        'app/bower_components/angular-route/angular-route.js',
+        'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+        'app/bower_components/angular-ui-router/release/angular-ui-router.js',
+        'app/bower_components/angular-aside/dist/js/angular-aside.js',
+        'app/bower_components/angular-sanitize/angular-sanitize.js',
+        'app/bower_components/angular-touch/angular-touch.js',
+        'app/app.js',
+        'app/Services/services.js',
+        'app/Auth/AuthController.js',
+        'app/Clips/clippedController.js',
+        'app/Clips/headerController.js',
+        'app/Clips/sidebarController.js',
+        'app/clipSelect/suggestedController.js'
         ],
        //the location of the resulting JS file
         dest: 'app/dist/js/app.concat.js'
       }
     },
+
+    // processhtml: {
+    //   dist: {
+    //     files: {
+
+    //     }
+    //   }
+    // },
 
     // Takes JS files and minifies them
     uglify: {
@@ -125,13 +158,7 @@ module.exports = function(grunt) {
           // target file : src files
           'app/dist/css/stylesheet.min.css': 
           [
-            'app/bower_components/bootstrap/dist/css/bootstrap.min.css', 
-            'app/bower_components/bootstrap-social/bootstrap-social.css', 
-            'app/bower_components/font-awesome/css/font-awesome.min.css', 
-            // 'app/assets/fonts/Raleway/css/fonts.css', 
-            'app/bower_components/angular-aside/dist/css/angular-aside.min.css',  
-            // 'app/assets/fonts/Anton/css/fonts.css', 
-            'app/styles/stylesheet.css'
+            'app/styles/stylesheet-cleaned.css'
           ]
         }
       }
@@ -237,5 +264,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
   grunt.registerTask('dev', ['build']);
   grunt.registerTask('server', ['express', 'open', 'watch']);
-  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin', 'uncss', 'imagemin']);
+  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'imagemin']);
 };
