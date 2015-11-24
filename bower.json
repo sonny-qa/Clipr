@@ -19,14 +19,5 @@
     "livereload-js": "~2.2.1"
   },
   "appPath": "app",
-  "moduleName": "cliprApp",
-  "overrides": {
-    "bootstrap": {
-      "main": [
-        "less/bootstrap.less",
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
-      ]
-    }
-  }
+  "moduleName": "cliprApp"
 }

@@ -68,13 +68,32 @@ module.exports = function(grunt) {
       ]
     },
 
+    // Test to concat JS and CSS files
+    // concat: {
+    //   js: {
+    //     options: {
+    //       separator: ';'
+    //     },
+    //     dist: {
+    //       // files to concatenate
+    //       src: [
+    //       'app/**/*.js',
+    //       '!app/bower_components/**/*.js',
+    //       '!app/assets/**/*.js',
+    //       '!app/dist/**/*.js'            
+    //       ],
+    //       dest: 'app/dist/js/app.concat.js'
+    //     }
+    //   }
+    // },
+
     // Concatenates JS Files
     concat: {
       options: {
       //Defines string to put between each file
         separator: ';'
       },
-      dist: {
+      js: {
        //files to concatenate
         src: [
         'app/**/*.js',
@@ -85,6 +104,12 @@ module.exports = function(grunt) {
        //the location of the resulting JS file
         dest: 'app/dist/js/app.concat.js'
       }
+      // css: {
+      //   src: [
+      //     'app/bower_components/bootstrap/dist/css/bootstrap.min.css'
+      //   ],
+      //   dest: 'app/dist/css/stylesLibs.css'
+      // }
     },
 
     // Takes JS files and minifies them
@@ -101,9 +126,20 @@ module.exports = function(grunt) {
 
     // Minify CSS
     cssmin: {
-      css: {
-        src: 'app/styles/stylesheet.css',
-        dest: 'app/dist/css/stylesheet.min.css'
+      build: {
+        files: {
+          // target file : src files
+          'app/dist/css/stylesheet.min.css': 
+          [
+            'app/bower_components/bootstrap/dist/css/bootstrap.min.css', 
+            'app/bower_components/bootstrap-social/bootstrap-social.css', 
+            'app/bower_components/font-awesome/css/font-awesome.min.css', 
+            // 'app/assets/fonts/Raleway/css/fonts.css', 
+            'app/bower_components/angular-aside/dist/css/angular-aside.min.css',  
+            // 'app/assets/fonts/Anton/css/fonts.css', 
+            'app/styles/stylesheet.css'
+          ]
+        }
       }
     },
 
