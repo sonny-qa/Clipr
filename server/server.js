@@ -11,11 +11,18 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 
-var clientID = '956444297317-c7q8o48o6trac3u2c81l5q6vf31r30up.apps.googleusercontent.com';
-var clientSecret = 'reN8EHttjTzrGmvC6_C4oivR';
 
+// Set website (Heroku or Localhost) and callbackURL
 var website = (process.env.SITE || "http://localhost:3000");
 var callbackURL = website + '/auth/google/callback';
+
+if(website === "http://localhost:3000") {
+    var keysAndPassword = require('../apiKeysAndPasswords.js');
+}
+
+// Used in Google OAuth
+var clientID = process.env.clientID || keysAndPassword.clientID;
+var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
 
 // INITIALIZE SERVER
 var port = process.env.PORT || 3000;
@@ -23,9 +30,9 @@ var app = express();
 
 // INITIALIZE DB CONNECTION
 var db = require('seraph')({
-    server: "http://clipr.sb02.stations.graphenedb.com:24789",
-    user: "clipr",
-    pass: 'oSvInWIWVVCQIbxLbfTu'
+    server: process.env.server || keysAndPassword.server,
+    user: process.env.user || keysAndPassword.user,
+    pass: process.env.pass || keysAndPassword.pass
 });
 
 
@@ -280,7 +287,7 @@ var createRelation = function(clip, tag, how, relevance, cb) {
 
 var createWatsonUrl = function(url, cb) {
     console.log('inside watson');
-    var API = '5770c0482acff843085443bfe94677476ed180e5';
+    var API = process.env.API || keysAndPassword.API;
     var baseUrl = 'http://gateway-a.watsonplatform.net/calls/';
     var endUrl = 'url/URLGetRankedKeywords?apikey=' + API + '&outputMode=json&url=';
     var fullUrl = baseUrl + endUrl + url;
