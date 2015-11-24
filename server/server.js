@@ -287,7 +287,7 @@ var createRelation = function(clip, tag, how, relevance, cb) {
 
 var createWatsonUrl = function(url, cb) {
     console.log('inside watson');
-    var API = '5770c0482acff843085443bfe94677476ed180e5';
+    var API = process.env.API || keysAndPassword.API;
     var baseUrl = 'http://gateway-a.watsonplatform.net/calls/';
     var endUrl = 'url/URLGetRankedKeywords?apikey=' + API + '&outputMode=json&url=';
     var fullUrl = baseUrl + endUrl + url;
