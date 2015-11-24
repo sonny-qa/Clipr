@@ -10,14 +10,19 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // var router = require('./router.js');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
-var keysAndPassword = require('../apiKeysAndPasswords.js');
+
+
+// Set website (Heroku or Localhost) and callbackURL
+var website = (process.env.SITE || "http://localhost:3000");
+var callbackURL = website + '/auth/google/callback';
+
+if(website === "http://localhost:3000") {
+    var keysAndPassword = require('../apiKeysAndPasswords.js');
+}
 
 // Used in Google OAuth
 var clientID = process.env.clientID || keysAndPassword.clientID;
 var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
-
-var website = (process.env.SITE || "http://localhost:3000");
-var callbackURL = website + '/auth/google/callback';
 
 // INITIALIZE SERVER
 var port = process.env.PORT || 3000;
