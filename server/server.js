@@ -30,9 +30,9 @@ var app = express();
 
 // INITIALIZE DB CONNECTION
 var db = require('seraph')({
-    server: "http://clipr.sb02.stations.graphenedb.com:24789",
-    user: "clipr",
-    pass: 'oSvInWIWVVCQIbxLbfTu'
+    server: process.env.server || keysAndPassword.server,
+    user: process.env.user || keysAndPassword.user,
+    pass: process.env.pass || keysAndPassword.pass
 });
 
 
