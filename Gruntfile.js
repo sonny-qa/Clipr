@@ -85,12 +85,6 @@ module.exports = function(grunt) {
        //the location of the resulting JS file
         dest: 'app/dist/js/app.concat.js'
       }
-      // css: {
-      //   src: [
-      //     'app/bower_components/bootstrap/dist/css/bootstrap.min.css'
-      //   ],
-      //   dest: 'app/dist/css/stylesLibs.css'
-      // }
     },
 
     // Takes JS files and minifies them
