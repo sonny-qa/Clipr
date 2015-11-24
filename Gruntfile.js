@@ -68,25 +68,6 @@ module.exports = function(grunt) {
       ]
     },
 
-    // Test to concat JS and CSS files
-    // concat: {
-    //   js: {
-    //     options: {
-    //       separator: ';'
-    //     },
-    //     dist: {
-    //       // files to concatenate
-    //       src: [
-    //       'app/**/*.js',
-    //       '!app/bower_components/**/*.js',
-    //       '!app/assets/**/*.js',
-    //       '!app/dist/**/*.js'            
-    //       ],
-    //       dest: 'app/dist/js/app.concat.js'
-    //     }
-    //   }
-    // },
-
     // Concatenates JS Files
     concat: {
       options: {
