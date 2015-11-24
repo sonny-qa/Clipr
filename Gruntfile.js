@@ -68,6 +68,25 @@ module.exports = function(grunt) {
       ]
     },
 
+    // Remove css not being used
+    uncss: {
+      dist: {
+        files: {
+          'app/dist/css/stylesheet-cleaned.css': 
+          [
+            'app/index.html', 
+            'app/Auth/*.html', 
+            'app/Clips/*.html', 
+            'app/clipSelect/*.html', 
+            'app/Landing/*.html', 
+            'app/Profile/*.html', 
+            'app/Services/*.html', 
+            'app/Suggestions/*.html'
+          ]
+        }
+      }
+    },
+
     // Concatenates JS Files
     concat: {
       options: {
@@ -218,5 +237,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
   grunt.registerTask('dev', ['build']);
   grunt.registerTask('server', ['express', 'open', 'watch']);
-  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin', 'imagemin']);
+  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin', 'uncss', 'imagemin']);
 };
