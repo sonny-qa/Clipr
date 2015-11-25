@@ -11,7 +11,6 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var compression = require('compression');
-// var h5bp = require('h5bp');
 
 
 // Set website (Heroku or Localhost) and callbackURL
@@ -30,7 +29,6 @@ var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
 var port = process.env.PORT || 3000;
 var app = express();
 app.use(compression());
-// app.use(h5bp({ root: __dirname + '../../app/dist' }));
 
 // INITIALIZE DB CONNECTION
 var db = require('seraph')({
