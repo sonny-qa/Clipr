@@ -35,7 +35,7 @@ angular
             url: "/landing",
             views: {
                 "main": {
-                    templateUrl: 'Landing/landingView.html',
+                    templateUrl: 'html/landingView.html',
                     controller: 'AuthController'
                 }
             }
@@ -45,15 +45,15 @@ angular
             url: "/clips",
             views: {
                 "main": {
-                    templateUrl: 'Clips/clippedView.html',
+                    templateUrl: 'html/clippedView.html',
                     controller: 'ClipController'
                 },
                 'header@main': {
-                    templateUrl: 'Clips/headerView.html',
+                    templateUrl: 'html/headerView.html',
                     controller: 'HeaderController'
                 },
                 'sidebar@main': {
-                    templateUrl: 'Clips/sidebarView.html',
+                    templateUrl: 'html/sidebarView.html',
                     controller: 'SidebarController'
                 }
             }
