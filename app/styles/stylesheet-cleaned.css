@@ -19,7 +19,7 @@
 /*** uncss> filename: app/bower_components/bootstrap/dist/css/bootstrap.css ***/
 
 /*!
- * Bootstrap v3.3.5 (http://getbootstrap.com)
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
@@ -358,6 +358,11 @@ label {
 
 .form-control:-ms-input-placeholder {
   color: #999;
+}
+
+.form-control::-ms-expand {
+  background-color: transparent;
+  border: 0;
 }
 
 textarea.form-control {
@@ -804,7 +809,6 @@ a.list-group-item:focus {
 }
 
 .modal-header {
-  min-height: 16.42857143px;
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -835,6 +839,8 @@ a.list-group-item:focus {
 .navbar-header:after,
 .navbar-collapse:before,
 .navbar-collapse:after,
+.modal-header:before,
+.modal-header:after,
 .modal-footer:before,
 .modal-footer:after {
   display: table;
@@ -846,6 +852,7 @@ a.list-group-item:focus {
 .navbar:after,
 .navbar-header:after,
 .navbar-collapse:after,
+.modal-header:after,
 .modal-footer:after {
   clear: both;
 }
