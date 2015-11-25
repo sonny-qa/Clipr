@@ -70,14 +70,23 @@ module.exports = function(grunt) {
     },
 
     // Copy files into the dist folder
-    // copy: {
-    //   dist: {
-    //     cwd: 'app',
-    //     expand: true,
-    //     src: 
-    //     dest:
-    //   }
-    // },
+    copy: {
+      main: {
+        files: [{
+          expand: true,
+          flatten: true, 
+          src: [
+            'app/Auth/*.html',
+            'app/Clips/*.html',
+            'app/clipSelect/*.html',
+            'app/Landing/*.html',
+            'app/Suggestions/*.html'
+          ],
+          dest: 'app/dist/html',
+          filter: 'isFile'
+        }]
+      }
+    },
 
     // Remove css not being used
     uncss: {
@@ -131,13 +140,13 @@ module.exports = function(grunt) {
       }
     },
 
-    // processhtml: {
-    //   dist: {
-    //     files: {
-
-    //     }
-    //   }
-    // },
+    processhtml: {
+      dist: {
+        files: {
+          'app/dist/index.html': ['app/index.html']
+        }
+      }
+    },
 
     // Takes JS files and minifies them
     uglify: {
@@ -264,5 +273,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
   grunt.registerTask('dev', ['build']);
   grunt.registerTask('server', ['express', 'open', 'watch']);
-  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'imagemin']);
+  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'copy', 'concat', 'uglify', 'uncss', 'cssmin', 'imagemin', 'processhtml']);
 };
