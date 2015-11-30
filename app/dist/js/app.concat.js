@@ -6,13 +6,13 @@ angular.module('clipr.auth',[])
 
 });;;angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', function($scope, Clips, $modal, Notes, AuthService, $aside) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside','$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies) {
 
  $scope.clips = Clips.clips;
  $scope.clipShow= false;
 
  $scope.loadAllClips = function() {
-   Clips.loadAllClips();
+   Clips.loadAllClips($cookies.get('clipr'));
  };
 
  $scope.loadAllClips();
@@ -166,10 +166,13 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
    });
  };
 
- var loadAllClips = function() {
+ var loadAllClips = function(cookie) {
    return $http({
      method: 'GET',
-     url: '/loadAllClips'
+     url: '/loadAllClips',
+     params: {
+      cookie: cookie
+    }
    }).then(function(response) {
      console.log('load all clips response', response.data);
      clips.data = response.data;

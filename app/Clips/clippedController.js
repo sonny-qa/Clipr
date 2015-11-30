@@ -1,12 +1,12 @@
 angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', function($scope, Clips, $modal, Notes, AuthService, $aside) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside','$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies) {
 
  $scope.clips = Clips.clips;
  $scope.clipShow= false;
 
  $scope.loadAllClips = function() {
-   Clips.loadAllClips();
+   Clips.loadAllClips($cookies.get('clipr'));
  };
 
  $scope.loadAllClips();

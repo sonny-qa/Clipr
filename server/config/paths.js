@@ -1,24 +1,23 @@
-
-var utils= require('./utils.js')
+var utils = require('./utils.js')
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var session = require('express-session');
-var app= require('../server.js')
+var app = require('../server.js')
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 //INITIALIZE DATABASE//
 var db = require('seraph')({
-    server: "http://clipr.sb02.stations.graphenedb.com:24789",
-    user: "clipr",
-    pass: 'oSvInWIWVVCQIbxLbfTu'
+  server: "http://clipr.sb02.stations.graphenedb.com:24789",
+  user: "clipr",
+  pass: 'oSvInWIWVVCQIbxLbfTu'
 });
 
 // Set website (Heroku or Localhost) and callbackURL
 var website = (process.env.SITE || "http://localhost:3000");
 var callbackURL = website + '/auth/google/callback';
 
-if(website === "http://localhost:3000") {
-    var keysAndPassword = require('../../apiKeysAndPasswords.js');
+if (website === "http://localhost:3000") {
+  var keysAndPassword = require('../../apiKeysAndPasswords.js');
 }
 
 // Used in Google OAuth
@@ -26,102 +25,106 @@ var clientID = process.env.clientID || keysAndPassword.clientID;
 var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
 
 
-var passport= require('passport')
-/**
-  Google OAuth2
-**/
+var passport = require('passport')
+  /**
+    Google OAuth2
+  **/
 
 app.use(session({
-    secret: 'this is a secret',
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: false
-    }
+  secret: 'this is a secret',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: false
+  }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new GoogleStrategy({
-    clientID: clientID,
-    clientSecret: clientSecret,
-    callbackURL: callbackURL,
+  clientID: clientID,
+  clientSecret: clientSecret,
+  callbackURL: callbackURL,
 
 }, function(accessToken, refreshToken, profile, done) {
-    console.log('looking for gid', profile)
-    var cypher = "MATCH (node: User)" +
-        " WHERE node.username = " +
-        "'" + profile.displayName + "'" +
-        " RETURN node";
-    db.query(cypher, function(err, result) {
+  console.log('looking for gid', profile)
+  var cypher = "MATCH (node: User)" +
+    " WHERE node.username = " +
+    "'" + profile.displayName + "'" +
+    " RETURN node";
+  db.query(cypher, function(err, result) {
 
+    if (err) {
+      throw err;
+    }
+
+    if (result.length === 0) {
+      //create node
+      db.save({
+        username: profile.displayName,
+        sessionToken: accessToken,
+        email: profile.emails[0].value
+      }, function(err, node) {
         if (err) {
+          throw err;
+        }
+
+        db.label(node, ['User'], function(err) {
+          if (err) {
             throw err;
-        }
+          }
 
-        if (result.length === 0) {
-            //create node
-            db.save({
-                username: profile.displayName,
-                sessionToken: accessToken,
-                email: profile.emails[0].value
-            }, function(err, node) {
-                if (err) {
-                    throw err;
-                }
+          return done(null, node);
+        });
 
-                db.label(node, ['User'], function(err) {
-                    if (err) {
-                        throw err;
-                    }
+      });
+    } else {
 
-                    return done(null, node);
-                });
+    }
+    //attach user node and acces token to user
+    profile.userOne = result[0];
+    profile.accessToken = accessToken;
+    profile.email = result[0].email;
 
-            });
-        } else {
+    return done(null, profile);
 
-        }
-        //attach user node and acces token to user
-        profile.userOne = result[0];
-        profile.accessToken = accessToken;
-
-        return done(null, profile);
-
-    });
+  });
 
 }));
 
 
 passport.serializeUser(function(user, done) {
-    done(null, user);
+  done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
-    done(null, obj);
+  done(null, obj);
 });
 
 app.get('/auth/google/callback', passport.authenticate('google', {
-      failureRedirect: '/#/landing'
-    }),
-    function(req, res) {
-      console.log('req', req)
-      console.log('res', res)
-        //when they come back after a successful login, setup clipr cookie
-      res.cookie('clipr', req.session.passport.user.accessToken)
-        // Successful authentication, redirect home.
-      res.redirect('/#/clips');
-    })
+    failureRedirect: '/#/landing'
+  }),
+  function(req, res) {
+    console.log('req', req)
+    console.log('res', res)
+      //when they come back after a successful login, setup clipr cookie
+    var email = req.session.passport.user.email
+
+    res.cookie('clipr', email)
+
+    // Successful authentication, redirect home.
+    res.redirect('/#/clips');
+  })
 
 module.exports = {
 
-    googleAuth: passport.authenticate('google', {
-          scope: ['https://www.googleapis.com/auth/plus.login', 'email']
-        },
-        function(req, res) {
-          //send user to google to authenticate
+  googleAuth: passport.authenticate('google', {
+      scope: ['https://www.googleapis.com/auth/plus.login', 'email']
+    },
+    function(req, res) {
+      //send user to google to authenticate
 
-        }),
+    }),
 
   // googleCallback: passport.authenticate('google', {
   //       failureRedirect: '/#/landing'
@@ -135,7 +138,7 @@ module.exports = {
   //       res.redirect('/#/clips');
   //     }),
 
-storeClip: function(req, res) {
+  storeClip: function(req, res) {
 
     var email = req.body.email
 
@@ -181,7 +184,9 @@ storeClip: function(req, res) {
   },
 
   loadAllClips: function(req, res) {
-    db.nodesWithLabel('Clip', function(err, results) {
+    console.log('COOKIES', req.query.cookie);
+    var cypher = "MATCH(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips";
+    db.query(cypher, function(err, results) {
       console.log('server results', results);
       res.send(results);
     });
