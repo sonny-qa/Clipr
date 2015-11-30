@@ -34,10 +34,13 @@ angular.module('clipr.services', ['ngCookies'])
    });
  };
 
- var loadAllClips = function() {
+ var loadAllClips = function(cookie) {
    return $http({
      method: 'GET',
-     url: '/loadAllClips'
+     url: '/loadAllClips',
+     params: {
+      cookie: cookie
+    }
    }).then(function(response) {
      console.log('load all clips response', response.data);
      clips.data = response.data;
