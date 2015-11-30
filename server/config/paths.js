@@ -89,6 +89,7 @@ passport.deserializeUser(function(obj, done) {
 module.exports = {
 
     googleAuth: function() {
+      console.log('in googleAuth export! ')
 
       passport.authenticate('google', {
           scope: ['https://www.googleapis.com/auth/plus.login', 'email']
@@ -101,6 +102,7 @@ module.exports = {
 
   googleCallback: function() {
 
+    console.log('in google auth')
     passport.authenticate('google', {
         failureRedirect: '/#/landing'
       },

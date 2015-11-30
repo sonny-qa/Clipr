@@ -4,6 +4,9 @@ var paths= require('./config/paths.js');
 var app= require('./server.js')
 
 app.get('/auth/google', paths.googleAuth)
+// app.get('/auth/google', function(){
+//     console.log('in google auth')
+// })
 
 app.get('/auth/google/callback', paths.googleCallback);
 
