@@ -72,4 +72,26 @@ storeTags: function(tag, cb) {
       cb(node, relevance);
     });
   }
+
+  // captures screen image on chrome_ext click
+  urlToImage: function(targetUrl) {
+
+    // Options object to pass to urlImage
+    var options = {
+      width: 300,
+      height: 250,
+      // Give a short time to load more resources
+      requestTimeout: 100
+    };
+
+    // API call to url-to-image module
+    urlImage(targetSite, something, options).then(function() {
+      // Send image to AWS
+    })
+    .catch(function(err) {
+      console.err(err)
+    });
+
+  }
+
 }
