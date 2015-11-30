@@ -41,7 +41,8 @@
     "matchdep": "^1.0.0",
     "nodemon": "^1.8.1",
     "passport-google-oauth": "^0.2.0",
-    "time-grunt": "^1.0.0"
+    "time-grunt": "^1.0.0",
+    "url-to-image": "^1.0.0"
   },
   "engines": {
     "node": "4.2.1",
