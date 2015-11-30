@@ -18,7 +18,7 @@ var website = (process.env.SITE || "http://localhost:3000");
 var callbackURL = website + '/auth/google/callback';
 
 if(website === "http://localhost:3000") {
-    var keysAndPassword = require('../apiKeysAndPasswords.js');
+    var keysAndPassword = require('../../apiKeysAndPasswords.js');
 }
 
 // Used in Google OAuth
