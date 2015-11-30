@@ -1,5 +1,5 @@
 {
-    "name": "My Bookmarks",
+    "name": "Clipr",
     "version": "1.1",
     "description": "A browser action with a popup dump of all bookmarks, including search, add, edit and delete.",
     "permissions": [
@@ -10,13 +10,13 @@
         "scopes": ["https://www.googleapis.com/auth/plus.login"]
     },
     "icons": {
-        "16": "dragon.png",
-        "42": "dragon.png",
-        "128": "dragon.png"
+        "16": "apple-icon-precomposed.png",
+        "42": "apple-icon-precomposed.png",
+        "128": "apple-icon-precomposed.png"
     },
     "browser_action": {
-        "default_title": "My Bookmarks",
-        "default_icon": "dragon.png"
+        "default_title": "Clipr",
+        "default_icon": "apple-icon-precomposed.png"
     },
     "background": {
         "scripts": ["background.js"],
