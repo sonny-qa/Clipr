@@ -8,15 +8,10 @@ var http = require('http');
 // var router = require('./router.js');
 var cookieParser = require('cookie-parser');
 
-
-
-
 // INITIALIZE SERVER
 var port = process.env.PORT || 3000;
 var app = module.exports= express();
 var routes= require('./router.js')
-
-
 
 
 app.use(cookieParser());

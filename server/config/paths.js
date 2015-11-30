@@ -2,7 +2,11 @@
 var utils= require('./utils.js')
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var session = require('express-session');
+var app= require('../server.js')
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
+//INITIALIZE DATABASE//
 var db = require('seraph')({
     server: "http://clipr.sb02.stations.graphenedb.com:24789",
     user: "clipr",
@@ -26,6 +30,17 @@ var passport= require('passport')
 /**
   Google OAuth2
 **/
+
+app.use(session({
+    secret: 'this is a secret',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: false
+    }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 passport.use(new GoogleStrategy({
     clientID: clientID,
@@ -86,33 +101,39 @@ passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
 
+app.get('/auth/google/callback', passport.authenticate('google', {
+      failureRedirect: '/#/landing'
+    }),
+    function(req, res) {
+      console.log('req', req)
+      console.log('res', res)
+        //when they come back after a successful login, setup clipr cookie
+      res.cookie('clipr', req.session.passport.user.accessToken)
+        // Successful authentication, redirect home.
+      res.redirect('/#/clips');
+    })
+
 module.exports = {
 
-    googleAuth: function() {
-      console.log('in googleAuth export! ')
-
-      passport.authenticate('google', {
+    googleAuth: passport.authenticate('google', {
           scope: ['https://www.googleapis.com/auth/plus.login', 'email']
         },
         function(req, res) {
           //send user to google to authenticate
 
-        });
-  },
+        }),
 
-  googleCallback: function() {
-
-    console.log('in google auth')
-    passport.authenticate('google', {
-        failureRedirect: '/#/landing'
-      },
-      function(req, res) {
-        //when they come back after a successful login, setup clipr cookie
-        res.cookie('clipr', req.session.passport.user.accessToken)
-          // Successful authentication, redirect home.
-        res.redirect('/#/clips');
-      });
-},
+  // googleCallback: passport.authenticate('google', {
+  //       failureRedirect: '/#/landing'
+  //     }),
+  //     function(req, res) {
+  //       console.log('req', req)
+  //       console.log('res', res)
+  //       //when they come back after a successful login, setup clipr cookie
+  //       res.cookie('clipr', req.session.passport.user.accessToken)
+  //         // Successful authentication, redirect home.
+  //       res.redirect('/#/clips');
+  //     }),
 
 storeClip: function(req, res) {
 
