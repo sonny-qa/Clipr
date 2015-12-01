@@ -83,12 +83,12 @@ createRelation: function(clip, tag, how, relevance, cb) {
   },
 
   // captures screen image on chrome_ext click
-  urlToImage: function(targetUrl) {
+  urlToImage: function(targetUrl, cb) {
     console.log("urlToImage: ", "inside urlToImage");
     // Options object to pass to urlImage
     var options = {
       width: '640',
-      height: '400',
+      height: '600',
       // Give a short time to load more resources
       requestTimeout: '300'
     };
@@ -101,11 +101,11 @@ createRelation: function(clip, tag, how, relevance, cb) {
     var fileName = 'tempImg/' + hostName + '.png'
 
     // API call to url-to-image module
-    urlImage(targetUrl, fileName, options).then(function() {
+    return urlImage(targetUrl, fileName, options).then(function() {
       // Send image to Cloudinary
       cloudinary.uploader.upload(fileName, function(result) {
-        console.log("Cloudinary result url: ", result);
-
+        // console.log("Cloudinary result url: ", result);
+        cb(result.url);
       },
       {
         crop: 'crop',

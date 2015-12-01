@@ -13,8 +13,6 @@ var request = require('request');
 var http = require('http');
 // var router = require('./router.js');
 
-//INITIALIZE DATABASE//
-
 
 // Set website (Heroku or Localhost) and callbackURL
 var website = (process.env.SITE || "http://localhost:3000");
@@ -157,42 +155,55 @@ module.exports = {
     }),
 
   storeClip: function(req, res) {
-
+    // Declaring Variables
     var email = req.body.email;
     // Img url to send to DB
-    var imgUrl = req.body.url;
-
+    var clipUrl = req.body.url;
+    var title = req.body.title;
     // Calling urlToImage function on image url
     // This img gets sent to Cloudinary for storage
-    var img = utils.urlToImage(imgUrl);
-    
-    db.save({
-      clipUrl: req.body.url,
-      title: req.body.title,
-      imgUrl : imgUrl
-    }, function(err, clipNode) {
-      if (err) throw err;
-        db.label(clipNode, ['Clip'], function(err) {
-          if (err) throw err;
-          console.log(clipNode + " was inserted as a Clip into DB");
-          //at this point we have the clip node created, so find the user and relate clip->user
-          utils.fetchUserByEmail(email, function(userNode) {
-            utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {})
-          });
-          //query watson, and loop over top 3 results creating a keyword node for each
-        utils.createWatsonUrl(clipNode.clipUrl, function(keywords) {
-          for (var i = 0; i < 3; i++) {
-            utils.storeTags(keywords[i], function(tagNode, relevance) {
-              //create relationship between each keyword node and the clip node
-              utils.createRelation(clipNode, tagNode, 'contains', relevance, function(fromNode) {
-                console.log('relationship between clip & tag node created')
+    // var img = utils.urlToImage(imgUrl)
+    // img.then(function(result) {
+    //   console.log("Im in storeClip on server side: ", result);  
+    // });
 
+    function makeImg(clipUrl) {
+      utils.urlToImage(clipUrl, function(imgUrl) {
+        saveToDB(imgUrl)
+      });
+    };
+    makeImg(clipUrl);
+
+    function saveToDB(imgUrl) {
+      console.log("imgUrl inside saveToDB: ", imgUrl);
+      db.save({
+        clipUrl: req.body.url,
+        title: req.body.title,
+        imgUrl : imgUrl
+      }, function(err, clipNode) {
+        if (err) throw err;
+          db.label(clipNode, ['Clip'], function(err) {
+            if (err) throw err;
+            console.log(clipNode + " was inserted as a Clip into DB");
+            //at this point we have the clip node created, so find the user and relate clip->user
+            utils.fetchUserByEmail(email, function(userNode) {
+              utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {})
+            });
+            //query watson, and loop over top 3 results creating a keyword node for each
+          utils.createWatsonUrl(clipNode.clipUrl, function(keywords) {
+            for (var i = 0; i < 3; i++) {
+              utils.storeTags(keywords[i], function(tagNode, relevance) {
+                //create relationship between each keyword node and the clip node
+                utils.createRelation(clipNode, tagNode, 'contains', relevance, function(fromNode) {
+                  console.log('relationship between clip & tag node created')
+
+                  });
                 });
-              });
-            }
+              }
+            });
           });
-        });
-      }) 
+        })
+      };
   },
 
   loadClipsByCategory: function(req, res) {
