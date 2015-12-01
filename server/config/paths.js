@@ -5,6 +5,8 @@ var app = require('../server.js');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var classifier= require('./classify.js')
+
 
 var express = require('express');
 var path = require('path');
@@ -12,6 +14,10 @@ var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
 // var router = require('./router.js');
+
+
+//load classifier
+var nbClassifier= classifier.loadClassifier();
 
 
 // Set website (Heroku or Localhost) and callbackURL
@@ -166,6 +172,7 @@ module.exports = {
     // img.then(function(result) {
     //   console.log("Im in storeClip on server side: ", result);  
     // });
+    // var category= nbClassifier.classify(req.body.text)
 
     function makeImg(clipUrl) {
       utils.urlToImage(clipUrl, function(imgUrl) {
@@ -182,6 +189,7 @@ module.exports = {
         title: req.body.title,
         imgUrl : imgUrl,
         text: req.body.text
+        category: nbClassifier.classify(req.body.text)
       }, function(err, clipNode) {
         if (err) throw err;
           db.label(clipNode, ['Clip'], function(err) {
@@ -265,6 +273,8 @@ module.exports = {
       console.log('NOTESRESULT', result);
       res.send(result);
     });
+
+
   }
 
 }
