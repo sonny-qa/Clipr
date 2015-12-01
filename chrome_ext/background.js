@@ -57,26 +57,6 @@ function sendBookmark(bkmrkObj) {
     xhr.send(bkmrkObj);
 }
 
-//this is disabled for now as it seems to be slowing things down?
-var getPageImg = function(bkmrkObj,cb) {
-
-    chrome.windows.getCurrent(function(win) {
-        chrome.tabs.captureVisibleTab(win.id, {"format": "jpeg", "quality": 10
-        }, function(imgUrl) {
-
-            //disabled this for now
-            bkmrkObj.imgUrl = '';
-
-            //callback for sending bookmark
-            cb(bkmrkObj);
-
-        });
-
-
-    });
-
-};
-
 //*******************************************************************
 // Event Listeners
 //*******************************************************************
