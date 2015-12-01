@@ -1,6 +1,21 @@
 // DB HELPER FUNCTIONS
-
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var session = require('express-session');
+var app = require('../server.js');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var bodyParser = require('body-parser');
+var path = require('path');
+var Promise = require('bluebird');
+var request = require('request');
+var http = require('http');
 //fetches a user node based on an email
+  var db= require('seraph')({
+  server: "http://clipr.sb02.stations.graphenedb.com:24789",
+  user: "clipr",
+  pass: 'oSvInWIWVVCQIbxLbfTu'
+})
+
 module.exports = {
 
 fetchUserByEmail: function(email, cb) {
@@ -8,7 +23,7 @@ fetchUserByEmail: function(email, cb) {
       " WHERE node.email = " +
       "'" + email + "'" +
       " RETURN node";
-    db.query(cypher, function(err, result) {
+  db.query(cypher, function(err, result) {
       if (err) throw err;
       console.log('fetch fetchUserByEmail', result[0])
       cb(result[0])
@@ -17,12 +32,12 @@ fetchUserByEmail: function(email, cb) {
   },
 
 createRelation: function(clip, tag, how, relevance, cb) {
-    db.relate(clip, how, tag, {
-      relevance: 3
+  db.relate(clip, how, tag, {
+      relevance: relevance || null
     }, function(err, relationship) {
       console.log('RELATIONSHIP:', relationship);
       //provide a callback on the clip (the 'from') node
-      cb(clip)
+      cb(clip);
 
     });
   },
@@ -44,11 +59,11 @@ createWatsonUrl: function(url, cb) {
 storeTags: function(tag, cb) {
     console.log('in storeTags');
     var relevance = tag.relevance;
-    db.save({
+  db.save({
       tagName: tag.text
     }, function(err, node) {
       if (err) throw err;
-      db.label(node, ['Tag'],
+    db.label(node, ['Tag'],
         function(err) {
           if (err) throw err;
           console.log(node.tagName + " was inserted as a Topic into DB");
