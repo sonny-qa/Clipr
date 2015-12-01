@@ -84,7 +84,6 @@ createRelation: function(clip, tag, how, relevance, cb) {
 
   // captures screen image on chrome_ext click
   urlToImage: function(targetUrl, cb) {
-    console.log("urlToImage: ", "inside urlToImage");
     // Options object to pass to urlImage
     var options = {
       width: '640',
@@ -117,7 +116,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
       }); 
     })
     .catch(function(err) {
-      console.err(err)
+      console.log(err)
     });
   }
 
