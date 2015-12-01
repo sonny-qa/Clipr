@@ -1,15 +1,15 @@
 var app = require('../server.js');
 var natural = require('natural');
 var fs = require('fs');
-// var async = require('async');
- 
+var async = require('async');
 
-  classifier = new natural.BayesClassifier();
+// classifier = new natural.BayesClassifier();
 
 
-// var files = ['tech.txt', 'news.txt', 'entertainment.txt', 'politics.txt', 'food.txt', 'sports.txt', 'travel.txt', 'business.txt', 'shopping.txt']
 
-// var labels = ['Science/Technology', 'News', 'Entertainment', 'Politics', 'Food', 'Sports', 'Travel', 'Business', 'Shopping']
+// var files = ['tech.txt', 'news.txt', 'entertainment.txt', 'politics.txt', 'food.txt', 'sports.txt', 'travel.txt', 'business.txt', 'shopping.txt', 'science.txt']
+
+// var labels = ['Science/Technology', 'News', 'Entertainment', 'Politics', 'Food', 'Sports', 'Travel', 'Business', 'Shopping', 'Science']
 
 // var readAsync = function(file, callback) {
 //   longFile = './server/config/trainingDocs/' + file
@@ -29,12 +29,10 @@ var fs = require('fs');
 module.exports = {
 
   loadClassifier: function() {
-  
 
-    natural.BayesClassifier.load('../classifier.json', null, function(err, classifier) {
-
-      console.log(classifier.classify("hilary clinton"))
-});
+    natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
+      return classifier;
+    });
   },
 
   trainClassifier: function() {
