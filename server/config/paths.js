@@ -13,8 +13,6 @@ var request = require('request');
 var http = require('http');
 // var router = require('./router.js');
 
-//INITIALIZE DATABASE//
-
 
 // Set website (Heroku or Localhost) and callbackURL
 var website = (process.env.SITE || "http://localhost:3000");
@@ -25,9 +23,9 @@ if (website === "http://localhost:3000") {
 }
 
 // Used in Google OAuth
+var passport = require('passport');
 var clientID = process.env.clientID || keysAndPassword.clientID;
 var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
-
 
 var passport = require('passport');
   /**
@@ -59,7 +57,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
 passport.use(new GoogleStrategy({
   clientID: clientID,
   clientSecret: clientSecret,
@@ -76,7 +73,7 @@ passport.use(new GoogleStrategy({
     if (err) {
       throw err;
     }
-
+    console.log("results: ", result);
     if (result.length === 0) {
       //create node
       console.log('CREATING NODE IN CREATE NODE :', result);
@@ -111,7 +108,6 @@ passport.use(new GoogleStrategy({
   });
 
 }));
-
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -158,51 +154,56 @@ module.exports = {
 
     }),
 
-  // googleCallback: passport.authenticate('google', {
-  //       failureRedirect: '/#/landing'
-  //     }),
-  //     function(req, res) {
-  //       console.log('req', req)
-  //       console.log('res', res)
-  //       //when they come back after a successful login, setup clipr cookie
-  //       res.cookie('clipr', req.session.passport.user.accessToken)
-  //         // Successful authentication, redirect home.
-  //       res.redirect('/#/clips');
-  //     }),
-
   storeClip: function(req, res) {
-    console.log('REQ.BODY', req.body);
+    // Declaring Variables
     var email = req.body.email;
+    // Img url to send to DB
+    var clipUrl = req.body.url;
+    var title = req.body.title;
+    // Calling urlToImage function on image url
+    // This img gets sent to Cloudinary for storage
+    // var img = utils.urlToImage(imgUrl)
+    // img.then(function(result) {
+    //   console.log("Im in storeClip on server side: ", result);  
+    // });
 
-    db.save({
-      clipUrl: req.body.url,
-      title: req.body.title
-        // imgUrl : req.query.imgUrl
-    }, function(err, clipNode) {
-      if (err) throw err;
-      db.label(clipNode, ['Clip'], function(err) {
-        if (err) throw err;
-        console.log(clipNode + " was inserted as a Clip into DB");
-        //at this point we have the clip node created, so find the user and relate clip->user
-
-        utils.fetchUserByEmail(email, function(userNode) {
-            utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {})
-          });
-          //query watson, and loop over top 3 results creating a keyword node for each
-        utils.createWatsonUrl(clipNode.clipUrl, function(keywords) {
-          for (var i = 0; i < 3; i++) {
-            utils.storeTags(keywords[i], function(tagNode, relevance) {
-              //create relationship between each keyword node and the clip node
-              utils.createRelation(clipNode, tagNode, 'contains', relevance, function(fromNode) {
-                console.log('relationship between clip & tag node created')
-
-              });
-            });
-          }
-        });
+    function makeImg(clipUrl) {
+      utils.urlToImage(clipUrl, function(imgUrl) {
+        saveToDB(imgUrl)
       });
-    });
+    };
+    makeImg(clipUrl);
 
+    function saveToDB(imgUrl) {
+      console.log("imgUrl inside saveToDB: ", imgUrl);
+      db.save({
+        clipUrl: req.body.url,
+        title: req.body.title,
+        imgUrl : imgUrl
+      }, function(err, clipNode) {
+        if (err) throw err;
+          db.label(clipNode, ['Clip'], function(err) {
+            if (err) throw err;
+            console.log(clipNode + " was inserted as a Clip into DB");
+            //at this point we have the clip node created, so find the user and relate clip->user
+            utils.fetchUserByEmail(email, function(userNode) {
+              utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {})
+            });
+            //query watson, and loop over top 3 results creating a keyword node for each
+          utils.createWatsonUrl(clipNode.clipUrl, function(keywords) {
+            for (var i = 0; i < 3; i++) {
+              utils.storeTags(keywords[i], function(tagNode, relevance) {
+                //create relationship between each keyword node and the clip node
+                utils.createRelation(clipNode, tagNode, 'contains', relevance, function(fromNode) {
+                  console.log('relationship between clip & tag node created')
+
+                  });
+                });
+              }
+            });
+          });
+        })
+      };
   },
 
   loadClipsByCategory: function(req, res) {
@@ -265,15 +266,3 @@ module.exports = {
   }
 
 }
-
-
-
-
-
-// Get all existing bookmarks from users google bookmarks
-// THIS ROUTE IS USED TO TEST THAT SERVER IS GETTING ALL BOOKMARKS
-// app.post('/user/post/getAllBookmarks', function(req, res) {
-
-// });
-
-// Get a new bookmark from client
