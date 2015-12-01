@@ -146,7 +146,7 @@ a:hover {
 #googlebox.btn.btn-block.btn-social.btn-google {
     width: 15%;
     background-color: white;
-    color: black;
+    color: #0A2342;
     position: absolute;
     right: 10px;
     top: 10px;
@@ -164,13 +164,28 @@ a:hover {
     height: 500px;
 }
 
-#googlebutton.fa.fa-google {
-    position: absolute;
-    background-color: white;
-    color: #2CA58D;
+#scrollBtn{
+    position:absolute;
+    bottom: 0px;
+    right:50%;
+    color:white;
+    z-index: 1;
+    width: 30px;
+    height:auto;
+    font-size:50px;
 }
 
-#googlebutton.fa.fa-google:hover {
+#scrollBtn:hover{
+    font-size:60px;
+}
+
+#googlebutton.fa.fa-google-plus-square {
+    position: absolute;
+    background-color: white;
+    color: #0A2342;
+}
+
+#googlebutton.fa.fa-google-plus-square:hover {
     background-color: #2CA58D;
     position: absolute;
     color: white;
