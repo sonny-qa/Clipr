@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
+    "cloudinary": "^1.2.6",
     "fs": "0.0.2",
     "grunt": "^0.4.5",
     "grunt-concurrent": "^1.0.0",

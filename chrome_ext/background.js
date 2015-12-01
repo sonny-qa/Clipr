@@ -53,7 +53,7 @@ function sendBookmark(bkmrkObj) {
 
     // xhr.setRequestHeader('Content-Type', 'application/json');
     // Send the request
-    console.log('sending bkmrkobj',bkmrkObj);
+    console.log('sending bkmrkObj',bkmrkObj);
     xhr.send(bkmrkObj);
 }
 

@@ -10,12 +10,21 @@ var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
 var urlImage = require('url-to-image');
+var cloudinary = require('cloudinary');
+
 //fetches a user node based on an email
   var db= require('seraph')({
   server: "http://clipr.sb02.stations.graphenedb.com:24789",
   user: "clipr",
   pass: 'oSvInWIWVVCQIbxLbfTu'
 })
+
+// initialize cloudinary connection for storing and retreiving images
+cloudinary.config({
+  cloud_name: 'cjpuskar',
+  api_key: '499291937259717',
+  api_secret: 'eaGBQyaTw9EKtPG351ZrkTmTMWc'
+});
 
 module.exports = {
 
@@ -78,10 +87,10 @@ createRelation: function(clip, tag, how, relevance, cb) {
     console.log("urlToImage: ", "inside urlToImage");
     // Options object to pass to urlImage
     var options = {
-      width: 300,
-      height: 250,
+      width: '640',
+      height: '400',
       // Give a short time to load more resources
-      requestTimeout: 100
+      requestTimeout: '300'
     };
 
     // Function to parse url
@@ -89,12 +98,23 @@ createRelation: function(clip, tag, how, relevance, cb) {
     var url = urlapi.parse(targetUrl);
 
     var hostName = url.hostname;
-    var fileName = hostName + '.png'
+    var fileName = 'tempImg/' + hostName + '.png'
 
     // API call to url-to-image module
     urlImage(targetUrl, fileName, options).then(function() {
-      // Send image to AWS
-      console.log("fileName: ", fileName);
+      // Send image to Cloudinary
+      cloudinary.uploader.upload(fileName, function(result) {
+        console.log("Cloudinary result url: ", result);
+
+      },
+      {
+        crop: 'crop',
+        width: 640,
+        height: 600,
+        x: 0,
+        y: 0,
+        format: "png"
+      }); 
     })
     .catch(function(err) {
       console.err(err)

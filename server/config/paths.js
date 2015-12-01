@@ -157,13 +157,19 @@ module.exports = {
     }),
 
   storeClip: function(req, res) {
-    console.log('REQ.BODY', req.body);
+
     var email = req.body.email;
-    utils.urlToImage(req.body.url).then(
+    // Img url to send to DB
+    var imgUrl = req.body.url;
+
+    // Calling urlToImage function on image url
+    // This img gets sent to Cloudinary for storage
+    var img = utils.urlToImage(imgUrl);
+    
     db.save({
       clipUrl: req.body.url,
-      title: req.body.title
-        // imgUrl : req.query.imgUrl
+      title: req.body.title,
+      imgUrl : imgUrl
     }, function(err, clipNode) {
       if (err) throw err;
         db.label(clipNode, ['Clip'], function(err) {
@@ -186,8 +192,7 @@ module.exports = {
             }
           });
         });
-      })
-    )   
+      }) 
   },
 
   loadClipsByCategory: function(req, res) {
