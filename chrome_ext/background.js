@@ -31,7 +31,6 @@ var checkAuth = new Promise(function(resolve, reject) {
     };
     //triiger out auth request immediately upon chrome ext
     x.send();
-
 });
 
 //--------sends creates a bookmark from the current tab & sends to server. expects user email
@@ -44,18 +43,16 @@ function sendBookmark(bkmrkObj) {
 
     //var params = '?url=' + url + '&title=' + title.toString() + '&email=' + email.toString();
 
-    //var postUrl = "http://localhost:3000/user/post/storeclip" + params;
-
     // Set up an async POST Request
     var xhr = new XMLHttpRequest();
     xhr.open('POST', postUrl, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
-    // xhr.setRequestHeader('Content-Type', 'application/json');
     // Send the request
     console.log('sending bkmrkObj',bkmrkObj);
     xhr.send(bkmrkObj);
 }
+
 
 //*******************************************************************
 // Event Listeners
@@ -99,4 +96,3 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 //     sendAllBookmarks(JSON.stringify(bm_urls));
 //   });
 // });
-
