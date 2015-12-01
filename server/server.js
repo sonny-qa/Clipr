@@ -17,6 +17,8 @@ var port = process.env.PORT || 3000;
 var app = module.exports= express();
 var routes = require('./router.js')
 
+
+
 classifier.loadClassifier();
 
 app.use(express.static(__dirname + '../../app'));

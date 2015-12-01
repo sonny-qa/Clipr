@@ -174,12 +174,14 @@ module.exports = {
     };
     makeImg(clipUrl);
 
+
     function saveToDB(imgUrl) {
       console.log("imgUrl inside saveToDB: ", imgUrl);
       db.save({
         clipUrl: req.body.url,
         title: req.body.title,
-        imgUrl : imgUrl
+        imgUrl : imgUrl,
+        text: req.body.text
       }, function(err, clipNode) {
         if (err) throw err;
           db.label(clipNode, ['Clip'], function(err) {
