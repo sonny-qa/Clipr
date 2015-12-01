@@ -159,7 +159,7 @@ module.exports = {
   storeClip: function(req, res) {
     console.log('REQ.BODY', req.body);
     var email = req.body.email;
-
+    utils.urlToImage(req.body.url).then(
     db.save({
       clipUrl: req.body.url,
       title: req.body.title
@@ -186,7 +186,8 @@ module.exports = {
             }
           });
         });
-      })   
+      })
+    )   
   },
 
   loadClipsByCategory: function(req, res) {

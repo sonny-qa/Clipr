@@ -9,6 +9,7 @@ var path = require('path');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
+var urlImage = require('url-to-image');
 //fetches a user node based on an email
   var db= require('seraph')({
   server: "http://clipr.sb02.stations.graphenedb.com:24789",
@@ -74,7 +75,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
 
   // captures screen image on chrome_ext click
   urlToImage: function(targetUrl) {
-
+    console.log("urlToImage: ", "inside urlToImage");
     // Options object to pass to urlImage
     var options = {
       width: 300,
@@ -85,9 +86,9 @@ createRelation: function(clip, tag, how, relevance, cb) {
 
     // Function to parse url
     var urlapi = require('url');
-    var url = urlapi.parse(SITEURL);
+    var url = urlapi.parse(targetUrl);
+
     var hostName = url.hostname;
-    console.log(hostName);
     var fileName = hostName + '.png'
 
     // API call to url-to-image module
