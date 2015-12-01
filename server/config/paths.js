@@ -1,16 +1,20 @@
-var utils = require('./utils.js')
+var utils = require('./utils.js');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var session = require('express-session');
-var app = require('../server.js')
+var app = require('../server.js');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var bodyParser = require('body-parser');
+
+var express = require('express');
+var path = require('path');
+var Promise = require('bluebird');
+var request = require('request');
+var http = require('http');
+// var router = require('./router.js');
 
 //INITIALIZE DATABASE//
-var db = require('seraph')({
-  server: "http://clipr.sb02.stations.graphenedb.com:24789",
-  user: "clipr",
-  pass: 'oSvInWIWVVCQIbxLbfTu'
-});
+
 
 // Set website (Heroku or Localhost) and callbackURL
 var website = (process.env.SITE || "http://localhost:3000");
@@ -25,10 +29,25 @@ var clientID = process.env.clientID || keysAndPassword.clientID;
 var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
 
 
-var passport = require('passport')
+var passport = require('passport');
   /**
     Google OAuth2
   **/
+
+
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(express.static(__dirname + '../../app'));
+// Set Response Headers
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 
 app.use(session({
   secret: 'this is a secret',
@@ -60,6 +79,7 @@ passport.use(new GoogleStrategy({
 
     if (result.length === 0) {
       //create node
+      console.log('CREATING NODE IN CREATE NODE :', result);
       db.save({
         username: profile.displayName,
         sessionToken: accessToken,
@@ -80,12 +100,12 @@ passport.use(new GoogleStrategy({
       });
     } else {
 
-    }
     //attach user node and acces token to user
     profile.userOne = result[0];
     profile.accessToken = accessToken;
     profile.email = result[0].email;
 
+}
     return done(null, profile);
 
   });
@@ -116,7 +136,19 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     res.redirect('/#/clips');
   })
 
+  var db= require('seraph')({
+  server: "http://clipr.sb02.stations.graphenedb.com:24789",
+  user: "clipr",
+  pass: 'oSvInWIWVVCQIbxLbfTu'
+});
+
 module.exports = {
+
+  db: require('seraph')({
+  server: "http://clipr.sb02.stations.graphenedb.com:24789",
+  user: "clipr",
+  pass: 'oSvInWIWVVCQIbxLbfTu'
+}),
 
   googleAuth: passport.authenticate('google', {
       scope: ['https://www.googleapis.com/auth/plus.login', 'email']
@@ -139,8 +171,8 @@ module.exports = {
   //     }),
 
   storeClip: function(req, res) {
-
-    var email = req.body.email
+    console.log('REQ.BODY', req.body);
+    var email = req.body.email;
 
     db.save({
       clipUrl: req.body.url,
@@ -155,13 +187,13 @@ module.exports = {
 
         utils.fetchUserByEmail(email, function(userNode) {
             utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {})
-          })
+          });
           //query watson, and loop over top 3 results creating a keyword node for each
         utils.createWatsonUrl(clipNode.clipUrl, function(keywords) {
           for (var i = 0; i < 3; i++) {
             utils.storeTags(keywords[i], function(tagNode, relevance) {
               //create relationship between each keyword node and the clip node
-              utils.createRelation(clipNode, tagNode, relevance, 'contains', function(fromNode) {
+              utils.createRelation(clipNode, tagNode, 'contains', relevance, function(fromNode) {
                 console.log('relationship between clip & tag node created')
 
               });
