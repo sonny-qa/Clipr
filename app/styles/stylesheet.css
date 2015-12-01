@@ -37,7 +37,7 @@ body {
 }
 
 #landing {
-    min-width: 100%;
+    width: 100%;
     height: auto;
     position: absolute;
     left: 0px;
@@ -77,7 +77,7 @@ cursor: pointer;
 #brand {
     font-family: 'Anton', sans-serif;
     position: absolute;
-    color: #0A2342;
+    color: white;
 }
 
 #brand:hover {
@@ -145,7 +145,7 @@ a:hover {
 
 #googlebox.btn.btn-block.btn-social.btn-google {
     width: 15%;
-    background-color: #0A2342;
+    background-color: white;
     color: black;
     position: absolute;
     right: 10px;
@@ -154,13 +154,26 @@ a:hover {
     z-index: 1;
 }
 
+#googlebox.btn.btn-block.btn-social.btn-google:hover{
+    background-color: #2CA58D;
+    color:white;
+    cursor:pointer; 
+}
+
 #modal {
     height: 500px;
 }
 
 #googlebutton.fa.fa-google {
     position: absolute;
-    color: #01A2A6;
+    background-color: white;
+    color: #2CA58D;
+}
+
+#googlebutton.fa.fa-google:hover {
+    background-color: #2CA58D;
+    position: absolute;
+    color: white;
 }
 
 body {
