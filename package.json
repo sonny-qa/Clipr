@@ -62,13 +62,16 @@
     "grunt-cli": "^0.1.13",
     "grunt-sass": "^1.1.0",
     "joi": "^7.0.0",
+    "lodash": "^3.10.1",
     "natural": "^0.2.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^0.2.0",
     "passport-google-oauth2": "^0.1.6",
+    "phantomjs": "^1.9.19",
     "request": "^2.65.0",
     "seraph": "^0.14.0",
-    "url-to-image": "^1.0.0"
+    "url-to-image": "^1.0.0",
+    "yargs": "^3.30.0"
   },
   "license": "MIT"
 }

@@ -2,10 +2,9 @@ var app = require('../server.js');
 var natural = require('natural');
 var fs = require('fs');
 // var async = require('async');
+ 
 
-// // classifier = new natural.BayesClassifier();
-
-
+  classifier = new natural.BayesClassifier();
 
 
 // var files = ['tech.txt', 'news.txt', 'entertainment.txt', 'politics.txt', 'food.txt', 'sports.txt', 'travel.txt', 'business.txt', 'shopping.txt']
@@ -30,13 +29,17 @@ var fs = require('fs');
 module.exports = {
 
   loadClassifier: function() {
-    natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
+  
+
+    natural.BayesClassifier.load('../classifier.json', null, function(err, classifier) {
+
       console.log(classifier.classify("hilary clinton"))
 });
   },
 
   trainClassifier: function() {
     console.log('trainin dis classifier')
+
     classifier.events.on('trainedWithDocument', function(obj) {
       console.log(obj);
       if (obj.index === obj.total - 1) {

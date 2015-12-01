@@ -49,9 +49,31 @@ function sendBookmark(bkmrkObj) {
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     // Send the request
-    console.log('sending bkmrkObj',bkmrkObj);
+
+    console.log('sending bkmrkobj', bkmrkObj);
     xhr.send(bkmrkObj);
 }
+
+var getPageText = function(bkmrkObj, cb) {
+
+    chrome.tabs.query({
+        active: true,
+        currentWindow: true
+    }, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {
+            message: "getText"
+        }, function(response) {
+
+            //remove new line characters before sending over to server
+            bkmrkObj.text = response.data.replace(/\n/g, "")
+            console.log('the response', response);
+
+            cb(bkmrkObj);
+        });
+    })
+
+}
+   
 
 
 //*******************************************************************
@@ -68,31 +90,15 @@ chrome.browserAction.onClicked.addListener(function(tab) {
         bkmrkObj.url = tab.url;
         bkmrkObj.title = tab.title;
 
-        console.log('sending in ext',bkmrkObj);
-          //stringify immediately before send
-          sendBookmark(JSON.stringify(bkmrkObj));
-        });
+        console.log('sending in ext', bkmrkObj);
+
+            //stringify immediately before send
+            getPageText(bkmrkObj,function(data){
+                sendBookmark(JSON.stringify(data));
+            })
+            
+   
+
+    });
 });
 
-//On Install, get all chrome bookmarks
-
-// chrome.runtime.onInstalled.addListener(function(){
-
-//   var bm_urls = [];
-
-//   function fetch_bookmarks(parentNode) {
-//     parentNode.forEach(function(bookmark) {
-//       if (!(bookmark.url === undefined || bookmark.url === null)) {
-//         bm_urls.push(bookmark.url);
-//     }
-//     if (bookmark.children) {
-//       fetch_bookmarks(bookmark.children);
-//     }
-//   });
-// }
-
-//   chrome.bookmarks.getTree(function(rootNode) {
-//     fetch_bookmarks(rootNode);
-//     sendAllBookmarks(JSON.stringify(bm_urls));
-//   });
-// });
