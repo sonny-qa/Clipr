@@ -7,12 +7,14 @@ var request = require('request');
 var http = require('http');
 // var router = require('./router.js');
 var cookieParser = require('cookie-parser');
+var classifier= require('./config/classify.js')
 
 // INITIALIZE SERVER
 var port = process.env.PORT || 3000;
 var app = module.exports= express();
 var routes= require('./router.js')
 
+classifier.loadClassifier();
 
 app.use(express.static(__dirname + '../../app'));
 
