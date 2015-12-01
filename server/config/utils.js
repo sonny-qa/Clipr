@@ -18,7 +18,7 @@ var http = require('http');
 
 module.exports = {
 
-fetchUserByEmail: function(email, cb) {
+  fetchUserByEmail: function(email, cb) {
     var cypher = "MATCH (node:User)" +
       " WHERE node.email = " +
       "'" + email + "'" +
@@ -28,7 +28,6 @@ fetchUserByEmail: function(email, cb) {
       console.log('fetch fetchUserByEmail', result[0])
       cb(result[0])
     })
-
   },
 
 createRelation: function(clip, tag, how, relevance, cb) {
@@ -42,7 +41,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
     });
   },
 
-createWatsonUrl: function(url, cb) {
+  createWatsonUrl: function(url, cb) {
     console.log('inside watson');
     var API = '5770c0482acff843085443bfe94677476ed180e5';
     var baseUrl = 'http://gateway-a.watsonplatform.net/calls/';
@@ -56,7 +55,7 @@ createWatsonUrl: function(url, cb) {
     });
   },
 
-storeTags: function(tag, cb) {
+  storeTags: function(tag, cb) {
     console.log('in storeTags');
     var relevance = tag.relevance;
   db.save({
@@ -71,7 +70,7 @@ storeTags: function(tag, cb) {
         });
       cb(node, relevance);
     });
-  }
+  },
 
   // captures screen image on chrome_ext click
   urlToImage: function(targetUrl) {
@@ -84,14 +83,21 @@ storeTags: function(tag, cb) {
       requestTimeout: 100
     };
 
+    // Function to parse url
+    var urlapi = require('url');
+    var url = urlapi.parse(SITEURL);
+    var hostName = url.hostname;
+    console.log(hostName);
+    var fileName = hostName + '.png'
+
     // API call to url-to-image module
-    urlImage(targetSite, something, options).then(function() {
+    urlImage(targetUrl, fileName, options).then(function() {
       // Send image to AWS
+      console.log("fileName: ", fileName);
     })
     .catch(function(err) {
       console.err(err)
     });
-
   }
 
 }
