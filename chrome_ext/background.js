@@ -63,6 +63,7 @@ var getPageText = function(bkmrkObj, cb) {
         chrome.tabs.sendMessage(tabs[0].id, {
             message: "getText"
         }, function(response) {
+
             //remove new line characters before sending over to server
             bkmrkObj.text = response.data.replace(/\n/g, "")
             console.log('the response', response);
@@ -72,6 +73,7 @@ var getPageText = function(bkmrkObj, cb) {
     })
 
 }
+   
 
 
 //*******************************************************************
