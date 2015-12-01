@@ -8,4 +8,4 @@ module.exports = {
   pass: 'oSvInWIWVVCQIbxLbfTu',
   // createWatsonUrl API key - server.js
   API: '5770c0482acff843085443bfe94677476ed180e5'
-};  
+};
