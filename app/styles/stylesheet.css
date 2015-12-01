@@ -1,10 +1,10 @@
 body {
-    background-color: #FFFEFF;
+    background-color: #0A2342;
 }
 
 #suggestions {
     position: fixed;
-    color: #FFFEFF;
+    color: #0A2342;
     height: 100%;
     width: 30%;
     top: 40px;
@@ -14,7 +14,7 @@ body {
 }
 
 #suggestTitle {
-    color: #FFFEFF;
+    color: #0A2342;
 }
 
 .suggestions.ng-enter,
@@ -46,31 +46,26 @@ body {
 }
 
 #header.head {
-    background-color: #00657F;
-    color: white;
+    background-color: #FFFDF7;
+    color: #FFFDF7;
 }
 
 #navLink {
-    color: #FFFEFF;
+    color: #0A2342;
 }
 
 #navbrand {
     font-family: 'Anton', sans-serif;
-    color: #00657F;
-    background-color: #FFFEFF;
-    background-color: #00657F;
-    color: white;
+    color: #0A2342;
+    background-color: #FFFDF7;
+    background-color: #FFFDF7;
+    color: #2CA58D;
 }
 
 #navLink {
-    color: #FFFEFF;
+    color: #0A2342;
 }
 
-#navbrand {
-    font-family: 'Anton', sans-serif;
-    color: #00657F;
-    background-color: #FFFEFF;
-}
 
 #navbrand:hover {
     color: #01A2A6;
@@ -79,18 +74,18 @@ body {
 #brand {
     font-family: 'Anton', sans-serif;
     position: absolute;
-    color: #FFFEFF;
+    color: #0A2342;
 }
 
 #brand:hover {
-    color: #00657F;
+    color: #0A2342;
     font-family: 'Anton', sans-serif;
     position: absolute;
-    color: #FFFEFF;
+    color: #0A2342;
 }
 
 #brand:hover {
-    color: #00657F;
+    color: #0A2342;
 }
 
 #clipSelectWebsite {
@@ -100,7 +95,7 @@ body {
 }
 
 a {
-    color: #00657F;
+    color: #0A2342;
 }
 
 a:hover {
@@ -129,9 +124,9 @@ a:hover {
 #clipBox {
     font-size: 14px;
     border-radius: 20px;
-    background-color: #E8FFE5;
-    border: 2px solid #E8FFE5;
-    color: #FFFEFF;
+    background-color: #FFFDF7;
+    border: 2px solid #FFFDF7;
+    color: #0A2342;
     margin-top: 5px;
     padding-top: 15px;
     margin-left: 10px;
@@ -140,13 +135,13 @@ a:hover {
 }
 
 #clipBox:hover {
-    border: 2px solid #E8D3D1;
+    border: 5px solid #2CA58D;
 }
 
 
 #googlebox.btn.btn-block.btn-social.btn-google {
     width: 15%;
-    background-color: #FFFEFF;
+    background-color: #0A2342;
     color: black;
     position: absolute;
     right: 10px;
@@ -198,7 +193,9 @@ body {
     height: 100%;
     padding: 50px 0 0px 0;
     position: fixed;
-    border-right: 1px solid gray;
+/*    border-right: 1px solid gray;
+*/    background-color:#FFFDF7;
+    border-top: 20px;
 }
 
 #sidebar {
@@ -212,14 +209,14 @@ body {
     border-left: 0;
     border-right: 0;
     border-top: 0;
-    background-color: #FFFEFF;
-    color: #00657F;
+    min-height: 100%;
+    background-color: #0A2342;
     border-radius: 0;
     border-left: 0;
     border-right: 0;
     border-top: 0;
-    background-color: #FFFEFF;
-    color: #00657F;
+    background-color: #FFFDF7;
+    color: #0A2342;
 }
 
 .list-group-item:hover {
@@ -227,7 +224,7 @@ body {
 }
 
 h3 {
-    color: #00657F;
+    color: #FFFDF7;
 }
 
 @media (max-width: 992px) {
@@ -252,8 +249,8 @@ h3 {
     #sidebar-wrapper {
         position: static;
         height: auto;
-        max-height: 300px;
         border-right: 0;
+        border-top: 20px;
     }
 }
 
