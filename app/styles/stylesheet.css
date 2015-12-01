@@ -50,9 +50,6 @@ body {
     color: #FFFDF7;
 }
 
-#navLink {
-    color: #0A2342;
-}
 
 #navbrand {
     font-family: 'Anton', sans-serif;
@@ -65,6 +62,12 @@ body {
 #navLink {
     color: #0A2342;
 }
+
+#navLink:hover {
+ color: #01A2A6;
+cursor: pointer;
+}
+
 
 
 #navbrand:hover {
@@ -136,6 +139,7 @@ a:hover {
 
 #clipBox:hover {
     border: 5px solid #2CA58D;
+    cursor:pointer;
 }
 
 
@@ -219,8 +223,9 @@ body {
     color: #0A2342;
 }
 
-.list-group-item:hover {
-    color: #01A2A6
+#sidebar .list-group-item:hover {
+    color: #2CA58D;
+    cursor: pointer;
 }
 
 h3 {
