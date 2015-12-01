@@ -75,7 +75,7 @@ passport.use(new GoogleStrategy({
     if (err) {
       throw err;
     }
-
+    console.log("results: ", result);
     if (result.length === 0) {
       //create node
       console.log('CREATING NODE IN CREATE NODE :', result);
@@ -157,7 +157,6 @@ module.exports = {
     }),
 
   storeClip: function(req, res) {
-<<<<<<< HEAD
     console.log('REQ.BODY', req.body);
     var email = req.body.email;
 
@@ -173,7 +172,6 @@ module.exports = {
           //at this point we have the clip node created, so find the user and relate clip->user
           utils.fetchUserByEmail(email, function(userNode) {
             utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {})
-<<<<<<< HEAD
           });
           //query watson, and loop over top 3 results creating a keyword node for each
         utils.createWatsonUrl(clipNode.clipUrl, function(keywords) {
@@ -188,7 +186,7 @@ module.exports = {
             }
           });
         });
-      }))   
+      })   
   },
 
   loadClipsByCategory: function(req, res) {

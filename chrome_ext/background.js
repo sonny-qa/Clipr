@@ -72,11 +72,8 @@ chrome.browserAction.onClicked.addListener(function(tab) {
         bkmrkObj.title = tab.title;
 
         console.log('sending in ext',bkmrkObj);
-        getPageImg(bkmrkObj,function(data){
           //stringify immediately before send
-          sendBookmark(JSON.stringify(data));
-          });
-
+          sendBookmark(JSON.stringify(bkmrkObj));
         });
 });
 
