@@ -4,3 +4,4 @@
 .travis.yml
 app/bower_components/
 apiKeysAndPasswords.js
+/server/config/trainingDocs
