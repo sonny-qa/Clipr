@@ -184,8 +184,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
       clips.clips = response.data;
       for (var x = 0; x < response.data.length; x++) {
         var clip = response.data[x];
-        console.log('clip', clip)
-        if ((!clip.category) || (clip.category=== null) || (clip.category ==='undefined')) {
+        if (!clip.category){
           clip.category='Other';
         }
         if (!clips.categories[clip.category]) {
