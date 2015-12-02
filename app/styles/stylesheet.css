@@ -2,12 +2,12 @@ body {
     background-color: #0A2342;
 }
 
-.btn.btn-primary{
+.btn.btn-primary {
     background-color: #2CA58D;
 }
 
-#modal{
-    background-color:#0A2342;
+#modal {
+    background-color: #0A2342;
 }
 
 #suggestions {
@@ -52,34 +52,32 @@ body {
     top: 0px;
     z-index: -1;
 }
-
+.navbar-header{
+    width: 10%;
+}
 #header.head {
-    background-color: #FFFDF7;
+    background-color: #2CA58D;
     color: #FFFDF7;
 }
-
 
 #navbrand {
     font-family: 'Anton', sans-serif;
     color: #0A2342;
     background-color: #FFFDF7;
-    background-color: #FFFDF7;
-    color: #2CA58D;
+    font-size:50px;
 }
 
 #navLink {
-    color: #0A2342;
+    color: #FFFDF7;
 }
 
 #navLink:hover {
- color: #01A2A6;
-cursor: pointer;
+    color: #0A2342;
+    cursor: pointer;
 }
 
-
-
 #navbrand:hover {
-    color: #01A2A6;
+    color: #2CA58D;
 }
 
 #brand {
@@ -148,9 +146,8 @@ a:hover {
 
 #clipBox:hover {
     border: 5px solid #2CA58D;
-    cursor:pointer;
+    cursor: pointer;
 }
-
 
 #googlebox.btn.btn-block.btn-social.btn-google {
     width: 15%;
@@ -163,29 +160,29 @@ a:hover {
     z-index: 1;
 }
 
-#googlebox.btn.btn-block.btn-social.btn-google:hover{
+#googlebox.btn.btn-block.btn-social.btn-google:hover {
     background-color: #2CA58D;
-    color:white;
-    cursor:pointer; 
+    color: white;
+    cursor: pointer;
 }
 
 #modal {
     height: 500px;
 }
 
-#scrollBtn{
-    position:absolute;
+#scrollBtn {
+    position: absolute;
     bottom: 0px;
-    right:50%;
-    color:white;
+    right: 50%;
+    color: white;
     z-index: 1;
     width: 30px;
-    height:auto;
-    font-size:50px;
+    height: auto;
+    font-size: 50px;
 }
 
-#scrollBtn:hover{
-    font-size:60px;
+#scrollBtn:hover {
+    font-size: 60px;
 }
 
 #googlebutton.fa.fa-google-plus-square {
@@ -197,8 +194,6 @@ a:hover {
 #googlebutton.fa.fa-google-plus-square:hover {
     color: #2CA58D;
 }
-
-
 
 body {
     padding-top: 50px;
@@ -234,8 +229,9 @@ body {
     height: 100%;
     padding: 50px 0 0px 0;
     position: fixed;
-/*    border-right: 1px solid gray;
-*/    background-color:#FFFDF7;
+    border-radius: 20px;
+    border:#2CA58D ;
+    background-color: #FFFDF7;
     border-top: 20px;
 }
 
@@ -243,6 +239,10 @@ body {
     position: relative;
     height: 100%;
     overflow: hidden;
+}
+
+.nav.list-group{
+    padding-top: 20px;
 }
 
 #sidebar .list-group-item {
