@@ -19,6 +19,7 @@ var cloudinary = require('cloudinary');
   pass: 'oSvInWIWVVCQIbxLbfTu'
 })
 
+
 // initialize cloudinary connection for storing and retreiving images
 cloudinary.config({
   cloud_name: 'cjpuskar',

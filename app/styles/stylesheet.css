@@ -2,6 +2,14 @@ body {
     background-color: #0A2342;
 }
 
+.btn.btn-primary{
+    background-color: #2CA58D;
+}
+
+#modal{
+    background-color:#0A2342;
+}
+
 #suggestions {
     position: fixed;
     color: #0A2342;
@@ -37,7 +45,7 @@ body {
 }
 
 #landing {
-    min-width: 100%;
+    width: 100%;
     height: auto;
     position: absolute;
     left: 0px;
@@ -77,7 +85,7 @@ cursor: pointer;
 #brand {
     font-family: 'Anton', sans-serif;
     position: absolute;
-    color: #0A2342;
+    color: white;
 }
 
 #brand:hover {
@@ -116,9 +124,10 @@ a:hover {
 }
 
 #clipBackground {
-    width: 60%;
-    height: 60%;
+    width: 144px;
+    height: 153.6px;
     position: relative;
+    border: 2px solid #2CA58D;
     border-radius: 20px;
     size: 50%;
     -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
@@ -145,8 +154,8 @@ a:hover {
 
 #googlebox.btn.btn-block.btn-social.btn-google {
     width: 15%;
-    background-color: #0A2342;
-    color: black;
+    background-color: white;
+    color: #0A2342;
     position: absolute;
     right: 10px;
     top: 10px;
@@ -154,14 +163,42 @@ a:hover {
     z-index: 1;
 }
 
+#googlebox.btn.btn-block.btn-social.btn-google:hover{
+    background-color: #2CA58D;
+    color:white;
+    cursor:pointer; 
+}
+
 #modal {
     height: 500px;
 }
 
-#googlebutton.fa.fa-google {
-    position: absolute;
-    color: #01A2A6;
+#scrollBtn{
+    position:absolute;
+    bottom: 0px;
+    right:50%;
+    color:white;
+    z-index: 1;
+    width: 30px;
+    height:auto;
+    font-size:50px;
 }
+
+#scrollBtn:hover{
+    font-size:60px;
+}
+
+#googlebutton.fa.fa-google-plus-square {
+    position: absolute;
+    background-color: white;
+    color: #0A2342;
+}
+
+#googlebutton.fa.fa-google-plus-square:hover {
+    color: #2CA58D;
+}
+
+
 
 body {
     padding-top: 50px;

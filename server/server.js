@@ -19,8 +19,6 @@ var routes = require('./router.js')
 
 
 
-classifier.loadClassifier();
-
 app.use(express.static(__dirname + '../../app'));
 
 app.listen(port);
