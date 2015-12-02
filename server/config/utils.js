@@ -11,6 +11,7 @@ var request = require('request');
 var http = require('http');
 var urlImage = require('url-to-image');
 var cloudinary = require('cloudinary');
+var natural = require('natural')
 
 //fetches a user node based on an email
   var db= require('seraph')({
@@ -52,6 +53,10 @@ createRelation: function(clip, tag, how, relevance, cb) {
     });
   },
 
+
+
+
+
   createWatsonUrl: function(url, cb) {
     console.log('inside watson');
     var API = '5770c0482acff843085443bfe94677476ed180e5';
@@ -59,6 +64,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
     var endUrl = 'url/URLGetRankedKeywords?apikey=' + API + '&outputMode=json&url=';
     var fullUrl = baseUrl + endUrl + url;
     console.log(fullUrl);
+
     request(fullUrl, function(err, response, body) {
       var bodyParsed = JSON.parse(body);
       console.log('WATSON KEYWORDS:', bodyParsed.keywords);
@@ -68,9 +74,9 @@ createRelation: function(clip, tag, how, relevance, cb) {
 
   storeTags: function(tag, cb) {
     console.log('in storeTags');
-    var relevance = tag.relevance;
+    var relevance = tag.tfidf;
   db.save({
-      tagName: tag.text
+      tagName: tag.term
     }, function(err, node) {
       if (err) throw err;
     db.label(node, ['Tag'],
