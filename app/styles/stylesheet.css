@@ -2,6 +2,14 @@ body {
     background-color: #0A2342;
 }
 
+.btn.btn-primary{
+    background-color: #2CA58D;
+}
+
+#modal{
+    background-color:#0A2342;
+}
+
 #suggestions {
     position: fixed;
     color: #0A2342;
