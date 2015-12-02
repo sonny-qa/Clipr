@@ -237,7 +237,6 @@ module.exports = {
                     title: req.body.title,
                     imgUrl: imgUrl,
                     text: req.body.text,
-                    title: req.body.title,
                     category: category
                 }, function(err, clipNode) {
                     //returns the clipNode if ressolved correctly
