@@ -49,17 +49,18 @@ angular.module('clipr.services', ['ngCookies'])
       clips.data = response.data;
       clips.clips = response.data;
       for (var x = 0; x < response.data.length; x++) {
-        var clip = response.data[x]
-        console.log('clip in loadall', clip)
-        if (clip.category) {
-          if (!clips.categories[clip.category]) {
-            clips.categories[clip.category] = [clip]
-          } else {
-            clip.categories[clip.category].push(clip);
-          }
+        var clip = response.data[x];
+        if (!clip.category){
+          clip.category='Other';
+        }
+        if (!clips.categories[clip.category]) {
+          console.log('in !', clip.category)
+          clips.categories[clip.category] = [clip];
+        } else {
+          clip.categories[clip.category].push(clip);
         }
       }
-      console.log('clips.categories', clips.categories)
+      console.log('clips.categories', clips.categories);
     });
   };
 
