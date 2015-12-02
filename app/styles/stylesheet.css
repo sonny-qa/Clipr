@@ -195,10 +195,10 @@ a:hover {
 }
 
 #googlebutton.fa.fa-google-plus-square:hover {
-    background-color: #2CA58D;
-    position: absolute;
-    color: white;
+    color: #2CA58D;
 }
+
+
 
 body {
     padding-top: 50px;
