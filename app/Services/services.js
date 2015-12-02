@@ -143,16 +143,14 @@ angular.module('clipr.services', ['ngCookies'])
   var content = {
     data: null
   }; 
-      console.log("Inside of Suggestions Factory!! ");
 
-
-  var getContent = function (url) {
-    console.log('URL BEING PASSED TO SERVER', url);
+  var getContent = function (title) {
+    console.log('URL BEING PASSED TO SERVER', title);
     return $http({
       method: 'GET',
       url: '/getSuggestions',
       params: {
-        url: url
+        title: title
       }
     }).then(function (response) {
       content.data = response.data;

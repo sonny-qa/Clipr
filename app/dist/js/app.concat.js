@@ -57448,8 +57448,13 @@ function htmlParser(html, handler) {
 >>>>>>> [feat]: site suggestions
 >>>>>>> [fix]: fix merge conflicts
 
+<<<<<<< 1b628c042560710334c09c00ddf40a632c89da64
         if (handler.chars) handler.chars(decodeEntities(text));
       }
+=======
+ $scope.clips = Clips.clips;
+ $scope.clipShow = false;
+>>>>>>> [feat]: get back suggestions  from AlchemyAPI
 
     } else {
       // IE versions 9 and 10 do not understand the regex '[^]', so using a workaround with [\W\w].
@@ -57472,8 +57477,21 @@ function htmlParser(html, handler) {
     last = html;
   }
 
+<<<<<<< 1b628c042560710334c09c00ddf40a632c89da64
   // Clean up any remaining tags
   parseEndTag();
+=======
+   $scope.opts.resolve.item = function() {
+     return angular.copy({
+<<<<<<< 0315954e4afdb4f3071858e6cc6025ef1db92f63
+       clip: clipUrl
+=======
+       clipUrl: $scope.clips.data[clipIndex].clipUrl,
+       title : $scope.clips.data[clipIndex].title
+>>>>>>> [feat]: get back suggestions  from AlchemyAPI
+     }); // pass name to Dialog
+   };
+>>>>>>> [feat]: get back suggestions  from AlchemyAPI
 
   function parseStartTag(tag, tagName, rest, unary) {
     tagName = angular.lowercase(tagName);
@@ -58199,6 +58217,7 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     checkAllowableRegions(touchCoordinates, x, y);
   }
 
+<<<<<<< 1b628c042560710334c09c00ddf40a632c89da64
   // Actual linking function.
   return function(scope, element, attr) {
     var clickHandler = $parse(attr.ngClick),
@@ -58212,6 +58231,13 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
       tapping = false;
       element.removeClass(ACTIVE_CLASS_NAME);
     }
+=======
+ $scope.item = item;
+ $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
+ $scope.notes = Notes.notesObj;
+ $scope.suggestions = Suggestions.content;
+ console.log('TITLE INSIDE ARTICLE', $scope.item.title);
+>>>>>>> [feat]: get back suggestions  from AlchemyAPI
 
     element.on('touchstart', function(event) {
       tapping = true;
@@ -58233,9 +58259,16 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
       touchStartY = e.clientY;
     });
 
+<<<<<<< 1b628c042560710334c09c00ddf40a632c89da64
     element.on('touchcancel', function(event) {
       resetState();
     });
+=======
+  $scope.getRelated = function () {
+    //call service factory - getSuggestions
+    Suggestions.getContent($scope.item.title);
+  };
+>>>>>>> [feat]: get back suggestions  from AlchemyAPI
 
     element.on('touchend', function(event) {
       var diff = Date.now() - startTime;
@@ -58656,16 +58689,14 @@ angular
   var content = {
     data: null
   }; 
-      console.log("Inside of Suggestions Factory!! ");
 
-
-  var getContent = function (url) {
-    console.log('URL BEING PASSED TO SERVER', url);
+  var getContent = function (title) {
+    console.log('URL BEING PASSED TO SERVER', title);
     return $http({
       method: 'GET',
       url: '/getSuggestions',
       params: {
-        url: url
+        title: title
       }
     }).then(function (response) {
       content.data = response.data;

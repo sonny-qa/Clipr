@@ -89,10 +89,6 @@ createRelation: function(clip, tag, how, relevance, cb) {
     });
   },
 
-
-
-
-
   createWatsonUrl: function(url, cb) {
     console.log('inside watson');
     var API = '5770c0482acff843085443bfe94677476ed180e5';
@@ -100,12 +96,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
     var endUrl = 'url/URLGetRankedKeywords?apikey=' + API + '&outputMode=json&url=';
     var fullUrl = baseUrl + endUrl + url;
     console.log(fullUrl);
-<<<<<<< 76f066547c1f6aa4d0e7d2d25a3b423639900ebf
-
-    request(fullUrl, function(err, response, body) {
-=======
     request(fullUrl, function (err, response, body) {
->>>>>>> [feat]: site suggestions
       var bodyParsed = JSON.parse(body);
       console.log('WATSON KEYWORDS:', bodyParsed.keywords);
       cb(bodyParsed.keywords);
@@ -128,8 +119,6 @@ createRelation: function(clip, tag, how, relevance, cb) {
       cb(node, relevance);
     });
   },
-
-<<<<<<< 76f066547c1f6aa4d0e7d2d25a3b423639900ebf
   // captures screen image on chrome_ext click
   urlToImage: function(targetUrl, cb) {
     // Options object to pass to urlImage
@@ -164,23 +153,28 @@ createRelation: function(clip, tag, how, relevance, cb) {
       }); 
     })
     .catch(function(err) {
-      console.log(err)
+      console.log(err);
     });
-  }
-
-}
-=======
-  newsAPI : function(keyword) {
+  },
+  newsAPI : function(keyword, cb) {
     var API = 'b79ddff15ca6185d4a937408f600e8f0c2657073';
-    var fullUrl = 'https://access.alchemyapi.com/calls/data/GetNews?apikey=' + API + '&return=enriched.url.title,enriched.url.url&start=now-30d&end=now&q.enriched.url.cleanedTitle=' + keyword + '&q.enriched.url.enrichedTitle&count=5&outputMode=json';
+    var fullUrl = 'https://gateway-a.watsonplatform.net/calls/data/GetNews?apikey=' + API + '&outputMode=json&outputMode=json&start=now-30d&end=now&count=10&q.enriched.url.title=' + keyword + '&return=enriched.url.title,original.url';
+    // var fullUrl = 'https://access.alchemyapi.com/calls/data/GetNews?apikey=' + API + '&return=enriched.url.title,enriched.url.url&start=now-30d&end=now&q.enriched.url.cleanedTitle=' + keyword + '&q.enriched.url.enrichedTitle&count=5&outputMode=json';
     
+    // request(fullUrl, function (err, response, body) {
+    //   var bodyParsed = JSON.parse(body);
+    //   console.log('WATSON KEYWORDS:', bodyParsed.keywords);
+    //   cb(bodyParsed.keywords);
+    // });
     request(fullUrl, function (err, res, body) {  
       if(err) { 
         console.log('ERROR inside newsAPI!!'); 
       }
       var bodyParsed = JSON.parse(body);
-      console.log("Inside the newsAPI ", bodyParsed.result.docs[0].source.enriched.url.title);
-      res.send(bodyParsed);
+      // console.log("Inside the newsAPI ", bodyParsed.result.docs[0].source.enriched.url.title);
+      // console.log("Inside the newsAPI ", bodyParsed.result.docs[1].source.enriched.url.title);
+      // console.log('INSIDE NEWSAPI :', bodyParsed);
+      cb(bodyParsed);
     });
 
   },
@@ -211,4 +205,3 @@ createRelation: function(clip, tag, how, relevance, cb) {
   }
 
 };
->>>>>>> [feat]: site suggestions

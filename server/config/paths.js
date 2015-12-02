@@ -170,7 +170,44 @@ module.exports = {
             //send user to google to authenticate
 
         }),
+  loadAllClips: function(req, res) {
+    console.log('COOKIES', req.query.cookie);
+    var cypher = "MATCH(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips";
+    db.query(cypher, function(err, results) {
+      console.log('server results', results);
+      res.send(results);
+    });
+  },
 
+  addNote: function(req, res) {
+    console.log('in addNote');
+    console.log('url', req.query.url);
+    // console.log('url', req.query.user)
+
+    var clipNode;
+    var noteNode;
+    db.find({
+      clipUrl: req.query.url
+    }, function(err, clip) {
+      if (err) throw err;
+      clipNode = clip;
+    });
+    console.log(req.query.note);
+    db.save({
+      note: req.query.note
+    }, function(err, note) {
+      console.log(' note was saved', note);
+      noteNode = note;
+      if (err) throw err;
+      db.label(noteNode, ['Note'], function(err) {
+        if (err) throw err;
+        console.log('noteNode', noteNode);
+        console.log('clipNode', clipNode);
+      });
+      utils.createRelation(noteNode, clipNode[0], 'belongsTo', 3);
+      res.send(noteNode);
+    });
+  },
   loadNotes: function(req, res) {
     console.log('inloadnotes');
     var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
@@ -182,15 +219,13 @@ module.exports = {
   },
 
   getSuggestions: function (req, res) {
-    //receive urls from services, query DB to get back keyword
-    var cypher = "MATCH (n:Clip)-[relevance]->(b:Tag) WHERE n.clipUrl='" + req.query.url + "' RETURN (n),(b)";
-    //use keyword to call NewsAPI
-    db.query(cypher, function(err, result) {
-      if (err) { throw err; }
-      //utils.newsAPI(result[0].n.title);
-      res.send(result);
-    }); 
-
+    // Get title of article from AngularServices, pass in first word to NewsAPI function
+    var firstWord = req.query.title.split(' ')[0];
+        utils.newsAPI(firstWord, function(suggestions){
+      console.log('SUGGESTIONS', suggestions);
+      console.log('Suggestions We Get Back!', suggestions.result.docs[0].source.enriched.url.title);
+      res.send(suggestions);
+    });
   },
 
     storeClip: function(req, res) {
@@ -419,3 +454,5 @@ module.exports = {
     }
 
 }
+};
+
