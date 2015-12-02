@@ -28,12 +28,23 @@ var async = require('async');
 
 module.exports = {
 
-  loadClassifier: function() {
+  // category: {
+  //   clipCategory: null
+  // },
 
-    natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
-      return classifier;
-    });
-  },
+  // loadClassifier: function(text) {
+
+  //   natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
+  //     if (err) {
+  //       console.log(err)
+  //     }
+  //     console.log('classifier is loaded')
+  //     var category= classifier.classify(text)
+  //     category.clipCategory= category
+
+  //   });
+  //     console.log(category.clipCategory)
+  // },
 
   trainClassifier: function() {
     console.log('trainin dis classifier')

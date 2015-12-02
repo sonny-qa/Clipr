@@ -11,7 +11,6 @@ var request = require('request');
 var http = require('http');
 var urlImage = require('url-to-image');
 var cloudinary = require('cloudinary');
-var classifier= require('./classify.js')
 
 //fetches a user node based on an email
   var db= require('seraph')({
@@ -19,10 +18,6 @@ var classifier= require('./classify.js')
   user: "clipr",
   pass: 'oSvInWIWVVCQIbxLbfTu'
 })
-
-
-//load classifier
-var nbClassifier= classifier.loadClassifier();
 
 
 // initialize cloudinary connection for storing and retreiving images

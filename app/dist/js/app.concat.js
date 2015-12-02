@@ -152,23 +152,23 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
   //return back array of clip objects
   var clips = {
     data: [],
-    clips:[],
+    clips: [],
     categories: {}
   };
 
   var loadClipsByCategory = function(topic) {
-    var categorizedClips=[];
-    if(topic ==='all'){
-      clips.clips=clips.data;
+    var categorizedClips = [];
+    if (topic === 'all') {
+      clips.clips = clips.data;
     }
-    for(var x=0; x<clips.data.length;x++){
-      var node= clips.data[x]
+    for (var x = 0; x < clips.data.length; x++) {
+      var node = clips.data[x]
       console.log(node)
-      if(node.category===topic){
+      if (node.category === topic) {
         categorizedClips.push(node)
       }
     }
-    clips.clips= categorizedClips;
+    clips.clips = categorizedClips;
   };
 
   var loadAllClips = function(cookie) {
@@ -181,14 +181,16 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
     }).then(function(response) {
       console.log('load all clips response', response.data);
       clips.data = response.data;
-      clips.clips= response.data;
+      clips.clips = response.data;
       for (var x = 0; x < response.data.length; x++) {
         var clip = response.data[x]
         console.log('clip in loadall', clip)
-        if (!clips.categories[clip.category]) {
-          clips.categories[clip.category] = [clip]
-        } else {
-          clip.categories[clip.category].push(clip);
+        if (clip.category) {
+          if (!clips.categories[clip.category]) {
+            clips.categories[clip.category] = [clip]
+          } else {
+            clip.categories[clip.category].push(clip);
+          }
         }
       }
       console.log('clips.categories', clips.categories)

@@ -5,7 +5,8 @@ var app = require('../server.js');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
-var classifier= require('./classify.js')
+var natural = require('natural');
+
 
 
 var express = require('express');
@@ -13,11 +14,8 @@ var path = require('path');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
-// var router = require('./router.js');
-
-
-//load classifier
-var nbClassifier= classifier.loadClassifier();
+var classifier = require('./classify.js')
+  // var router = require('./router.js');
 
 
 // Set website (Heroku or Localhost) and callbackURL
@@ -34,22 +32,22 @@ var clientID = process.env.clientID || keysAndPassword.clientID;
 var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
 
 var passport = require('passport');
-  /**
-    Google OAuth2
-  **/
+/**
+  Google OAuth2
+**/
 
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+  extended: true
 }));
 app.use(express.static(__dirname + '../../app'));
 // Set Response Headers
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 
@@ -103,12 +101,12 @@ passport.use(new GoogleStrategy({
       });
     } else {
 
-    //attach user node and acces token to user
-    profile.userOne = result[0];
-    profile.accessToken = accessToken;
-    profile.email = result[0].email;
+      //attach user node and acces token to user
+      profile.userOne = result[0];
+      profile.accessToken = accessToken;
+      profile.email = result[0].email;
 
-}
+    }
     return done(null, profile);
 
   });
@@ -138,7 +136,7 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     res.redirect('/#/clips');
   })
 
-  var db= require('seraph')({
+var db = require('seraph')({
   server: "http://clipr.sb02.stations.graphenedb.com:24789",
   user: "clipr",
   pass: 'oSvInWIWVVCQIbxLbfTu'
@@ -146,11 +144,11 @@ app.get('/auth/google/callback', passport.authenticate('google', {
 
 module.exports = {
 
-  db: require('seraph')({
-  server: "http://clipr.sb02.stations.graphenedb.com:24789",
-  user: "clipr",
-  pass: 'oSvInWIWVVCQIbxLbfTu'
-}),
+  //   db: require('seraph')({
+  //   server: "http://clipr.sb02.stations.graphenedb.com:24789",
+  //   user: "clipr",
+  //   pass: 'oSvInWIWVVCQIbxLbfTu'
+  // }),
 
   googleAuth: passport.authenticate('google', {
       scope: ['https://www.googleapis.com/auth/plus.login', 'email']
@@ -166,54 +164,58 @@ module.exports = {
     // Img url to send to DB
     var clipUrl = req.body.url;
     var title = req.body.title;
+    var category;
+    natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
+      console.log(classifier.classify(req.body.text))
+      category = classifier.classify(req.body.text);
+       makeImg(clipUrl);
+    });
     // Calling urlToImage function on image url
     // This img gets sent to Cloudinary for storage
     // var img = utils.urlToImage(imgUrl)
     // img.then(function(result) {
     //   console.log("Im in storeClip on server side: ", result);  
     // });
-    // var category= nbClassifier.classify(req.body.text)
+    // var category= classifier.classify(req.body.text)
 
     function makeImg(clipUrl) {
+      console.log('in makeImg')
       utils.urlToImage(clipUrl, function(imgUrl) {
         saveToDB(imgUrl)
       });
     };
-    makeImg(clipUrl);
-
 
     function saveToDB(imgUrl) {
-      console.log("imgUrl inside saveToDB: ", imgUrl);
       db.save({
         clipUrl: req.body.url,
         title: req.body.title,
-        imgUrl : imgUrl,
-        text: req.body.text
-        category: nbClassifier.classify(req.body.text)
+        imgUrl: imgUrl,
+        text: req.body.text,
+        category: category
       }, function(err, clipNode) {
         if (err) throw err;
-          db.label(clipNode, ['Clip'], function(err) {
-            if (err) throw err;
-            console.log(clipNode + " was inserted as a Clip into DB");
-            //at this point we have the clip node created, so find the user and relate clip->user
-            utils.fetchUserByEmail(email, function(userNode) {
-              utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {})
-            });
-            //query watson, and loop over top 3 results creating a keyword node for each
-          utils.createWatsonUrl(clipNode.clipUrl, function(keywords) {
-            for (var i = 0; i < 3; i++) {
-              utils.storeTags(keywords[i], function(tagNode, relevance) {
-                //create relationship between each keyword node and the clip node
-                utils.createRelation(clipNode, tagNode, 'contains', relevance, function(fromNode) {
-                  console.log('relationship between clip & tag node created')
-
-                  });
-                });
-              }
-            });
+        db.label(clipNode, ['Clip'], function(err) {
+          if (err) throw err;
+          console.log(clipNode + " was inserted as a Clip into DB");
+          //at this point we have the clip node created, so find the user and relate clip->user
+          utils.fetchUserByEmail(email, function(userNode) {
+            utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {})
           });
-        })
-      };
+          //query watson, and loop over top 3 results creating a keyword node for each
+          // utils.createWatsonUrl(clipNode.clipUrl, function(keywords) {
+          //   for (var i = 0; i < 3; i++) {
+          //     utils.storeTags(keywords[i], function(tagNode, relevance) {
+          //       //create relationship between each keyword node and the clip node
+          //       utils.createRelation(clipNode, tagNode, 'contains', relevance, function(fromNode) {
+          //         console.log('relationship between clip & tag node created')
+
+          //       });
+          //     });
+          //   }
+          // });
+        });
+      })
+    };
   },
 
   loadClipsByCategory: function(req, res) {

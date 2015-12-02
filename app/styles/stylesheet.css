@@ -116,9 +116,10 @@ a:hover {
 }
 
 #clipBackground {
-    width: 60%;
-    height: 60%;
+    width: 144px;
+    height: 153.6px;
     position: relative;
+    border: 2px solid #2CA58D;
     border-radius: 20px;
     size: 50%;
     -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
