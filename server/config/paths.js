@@ -135,9 +135,9 @@ app.get('/auth/google/callback', passport.authenticate('google', {
 
         res.cookie('clipr', email)
 
-    // Successful authentication, redirect home.
-    res.redirect('/#/categories');
-  })
+        // Successful authentication, redirect home.
+        res.redirect('/#/categories');
+    })
 
 var db = require('seraph')({
     server: "http://clipr.sb02.stations.graphenedb.com:24789",
@@ -172,17 +172,32 @@ module.exports = {
         var clipUrl = req.body.url;
         var title = req.body.title;
         var category;
-        natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
-            console.log(classifier.classify(req.body.text))
-            category = classifier.classify(req.body.text);
-            makeImg(clipUrl);
+
+        var isDup = new Promise(function(resolve, reject) {
+            var cypher = "MATCH (usernode:User {email:" +
+                '"' + email + '"' + "})<--(clipnode:Clip {title:" + '"' + title + '"' + "}) RETURN clipnode"
+
+            db.query(cypher, function(err, res) {
+                var flag = false
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i].title === title) {
+                 
+                        flag = true
+                        break
+                    }
+                }
+                if (!flag) {resolve(flag)}
+                  else {console.log('error: this user already has this clip'); reject}
+            })
+
+        }).then(function(val) {
+              console.log('loading corpus & classifiying clip...')
+                natural.BayesClassifier.load('../classifier.json', null, function(err, classifier) {
+                    console.log(classifier.classify(req.body.text))
+                    category = classifier.classify(req.body.text);
+                    makeImg(clipUrl);
+                });
         });
-        // Calling urlToImage function on image url
-        // This img gets sent to Cloudinary for storage
-        // var img = utils.urlToImage(imgUrl)
-        // img.then(function(result) {
-        //   console.log("Im in storeClip on server side: ", result);  
-        // });
 
         function makeImg(clipUrl) {
             utils.urlToImage(clipUrl, function(imgUrl) {
@@ -191,7 +206,7 @@ module.exports = {
             });
         };
 
-        makeImg(clipUrl);
+        // makeImg(clipUrl);
 
         //****  THIS IS KEPT AS BACKUP NOW ******//
 
@@ -226,8 +241,33 @@ module.exports = {
         //         });
         //     })
         // };
+        // function isClipDuplicate(userEmail, clipTitle) {
+        //     //returns true if clip already exists for that user in DB
 
-        
+
+        //     var isDup = new Promise(function(resolve, reject) {
+        //         var cypher = "MATCH (usernode:User {email:" +
+        //             '"' + userEmail + '"' + "})<--(clipnode:Clip {title:" + '"' + clipTitle + '"' + "}) RETURN clipnode"
+
+        //         db.query(cypher, function(err, res) {
+        //             var flag = false
+        //             for (var i = 0; i < res.length; i++) {
+        //                 if (res[i].title === clipTitle) {
+        //                     console.log('registered true')
+        //                     flag = true
+        //                     break
+        //                 }
+        //             }
+        //             resolve(flag)
+        //         })
+
+        //     }).then(function(val) {
+        //         console.log('the val', val)
+        //         return val
+        //     })
+
+        // };
+
         function saveToDbNoWatson(imgUrl) {
             console.log('insidesavetoDBnoWatson')
 
@@ -279,11 +319,11 @@ module.exports = {
 
         function extractKeywordsNoWatson(clipNode) {
             var text = clipNode.text
-
+            //load an instance of term freq - inverse term freq instance
             TfIdf = natural.TfIdf,
                 tfidf = new TfIdf();
 
-            //add the document from the node
+            //add the document from the node.text - this represents the doc in feature space
             tfidf.addDocument(text)
 
             //get all terms
@@ -358,6 +398,6 @@ module.exports = {
             console.log('NOTESRESULT', result);
             res.send(result);
         });
-    } 
+    }
 
 }
