@@ -58122,6 +58122,7 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     event.stopPropagation();
     event.preventDefault();
 
+<<<<<<< 8b477e0c8615439fdd76ae8d033f9cf0c5618f3c
     // Blur focused form elements
     event.target && event.target.blur && event.target.blur();
   }
@@ -58134,6 +58135,16 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     var x = touches[0].clientX;
     var y = touches[0].clientY;
     touchCoordinates.push(x, y);
+=======
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies) {
+
+  $scope.clips = Clips.clips;
+  $scope.clipShow = false;
+
+  $scope.loadAllClips = function() {
+    Clips.loadAllClips($cookies.get('clipr'));
+  };
+>>>>>>> [feat] Categories successfully changes on click
 
     $timeout(function() {
       // Remove the allowable region.
@@ -58146,6 +58157,7 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     }, PREVENT_DURATION, false);
   }
 
+<<<<<<< 8b477e0c8615439fdd76ae8d033f9cf0c5618f3c
   // On the first call, attaches some event handlers. Then whenever it gets called, it creates a
   // zone around the touchstart where clicks will get busted.
   function preventGhostClick(x, y) {
@@ -58181,11 +58193,76 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
       if (tapElement.nodeType == 3) {
         tapElement = tapElement.parentNode;
       }
+=======
+  $scope.logOut = function() {
+    AuthService.logOut();
+  };
+
+  $scope.clipToggle = function() {
+    if ($scope.clipShow === false) {
+      $scope.clipShow = true;
+    }
+    if ($scope.clipShow === true) {
+      $scope.clipShow = false;
+    }
+  };
+
+  $scope.changeCategory = function(category, clipTitle) {
+    Clips.changeCategory(category, clipTitle);
+  }
+
+  $scope.showModal = function(clipUrl, size) {
+    $scope.opts = {
+      size: size,
+      backdrop: true,
+      backdropClick: true,
+      dialogFade: false,
+      keyboard: true,
+      templateUrl: './clipSelect/clipSelectView.html',
+      controller: ModalInstanceCtrl,
+      resolve: {}
+    };
+
+    $scope.opts.resolve.item = function() {
+      return angular.copy({
+        clip: clipUrl
+      }); // pass name to Dialog
+    };
+
+    var modalInstance = $modal.open($scope.opts);
+    modalInstance.result.then(function() {
+      //on ok button press
+    }, function() {
+      //on cancel button press
+      console.log("Modal Closed");
+    });
+  };
+
+  $scope.openAside = function(position) {
+    console.log('inside asiiiiideee');
+    $aside.open({
+      templateUrl: './Suggestions/categorySuggestionsView.html',
+      placement: position,
+      backdrop: false,
+      controller: function($scope, $modalInstance) {
+        $scope.ok = function(e) {
+          $modalInstance.close();
+          e.stopPropagation();
+        };
+        $scope.cancel = function(e) {
+          $modalInstance.dismiss();
+          e.stopPropagation();
+        };
+      }
+    });
+  };
+>>>>>>> [feat] Categories successfully changes on click
 
       element.addClass(ACTIVE_CLASS_NAME);
 
       startTime = Date.now();
 
+<<<<<<< 8b477e0c8615439fdd76ae8d033f9cf0c5618f3c
       // Use jQuery originalEvent
       var originalEvent = event.originalEvent || event;
       var touches = originalEvent.touches && originalEvent.touches.length ? originalEvent.touches : [originalEvent];
@@ -58226,6 +58303,36 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
           element.triggerHandler('click', [event]);
         }
       }
+=======
+  $scope.item = item;
+  $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
+  $scope.notes = Notes.notesObj;
+
+  $scope.ok = function() {
+    $modalInstance.close();
+  };
+
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
+
+  //On 'save', make call to server with notes and site url
+  //fetch Notes and display it
+  $scope.save = function(userNotes) {
+    $scope.NoteAndUrl = {
+      note: userNotes,
+      url: $scope.item.clip
+    };
+    console.log('Notes being passed to server', $scope.NoteAndUrl);
+    Notes.addNotes($scope.NoteAndUrl);
+  };
+
+  $scope.display = function() {
+    console.log('display function!!!');
+    Notes.loadNotes($scope.item.clip);
+  };
+};;angular.module('clipr.sidebar',['ui.router'])
+>>>>>>> [feat] Categories successfully changes on click
 
       resetState();
     });
@@ -58481,7 +58588,7 @@ angular
   };
 })
 
-.factory('Clips', ["$http", function($http) {
+.factory('Clips', ["$http", "$state", "$cookies", function($http, $state, $cookies) {
   //loadClips - hhtp request to server func
   //return back array of clip objects
   var clips = {
@@ -58514,9 +58621,15 @@ angular
         cookie: cookie
       }
     }).then(function(response) {
+<<<<<<< 8b477e0c8615439fdd76ae8d033f9cf0c5618f3c
       clips.data= response.data;
       clips.clips= response.data;
       clips.categories={};
+=======
+      clips.data = response.data;
+      clips.clips = response.data;
+      clips.categories={}
+>>>>>>> [feat] Categories successfully changes on click
       for (var x = 0; x < response.data.length; x++) {
         //check if clip exists in data
         var clip= response.data[x].clips;
@@ -58535,16 +58648,39 @@ angular
         } else {
           clips.categories[clip.category].push(clip);
         }
+<<<<<<< 8b477e0c8615439fdd76ae8d033f9cf0c5618f3c
+=======
+        console.log('clips.categories', clips.categories);
+>>>>>>> [feat] Categories successfully changes on click
       }
       console.log('CLIPS DATA LOOKS LIKE THIS ::::::::::::::::::::::::::::::::::::::', clips.data);
       console.log('CLIPS CLIPS LOOKS LIKE THIS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', clips.clips);
     });
   };
 
+  var changeCategory = function(category, clipTitle) {
+    return $http({
+      method: 'POST',
+      url: '/changeCategory',
+      params: {
+        category: category, 
+        clipTitle: clipTitle
+      }
+    }).then(function(response){
+      loadAllClips($cookies.get('clipr')).then(function(response){
+        console.log('response')
+        loadClipsByCategory(category).then(function(response){
+      // $state.go('categories')
+        })
+      });
+    })
+  }
+
   return {
     loadClipsByCategory: loadClipsByCategory,
     loadAllClips: loadAllClips,
-    clips: clips
+    clips: clips,
+    changeCategory: changeCategory
   };
 
 }])

@@ -13,29 +13,30 @@ angular.module('clipr.services', ['ngCookies'])
   };
 })
 
-.factory('Clips', ["$http", function($http) {
+.factory('Clips', ["$http", "$state", "$cookies", function($http, $state, $cookies) {
   //loadClips - hhtp request to server func
   //return back array of clip objects
   var clips = {
     data: {},
     clips: [],
-    categories: {}
+    categories: {},
+    collections: {}
   };
 
   var loadClipsByCategory = function(topic) {
     var categorizedClips = [];
     if (topic === 'all') {
-      clips.clips = clips.data;
-    }
-    for (var x = 0; x < clips.data.length; x++) {
-      var node = clips.data[x];
-      console.log(node);
-      if (node.category === topic) {
-        categorizedClips.push(node);
+      for (var key in clips.categories) {
+        for (var clip in clips.categories[key]){
+          categorizedClips.push(clips.categories[key][clip]);
+        }
+      }
+    } else {
+      for (var key in clips.categories[topic]) {
+        categorizedClips.push(clips.categories[topic][key]);
       }
     }
     clips.clips = categorizedClips;
-      console.log("clips.clips__++++_+++ ",  clips.clips);
   };
 
   var loadAllClips = function(cookie) {
@@ -46,37 +47,54 @@ angular.module('clipr.services', ['ngCookies'])
         cookie: cookie
       }
     }).then(function(response) {
-      clips.data= response.data;
-      clips.clips= response.data;
-      clips.categories={};
+      clips.data = response.data;
+      clips.clips = response.data;
+      clips.categories = {}
       for (var x = 0; x < response.data.length; x++) {
-        //check if clip exists in data
-        var clip= response.data[x].clips;
 
-        var clipNode= response.data[x];
-         //if exists
-         if (clips.data[clip.clipUrl]){
-          clips.data[clip.clipUrl].suggestions.push(clipNode.suggestions);
-         }else{
-          clips.data[clip.clipUrl]= clipNode.clips;
-          clips.data[clip.clipUrl].suggestions=[clipNode.suggestions];
-         }
+        var clip = response.data[x].clips;
+        var suggestion = response.data[x].suggestions;
 
         if (!clips.categories[clip.category]) {
-          clips.categories[clip.category] = [clip];
+          clips.categories[clip.category] = {}
+          clips.categories[clip.category][clip.title] = clip;
+          clips.categories[clip.category][clip.title].suggestions = [suggestion];
+          console.log(clips.categories[clip.category][clip.title])
         } else {
-          clips.categories[clip.category].push(clip);
+          if (clips.categories[clip.category][clip.title]) {
+            clips.categories[clip.category][clip.title].suggestions.push(suggestion);
+          } else {
+            clips.categories[clip.category][clip.title] = clip;
+            clips.categories[clip.category][clip.title].suggestions = [suggestion];
+          }
         }
+        console.log('clips.categories', clips.categories);
       }
-      console.log('CLIPS DATA LOOKS LIKE THIS ::::::::::::::::::::::::::::::::::::::', clips.data);
-      console.log('CLIPS CLIPS LOOKS LIKE THIS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', clips.clips);
+      loadClipsByCategory('all');
     });
   };
+
+  var changeCategory = function(category, clipTitle) {
+    return $http({
+      method: 'POST',
+      url: '/changeCategory',
+      params: {
+        category: category,
+        clipTitle: clipTitle
+      }
+    }).then(function(response) {
+      loadAllClips($cookies.get('clipr')).then(function(response) {
+        console.log('response')
+        loadClipsByCategory(category);
+      });
+    })
+  }
 
   return {
     loadClipsByCategory: loadClipsByCategory,
     loadAllClips: loadAllClips,
-    clips: clips
+    clips: clips,
+    changeCategory: changeCategory
   };
 
 }])
@@ -148,35 +166,5 @@ angular.module('clipr.services', ['ngCookies'])
     isAuthenticated: isAuthenticated,
     logOut: logOut
   };
-}])
 
-  //Call server to get back suggested websites
-.factory('Suggestions', ['$http', function ($http){
-  var content = {
-    data: null
-  };
-
-  var getContent = function (title) {
-    console.log('URL BEING PASSED TO SERVER', title);
-    return $http({
-      method: 'GET',
-      url: '/getSuggestions',
-      params: {
-        title: title
-      }
-    }).then(function (response) {
-      content.data = response.data;
-      console.log("this is content.data ", content.data);
-    })
-    .catch(function (err) {
-      if(err) {
-        console.log('error inside getContent ', err);
-      }
-    });
-  };
-
-  return {
-    content: content,
-    getContent: getContent
-  };
 }]);
