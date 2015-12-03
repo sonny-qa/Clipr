@@ -1,5 +1,5 @@
 body {
-    background-color: #0A2342;
+    background-color: #FFFDF7;
 }
 
 .btn.btn-primary {
@@ -31,7 +31,8 @@ body {
     position: absolute;
     left: -0px;
     height: 300px;
-    width: 250px;
+    width: 300px;
+    margin-bottom: 10px;
 }
 
 #colorBox:hover {
@@ -91,7 +92,7 @@ body {
 #categoryBox {
     height: 300px;
     position: relative;
-    width: 250px;
+    width: 300px;
     color: white;
     z-index: 1;
 }
@@ -239,8 +240,8 @@ a:hover {
 #clipBox {
     font-size: 14px;
     border-radius: 20px;
-    background-color: #FFFDF7;
-    border: 2px solid #FFFDF7;
+    background-color: #0A2342;
+    border: 2px solid #0A2342;
     color: #0A2342;
     margin-top: 5px;
     padding-top: 15px;
