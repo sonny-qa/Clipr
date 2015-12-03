@@ -22,12 +22,26 @@ body {
     color: white;
 }
 
+#categoryBox.Travel {
+    background-image: url('http://www.imaginamalta.com/wp-content/uploads/2014/07/Travel-8.jpg');
+    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+    color: white;
+}
+
 #colorBoxClips.Politics {
     background-color: #0A0B4B;
 }
 
 #colorBox.Politics {
     background-color: #0A0B4B;
+}
+
+#colorBoxClips.Travel {
+    background-color: #451900;
+}
+
+#colorBox.Travel {
+    background-color: #451900;
 }
 
 #colorBoxClips {
@@ -157,9 +171,10 @@ table tr:nth-child(even) {
 a#articleTitle {
     color: white;
     position: absolute;
-    top: 50%;
-    left:110px;
-    font-size: 20px;
+    top: 100px;
+    left: 50px;
+    text-align:center;
+    font-size: 15px;
 }
 
 #articleTitle:hover {

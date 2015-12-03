@@ -58669,9 +58669,7 @@ angular
     }).then(function(response){
       loadAllClips($cookies.get('clipr')).then(function(response){
         console.log('response')
-        loadClipsByCategory(category).then(function(response){
-      // $state.go('categories')
-        })
+        loadClipsByCategory(category);
       });
     })
   }

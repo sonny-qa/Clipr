@@ -65,7 +65,7 @@ var getPageText = function(bkmrkObj, cb) {
         }, function(response) {
 
             //remove new line characters before sending over to server
-            bkmrkObj.text = response.data.replace(/\n/g, "").substring(0,3000)
+            bkmrkObj.text = response.data.replace(/\n/g, "")
 
             console.log('the response', response);
 
