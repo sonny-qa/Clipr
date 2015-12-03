@@ -7,7 +7,110 @@ body {
 }
 
 #modal {
-    background-color: #0A2342;
+    background-color: #FFFDF7;
+    height: 500px;
+}
+
+#categories {
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+#categoryBox.Politics {
+    background-image: url('http://ionenewsone.files.wordpress.com/2011/07/obama-podium.jpg');
+    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+    color: white;
+}
+
+#colorBox.Politics {
+    background-color: #1C61B7;
+}
+
+#colorBox {
+    opacity: .7;
+    position: absolute;
+    left: -0px;
+    height: 300px;
+    width: 250px;
+}
+
+#colorBox:hover {
+    border: 5px solid white;
+}
+
+#categoryBox.Technology {
+    background-image: url('http://blogs.scientificamerican.com/media/inline/blog/Image/Obama-tech-advisors.jpg');
+    -webkit-filter: grayscale(0.6) sepia(0.1);
+    color: white;
+}
+
+#colorBox.Technology {
+    background-color: #2ca58d;
+}
+
+#categoryBox.Sports {
+    background-image: url('http://www3.pictures.zimbio.com/gi/NBA+Finals+Game+6+Boston+Celtics+v+Los+Angeles+YVhOaWeJxRvl.jpg');
+    -webkit-filter: grayscale(0.6) sepia(0.1);
+    color: white;
+}
+
+#colorBox.Sports {
+    background-color: #B7931C;
+}
+
+#categoryBox.Shopping {
+    background-image: url('https://timebusinessblog.files.wordpress.com/2012/08/107428671-e13446287357841.jpg?w=480&h=320&crop=1');
+    -webkit-filter: grayscale(0.6) sepia(0.1);
+    color: white;
+}
+
+#colorBox.Shopping {
+    background-color: #f46197;
+}
+
+#categoryBox.Health {
+    background-image: url('http://www.oecd.org/media/oecdorg/topics/health/48300184.jpg');
+    -webkit-filter: grayscale(0.6) sepia(0.1);
+    color: white;
+}
+
+#colorBox.Health {
+    background-color: #9011A5;
+}
+
+#categoryBox.Science {
+    background-image: url('https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQal6if-21agDe7ziamXBvYKihiECmOuZ3VWBN0uZZY1C2MySKBUA');
+    -webkit-filter: grayscale(0.6) sepia(0.1);
+    color: white;
+}
+
+#colorBox.Science {
+    background-color: #4FB741;
+}
+
+#categoryBox {
+    height: 300px;
+    position: relative;
+    width: 250px;
+    color: white;
+    z-index: 1;
+}
+
+
+/*table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}*/
+
+#categoryText {
+    color: white;
+    position: absolute;
+    bottom: 2px;
+    left: 20px;
+    z-index: 4;
+    font-size: 25px;
 }
 
 #suggestions {
@@ -52,23 +155,25 @@ body {
     top: 0px;
     z-index: -1;
 }
-.navbar-header{
+
+.navbar-header {
     width: 10%;
 }
+
 #header.head {
-    background-color: #2CA58D;
-    color: #FFFDF7;
+    background-color: #FFFDF7;
+    color: #0A2342;
 }
 
 #navbrand {
     font-family: 'Anton', sans-serif;
     color: #0A2342;
     background-color: #FFFDF7;
-    font-size:50px;
+    font-size: 50px;
 }
 
 #navLink {
-    color: #FFFDF7;
+    color: #0A2342;
 }
 
 #navLink:hover {
@@ -166,9 +271,6 @@ a:hover {
     cursor: pointer;
 }
 
-#modal {
-    height: 500px;
-}
 
 #scrollBtn {
     position: absolute;
@@ -212,10 +314,15 @@ body {
     display: inline-block;
 }
 
+
 #main-wrapper {
     height: 100%;
     overflow-y: auto;
-    padding: 50px 0 0px 0;
+    float:center;
+    padding: 50px 0 0 0;
+    position: relative;
+    padding-top: 5%;
+    padding-left: 15%;
 }
 
 #main {
@@ -230,7 +337,7 @@ body {
     padding: 50px 0 0px 0;
     position: fixed;
     border-radius: 20px;
-    border:#2CA58D ;
+    border: #2CA58D;
     background-color: #FFFDF7;
     border-top: 20px;
 }
@@ -241,7 +348,7 @@ body {
     overflow: hidden;
 }
 
-.nav.list-group{
+.nav.list-group {
     padding-top: 20px;
 }
 

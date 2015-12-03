@@ -9,10 +9,9 @@ angular
         'ngTouch',
         'clipr.services',
         'clipr.clipped',
-        'clipr.header',
         'clipr.sidebar',
         'clipr.suggested',
-        'clipr.auth'
+        'clipr.categories'
     ])
 
 .run(function($rootScope, $state, AuthService) {
@@ -28,7 +27,7 @@ angular
     }])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
-    //$urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
         .state('landing', {
@@ -40,6 +39,19 @@ angular
                 }
             }
         })
+        .state('categories',{
+            url:"/categories", 
+            views:{
+                "main":{
+                    templateUrl:'categories/categories.html',
+                    controller: 'CategoryController'
+                },
+                "header@categories":{
+                    templateUrl:'header/header.html',
+                    controller:'ClipController'
+                }
+            }
+        })
         .state('main', {
             authenticate: true,
             url: "/clips",
@@ -48,14 +60,14 @@ angular
                     templateUrl: 'Clips/clippedView.html',
                     controller: 'ClipController'
                 },
-                'header@main': {
-                    templateUrl: 'Clips/headerView.html',
-                    controller: 'HeaderController'
-                },
-                'sidebar@main': {
-                    templateUrl: 'Clips/sidebarView.html',
-                    controller: 'SidebarController'
+                "header@categories":{
+                    templateUrl:'header/header.html',
+                    controller:'ClipController'
                 }
+                // 'sidebar@main': {
+                //     templateUrl: 'Clips/sidebarView.html',
+                //     controller: 'SidebarController'
+                // }
             }
         })
 

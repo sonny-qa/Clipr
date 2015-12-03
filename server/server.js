@@ -18,6 +18,7 @@ var app = module.exports= express();
 var routes = require('./router.js')
 
 
+// classifier.trainClassifier();
 
 app.use(express.static(__dirname + '../../app'));
 
