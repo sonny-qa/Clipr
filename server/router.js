@@ -20,6 +20,8 @@ app.get('/auth/google', paths.googleAuth);
 
 
  app.post('/user/post/storeclip', paths.storeClip);
+ //app.post('/user/post/storeclip', paths.createKeywords);
+
 
 app.post('/loadClipsByCategory', paths.loadClipsByCategory);
 
