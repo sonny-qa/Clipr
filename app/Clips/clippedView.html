@@ -17,17 +17,17 @@
     <div id="main-wrapper" class="col-lg-12" ng-if="!clipShow">
         <div id="main">
             <div class="page-content">
-                <div class="col-xs-6 col-md-3 col-lg-3" id="clipBox" ng-repeat="clip in clips.clips">
-                    <img id="clipBackground" data-ng-src="{{clip.imgUrl}}">
-                    </br>
-                    </br>
-                    <a id="clipTitle" ng-href='{{clip.clipUrl}}'>{{clip.title}}</a>
-                    <p><a ng-click="showModal(clip.clipUrl, 'lg')" a class="btn btn-default" href="#" role="button">Click for more»</a></p>
+                <div class="col-xs-6 col-md-3 col-lg-3" id="clipBox" style="background-image: url('{{clip.imgUrl}}')" ng-repeat="clip in clips.clips">
+                    <div id="colorBoxClips" class="{{clip.category}}">
+                    </div>
+
+                    <p id="articleTitle" ng-href='{{clip.clipUrl}}'>{{clip.title}}
+                    <a ng-click="showModal(clip.clipUrl, 'lg')" a class="btn btn-default" id="showMore" href="#" role="button">Click for more»</a></p>
                 </div>
             </div>
         </div>
     </div>
-    <div id="main-wrapper" class="col-lg-8" ng-if="clipShow">
+    <!-- <div id="main-wrapper" class="col-lg-8" ng-if="clipShow">
         <div id="main">
             <div class="page-content">
                 <div class="page-header">
@@ -42,9 +42,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-2 pull-right" id="suggestions" ng-if="clipShow">
+    </div> -->
+    <!--  <div class="col-lg-2 pull-right" id="suggestions" ng-if="clipShow">
         <h3 id="suggestTitle">Suggested Clips</h3>
-    </div>
+    </div> -->
 </div>
 <!-- Closing div for #wrapper -->
