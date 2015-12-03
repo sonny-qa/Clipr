@@ -91,6 +91,10 @@ module.exports = function(grunt) {
       favicon: {
         src: 'app/apple-icon-144x144.png',
         dest: 'app/dist/'
+      },
+      css: {
+        src: 'bower_components/angular-aside/dist/css/angular-aside.min.css',
+        dest: 'app/dist/css'
       }
     },
 
@@ -164,6 +168,14 @@ module.exports = function(grunt) {
           src: 'images/*.{png,jpg,gif}',
           dest: 'app/dist/'
         }]
+      }
+    },
+
+    processhtml: {
+      dist: {
+        files: {
+          'app/dist/index.html': ['app/index.html']
+        }
       }
     },
 
@@ -255,5 +267,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
   grunt.registerTask('dev', ['build']);
   grunt.registerTask('server', ['express', 'open', 'watch']);
-  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'copy', 'concat', 'uglify', 'cssmin', 'imagemin']);
+  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'copy', 'concat', 'uglify', 'cssmin', 'imagemin', 'processhtml']);
 };
