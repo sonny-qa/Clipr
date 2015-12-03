@@ -1,5 +1,5 @@
 body {
-    background-color: #0A2342;
+    background-color: #FFFDF7;
 }
 
 .btn.btn-primary {
@@ -21,17 +21,28 @@ body {
     -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
     color: white;
 }
-
-#colorBox.Politics {
-    background-color: #1C61B7;
+#colorBoxClips.Politics {
+    background-color: #0A0B4B;
 }
-
+#colorBox.Politics {
+    background-color: #0A0B4B;
+}
+#colorBoxClips {
+    opacity: .8;
+    position: absolute;
+    left: -0px;
+    top:0px;
+    height: 300px;
+    width:100%;
+    margin-bottom: 10px;
+}
 #colorBox {
     opacity: .7;
     position: absolute;
     left: -0px;
     height: 300px;
-    width: 250px;
+    width: 300px;
+    margin-bottom: 10px;
 }
 
 #colorBox:hover {
@@ -45,7 +56,10 @@ body {
 }
 
 #colorBox.Technology {
-    background-color: #2ca58d;
+    background-color: #03291D;
+}
+#colorBoxClips.Technology {
+    background-color: #03291D;
 }
 
 #categoryBox.Sports {
@@ -55,7 +69,10 @@ body {
 }
 
 #colorBox.Sports {
-    background-color: #B7931C;
+    background-color: #5C0800;
+}
+#colorBoxClips.Sports {
+    background-color: #5C0800;
 }
 
 #categoryBox.Shopping {
@@ -65,9 +82,11 @@ body {
 }
 
 #colorBox.Shopping {
-    background-color: #f46197;
+    background-color: #290030;
 }
-
+#colorBoxClips.Shopping {
+    background-color: #290030;
+}
 #categoryBox.Health {
     background-image: url('http://www.oecd.org/media/oecdorg/topics/health/48300184.jpg');
     -webkit-filter: grayscale(0.6) sepia(0.1);
@@ -75,6 +94,9 @@ body {
 }
 
 #colorBox.Health {
+    background-color: #9011A5;
+}
+#colorBoxClips.Health {
     background-color: #9011A5;
 }
 
@@ -87,11 +109,16 @@ body {
 #colorBox.Science {
     background-color: #4FB741;
 }
+#colorBoxClips.Science {
+    background-color: #4FB741;
+}
+
+
 
 #categoryBox {
     height: 300px;
     position: relative;
-    width: 250px;
+    width: 300px;
     color: white;
     z-index: 1;
 }
@@ -111,6 +138,24 @@ table tr:nth-child(even) {
     left: 20px;
     z-index: 4;
     font-size: 25px;
+}
+#showMore{
+    position:absolute;
+    top:90px;
+    left:35px;
+}
+
+#articleTitle {
+    color: white;
+    text-align:center;
+    position: absolute;
+    top: 50%;
+    z-index: 4;
+    font-size: 15px;
+}
+
+#articleTitle:hover{
+    text-decoration: underline;
 }
 
 #suggestions {
@@ -226,20 +271,22 @@ a:hover {
     left: 25%;
 }
 
-#clipBackground {
+
+/*#clipBackground {
     width: 144px;
     height: 153.6px;
     position: relative;
     border: 2px solid #2CA58D;
     border-radius: 20px;
     size: 50%;
-    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
-}
+ 
+}*/
 
 #clipBox {
     font-size: 14px;
-    border-radius: 20px;
+    position:relative;
     background-color: #FFFDF7;
+    background-size:100%;
     border: 2px solid #FFFDF7;
     color: #0A2342;
     margin-top: 5px;
@@ -247,10 +294,11 @@ a:hover {
     margin-left: 10px;
     text-align: center;
     height: 300px;
+    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
 }
 
 #clipBox:hover {
-    border: 5px solid #2CA58D;
+    border: 5px solid white;
     cursor: pointer;
 }
 
@@ -270,7 +318,6 @@ a:hover {
     color: white;
     cursor: pointer;
 }
-
 
 #scrollBtn {
     position: absolute;
@@ -314,11 +361,10 @@ body {
     display: inline-block;
 }
 
-
 #main-wrapper {
     height: 100%;
     overflow-y: auto;
-    float:center;
+    float: center;
     padding: 50px 0 0 0;
     position: relative;
     padding-top: 5%;
