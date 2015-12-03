@@ -1,4 +1,5 @@
 // LOAD DEPENDENCIES
+var compression = require('compression');
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -19,7 +20,7 @@ var routes = require('./router.js')
 
 
 // classifier.trainClassifier();
-
+app.use(compression());
 app.use(express.static(__dirname + '../../app/dist'));
 
 app.listen(port);
