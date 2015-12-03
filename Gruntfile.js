@@ -87,55 +87,42 @@ module.exports = function(grunt) {
           dest: 'app/dist/html',
           filter: 'isFile'
         }]
+      },
+      favicon: {
+        src: 'app/apple-icon-144x144.png',
+        dest: 'app/dist/'
       }
     },
 
-    // Concatenates JS Files
     concat: {
       options: {
-      //Defines string to put between each file
         separator: ';'
       },
       js: {
-       //files to concatenate
         src: [
-        'app/**/*.js',
-        '!app/bower_components/**/*.js',
-        '!app/assets/**/*.js',
-        '!app/dist/**/*.js'
+          'app/bower_components/jquery/dist/jquery.js',
+          'app/bower_components/angular/angular.js',
+          'app/bower_components/angular-animate/angular-animate.js',
+          'app/bower_components/angular-cookies/angular-cookies.js',
+          'app/bower_components/angular-resource/angular-resource.js',
+          'app/bower_components/angular-route/angular-route.js',
+          'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+          'app/bower_components/angular-ui-router/release/angular-ui-router.js',
+          'app/bower_components/angular-aside/dist/js/angular-aside.js',
+          'app/bower_components/angular-sanitize/angular-sanitize.js',
+          'app/bower_components/angular-touch/angular-touch.js',
+          'app/app.js',
+          'app/Services/services.js',
+          'app/categories/categoriesController.js',
+          'app/Clips/clippedController.js',
+          'app/Clips/sidebarController.js',
+          'app/clipSelect/suggestedController.js',
+          'app/Landing/LandingController.js',
+          'app/Profile/ProfileController.js'
         ],
-       //the location of the resulting JS file
         dest: 'app/dist/js/app.concat.js'
       }
-      // css: {
-      //   src: [
-      //     'app/bower_components/bootstrap/dist/css/bootstrap.min.css'
-      //   ],
-      //   dest: 'app/dist/css/stylesLibs.css'
-      // }
     },
-
-    // concat: {
-    //   options: {
-    //     separator: ';'
-    //   },
-    //   js: {
-    //     src: [
-    //       'app/bower_components/jquery/dist/jquery.js',
-    //       'app/bower_components/angular/angular.js',
-    //       'app/bower_components/angular-animate/angular-animate.js',
-    //       'app/bower_components/angular-cookies/angular-cookies.js',
-    //       'app/bower_components/angular-resource/angular-resource.js',
-    //       'app/bower_components/angular-route/angular-route.js',
-    //       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-    //       'app/bower_components/angular-ui-router/release/angular-ui-router.js',
-    //       'app/bower_components/angular-aside/dist/js/angular-aside.js',
-    //       'app/bower_components/angular-sanitize/angular-sanitize.js',
-    //       'app/bower_components/angular-touch/angular-touch.js',
-    //       'app/app.js',
-    //     ],
-    //   }
-    // },
 
     // Takes JS files and minifies them
     uglify: {
