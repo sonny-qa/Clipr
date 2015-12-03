@@ -19,7 +19,7 @@ var website = (process.env.SITE || "http://localhost:3000");
 var callbackURL = website + '/auth/google/callback';
 
 if (website === "http://localhost:3000") {
-    var keysAndPassword = require('../../apiKeysAndPasswords.js');
+    var keysAndPassword = require('../../APIs.js');
 }
 
 // Used in Google OAuth
@@ -216,7 +216,7 @@ module.exports = {
   },
 
   getSuggestions: function (req, res) {
-    
+
     //When a user request suggestions, we query the DB and send back suggestions
     //TODO : Write DB Query to fetch suggestions for each clip.
         // utils.newsAPI(firstWord, function(suggestions){
@@ -239,19 +239,19 @@ module.exports = {
                 var flag = false
                 for (var i = 0; i < res.length; i++) {
                     if (res[i].title === title) {
-                 
+
                         flag = true
                         break
                     }
                 }
                 if (!flag) {resolve(flag)}
                   else {console.log('error: this user already has this clip'); reject}
-            })
+            });
 
         }).then(function(val) {
-              console.log('loading corpus & classifiying clip...')
+              console.log('loading corpus & classifiying clip...');
                 natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
-                    console.log(classifier.classify(req.body.text))
+                    console.log(classifier.classify(req.body.text));
                     category = classifier.classify(req.body.text);
                     makeImg(clipUrl);
                 });
@@ -262,11 +262,10 @@ module.exports = {
                 //saveToDB(imgUrl)
                 saveToDbNoWatson(imgUrl);
             });
-        };
+        }
 
         function saveToDbNoWatson(imgUrl) {
-          console.log('>>>>>>>>>>>>>>>>>>>>>SAVETONODBWATSON CALLED');
-            // console.log('insidesavetoDBnoWatson');
+            console.log('insidesavetoDBnoWatson');
 
             var createClipNode = new Promise(function(resolve, reject) {
                 db.save({
@@ -290,7 +289,7 @@ module.exports = {
                 console.log('we have keywords', clipKeywords);
 
                 clipKeywords.forEach(function(element, ind, array) {
-                    //create node for each keyword 
+                    //create node for each keyword
                     utils.storeTags(element, function(tagNode, relevance) {
                         //create relations for each keyword node
                         utils.createRelation(clipNode, tagNode, 'contains', relevance, function(fromnode) {
@@ -311,7 +310,7 @@ module.exports = {
             }).then(function(clipNode){
               //Take first word of title
               var firstWord = clipNode.title.split(' ')[0];
-              
+
               utils.suggestionsAPI(firstWord, function(suggestions){
                 var suggestionResults = suggestions.results.map(function(item) {
                   // console.log("suggestionResults: ", item);
@@ -323,11 +322,11 @@ module.exports = {
 
               suggestionResults.forEach(function(element, ind, array) {
                 console.log('FOREACH ELEMENT :', element);
-                utils.createSuggestionNode(element, function(suggestionNode){                
+                utils.createSuggestionNode(element, function(suggestionNode){
                   utils.createRelation(clipNode, suggestionNode, 'related', 'related', function(clipNode){
                   });
                 });
-             
+
               });
 
             });
@@ -351,7 +350,7 @@ module.exports = {
                 return b.tfidf - a.tfidf;
             });
 
-            //return top 10  
+            //return top 10
             return results.slice(0, 10);
         }
     }
