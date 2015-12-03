@@ -77,9 +77,8 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
 
  $scope.item = item;
  $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
- $scope.notes = Notes.notesObj;
- $scope.suggestions = Suggestions.content;
- console.log('TITLE INSIDE ARTICLE', $scope.item.title);
+ $scope.sites = false;
+ $scope.suggestions = Suggestions.content.data;
 
  $scope.ok = function() {
    $modalInstance.close();
@@ -100,14 +99,17 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
    Notes.addNotes($scope.NoteAndUrl);
  };
 
- $scope.display = function() {
+ $scope.displaySuggestions = function() {
    console.log('display function!!!');
    Notes.loadNotes($scope.item.clip);
+   $scope.sites = true;
  };
 
   $scope.getRelated = function () {
     //call service factory - getSuggestions
-    Suggestions.getContent($scope.item.title);
+    // Suggestions.getContent($scope.item);
+    console.log($scope.item);
+    console.log($scope.suggestions);
   };
 
 };

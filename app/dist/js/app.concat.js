@@ -58233,11 +58233,21 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     }
 =======
  $scope.item = item;
+<<<<<<< 6663a4dcf45b07e06fb2e6bc8b3d649a606e4769
  $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
  $scope.notes = Notes.notesObj;
  $scope.suggestions = Suggestions.content;
  console.log('TITLE INSIDE ARTICLE', $scope.item.title);
+<<<<<<< 513d17d38da1d7d3b5d8f062a63eb8231bffdadf
 >>>>>>> [feat]: get back suggestions  from AlchemyAPI
+=======
+=======
+ $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clipUrl);
+ $scope.sites = false;
+ $scope.suggestions = Suggestions.content.data;
+
+>>>>>>> [fix]: fetch suggestions from new faroo API
+>>>>>>> [fix]: fetch suggestions from new faroo API
 
     element.on('touchstart', function(event) {
       tapping = true;
@@ -58251,6 +58261,7 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
 
       startTime = Date.now();
 
+<<<<<<< 513d17d38da1d7d3b5d8f062a63eb8231bffdadf
       // Use jQuery originalEvent
       var originalEvent = event.originalEvent || event;
       var touches = originalEvent.touches && originalEvent.touches.length ? originalEvent.touches : [originalEvent];
@@ -58258,6 +58269,16 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
       touchStartX = e.clientX;
       touchStartY = e.clientY;
     });
+=======
+ $scope.displaySuggestions = function() {
+   console.log('display function!!!');
+<<<<<<< 6663a4dcf45b07e06fb2e6bc8b3d649a606e4769
+   Notes.loadNotes($scope.item.clip);
+=======
+   $scope.sites = true;
+>>>>>>> [fix]: fetch suggestions from new faroo API
+ };
+>>>>>>> [fix]: fetch suggestions from new faroo API
 
 <<<<<<< 1b628c042560710334c09c00ddf40a632c89da64
     element.on('touchcancel', function(event) {
@@ -58267,6 +58288,7 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
   $scope.getRelated = function () {
     //call service factory - getSuggestions
     Suggestions.getContent($scope.item.title);
+    console.log($scope.suggestions);
   };
 >>>>>>> [feat]: get back suggestions  from AlchemyAPI
 

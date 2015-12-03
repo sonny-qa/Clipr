@@ -223,7 +223,7 @@ module.exports = {
     var firstWord = req.query.title.split(' ')[0];
         utils.newsAPI(firstWord, function(suggestions){
       console.log('SUGGESTIONS', suggestions);
-      console.log('Suggestions We Get Back!', suggestions.result.docs[0].source.enriched.url.title);
+      // console.log('Suggestions We Get Back!', suggestions.result.docs[0].source.enriched.url.title);
       res.send(suggestions);
     });
   },

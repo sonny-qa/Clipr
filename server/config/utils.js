@@ -47,14 +47,14 @@ var request = require('request');
 var http = require('http');
 var urlImage = require('url-to-image');
 var cloudinary = require('cloudinary');
-var natural = require('natural')
-
+var natural = require('natural');
+var apiKeys = require('../../apiKeysAndPasswords.js');
 //fetches a user node based on an email
   var db= require('seraph')({
   server: "http://clipr.sb02.stations.graphenedb.com:24789",
   user: "clipr",
   pass: 'oSvInWIWVVCQIbxLbfTu'
-})
+});
 
 
 // initialize cloudinary connection for storing and retreiving images
@@ -157,23 +157,15 @@ createRelation: function(clip, tag, how, relevance, cb) {
     });
   },
   newsAPI : function(keyword, cb) {
-    var API = 'b79ddff15ca6185d4a937408f600e8f0c2657073';
-    var fullUrl = 'https://gateway-a.watsonplatform.net/calls/data/GetNews?apikey=' + API + '&outputMode=json&outputMode=json&start=now-30d&end=now&count=10&q.enriched.url.title=' + keyword + '&return=enriched.url.title,original.url';
-    // var fullUrl = 'https://access.alchemyapi.com/calls/data/GetNews?apikey=' + API + '&return=enriched.url.title,enriched.url.url&start=now-30d&end=now&q.enriched.url.cleanedTitle=' + keyword + '&q.enriched.url.enrichedTitle&count=5&outputMode=json';
+    // var API = '&key=nwFFIfopV8GKlLMLC3tJU9Nc6rg_';
+    var farooAPI = process.env.FAROO || apiKeys.FAROO;
+    var fullUrl = 'http://www.faroo.com/api?q=' + keyword + '&start=1&length=4&l=en&src=web&i=false&f=json' + farooAPI;
     
-    // request(fullUrl, function (err, response, body) {
-    //   var bodyParsed = JSON.parse(body);
-    //   console.log('WATSON KEYWORDS:', bodyParsed.keywords);
-    //   cb(bodyParsed.keywords);
-    // });
     request(fullUrl, function (err, res, body) {  
       if(err) { 
         console.log('ERROR inside newsAPI!!'); 
       }
       var bodyParsed = JSON.parse(body);
-      // console.log("Inside the newsAPI ", bodyParsed.result.docs[0].source.enriched.url.title);
-      // console.log("Inside the newsAPI ", bodyParsed.result.docs[1].source.enriched.url.title);
-      // console.log('INSIDE NEWSAPI :', bodyParsed);
       cb(bodyParsed);
     });
 
