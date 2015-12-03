@@ -38,7 +38,7 @@ function sendBookmark(bkmrkObj) {
 
     //NOTE change this to https://clipr-app-1.herokuapp.com for heroku
     var website = "https://clipr-app-1.herokuapp.com";
-    //var website = "http://localhost:3000";
+    //var website = "http://localhost:3000"; 
     var postUrl = website + "/user/post/storeclip";
 
     //var params = '?url=' + url + '&title=' + title.toString() + '&email=' + email.toString();
