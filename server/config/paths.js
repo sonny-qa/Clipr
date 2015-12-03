@@ -28,6 +28,9 @@ if (website === "http://localhost:3000") {
 var passport = require('passport');
 var clientID = process.env.clientID || keysAndPassword.clientID;
 var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
+/**
+  Google OAuth2
+**/
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -58,7 +61,7 @@ passport.use(new GoogleStrategy({
     callbackURL: callbackURL,
 
 }, function(accessToken, refreshToken, profile, done) {
-    console.log('looking for gid', profile)
+    console.log('looking for gid', profile);
     var cypher = "MATCH (node: User)" +
         " WHERE node.username = " +
         "'" + profile.displayName + "'" +
@@ -118,10 +121,8 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     }),
     function(req, res) {
         console.log('req', req)
-        console.log('res', res)
             //when they come back after a successful login, setup clipr cookie
-        var email = req.session.passport.user.email
-
+        var email = req.session.passport.user.email;
         res.cookie('clipr', email)
 
         // Successful authentication, redirect home.
@@ -132,18 +133,36 @@ var db = require('seraph')({
     server: "http://clipr.sb02.stations.graphenedb.com:24789",
     user: "clipr",
     pass: 'oSvInWIWVVCQIbxLbfTu'
-
 });
+  // googleCallback: passport.authenticate('google', {
+  //       failureRedirect: '/#/landing'
+  //     }),
+  //     function(req, res) {
+  //       console.log('req', req)
+  //       console.log('res', res)
+  //       //when they come back after a successful login, setup clipr cookie
+  //       res.cookie('clipr', req.session.passport.user.accessToken)
+  //         // Successful authentication, redirect home.
+  //       res.redirect('/#/clips');
+  //     }),
+
 
 module.exports = {
 
-
+  loadClipsByCategory: function(req, res) {
+    console.log('in clips by category', req.query.category);
+    var cypher = "MATCH(clips)-[:BELONGSTO]->(category) WHERE category.category='" + req.query.category + "' RETURN clips";
+    db.query(cypher, function(err, results) {
+      if (err) throw err;
+      console.log('category results', results);
+      res.send(results);
+    });
+  },
     //   db: require('seraph')({
     //   server: "http://clipr.sb02.stations.graphenedb.com:24789",
     //   user: "clipr",
     //   pass: 'oSvInWIWVVCQIbxLbfTu'
     // }),
-
     googleAuth: passport.authenticate('google', {
             scope: ['https://www.googleapis.com/auth/plus.login', 'email']
         },
@@ -152,7 +171,27 @@ module.exports = {
 
         }),
 
+  loadNotes: function(req, res) {
+    console.log('inloadnotes');
+    var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
+    db.query(cypher, function(err, result) {
+      if (err) throw err;
+      // console.log('NOTESRESULT', result);
+      res.send(result);
+    });
+  },
 
+  getSuggestions: function (req, res) {
+    //receive urls from services, query DB to get back keyword
+    var cypher = "MATCH (n:Clip)-[relevance]->(b:Tag) WHERE n.clipUrl='" + req.query.url + "' RETURN (n),(b)";
+    //use keyword to call NewsAPI
+    db.query(cypher, function(err, result) {
+      if (err) { throw err; }
+      //utils.newsAPI(result[0].n.title);
+      res.send(result);
+    }); 
+
+  },
 
     storeClip: function(req, res) {
         // Declaring Variables
@@ -329,17 +368,6 @@ module.exports = {
         }
     },
 
-
-    loadClipsByCategory: function(req, res) {
-        console.log('in clips by category', req.query.category)
-        var cypher = "MATCH(clips)-[:BELONGSTO]->(category) WHERE category.category='" + req.query.category + "' RETURN clips";
-        db.query(cypher, function(err, results) {
-            if (err) throw err;
-            console.log('category results', results)
-            res.send(results);
-        });
-    },
-
     loadAllClips: function(req, res) {
         console.log('COOKIES', req.query.cookie);
         var cypher = "MATCH(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips";
@@ -387,6 +415,7 @@ module.exports = {
             console.log('NOTESRESULT', result);
             res.send(result);
         });
+
     }
 
 }

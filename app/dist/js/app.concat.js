@@ -57431,8 +57431,22 @@ function htmlParser(html, handler) {
       if (chars) {
         index = html.indexOf("<");
 
+<<<<<<< 50325d02cb9c0d9a517b51168ff2582ff56bd489
         text += index < 0 ? html : html.substring(0, index);
         html = index < 0 ? "" : html.substring(index);
+=======
+<<<<<<< 76f066547c1f6aa4d0e7d2d25a3b423639900ebf
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside','$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies) {
+=======
+.controller('AuthController', function($scope){
+
+  console.log("hello");
+
+});;;angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
+
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', 'Suggestions', function($scope, Clips, $modal, Notes, AuthService, $aside, Suggestions) {
+>>>>>>> [feat]: site suggestions
+>>>>>>> [fix]: fix merge conflicts
 
         if (handler.chars) handler.chars(decodeEntities(text));
       }
@@ -57763,6 +57777,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
   };
 }]);
 
+<<<<<<< 50325d02cb9c0d9a517b51168ff2582ff56bd489
 
 })(window, window.angular);
 ;/**
@@ -57771,6 +57786,15 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
  * License: MIT
  */
 (function(window, angular, undefined) {'use strict';
+=======
+var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes, Suggestions) {
+
+ $scope.item = item;
+ $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
+ $scope.notes = Notes.notesObj;
+ $scope.suggestions = Suggestions.content;
+
+>>>>>>> [fix]: fix merge conflicts
 
 /**
  * @ngdoc module
@@ -57798,7 +57822,22 @@ function nodeName_(element) {
   return angular.lowercase(element.nodeName || (element[0] && element[0].nodeName));
 }
 
+<<<<<<< 50325d02cb9c0d9a517b51168ff2582ff56bd489
 /* global ngTouch: false */
+=======
+ $scope.display = function() {
+   console.log('display function!!!');
+   Notes.loadNotes($scope.item.clip);
+ };
+
+  $scope.getRelated = function () {
+    //call service factory - getSuggestions
+    console.log("Inside of $scope.getRelated");
+    Suggestions.getContent($scope.item.clipUrl);
+  };
+
+};
+>>>>>>> [fix]: fix merge conflicts
 
     /**
      * @ngdoc service
@@ -58605,7 +58644,121 @@ angular
     logOut: logOut
   };
 
+<<<<<<< 50325d02cb9c0d9a517b51168ff2582ff56bd489
 }]);;angular.module('clipr.categories', [])
+=======
+<<<<<<< 76f066547c1f6aa4d0e7d2d25a3b423639900ebf
+=======
+}])
+
+  //Call server to get back suggested websites
+.factory('Suggestions', ['$http', function ($http){
+  var content = {
+    data: null
+  }; 
+      console.log("Inside of Suggestions Factory!! ");
+
+
+  var getContent = function (url) {
+    console.log('URL BEING PASSED TO SERVER', url);
+    return $http({
+      method: 'GET',
+      url: '/getSuggestions',
+      params: {
+        url: url
+      }
+    }).then(function (response) {
+      content.data = response.data;
+      console.log("this is content.data ", content.data);
+    })
+    .catch(function (err) {
+      if(err) {
+        console.log('error inside getContent ', err);
+      }
+    });
+  };
+
+  return {
+    content: content,
+    getContent: getContent
+  };
+
+>>>>>>> [feat]: site suggestions
+}]);;/**
+ * Main module of the application.
+ */
+angular
+    .module('cliprApp', [
+        'ui.router',
+        'ui.bootstrap',
+        'ngAnimate',
+        'ngTouch',
+        'clipr.services',
+        'clipr.clipped',
+        'clipr.sidebar',
+        'clipr.suggested',
+        'clipr.categories'
+    ])
+
+.run(function($rootScope, $state, AuthService) {
+        $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+            if (toState.authenticate && !AuthService.isAuthenticated()) {
+                $state.transitionTo("landing");
+                event.preventDefault();
+            }
+        });
+    })
+    .controller("AppController", ['$scope', '$location', function($scope, $location) {
+        //authentication
+    }])
+
+.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider
+        .state('landing', {
+            url: "/landing",
+            views: {
+                "main": {
+                    templateUrl: 'Landing/landingView.html',
+                    controller: 'AuthController'
+                }
+            }
+        })
+        .state('categories',{
+            url:"/categories", 
+            views:{
+                "main":{
+                    templateUrl:'categories/categories.html',
+                    controller: 'CategoryController'
+                },
+                "header@categories":{
+                    templateUrl:'header/header.html',
+                    controller:'ClipController'
+                }
+            }
+        })
+        .state('main', {
+            authenticate: true,
+            url: "/clips",
+            views: {
+                "main": {
+                    templateUrl: 'Clips/clippedView.html',
+                    controller: 'ClipController'
+                },
+                "header@categories":{
+                    templateUrl:'header/header.html',
+                    controller:'ClipController'
+                }
+                // 'sidebar@main': {
+                //     templateUrl: 'Clips/sidebarView.html',
+                //     controller: 'SidebarController'
+                // }
+            }
+        })
+
+}]);angular.module('clipr.categories', [])
+>>>>>>> [fix]: fix merge conflicts
 
 .controller('CategoryController', ['$scope', 'Clips','$cookies','$state', function($scope, Clips, $cookies, $state) {
 

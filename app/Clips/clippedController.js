@@ -1,6 +1,6 @@
 angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside','$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', 'Suggestions', '$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, Suggestions, $cookies) {
 
  $scope.clips = Clips.clips;
  $scope.clipShow= false;
@@ -71,11 +71,13 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
 }]);
 
-var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes) {
+var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes, Suggestions) {
 
  $scope.item = item;
  $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
  $scope.notes = Notes.notesObj;
+ $scope.suggestions = Suggestions.content;
+
 
  $scope.ok = function() {
    $modalInstance.close();
@@ -100,6 +102,13 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
    console.log('display function!!!');
    Notes.loadNotes($scope.item.clip);
  };
+
+  $scope.getRelated = function () {
+    //call service factory - getSuggestions
+    console.log("Inside of $scope.getRelated");
+    Suggestions.getContent($scope.item.clipUrl);
+  };
+
 };
 
 

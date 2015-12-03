@@ -136,5 +136,37 @@ angular.module('clipr.services', ['ngCookies'])
     isAuthenticated: isAuthenticated,
     logOut: logOut
   };
+}])
 
+  //Call server to get back suggested websites
+.factory('Suggestions', ['$http', function ($http){
+  var content = {
+    data: null
+  }; 
+      console.log("Inside of Suggestions Factory!! ");
+
+
+  var getContent = function (url) {
+    console.log('URL BEING PASSED TO SERVER', url);
+    return $http({
+      method: 'GET',
+      url: '/getSuggestions',
+      params: {
+        url: url
+      }
+    }).then(function (response) {
+      content.data = response.data;
+      console.log("this is content.data ", content.data);
+    })
+    .catch(function (err) {
+      if(err) {
+        console.log('error inside getContent ', err);
+      }
+    });
+  };
+
+  return {
+    content: content,
+    getContent: getContent
+  };
 }]);
