@@ -6,9 +6,6 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var natural = require('natural');
-
-
-
 var express = require('express');
 var path = require('path');
 var Promise = require('bluebird');
@@ -17,7 +14,6 @@ var http = require('http');
 var classifier = require('./classify.js')
     // var router = require('./router.js');
 var natural = require('natural')
-    // var router = require('./router.js');
 
 
 // Set website (Heroku or Localhost) and callbackURL
