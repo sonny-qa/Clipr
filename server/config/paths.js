@@ -192,7 +192,7 @@ module.exports = {
 
         }).then(function(val) {
               console.log('loading corpus & classifiying clip...')
-                natural.BayesClassifier.load('../classifier.json', null, function(err, classifier) {
+                natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
                     console.log(classifier.classify(req.body.text))
                     category = classifier.classify(req.body.text);
                     makeImg(clipUrl);
