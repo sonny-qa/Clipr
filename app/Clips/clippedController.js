@@ -23,7 +23,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
      }
  };
 
- $scope.showModal = function(clipIndex, size) {
+ $scope.showModal = function(clipUrl, size) {
    $scope.opts = {
      size: size,
      backdrop: true,
@@ -37,7 +37,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
    $scope.opts.resolve.item = function() {
      return angular.copy({
-       clipUrl: $scope.clips.data[clipIndex].clipUrl
+       clip: clipUrl
      }); // pass name to Dialog
    };
 
@@ -74,7 +74,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes) {
 
  $scope.item = item;
- $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clipUrl);
+ $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
  $scope.notes = Notes.notesObj;
 
  $scope.ok = function() {
@@ -90,7 +90,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
  $scope.save = function(userNotes) {
    $scope.NoteAndUrl = {
      note: userNotes,
-     url: $scope.item.clipUrl
+     url: $scope.item.clip
    };
    console.log('Notes being passed to server', $scope.NoteAndUrl);
    Notes.addNotes($scope.NoteAndUrl);
@@ -98,7 +98,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
 
  $scope.display = function() {
    console.log('display function!!!');
-   Notes.loadNotes($scope.item.clipUrl);
+   Notes.loadNotes($scope.item.clip);
  };
 };
 
