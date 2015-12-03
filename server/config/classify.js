@@ -9,7 +9,7 @@ var async = require('async');
 
 // var files = ['tech.txt', 'news.txt', 'entertainment.txt', 'politics.txt', 'food.txt', 'sports.txt', 'travel.txt', 'business.txt', 'shopping.txt', 'science.txt']
 
-// var labels = ['Science/Technology', 'News', 'Entertainment', 'Politics', 'Food', 'Sports', 'Travel', 'Business', 'Shopping', 'Science']
+// var labels = ['Technology', 'News', 'Entertainment', 'Politics', 'Food', 'Sports', 'Travel', 'Business', 'Shopping', 'Science']
 
 // var readAsync = function(file, callback) {
 //   longFile = './server/config/trainingDocs/' + file

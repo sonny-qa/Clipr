@@ -45,22 +45,19 @@ angular.module('clipr.services', ['ngCookies'])
         cookie: cookie
       }
     }).then(function(response) {
-      console.log('load all clips response', response.data);
       clips.data = response.data;
       clips.clips = response.data;
       for (var x = 0; x < response.data.length; x++) {
+        console.log(response.data)
         var clip = response.data[x];
-        if (!clip.category){
-          clip.category='Other';
-        }
+        console.log('CLIPS', x)
         if (!clips.categories[clip.category]) {
-          console.log('in !', clip.category)
           clips.categories[clip.category] = [clip];
         } else {
-          clip.categories[clip.category].push(clip);
+          clips.categories[clip.category].push(clip);
         }
-      }
       console.log('clips.categories', clips.categories);
+      }
     });
   };
 

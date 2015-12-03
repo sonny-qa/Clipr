@@ -135,9 +135,9 @@ app.get('/auth/google/callback', passport.authenticate('google', {
 
         res.cookie('clipr', email)
 
-        // Successful authentication, redirect home.
-        res.redirect('/#/clips');
-    })
+    // Successful authentication, redirect home.
+    res.redirect('/#/categories');
+  })
 
 var db = require('seraph')({
     server: "http://clipr.sb02.stations.graphenedb.com:24789",

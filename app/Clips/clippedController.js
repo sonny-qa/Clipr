@@ -9,7 +9,6 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
    Clips.loadAllClips($cookies.get('clipr'));
  };
 
- $scope.loadAllClips();
 
  $scope.logOut = function() {
    AuthService.logOut();

@@ -1,10 +1,4 @@
-angular.module('clipr.auth',[])
-
-.controller('AuthController', function($scope){
-
-  console.log("hello");
-
-});;;angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
+angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
 .controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside','$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies) {
 
@@ -15,7 +9,6 @@ angular.module('clipr.auth',[])
    Clips.loadAllClips($cookies.get('clipr'));
  };
 
- $scope.loadAllClips();
 
  $scope.logOut = function() {
    AuthService.logOut();
@@ -110,11 +103,6 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
 };
 
 
-;angular.module('clipr.header',['ui.router']);
-
-
-
-	
 ;angular.module('clipr.sidebar',['ui.router'])
 
 .controller('SidebarController',['$scope', 'Clips', function($scope, Clips){
@@ -179,22 +167,19 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
         cookie: cookie
       }
     }).then(function(response) {
-      console.log('load all clips response', response.data);
       clips.data = response.data;
       clips.clips = response.data;
       for (var x = 0; x < response.data.length; x++) {
+        console.log(response.data)
         var clip = response.data[x];
-        if (!clip.category){
-          clip.category='Other';
-        }
+        console.log('CLIPS', x)
         if (!clips.categories[clip.category]) {
-          console.log('in !', clip.category)
           clips.categories[clip.category] = [clip];
         } else {
-          clip.categories[clip.category].push(clip);
+          clips.categories[clip.category].push(clip);
         }
-      }
       console.log('clips.categories', clips.categories);
+      }
     });
   };
 
@@ -285,10 +270,9 @@ angular
         'ngTouch',
         'clipr.services',
         'clipr.clipped',
-        'clipr.header',
         'clipr.sidebar',
         'clipr.suggested',
-        'clipr.auth'
+        'clipr.categories'
     ])
 
 .run(function($rootScope, $state, AuthService) {
@@ -304,7 +288,7 @@ angular
     }])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
-    //$urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
         .state('landing', {
@@ -316,6 +300,19 @@ angular
                 }
             }
         })
+        .state('categories',{
+            url:"/categories", 
+            views:{
+                "main":{
+                    templateUrl:'categories/categories.html',
+                    controller: 'CategoryController'
+                },
+                "header@categories":{
+                    templateUrl:'header/header.html',
+                    controller:'ClipController'
+                }
+            }
+        })
         .state('main', {
             authenticate: true,
             url: "/clips",
@@ -324,16 +321,39 @@ angular
                     templateUrl: 'Clips/clippedView.html',
                     controller: 'ClipController'
                 },
-                'header@main': {
-                    templateUrl: 'Clips/headerView.html',
-                    controller: 'HeaderController'
-                },
-                'sidebar@main': {
-                    templateUrl: 'Clips/sidebarView.html',
-                    controller: 'SidebarController'
+                "header@categories":{
+                    templateUrl:'header/header.html',
+                    controller:'ClipController'
                 }
+                // 'sidebar@main': {
+                //     templateUrl: 'Clips/sidebarView.html',
+                //     controller: 'SidebarController'
+                // }
             }
         })
+
+}]);angular.module('clipr.categories', [])
+
+.controller('CategoryController', ['$scope', 'Clips','$cookies','$state', function($scope, Clips, $cookies, $state) {
+
+  $scope.categories = Clips.clips;
+
+  $scope.loadClipsByCategory = function(category) {
+    Clips.loadClipsByCategory(category);
+    $state.go('main')
+  }
+
+  $scope.loadAllClips = function() {
+   Clips.loadAllClips($cookies.get('clipr'));
+ };
+
+  $scope.navToClips = function() {
+   Clips.loadAllClips($cookies.get('clipr'));
+   $state.go('main')
+ };
+
+
+  $scope.loadAllClips();
 
 }]);angular.module('clipr.suggested',['ui.router']);
 
