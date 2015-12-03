@@ -154,7 +154,7 @@ table tr:nth-child(even) {
     left: 75px;
 }
 
-#articleTitle {
+a#articleTitle {
     color: white;
     position: absolute;
     top: 50%;
