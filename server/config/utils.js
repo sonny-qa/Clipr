@@ -80,7 +80,6 @@ module.exports = {
   },
 
 createRelation: function(clip, tag, how, relevance, cb) {
-  console.log('-------------Create Relations Function Called------------');
   db.relate(clip, how, tag, {
       relevance: relevance || null
     }, function(err, relationship) {
@@ -107,7 +106,6 @@ createRelation: function(clip, tag, how, relevance, cb) {
   },
 
   storeTags: function(tag, cb) {
-    console.log('----------------STORETAGS CALLED---------------');
     var relevance = tag.tfidf;
   db.save({
       tagName: tag.term

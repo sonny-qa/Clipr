@@ -287,7 +287,7 @@ module.exports = {
             }).then(function(clipNode) {
                 //extract keywords
                 var clipKeywords = extractKeywordsNoWatson(clipNode);
-                // console.log('we have keywords', clipKeywords);
+                console.log('we have keywords', clipKeywords);
 
                 clipKeywords.forEach(function(element, ind, array) {
                     //create node for each keyword 
@@ -313,7 +313,6 @@ module.exports = {
               var firstWord = clipNode.title.split(' ')[0];
               
               utils.suggestionsAPI(firstWord, function(suggestions){
-
                 var suggestionResults = suggestions.results.map(function(item) {
                   // console.log("suggestionResults: ", item);
                   return  {
