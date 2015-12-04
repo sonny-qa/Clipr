@@ -151,8 +151,8 @@ module.exports = function(grunt) {
             'app/bower_components/bootstrap/dist/css/bootstrap.min.css', 
             'app/bower_components/bootstrap-social/bootstrap-social.css', 
             'app/bower_components/font-awesome/css/font-awesome.min.css', 
+            'app/bower_components/dist/css/jasny-bootstrap/css/jasny-bootstrap.min.css', 
             // 'app/assets/fonts/Raleway/css/fonts.css', 
-            'app/bower_components/angular-aside/dist/css/angular-aside.min.css',  
             // 'app/assets/fonts/Anton/css/fonts.css', 
             'app/styles/stylesheet.css'
           ]

@@ -1,5 +1,5 @@
 body {
-    background-color: #FFFDF7;
+    background-color: white;
 }
 
 .btn.btn-primary {
@@ -7,13 +7,36 @@ body {
 }
 
 #modal {
-    background-color: #FFFDF7;
+    background-color: white;
     height: 500px;
 }
 
 #categories {
     margin-top: 20px;
     padding-bottom: 20px;
+}
+
+#categoryBox.Food {
+    background-image: url('http://img2.timeinc.net/health/img/mag/2013/09/fall-foods-superfruit-400x400.jpg');
+    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+    color: white;
+}
+
+#navMenu {
+    background-color:white;
+    float: left;
+    margin-left:-5%;
+    padding-top: 50px;
+    z-index: -1;
+    overflow-y: scroll;
+}
+
+#clipBox.Food {
+    background-color: #37002B;
+}
+
+#colorBox.Food {
+    background-color: #37002B;
 }
 
 #categoryBox.Politics {
@@ -28,29 +51,29 @@ body {
     color: white;
 }
 
-#colorBoxClips.Politics {
-    background-color: #0A0B4B;
+#clipBox.Politics {
+    border: 5px solid #0A0B4B;
 }
 
 #colorBox.Politics {
     background-color: #0A0B4B;
 }
 
-#colorBoxClips.Travel {
-    background-color: #451900;
+#clipBox.Travel {
+   border: 5px solid #451900;
 }
 
 #colorBox.Travel {
     background-color: #451900;
 }
 
-#colorBoxClips {
+#clipBox {
     opacity: .8;
     position: absolute;
     left: -0px;
     top: 0px;
-    height: 300px;
-    width: 100%;
+    height: 100px;
+    width: 300px;
     margin-bottom: 10px;
 }
 
@@ -58,9 +81,10 @@ body {
     opacity: .7;
     position: absolute;
     left: -0px;
-    height: 300px;
-    width: 300px;
+    height: 150px;
+    width: 100%;
     margin-bottom: 10px;
+    z-index: 3;
 }
 
 #colorBox:hover {
@@ -77,8 +101,8 @@ body {
     background-color: #03291D;
 }
 
-#colorBoxClips.Technology {
-    background-color: #03291D;
+#clipBox.Technology {
+    border: 5px solid #03291D;
 }
 
 #categoryBox.Sports {
@@ -91,8 +115,8 @@ body {
     background-color: #5C0800;
 }
 
-#colorBoxClips.Sports {
-    background-color: #5C0800;
+#clipBox.Sports {
+   border: 5px solid #5C0800;
 }
 
 #categoryBox.Shopping {
@@ -105,8 +129,8 @@ body {
     background-color: #290030;
 }
 
-#colorBoxClips.Shopping {
-    background-color: #290030;
+#clipBox.Shopping {
+    border: 5px solid #290030;
 }
 
 #categoryBox.Health {
@@ -119,8 +143,8 @@ body {
     background-color: #9011A5;
 }
 
-#colorBoxClips.Health {
-    background-color: #9011A5;
+#clipBox.Health {
+    border: 5px solid #9011A5;
 }
 
 #categoryBox.Science {
@@ -133,16 +157,15 @@ body {
     background-color: #4FB741;
 }
 
-#colorBoxClips.Science {
-    background-color: #4FB741;
+#clipBox.Science {
+    border: 5px solid #4FB741;
 }
 
 #categoryBox {
-    height: 300px;
+    height: 150px;
+    width: 100%;
     position: relative;
-    width: 300px;
     color: white;
-    z-index: 1;
 }
 
 
@@ -157,14 +180,14 @@ table tr:nth-child(even) {
     color: white;
     position: absolute;
     bottom: 2px;
-    left: 20px;
+    left: 2px;
     z-index: 4;
-    font-size: 25px;
+    font-size: 15px;
 }
 
 #showMore {
     position: absolute;
-    bottom:2%;
+    bottom: 2%;
     left: 75px;
 }
 
@@ -173,7 +196,7 @@ a#articleTitle {
     position: absolute;
     top: 100px;
     left: 50px;
-    text-align:center;
+    text-align: center;
     font-size: 15px;
 }
 
@@ -229,14 +252,14 @@ a#articleTitle {
 }
 
 #header.head {
-    background-color: #FFFDF7;
+    background-color: white;
     color: #0A2342;
 }
 
 #navbrand {
     font-family: 'Anton', sans-serif;
     color: #0A2342;
-    background-color: #FFFDF7;
+    background-color: white;
     font-size: 50px;
 }
 
@@ -313,26 +336,23 @@ a:hover {
 
 #dropdown:hover {
     background-color: #0A2342;
-    color:#FFFDF7;
+    color: white;
 }
 
 #clipBox {
     font-size: 14px;
     position: relative;
-    background-color: #FFFDF7;
+    background-color: white;
     background-size: 100%;
-    border: 2px solid #FFFDF7;
     color: #0A2342;
-    margin-top: 5px;
-    padding-top: 15px;
-    margin-left: 10px;
     text-align: center;
-    height: 300px;
-    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
-}
+    margin-right: 10px;
+    height: 200px;
+    width: 300px;
+/*    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+*/}
 
 #clipBox:hover {
-    border: 5px solid white;
     cursor: pointer;
 }
 
@@ -418,7 +438,7 @@ body {
     position: fixed;
     border-radius: 20px;
     border: #2CA58D;
-    background-color: #FFFDF7;
+    background-color: white;
     border-top: 20px;
 }
 
@@ -443,7 +463,7 @@ body {
     border-left: 0;
     border-right: 0;
     border-top: 0;
-    background-color: #FFFDF7;
+    background-color: white;
     color: #0A2342;
 }
 
@@ -453,7 +473,7 @@ body {
 }
 
 h3 {
-    color: #FFFDF7;
+    color: white;
 }
 
 @media (max-width: 992px) {

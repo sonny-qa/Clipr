@@ -58023,6 +58023,7 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
   var touchCoordinates;
   var lastLabelClickCoordinates;
 
+<<<<<<< 3c8aaf8f8e3d8522b3b8a209e438bd627e4989c3
 
   // TAP EVENTS AND GHOST CLICKS
   //
@@ -58137,9 +58138,24 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     touchCoordinates.push(x, y);
 =======
 .controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies) {
+=======
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies','$state', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies, $state) {
+>>>>>>> [style] Restyle clipview
 
   $scope.clips = Clips.clips;
   $scope.clipShow = false;
+  $scope.categories=Clips.clips;
+
+
+  $scope.loadClipsByCategory = function(category) {
+    Clips.loadClipsByCategory(category);
+    $state.go('main')
+  }
+
+  $scope.navToClips = function() {
+   Clips.loadAllClips($cookies.get('clipr'));
+   $state.go('main')
+ };
 
   $scope.loadAllClips = function() {
     Clips.loadAllClips($cookies.get('clipr'));
@@ -58169,6 +58185,7 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
 
     lastPreventedTime = Date.now();
 
+<<<<<<< 3c8aaf8f8e3d8522b3b8a209e438bd627e4989c3
     checkAllowableRegions(touchCoordinates, x, y);
   }
 
@@ -58185,6 +58202,9 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
       tapping = false;
       element.removeClass(ACTIVE_CLASS_NAME);
     }
+=======
+$scope.loadAllClips();
+>>>>>>> [style] Restyle clipview
 
     element.on('touchstart', function(event) {
       tapping = true;
@@ -58770,12 +58790,63 @@ angular
       content.data = response.data;
       console.log("this is content.data ", content.data);
     })
+<<<<<<< 3c8aaf8f8e3d8522b3b8a209e438bd627e4989c3
     .catch(function (err) {
       if(err) {
         console.log('error inside getContent ', err);
       }
     });
   };
+=======
+    .controller("AppController", ['$scope', '$location', function($scope, $location) {
+        //authentication
+    }])
+
+.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider
+        .state('landing', {
+            url: "/landing",
+            views: {
+                "main": {
+                    templateUrl: 'Landing/landingView.html',
+                    controller: 'AuthController'
+                }
+            }
+        })
+        .state('categories',{
+            url:"/categories", 
+            views:{
+                "main":{
+                    templateUrl:'categories/categories.html',
+                    controller: 'CategoryController'
+                },
+                "header@categories":{
+                    templateUrl:'header/header.html',
+                    controller:'ClipController'
+                }
+            }
+        })
+        .state('main', {
+            authenticate: true,
+            url: "/clips",
+            views: {
+                "main": {
+                    templateUrl: 'Clips/clippedView.html',
+                    controller: 'ClipController'
+                },
+                "header@categories":{
+                    templateUrl:'header/header.html',
+                    controller:'ClipController'
+                },
+                'sidebar@main': {
+                    templateUrl: 'Clips/sidebarView.html',
+                    controller: 'SidebarController'
+                }
+            }
+        })
+>>>>>>> [style] Restyle clipview
 
   return {
     content: content,
