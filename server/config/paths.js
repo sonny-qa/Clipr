@@ -6,9 +6,6 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var natural = require('natural');
-
-
-
 var express = require('express');
 var path = require('path');
 var Promise = require('bluebird');
@@ -17,7 +14,6 @@ var http = require('http');
 var classifier = require('./classify.js')
     // var router = require('./router.js');
 var natural = require('natural')
-    // var router = require('./router.js');
 
 
 // Set website (Heroku or Localhost) and callbackURL
@@ -33,18 +29,11 @@ var passport = require('passport');
 var clientID = process.env.clientID || keysAndPassword.clientID;
 var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
 
-var passport = require('passport');
-/**
-  Google OAuth2
-**/
-
-
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(express.static(__dirname + '../../app'));
 // Set Response Headers
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
