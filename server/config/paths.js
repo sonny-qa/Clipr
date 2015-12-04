@@ -19,7 +19,7 @@ var website = (process.env.SITE || "http://localhost:3000");
 var callbackURL = website + '/auth/google/callback';
 
 if (website === "http://localhost:3000") {
-    var keysAndPassword = require('../../APIs.js');
+    var keysAndPassword = require('../../apiKeysAndPasswords.js');
 }
 
 // Used in Google OAuth
@@ -246,12 +246,12 @@ module.exports = {
                 }
                 if (!flag) {resolve(flag)}
                   else {console.log('error: this user already has this clip'); reject}
-            });
+            })
 
         }).then(function(val) {
-              console.log('loading corpus & classifiying clip...');
+              console.log('loading corpus & classifiying clip...')
                 natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
-                    console.log(classifier.classify(req.body.text));
+                    console.log(classifier.classify(req.body.text))
                     category = classifier.classify(req.body.text);
                     makeImg(clipUrl);
                 });
@@ -262,10 +262,11 @@ module.exports = {
                 //saveToDB(imgUrl)
                 saveToDbNoWatson(imgUrl);
             });
-        }
+        };
 
         function saveToDbNoWatson(imgUrl) {
-            console.log('insidesavetoDBnoWatson');
+          console.log('>>>>>>>>>>>>>>>>>>>>>SAVETONODBWATSON CALLED');
+            // console.log('insidesavetoDBnoWatson');
 
             var createClipNode = new Promise(function(resolve, reject) {
                 db.save({
