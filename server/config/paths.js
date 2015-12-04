@@ -12,7 +12,7 @@ var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
 var classifier = require('./classify.js');
-var natural = require('natural')
+var natural = require('natural');
 
 // Set website (Heroku or Localhost) and callbackURL
 var website = (process.env.SITE || "http://localhost:3000");

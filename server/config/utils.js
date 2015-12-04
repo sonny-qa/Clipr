@@ -48,7 +48,7 @@ var http = require('http');
 var urlImage = require('url-to-image');
 var cloudinary = require('cloudinary');
 var natural = require('natural');
-var apiKeys = require('../../APIKeysAndPasswords.js');
+var apiKeys = require('../../APIs.js');
 //fetches a user node based on an email
   var db= require('seraph')({
   server: "http://clipr.sb02.stations.graphenedb.com:24789",
@@ -129,7 +129,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
     }, function (err, node){
 
       if (err) throw err;
-      db.label(node, ['Suggestion'], 
+      db.label(node, ['Suggestion'],
         function(err) {
           if (err) throw err;
           console.log('New Suggestion Node Added to Clip!');
@@ -168,7 +168,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
         x: 0,
         y: 0,
         format: "png"
-      }); 
+      });
     })
     .catch(function(err) {
       console.log(err);
@@ -179,17 +179,17 @@ createRelation: function(clip, tag, how, relevance, cb) {
   suggestionsAPI : function(keyword, cb) {
     var farooAPI = process.env.FAROO || apiKeys.FAROO;
     var fullUrl = 'http://www.faroo.com/api?q=' + keyword + '&start=1&length=3&l=en&src=web&i=false&f=json' + farooAPI;
-    
-    request(fullUrl, function (err, res, body) {  
-      if(err) { 
-        console.log('ERROR inside suggestionsAPI!!'); 
+
+    request(fullUrl, function (err, res, body) {
+      if(err) {
+        console.log('ERROR inside suggestionsAPI!!');
       }
       var bodyParsed = JSON.parse(body);
       cb(bodyParsed);
     });
 
   },
-  
+
 
   //Removes all filler words from Website Title
   isStopWord : function(word) {
@@ -197,7 +197,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
       if(stopWords.search(regex) < 0) {
         return false;
       }else {
-        return true;  
+        return true;
       }
     },
 
@@ -210,7 +210,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
           if(!isStopWord($0)) {
             words[words.length] = $0.trim();
           }
-        }); 
+        });
 
     return words.join(" ");
   }
