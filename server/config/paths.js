@@ -12,7 +12,7 @@ var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
 var classifier = require('./classify.js');
-var natural = require('natural')
+var natural = require('natural');
 
 // Set website (Heroku or Localhost) and callbackURL
 var website = (process.env.SITE || "http://localhost:3000");
@@ -334,13 +334,13 @@ module.exports = {
         };
 
         function extractKeywordsNoWatson(clipNode) {
-            var text = clipNode.text
+            var text = clipNode.text;
             //load an instance of term freq - inverse term freq instance
             TfIdf = natural.TfIdf,
                 tfidf = new TfIdf();
 
             //add the document from the node.text - this represents the doc in feature space
-            tfidf.addDocument(text)
+            tfidf.addDocument(text);
 
             //get all terms
             var results = tfidf.listTerms(0);
