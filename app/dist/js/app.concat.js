@@ -58464,7 +58464,7 @@ angular
                 //     controller: 'SidebarController'
                 // }
             }
-        })
+        });
 
 }]);angular.module('clipr.services', ['ngCookies'])
 
@@ -58496,13 +58496,14 @@ angular
       clips.clips = clips.data;
     }
     for (var x = 0; x < clips.data.length; x++) {
-      var node = clips.data[x]
-      console.log(node)
+      var node = clips.data[x];
+      console.log(node);
       if (node.category === topic) {
-        categorizedClips.push(node)
+        categorizedClips.push(node);
       }
     }
     clips.clips = categorizedClips;
+      console.log("clips.clips__++++_+++ ",  clips.clips);
   };
 
   var loadAllClips = function(cookie) {
@@ -58516,9 +58517,13 @@ angular
       clips.data = response.data;
       clips.clips = response.data;
       for (var x = 0; x < response.data.length; x++) {
-        console.log(response.data)
+
+        console.log('This is the response.data in LoadAllCLips: ', response.data);
+
         var clip = response.data[x];
-        console.log('CLIPS', x)
+
+        console.log('CLIPS', x);
+        
         if (!clips.categories[clip.category]) {
           clips.categories[clip.category] = [clip];
         } else {
@@ -58683,9 +58688,9 @@ angular
      }
  };
 
- $scope.showModal = function(clipUrl, clipTitle, size) {
+ $scope.showModal = function(clipUrl, title) {
    $scope.opts = {
-     size: size,
+     size: 'lg',
      backdrop: true,
      backdropClick: true,
      dialogFade: false,
@@ -58698,7 +58703,7 @@ angular
    $scope.opts.resolve.item = function() {
      return angular.copy({
        clip: clipUrl,
-       title: clipTitle
+       title: title
      }); // pass name to Dialog
    };
 
@@ -58736,7 +58741,6 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
 
  $scope.item = item;
  $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
- $scope.sites = false;
  $scope.suggestions = Suggestions.content.data;
  console.log('SCOPE ITEM INSIDE MODAL', $scope.item);
 
@@ -58759,16 +58763,11 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
    Notes.addNotes($scope.NoteAndUrl);
  };
 
- $scope.displaySuggestions = function() {
-   console.log('display function!!!');
-   Notes.loadNotes($scope.item.clip);
-   $scope.sites = true;
- };
 
   $scope.getRelated = function () {
-    console.log('TITLE TO PASS TO SUGGESTIONS', $scope.item.title);
+    console.log('NEW PASS TO SUGGESTIONS', $scope.item.title);
     //call service factory - getSuggestions
-    Suggestions.getContent($scope.item.title);
+    // Suggestions.getContent($scope.item.url);
     // console.log($scope.item);
     // console.log($scope.suggestions);
   };
