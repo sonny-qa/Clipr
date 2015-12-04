@@ -23,7 +23,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
      }
  };
 
- $scope.showModal = function(clipUrl, size) {
+ $scope.showModal = function(clipUrl, clipTitle, size) {
    $scope.opts = {
      size: size,
      backdrop: true,
@@ -38,8 +38,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
    $scope.opts.resolve.item = function() {
      return angular.copy({
        clip: clipUrl,
-       clipUrl: $scope.clips.data[clipIndex].clipUrl,
-       title : $scope.clips.data[clipIndex].title
+       title: clipTitle
      }); // pass name to Dialog
    };
 
@@ -79,6 +78,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
  $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
  $scope.sites = false;
  $scope.suggestions = Suggestions.content.data;
+ console.log('SCOPE ITEM INSIDE MODAL', $scope.item);
 
  $scope.ok = function() {
    $modalInstance.close();
@@ -106,10 +106,11 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
  };
 
   $scope.getRelated = function () {
+    console.log('TITLE TO PASS TO SUGGESTIONS', $scope.item.title);
     //call service factory - getSuggestions
-    // Suggestions.getContent($scope.item);
-    console.log($scope.item);
-    console.log($scope.suggestions);
+    Suggestions.getContent($scope.item.title);
+    // console.log($scope.item);
+    // console.log($scope.suggestions);
   };
 
 };

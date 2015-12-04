@@ -71,9 +71,9 @@ var getPageText = function(bkmrkObj, cb) {
 
             cb(bkmrkObj);
         });
-    })
+    });
 
-}
+};
    
 
 

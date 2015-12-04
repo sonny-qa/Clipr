@@ -58,6 +58,7 @@ var apiKeys = require('../../apiKeysAndPasswords.js');
 
 
 // initialize cloudinary connection for storing and retreiving images
+//TODO: move apiKeys to apiKeysAndPasswords.js
 cloudinary.config({
   cloud_name: 'cjpuskar',
   api_key: '499291937259717',
@@ -73,38 +74,40 @@ module.exports = {
       " RETURN node";
   db.query(cypher, function(err, result) {
       if (err) throw err;
-      console.log('fetch fetchUserByEmail', result[0])
-      cb(result[0])
-    })
+      console.log('fetch fetchUserByEmail', result[0]);
+      cb(result[0]);
+    });
   },
 
 createRelation: function(clip, tag, how, relevance, cb) {
+  console.log('-------------Create Relations Function Called------------');
   db.relate(clip, how, tag, {
       relevance: relevance || null
     }, function(err, relationship) {
-      console.log('RELATIONSHIP:', relationship);
+      // console.log('RELATIONSHIP:', relationship);
       //provide a callback on the clip (the 'from') node
       cb(clip);
 
     });
   },
 
+  //TODO: move apiKeys to apiKeysAndPasswords.js
   createWatsonUrl: function(url, cb) {
     console.log('inside watson');
     var API = '5770c0482acff843085443bfe94677476ed180e5';
     var baseUrl = 'http://gateway-a.watsonplatform.net/calls/';
     var endUrl = 'url/URLGetRankedKeywords?apikey=' + API + '&outputMode=json&url=';
     var fullUrl = baseUrl + endUrl + url;
-    console.log(fullUrl);
+    // console.log(fullUrl);
     request(fullUrl, function (err, response, body) {
       var bodyParsed = JSON.parse(body);
-      console.log('WATSON KEYWORDS:', bodyParsed.keywords);
+      // console.log('WATSON KEYWORDS:', bodyParsed.keywords);
       cb(bodyParsed.keywords);
     });
   },
 
   storeTags: function(tag, cb) {
-    console.log('in storeTags');
+    console.log('----------------STORETAGS CALLED---------------');
     var relevance = tag.tfidf;
   db.save({
       tagName: tag.term
@@ -113,10 +116,27 @@ createRelation: function(clip, tag, how, relevance, cb) {
     db.label(node, ['Tag'],
         function(err) {
           if (err) throw err;
-          console.log(node.tagName + " was inserted as a Topic into DB");
-          console.log('TAGNODE:', node);
+          // console.log(node.tagName + " was inserted as a Topic into DB");
+          // console.log('TAGNODE:', node);
         });
       cb(node, relevance);
+    });
+  },
+
+  createSuggestionNode: function(suggestion, cb) {
+    //Each suggestion is an object with a title and a url as its property
+    db.save({
+      suggestionTitle : suggestion.title,
+      suggestionUrl : suggestion.url
+    }, function (err, node){
+
+      if (err) throw err;
+      db.label(node, ['Suggestion'], 
+        function(err) {
+          if (err) throw err;
+          console.log('New Suggestion Node Added to Clip!');
+        });
+      cb(node);
     });
   },
   // captures screen image on chrome_ext click
@@ -134,7 +154,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
     var url = urlapi.parse(targetUrl);
 
     var hostName = url.hostname;
-    var fileName = 'tempImg/' + hostName + '.png'
+    var fileName = 'tempImg/' + hostName + '.png';
 
     // API call to url-to-image module
     return urlImage(targetUrl, fileName, options).then(function() {
@@ -156,14 +176,15 @@ createRelation: function(clip, tag, how, relevance, cb) {
       console.log(err);
     });
   },
-  newsAPI : function(keyword, cb) {
-    // var API = '&key=nwFFIfopV8GKlLMLC3tJU9Nc6rg_';
+
+  //Call to FAROO API to get site suggestions
+  suggestionsAPI : function(keyword, cb) {
     var farooAPI = process.env.FAROO || apiKeys.FAROO;
-    var fullUrl = 'http://www.faroo.com/api?q=' + keyword + '&start=1&length=4&l=en&src=web&i=false&f=json' + farooAPI;
+    var fullUrl = 'http://www.faroo.com/api?q=' + keyword + '&start=1&length=3&l=en&src=web&i=false&f=json' + farooAPI;
     
     request(fullUrl, function (err, res, body) {  
       if(err) { 
-        console.log('ERROR inside newsAPI!!'); 
+        console.log('ERROR inside suggestionsAPI!!'); 
       }
       var bodyParsed = JSON.parse(body);
       cb(bodyParsed);

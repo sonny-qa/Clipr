@@ -57048,6 +57048,7 @@ angular.module('ui.router.state')
 (function() {
   'use strict';
 
+<<<<<<< 2b99c326467fac31bfebb3dd6f1425a0957ed84d
   angular.module('ngAside')
     /**
      * @ngdoc service
@@ -57447,6 +57448,9 @@ function htmlParser(html, handler) {
 .controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', 'Suggestions', function($scope, Clips, $modal, Notes, AuthService, $aside, Suggestions) {
 >>>>>>> [feat]: site suggestions
 >>>>>>> [fix]: fix merge conflicts
+=======
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', 'Suggestions', '$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, Suggestions, $cookies) {
+>>>>>>> [feat]: get back suggestions for each clip AS SOON AS bookmarked
 
 <<<<<<< 1b628c042560710334c09c00ddf40a632c89da64
         if (handler.chars) handler.chars(decodeEntities(text));
@@ -57470,12 +57474,26 @@ function htmlParser(html, handler) {
       parseEndTag("", stack.last());
     }
 
+<<<<<<< 2b99c326467fac31bfebb3dd6f1425a0957ed84d
     if (html == last) {
       throw $sanitizeMinErr('badparse', "The sanitizer was unable to parse the following block " +
                                         "of html: {0}", html);
     }
     last = html;
   }
+=======
+ $scope.showModal = function(clipUrl, clipTitle, size) {
+   $scope.opts = {
+     size: size,
+     backdrop: true,
+     backdropClick: true,
+     dialogFade: false,
+     keyboard: true,
+     templateUrl: './clipSelect/clipSelectView.html',
+     controller: ModalInstanceCtrl,
+     resolve: {}
+   };
+>>>>>>> [feat]: get back suggestions for each clip AS SOON AS bookmarked
 
 <<<<<<< 1b628c042560710334c09c00ddf40a632c89da64
   // Clean up any remaining tags
@@ -57483,12 +57501,8 @@ function htmlParser(html, handler) {
 =======
    $scope.opts.resolve.item = function() {
      return angular.copy({
-<<<<<<< 0315954e4afdb4f3071858e6cc6025ef1db92f63
-       clip: clipUrl
-=======
-       clipUrl: $scope.clips.data[clipIndex].clipUrl,
-       title : $scope.clips.data[clipIndex].title
->>>>>>> [feat]: get back suggestions  from AlchemyAPI
+       clip: clipUrl,
+       title: clipTitle
      }); // pass name to Dialog
    };
 >>>>>>> [feat]: get back suggestions  from AlchemyAPI
@@ -58233,8 +58247,8 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     }
 =======
  $scope.item = item;
-<<<<<<< 6663a4dcf45b07e06fb2e6bc8b3d649a606e4769
  $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
+<<<<<<< 2b99c326467fac31bfebb3dd6f1425a0957ed84d
  $scope.notes = Notes.notesObj;
  $scope.suggestions = Suggestions.content;
  console.log('TITLE INSIDE ARTICLE', $scope.item.title);
@@ -58248,6 +58262,11 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
 
 >>>>>>> [fix]: fetch suggestions from new faroo API
 >>>>>>> [fix]: fetch suggestions from new faroo API
+=======
+ $scope.sites = false;
+ $scope.suggestions = Suggestions.content.data;
+ console.log('SCOPE ITEM INSIDE MODAL', $scope.item);
+>>>>>>> [feat]: get back suggestions for each clip AS SOON AS bookmarked
 
     element.on('touchstart', function(event) {
       tapping = true;
@@ -58272,11 +58291,8 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
 =======
  $scope.displaySuggestions = function() {
    console.log('display function!!!');
-<<<<<<< 6663a4dcf45b07e06fb2e6bc8b3d649a606e4769
    Notes.loadNotes($scope.item.clip);
-=======
    $scope.sites = true;
->>>>>>> [fix]: fetch suggestions from new faroo API
  };
 >>>>>>> [fix]: fetch suggestions from new faroo API
 
@@ -58286,9 +58302,11 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     });
 =======
   $scope.getRelated = function () {
+    console.log('TITLE TO PASS TO SUGGESTIONS', $scope.item.title);
     //call service factory - getSuggestions
     Suggestions.getContent($scope.item.title);
-    console.log($scope.suggestions);
+    // console.log($scope.item);
+    // console.log($scope.suggestions);
   };
 >>>>>>> [feat]: get back suggestions  from AlchemyAPI
 
@@ -58698,12 +58716,15 @@ angular
     isAuthenticated: isAuthenticated,
     logOut: logOut
   };
+<<<<<<< 2b99c326467fac31bfebb3dd6f1425a0957ed84d
 
 <<<<<<< 50325d02cb9c0d9a517b51168ff2582ff56bd489
 }]);;angular.module('clipr.categories', [])
 =======
 <<<<<<< 76f066547c1f6aa4d0e7d2d25a3b423639900ebf
 =======
+=======
+>>>>>>> [feat]: get back suggestions for each clip AS SOON AS bookmarked
 }])
 
   //Call server to get back suggested websites
@@ -58735,8 +58756,6 @@ angular
     content: content,
     getContent: getContent
   };
-
->>>>>>> [feat]: site suggestions
 }]);;/**
  * Main module of the application.
  */
