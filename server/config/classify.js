@@ -3,6 +3,8 @@ var natural = require('natural');
 var fs = require('fs');
 var async = require('async');
 
+// var async = require('async');
+
 // classifier = new natural.BayesClassifier();
 
 
@@ -24,8 +26,6 @@ var async = require('async');
 
 // })
 
-
-
 module.exports = {
 
   // category: {
@@ -41,21 +41,24 @@ module.exports = {
   //     console.log('classifier is loaded')
   //     var category= classifier.classify(text)
   //     category.clipCategory= category
+  loadClassifier: function() {
+    natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
 
-  //   });
-  //     console.log(category.clipCategory)
-  // },
+    });
+      console.log(category.clipCategory);
+  },
 
   trainClassifier: function() {
-    console.log('trainin dis classifier')
+    console.log('trainin dis classifier');
 
     classifier.events.on('trainedWithDocument', function(obj) {
       console.log(obj);
       if (obj.index === obj.total - 1) {
         classifier.save('classifier.json', function(err, classifier) {
-          console.log('classifier has been saved')
-        })
+          console.log('classifier has been saved');
+        });
       }
-    })
+    });
   }
+
 }

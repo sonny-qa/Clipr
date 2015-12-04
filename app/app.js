@@ -35,12 +35,12 @@ angular
             views: {
                 "main": {
                     templateUrl: 'html/landingView.html',
-                    controller: 'AuthController'
+                    controller: 'landingController'
                 }
             }
         })
         .state('categories',{
-            url:"/categories", 
+            url:"/categories",
             views:{
                 "main":{
                     templateUrl:'html/categories.html',
