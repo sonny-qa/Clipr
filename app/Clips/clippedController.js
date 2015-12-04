@@ -1,9 +1,9 @@
 angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside','$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', 'Suggestions', '$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, Suggestions, $cookies) {
 
  $scope.clips = Clips.clips;
- $scope.clipShow= false;
+ $scope.clipShow = false;
 
  $scope.loadAllClips = function() {
    Clips.loadAllClips($cookies.get('clipr'));
@@ -23,7 +23,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
      }
  };
 
- $scope.showModal = function(clipUrl, size) {
+ $scope.showModal = function(clipUrl, clipTitle, size) {
    $scope.opts = {
      size: size,
      backdrop: true,
@@ -37,7 +37,8 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
    $scope.opts.resolve.item = function() {
      return angular.copy({
-       clip: clipUrl
+       clip: clipUrl,
+       title: clipTitle
      }); // pass name to Dialog
    };
 
@@ -71,11 +72,13 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
 }]);
 
-var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes) {
+var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes, Suggestions) {
 
  $scope.item = item;
  $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
- $scope.notes = Notes.notesObj;
+ $scope.sites = false;
+ $scope.suggestions = Suggestions.content.data;
+ console.log('SCOPE ITEM INSIDE MODAL', $scope.item);
 
  $scope.ok = function() {
    $modalInstance.close();
@@ -96,10 +99,20 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
    Notes.addNotes($scope.NoteAndUrl);
  };
 
- $scope.display = function() {
+ $scope.displaySuggestions = function() {
    console.log('display function!!!');
    Notes.loadNotes($scope.item.clip);
+   $scope.sites = true;
  };
+
+  $scope.getRelated = function () {
+    console.log('TITLE TO PASS TO SUGGESTIONS', $scope.item.title);
+    //call service factory - getSuggestions
+    Suggestions.getContent($scope.item.title);
+    // console.log($scope.item);
+    // console.log($scope.suggestions);
+  };
+
 };
 
 

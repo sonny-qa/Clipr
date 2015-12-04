@@ -11,10 +11,8 @@ var path = require('path');
 var Promise = require('bluebird');
 var request = require('request');
 var http = require('http');
-var classifier = require('./classify.js')
-    // var router = require('./router.js');
+var classifier = require('./classify.js');
 var natural = require('natural')
-
 
 // Set website (Heroku or Localhost) and callbackURL
 var website = (process.env.SITE || "http://localhost:3000");
@@ -28,6 +26,9 @@ if (website === "http://localhost:3000") {
 var passport = require('passport');
 var clientID = process.env.clientID || keysAndPassword.clientID;
 var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
+/**
+  Google OAuth2
+**/
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -58,7 +59,7 @@ passport.use(new GoogleStrategy({
     callbackURL: callbackURL,
 
 }, function(accessToken, refreshToken, profile, done) {
-    console.log('looking for gid', profile)
+    console.log('looking for gid', profile);
     var cypher = "MATCH (node: User)" +
         " WHERE node.username = " +
         "'" + profile.displayName + "'" +
@@ -117,33 +118,48 @@ app.get('/auth/google/callback', passport.authenticate('google', {
         failureRedirect: '/#/landing'
     }),
     function(req, res) {
-        console.log('req', req)
-        console.log('res', res)
+        console.log('req', req);
             //when they come back after a successful login, setup clipr cookie
-        var email = req.session.passport.user.email
-
-        res.cookie('clipr', email)
-
-        // Successful authentication, redirect home.
-        res.redirect('/#/categories');
-    })
+        var email = req.session.passport.user.email;
+        res.cookie('clipr', email);
+    // Successful authentication, redirect home.
+    res.redirect('/#/categories');
+  });
 
 var db = require('seraph')({
     server: "http://clipr.sb02.stations.graphenedb.com:24789",
     user: "clipr",
     pass: 'oSvInWIWVVCQIbxLbfTu'
-
 });
+  // googleCallback: passport.authenticate('google', {
+  //       failureRedirect: '/#/landing'
+  //     }),
+  //     function(req, res) {
+  //       console.log('req', req)
+  //       console.log('res', res)
+  //       //when they come back after a successful login, setup clipr cookie
+  //       res.cookie('clipr', req.session.passport.user.accessToken)
+  //         // Successful authentication, redirect home.
+  //       res.redirect('/#/clips');
+  //     }),
+
 
 module.exports = {
 
-
+  loadClipsByCategory: function(req, res) {
+    console.log('in clips by category', req.query.category);
+    var cypher = "MATCH(clips)-[:BELONGSTO]->(category) WHERE category.category='" + req.query.category + "' RETURN clips";
+    db.query(cypher, function(err, results) {
+      if (err) throw err;
+      console.log('category results', results);
+      res.send(results);
+    });
+  },
     //   db: require('seraph')({
     //   server: "http://clipr.sb02.stations.graphenedb.com:24789",
     //   user: "clipr",
     //   pass: 'oSvInWIWVVCQIbxLbfTu'
     // }),
-
     googleAuth: passport.authenticate('google', {
             scope: ['https://www.googleapis.com/auth/plus.login', 'email']
         },
@@ -151,8 +167,62 @@ module.exports = {
             //send user to google to authenticate
 
         }),
+  loadAllClips: function(req, res) {
+    console.log('COOKIES', req.query.cookie);
+    var cypher = "MATCH(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips";
+    db.query(cypher, function(err, results) {
+      console.log('server results', results);
+      res.send(results);
+    });
+  },
 
+  addNote: function(req, res) {
+    console.log('in addNote');
+    console.log('url', req.query.url);
+    // console.log('url', req.query.user)
 
+    var clipNode;
+    var noteNode;
+    db.find({
+      clipUrl: req.query.url
+    }, function(err, clip) {
+      if (err) throw err;
+      clipNode = clip;
+    });
+    console.log(req.query.note);
+    db.save({
+      note: req.query.note
+    }, function(err, note) {
+      console.log(' note was saved', note);
+      noteNode = note;
+      if (err) throw err;
+      db.label(noteNode, ['Note'], function(err) {
+        if (err) throw err;
+        console.log('noteNode', noteNode);
+        console.log('clipNode', clipNode);
+      });
+      utils.createRelation(noteNode, clipNode[0], 'belongsTo', 3);
+      res.send(noteNode);
+    });
+  },
+  loadNotes: function(req, res) {
+    console.log('inloadnotes');
+    var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
+    db.query(cypher, function(err, result) {
+      if (err) throw err;
+      // console.log('NOTESRESULT', result);
+      res.send(result);
+    });
+  },
+
+  getSuggestions: function (req, res) {
+    
+    //When a user request suggestions, we query the DB and send back suggestions
+    //TODO : Write DB Query to fetch suggestions for each clip.
+        // utils.newsAPI(firstWord, function(suggestions){
+      console.log('SUGGESTIONS', req);
+      // console.log('Suggestions We Get Back!', suggestions.result.docs[0].source.enriched.url.title);
+  },
 
     storeClip: function(req, res) {
         // Declaring Variables
@@ -161,7 +231,6 @@ module.exports = {
         var clipUrl = req.body.url;
         var title = req.body.title;
         var category;
-
         var isDup = new Promise(function(resolve, reject) {
             var cypher = "MATCH (usernode:User {email:" +
                 '"' + email + '"' + "})<--(clipnode:Clip {title:" + '"' + title + '"' + "}) RETURN clipnode"
@@ -186,79 +255,18 @@ module.exports = {
                     category = classifier.classify(req.body.text);
                     makeImg(clipUrl);
                 });
-        });
+              });
 
         function makeImg(clipUrl) {
             utils.urlToImage(clipUrl, function(imgUrl) {
                 //saveToDB(imgUrl)
-                saveToDbNoWatson(imgUrl)
+                saveToDbNoWatson(imgUrl);
             });
         };
 
-        // makeImg(clipUrl);
-
-        //****  THIS IS KEPT AS BACKUP NOW ******//
-
-        // function saveToDB(imgUrl) {
-        //     console.log("imgUrl inside saveToDB: ", imgUrl);
-        //     db.save({
-        //         clipUrl: req.body.url,
-        //         title: req.body.title,
-        //         imgUrl: imgUrl,
-        //         text: req.body.text
-        //     }, function(err, clipNode) {
-        //         if (err) throw err;
-        //         db.label(clipNode, ['Clip'], function(err) {
-        //             if (err) throw err;
-        //             console.log(clipNode + " was inserted as a Clip into DB");
-        //             //at this point we have the clip node created, so find the user and relate clip->user
-        //             utils.fetchUserByEmail(email, function(userNode) {
-        //                 utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {})
-        //             });
-        //             //query watson, and loop over top 3 results creating a keyword node for each
-        //             utils.createWatsonUrl(clipNode.clipUrl, function(keywords) {
-        //                 for (var i = 0; i < 3; i++) {
-        //                     utils.storeTags(keywords[i], function(tagNode, relevance) {
-        //                         //create relationship between each keyword node and the clip node
-        //                         utils.createRelation(clipNode, tagNode, 'contains', relevance, function(fromNode) {
-        //                             console.log('relationship between clip & tag node created')
-
-        //                         });
-        //                     });
-        //                 }
-        //             });
-        //         });
-        //     })
-        // };
-        // function isClipDuplicate(userEmail, clipTitle) {
-        //     //returns true if clip already exists for that user in DB
-
-
-        //     var isDup = new Promise(function(resolve, reject) {
-        //         var cypher = "MATCH (usernode:User {email:" +
-        //             '"' + userEmail + '"' + "})<--(clipnode:Clip {title:" + '"' + clipTitle + '"' + "}) RETURN clipnode"
-
-        //         db.query(cypher, function(err, res) {
-        //             var flag = false
-        //             for (var i = 0; i < res.length; i++) {
-        //                 if (res[i].title === clipTitle) {
-        //                     console.log('registered true')
-        //                     flag = true
-        //                     break
-        //                 }
-        //             }
-        //             resolve(flag)
-        //         })
-
-        //     }).then(function(val) {
-        //         console.log('the val', val)
-        //         return val
-        //     })
-
-        // };
-
         function saveToDbNoWatson(imgUrl) {
-            console.log('insidesavetoDBnoWatson')
+          console.log('>>>>>>>>>>>>>>>>>>>>>SAVETONODBWATSON CALLED');
+            // console.log('insidesavetoDBnoWatson');
 
             var createClipNode = new Promise(function(resolve, reject) {
                 db.save({
@@ -269,41 +277,61 @@ module.exports = {
                     category: category
                 }, function(err, clipNode) {
                     //returns the clipNode if ressolved correctly
-                    resolve(clipNode)
-                    reject(err)
-                })
+                    resolve(clipNode);
+                    reject(err);
+                });
             }).then(function(clipNode) {
                 //label the clip node
-                db.label(clipNode, ['Clip'], function(err) {})
-                return clipNode
+                db.label(clipNode, ['Clip'], function(err) {});
+                return clipNode;
             }).then(function(clipNode) {
                 //extract keywords
-                var clipKeywords = extractKeywordsNoWatson(clipNode)
-                console.log('we have keywords', clipKeywords)
+                var clipKeywords = extractKeywordsNoWatson(clipNode);
+                console.log('we have keywords', clipKeywords);
 
                 clipKeywords.forEach(function(element, ind, array) {
                     //create node for each keyword 
                     utils.storeTags(element, function(tagNode, relevance) {
                         //create relations for each keyword node
                         utils.createRelation(clipNode, tagNode, 'contains', relevance, function(fromnode) {
-                            console.log('relationship created')
-                        })
-                    })
+                            // console.log('relationship created');
+                        });
+                    });
 
-                })
-                return clipNode
+                });
+                return clipNode;
             }).then(function(clipNode) {
                 //find the user in the db based on their email
                 utils.fetchUserByEmail(email, function(userNode) {
                     //create relation: user->clip
                     utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {
-                        console.log('relation created from:', fromNode)
-                    })
+                    });
+                });
+                return clipNode;
+            }).then(function(clipNode){
+              //Take first word of title
+              var firstWord = clipNode.title.split(' ')[0];
+              
+              utils.suggestionsAPI(firstWord, function(suggestions){
+                var suggestionResults = suggestions.results.map(function(item) {
+                  // console.log("suggestionResults: ", item);
+                  return  {
+                    title: item.title,
+                    url: item.url
+                  };
+                });
 
-                })
-            })
+              suggestionResults.forEach(function(element, ind, array) {
+                console.log('FOREACH ELEMENT :', element);
+                utils.createSuggestionNode(element, function(suggestionNode){                
+                  utils.createRelation(clipNode, suggestionNode, 'related', 'related', function(clipNode){
+                  });
+                });
+             
+              });
 
-
+            });
+          });
         };
 
         function extractKeywordsNoWatson(clipNode) {
@@ -316,77 +344,15 @@ module.exports = {
             tfidf.addDocument(text)
 
             //get all terms
-            var results = tfidf.listTerms(0)
+            var results = tfidf.listTerms(0);
 
             //sort terms by term freq * inverse term freq
             results.sort(function(a, b) {
-                return b.tfidf - a.tfidf
-            })
+                return b.tfidf - a.tfidf;
+            });
 
             //return top 10  
-            return results.slice(0, 10)
-
+            return results.slice(0, 10);
         }
-    },
-
-
-    loadClipsByCategory: function(req, res) {
-        console.log('in clips by category', req.query.category)
-        var cypher = "MATCH(clips)-[:BELONGSTO]->(category) WHERE category.category='" + req.query.category + "' RETURN clips";
-        db.query(cypher, function(err, results) {
-            if (err) throw err;
-            console.log('category results', results)
-            res.send(results);
-        });
-    },
-
-    loadAllClips: function(req, res) {
-        console.log('COOKIES', req.query.cookie);
-        var cypher = "MATCH(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips";
-        db.query(cypher, function(err, results) {
-            console.log('server results', results);
-            res.send(results);
-        });
-    },
-
-    addNote: function(req, res) {
-        console.log('in addNote');
-        console.log('url', req.query.url);
-        // console.log('url', req.query.user)
-
-        var clipNode;
-        var noteNode;
-        db.find({
-            clipUrl: req.query.url
-        }, function(err, clip) {
-            if (err) throw err;
-            clipNode = clip;
-        });
-        console.log(req.query.note);
-        db.save({
-            note: req.query.note
-        }, function(err, note) {
-            console.log(' note was saved', note);
-            noteNode = note;
-            if (err) throw err;
-            db.label(noteNode, ['Note'], function(err) {
-                if (err) throw err;
-                console.log('noteNode', noteNode);
-                console.log('clipNode', clipNode);
-            });
-            utils.createRelation(noteNode, clipNode[0], 'belongsTo', 3);
-            res.send(noteNode)
-        });
-    },
-
-    loadNotes: function(req, res) {
-        console.log('inloadnotes');
-        var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
-        db.query(cypher, function(err, result) {
-            if (err) throw err;
-            console.log('NOTESRESULT', result);
-            res.send(result);
-        });
     }
-
-}
+};

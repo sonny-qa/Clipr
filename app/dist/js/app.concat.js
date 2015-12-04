@@ -58604,7 +58604,37 @@ angular
     isAuthenticated: isAuthenticated,
     logOut: logOut
   };
+}])
 
+  //Call server to get back suggested websites
+.factory('Suggestions', ['$http', function ($http){
+  var content = {
+    data: null
+  }; 
+
+  var getContent = function (title) {
+    console.log('URL BEING PASSED TO SERVER', title);
+    return $http({
+      method: 'GET',
+      url: '/getSuggestions',
+      params: {
+        title: title
+      }
+    }).then(function (response) {
+      content.data = response.data;
+      console.log("this is content.data ", content.data);
+    })
+    .catch(function (err) {
+      if(err) {
+        console.log('error inside getContent ', err);
+      }
+    });
+  };
+
+  return {
+    content: content,
+    getContent: getContent
+  };
 }]);;angular.module('clipr.categories', [])
 
 .controller('CategoryController', ['$scope', 'Clips','$cookies','$state', function($scope, Clips, $cookies, $state) {
@@ -58630,10 +58660,10 @@ angular
 
 }]);angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside','$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', 'Suggestions', '$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, Suggestions, $cookies) {
 
  $scope.clips = Clips.clips;
- $scope.clipShow= false;
+ $scope.clipShow = false;
 
  $scope.loadAllClips = function() {
    Clips.loadAllClips($cookies.get('clipr'));
@@ -58653,7 +58683,7 @@ angular
      }
  };
 
- $scope.showModal = function(clipUrl, size) {
+ $scope.showModal = function(clipUrl, clipTitle, size) {
    $scope.opts = {
      size: size,
      backdrop: true,
@@ -58667,7 +58697,8 @@ angular
 
    $scope.opts.resolve.item = function() {
      return angular.copy({
-       clip: clipUrl
+       clip: clipUrl,
+       title: clipTitle
      }); // pass name to Dialog
    };
 
@@ -58701,11 +58732,13 @@ angular
 
 }]);
 
-var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes) {
+var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes, Suggestions) {
 
  $scope.item = item;
  $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
- $scope.notes = Notes.notesObj;
+ $scope.sites = false;
+ $scope.suggestions = Suggestions.content.data;
+ console.log('SCOPE ITEM INSIDE MODAL', $scope.item);
 
  $scope.ok = function() {
    $modalInstance.close();
@@ -58726,10 +58759,20 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
    Notes.addNotes($scope.NoteAndUrl);
  };
 
- $scope.display = function() {
+ $scope.displaySuggestions = function() {
    console.log('display function!!!');
    Notes.loadNotes($scope.item.clip);
+   $scope.sites = true;
  };
+
+  $scope.getRelated = function () {
+    console.log('TITLE TO PASS TO SUGGESTIONS', $scope.item.title);
+    //call service factory - getSuggestions
+    Suggestions.getContent($scope.item.title);
+    // console.log($scope.item);
+    // console.log($scope.suggestions);
+  };
+
 };
 
 
