@@ -219,9 +219,8 @@ module.exports = {
 
     //When a user request suggestions, we query the DB and send back suggestions
     //TODO : Write DB Query to fetch suggestions for each clip.
-        // utils.newsAPI(firstWord, function(suggestions){
+
       console.log('SUGGESTIONS', req);
-      // console.log('Suggestions We Get Back!', suggestions.result.docs[0].source.enriched.url.title);
   },
 
     storeClip: function(req, res) {
@@ -331,16 +330,16 @@ module.exports = {
 
             });
           });
-        };
+        }
 
         function extractKeywordsNoWatson(clipNode) {
-            var text = clipNode.text
+            var text = clipNode.text;
             //load an instance of term freq - inverse term freq instance
             TfIdf = natural.TfIdf,
                 tfidf = new TfIdf();
 
             //add the document from the node.text - this represents the doc in feature space
-            tfidf.addDocument(text)
+            tfidf.addDocument(text);
 
             //get all terms
             var results = tfidf.listTerms(0);
@@ -350,8 +349,8 @@ module.exports = {
                 return b.tfidf - a.tfidf;
             });
 
-            //return top 10
-            return results.slice(0, 10);
+            //return top 3
+            return results.slice(0, 3);
         }
     }
 };

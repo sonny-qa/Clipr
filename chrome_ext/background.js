@@ -96,7 +96,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
             //stringify immediately before send
             getPageText(bkmrkObj,function(data){
                 sendBookmark(JSON.stringify(data));
-            })
+            });
             
    
 
