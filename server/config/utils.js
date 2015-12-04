@@ -48,7 +48,7 @@ var http = require('http');
 var urlImage = require('url-to-image');
 var cloudinary = require('cloudinary');
 var natural = require('natural');
-var apiKeys = require('../../apiKeysAndPasswords.js');
+var apiKeys = require('../../APIKeysAndPasswords.js');
 //fetches a user node based on an email
   var db= require('seraph')({
   server: "http://clipr.sb02.stations.graphenedb.com:24789",

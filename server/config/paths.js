@@ -255,6 +255,7 @@ module.exports = {
                     category = classifier.classify(req.body.text);
                     makeImg(clipUrl);
                 });
+              });
 
         function makeImg(clipUrl) {
             utils.urlToImage(clipUrl, function(imgUrl) {
@@ -262,7 +263,6 @@ module.exports = {
                 saveToDbNoWatson(imgUrl);
             });
         };
-      }
 
         function saveToDbNoWatson(imgUrl) {
           console.log('>>>>>>>>>>>>>>>>>>>>>SAVETONODBWATSON CALLED');
@@ -332,9 +332,7 @@ module.exports = {
 
             });
           });
-
-
-        }
+        };
 
         function extractKeywordsNoWatson(clipNode) {
             var text = clipNode.text
@@ -355,62 +353,6 @@ module.exports = {
 
             //return top 10  
             return results.slice(0, 10);
-
         }
-    },
-
-    loadAllClips: function(req, res) {
-        console.log('COOKIES', req.query.cookie);
-        var cypher = "MATCH(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips";
-        db.query(cypher, function(err, results) {
-            console.log('server results', results);
-            res.send(results);
-        });
-    },
-
-    addNote: function(req, res) {
-        console.log('in addNote');
-        console.log('url', req.query.url);
-        // console.log('url', req.query.user)
-
-        var clipNode;
-        var noteNode;
-        db.find({
-            clipUrl: req.query.url
-        }, function(err, clip) {
-            if (err) throw err;
-            clipNode = clip;
-        });
-        console.log(req.query.note);
-        db.save({
-            note: req.query.note
-        }, function(err, note) {
-            console.log(' note was saved', note);
-            noteNode = note;
-            if (err) throw err;
-            db.label(noteNode, ['Note'], function(err) {
-                if (err) throw err;
-                console.log('noteNode', noteNode);
-                console.log('clipNode', clipNode);
-            });
-            utils.createRelation(noteNode, clipNode[0], 'belongsTo', 3);
-            res.send(noteNode)
-        });
-    },
-
-    loadNotes: function(req, res) {
-        console.log('inloadnotes');
-        var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
-        db.query(cypher, function(err, result) {
-            if (err) throw err;
-            console.log('NOTESRESULT', result);
-            res.send(result);
-        });
-
-    }
-
-}
-};
-
     }
 };
