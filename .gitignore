@@ -3,8 +3,6 @@
 /.sass-cache
 .travis.yml
 app/bower_components/
-apiKeysAndPasswords.js
 server/config/trainingDocs/
-APIKeysAndPasswords.js
 tempImg/
 APIs.js
