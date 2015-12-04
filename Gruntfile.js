@@ -68,48 +68,64 @@ module.exports = function(grunt) {
       ]
     },
 
-    // Test to concat JS and CSS files
-    // concat: {
-    //   js: {
-    //     options: {
-    //       separator: ';'
-    //     },
-    //     dist: {
-    //       // files to concatenate
-    //       src: [
-    //       'app/**/*.js',
-    //       '!app/bower_components/**/*.js',
-    //       '!app/assets/**/*.js',
-    //       '!app/dist/**/*.js'            
-    //       ],
-    //       dest: 'app/dist/js/app.concat.js'
-    //     }
-    //   }
-    // },
+    // Copy files into the dist folder
+    copy: {
+      main: {
+        files: [{
+          expand: true,
+          flatten: true,
+          src: [
+            'app/categories/*.html',
+            'app/Clips/*.html',
+            'app/clipSelect/*.html',
+            'app/header/*.html',
+            'app/Landing/*.html',
+            'app/Profile/*.html',
+            'app/Services/*.html',
+            'app/Suggestions/*.html'
+          ],
+          dest: 'app/dist/html',
+          filter: 'isFile'
+        }]
+      },
+      favicon: {
+        src: 'app/apple-icon-144x144.png',
+        dest: 'app/dist/'
+      },
+      css: {
+        src: 'bower_components/angular-aside/dist/css/angular-aside.min.css',
+        dest: 'app/dist/css'
+      }
+    },
 
-    // Concatenates JS Files
     concat: {
       options: {
-      //Defines string to put between each file
         separator: ';'
       },
       js: {
-       //files to concatenate
         src: [
-        'app/**/*.js',
-        '!app/bower_components/**/*.js',
-        '!app/assets/**/*.js',
-        '!app/dist/**/*.js'
+          'app/bower_components/jquery/dist/jquery.js',
+          'app/bower_components/angular/angular.js',
+          'app/bower_components/angular-animate/angular-animate.js',
+          'app/bower_components/angular-cookies/angular-cookies.js',
+          'app/bower_components/angular-resource/angular-resource.js',
+          'app/bower_components/angular-route/angular-route.js',
+          'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+          'app/bower_components/angular-ui-router/release/angular-ui-router.js',
+          'app/bower_components/angular-aside/dist/js/angular-aside.js',
+          'app/bower_components/angular-sanitize/angular-sanitize.js',
+          'app/bower_components/angular-touch/angular-touch.js',
+          'app/app.js',
+          'app/Services/services.js',
+          'app/categories/categoriesController.js',
+          'app/Clips/clippedController.js',
+          'app/Clips/sidebarController.js',
+          'app/clipSelect/suggestedController.js',
+          'app/Landing/LandingController.js',
+          'app/Profile/ProfileController.js'
         ],
-       //the location of the resulting JS file
         dest: 'app/dist/js/app.concat.js'
       }
-      // css: {
-      //   src: [
-      //     'app/bower_components/bootstrap/dist/css/bootstrap.min.css'
-      //   ],
-      //   dest: 'app/dist/css/stylesLibs.css'
-      // }
     },
 
     // Takes JS files and minifies them
@@ -152,6 +168,14 @@ module.exports = function(grunt) {
           src: 'images/*.{png,jpg,gif}',
           dest: 'app/dist/'
         }]
+      }
+    },
+
+    processhtml: {
+      dist: {
+        files: {
+          'app/dist/index.html': ['app/index.html']
+        }
       }
     },
 
@@ -243,5 +267,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
   grunt.registerTask('dev', ['build']);
   grunt.registerTask('server', ['express', 'open', 'watch']);
-  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'concat', 'uglify', 'cssmin', 'imagemin']);
+  grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'copy', 'concat', 'uglify', 'cssmin', 'imagemin', 'processhtml']);
 };

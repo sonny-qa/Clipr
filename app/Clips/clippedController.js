@@ -30,7 +30,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
      backdropClick: true,
      dialogFade: false,
      keyboard: true,
-     templateUrl: './clipSelect/clipSelectView.html',
+     templateUrl: 'html/clipSelectView.html',
      controller: ModalInstanceCtrl,
      resolve: {}
    };
@@ -53,7 +53,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
  $scope.openAside = function(position) {
    console.log('inside asiiiiideee');
    $aside.open({
-     templateUrl: './Suggestions/categorySuggestionsView.html',
+     templateUrl: 'html/categorySuggestionsView.html',
      placement: position,
      backdrop: false,
      controller: function($scope, $modalInstance) {
