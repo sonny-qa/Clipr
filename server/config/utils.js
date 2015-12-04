@@ -48,7 +48,7 @@ var http = require('http');
 var urlImage = require('url-to-image');
 var cloudinary = require('cloudinary');
 var natural = require('natural');
-var apiKeys = require('../../APIs.js');
+var apiKeys = require('../../APIKeysAndPasswords.js');
 //fetches a user node based on an email
   var db= require('seraph')({
   server: "http://clipr.sb02.stations.graphenedb.com:24789",
@@ -58,7 +58,7 @@ var apiKeys = require('../../APIs.js');
 
 
 // initialize cloudinary connection for storing and retreiving images
-//TODO: move apiKeys to APIs.js
+//TODO: move apiKeys to apiKeysAndPasswords.js
 cloudinary.config({
   cloud_name: 'cjpuskar',
   api_key: '499291937259717',
@@ -90,7 +90,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
     });
   },
 
-  //TODO: move apiKeys to APIs.js
+  //TODO: move apiKeys to apiKeysAndPasswords.js
   createWatsonUrl: function(url, cb) {
     console.log('inside watson');
     var API = '5770c0482acff843085443bfe94677476ed180e5';
