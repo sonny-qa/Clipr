@@ -42,7 +42,7 @@ module.exports = {
   //     var category= classifier.classify(text)
   //     category.clipCategory= category
   loadClassifier: function() {
-    natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
+    natural.BayesClassifier.load('../classifier.json', null, function(err, classifier) {
 
     });
       console.log(category.clipCategory);

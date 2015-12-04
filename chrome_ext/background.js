@@ -47,10 +47,15 @@ function sendBookmark(bkmrkObj) {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', postUrl, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function(e){
+        //var events = JSON.parse(this.responseText)
+        console.log('response....',e.target.responseText)
+    }
 
     // Send the request
 
     console.log('sending bkmrkobj', bkmrkObj);
+
     xhr.send(bkmrkObj);
 }
 
