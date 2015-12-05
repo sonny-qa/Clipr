@@ -64,7 +64,8 @@ module.exports = function(grunt) {
     // this task deletes ‘stuff’ - use with caution!
     clean: {
       release: [
-        'app/dist/**/'
+        'app/dist/**/',
+        'tempImg/',
       ]
     },
 
