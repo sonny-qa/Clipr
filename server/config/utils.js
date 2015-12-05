@@ -62,11 +62,10 @@ var db= require('seraph')({
 });
 
 // initialize cloudinary connection for storing and retreiving images
-//TODO: move apiKeys to apiKeysAndPasswords.js
 cloudinary.config({
-  cloud_name: 'cjpuskar',
-  api_key: '499291937259717',
-  api_secret: 'eaGBQyaTw9EKtPG351ZrkTmTMWc'
+  cloud_name: process.env.cloud_name || apiKeys.cloudName,
+  api_key: process.env.cloudinary_api_key || apiKeys.cloudinary_api_key,
+  api_secret: process.env.cloudinary_api_password || apiKeys.cloudinary_api_password
 });
 
 module.exports = {
