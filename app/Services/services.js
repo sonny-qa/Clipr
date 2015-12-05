@@ -17,7 +17,7 @@ angular.module('clipr.services', ['ngCookies'])
   //loadClips - hhtp request to server func
   //return back array of clip objects
   var clips = {
-    data: [],
+    data: {},
     clips: [],
     categories: {}
   };
@@ -46,23 +46,30 @@ angular.module('clipr.services', ['ngCookies'])
         cookie: cookie
       }
     }).then(function(response) {
-      clips.data = response.data;
-      clips.clips = response.data;
+      clips.data= response.data;
+      clips.clips= response.data;
+      clips.categories={};
       for (var x = 0; x < response.data.length; x++) {
+        //check if clip exists in data
+        var clip= response.data[x].clips;
 
-        console.log('This is the response.data in LoadAllCLips: ', response.data);
+        var clipNode= response.data[x];
+         //if exists
+         if (clips.data[clip.clipUrl]){
+          clips.data[clip.clipUrl].suggestions.push(clipNode.suggestions);
+         }else{
+          clips.data[clip.clipUrl]= clipNode.clips;
+          clips.data[clip.clipUrl].suggestions=[clipNode.suggestions];
+         }
 
-        var clip = response.data[x];
-
-        console.log('CLIPS', x);
-        
         if (!clips.categories[clip.category]) {
           clips.categories[clip.category] = [clip];
         } else {
           clips.categories[clip.category].push(clip);
         }
-      console.log('clips.categories', clips.categories);
       }
+      console.log('CLIPS DATA LOOKS LIKE THIS ::::::::::::::::::::::::::::::::::::::', clips.data);
+      console.log('CLIPS CLIPS LOOKS LIKE THIS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', clips.clips);
     });
   };
 
@@ -147,7 +154,7 @@ angular.module('clipr.services', ['ngCookies'])
 .factory('Suggestions', ['$http', function ($http){
   var content = {
     data: null
-  }; 
+  };
 
   var getContent = function (title) {
     console.log('URL BEING PASSED TO SERVER', title);

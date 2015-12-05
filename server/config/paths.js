@@ -169,12 +169,12 @@ module.exports = {
         }),
   loadAllClips: function(req, res) {
     console.log('COOKIES', req.query.cookie);
-    var cypher = "MATCH(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips";
+    var cypher = "MATCH(suggestions:Suggestion)<-[:related]-(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips,suggestions";
 
-    
     //TODO : Query DB to find suggestionNodes for each clipNode
       //Attach suggestionNodes as a property of clipNode before sending it back to front-end
     db.query(cypher, function(err, results) {
+      // console.log('CLIPS AND SUGGESTIONNODES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', results);
       res.send(results);
     });
   },
@@ -218,17 +218,18 @@ module.exports = {
     });
   },
 
+  //KEEP FOR NOW ---------------------
   //When a user request suggestions, we query the DB and send back suggestions
-  getSuggestions: function (req, res) {
-    console.log('TRAPSOUL', req.query.title);
-    var title = req.query.title;
-    var cypher = 'MATCH (n:Clip {title:"' + title  + '"})-->(s:Suggestion) RETURN s';
+  // getSuggestions: function (req, res) {
+  //   console.log('TRAPSOUL', req.query.title);
+  //   var title = req.query.title;
+  //   var cypher = 'MATCH (n:Clip {title:"' + title  + '"})-->(s:Suggestion) RETURN s';
 
-    db.query(cypher, function (err, result) {
-      console.log("Dont::::: ", result);
-      res.send(results);
-    });
-  },
+  //   db.query(cypher, function (err, result) {
+  //     console.log("Dont::::: ", result);
+  //     res.send(results);
+  //   });
+  // },
 
     storeClip: function(req, res) {
         // Declaring Variables
