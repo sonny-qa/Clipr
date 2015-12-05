@@ -152,7 +152,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
     var url = urlapi.parse(targetUrl);
 
     var hostName = url.hostname;
-    var fileName = 'tempImg/' + hostName + '.png';
+    var fileName = 'tempImg/' + hostName + '.jpg';
 
     // API call to url-to-image module
     return urlImage(targetUrl, fileName, options).then(function() {
@@ -167,7 +167,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
         height: 600,
         x: 0,
         y: 0,
-        format: "png"
+        format: "jpg"
       });
     })
     .catch(function(err) {
