@@ -58231,7 +58231,7 @@ $scope.loadAllClips();
     Clips.changeCategory(category, clipTitle);
   }
 
-  $scope.showModal = function(clipUrl, size) {
+  $scope.showModal = function(clip, size) {
     $scope.opts = {
       size: size,
       backdrop: true,
@@ -58245,7 +58245,9 @@ $scope.loadAllClips();
 
     $scope.opts.resolve.item = function() {
       return angular.copy({
-        clip: clipUrl
+        clipUrl: clip.clipUrl, 
+        category: clip.category,
+        clip: clip
       }); // pass name to Dialog
     };
 
@@ -58312,6 +58314,7 @@ $scope.loadAllClips();
         // Call preventGhostClick so the clickbuster will catch the corresponding click.
         preventGhostClick(x, y);
 
+<<<<<<< bdf4db975a8da7e005de2bc058f09223d94f74e7
         // Blur the focused element (the button, probably) before firing the callback.
         // This doesn't work perfectly on Android Chrome, but seems to work elsewhere.
         // I couldn't get anything to work reliably on Android Chrome.
@@ -58327,6 +58330,12 @@ $scope.loadAllClips();
   $scope.item = item;
   $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
   $scope.notes = Notes.notesObj;
+=======
+var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, Notes) {
+console.log('item', item)
+  $scope.item = item.clip
+  // $scope.notes = Notes.notesObj;
+>>>>>>> [style] Progress on front-end
 
   $scope.ok = function() {
     $modalInstance.close();
@@ -58341,16 +58350,16 @@ $scope.loadAllClips();
   $scope.save = function(userNotes) {
     $scope.NoteAndUrl = {
       note: userNotes,
-      url: $scope.item.clip
+      url: $scope.item.clipUrl
     };
     console.log('Notes being passed to server', $scope.NoteAndUrl);
     Notes.addNotes($scope.NoteAndUrl);
   };
 
-  $scope.display = function() {
-    console.log('display function!!!');
-    Notes.loadNotes($scope.item.clip);
-  };
+  // $scope.display = function() {
+  //   console.log('display function!!!');
+  //   Notes.loadNotes($scope.item.clipUrl);
+  // };
 };;angular.module('clipr.sidebar',['ui.router'])
 >>>>>>> [feat] Categories successfully changes on click
 
@@ -58772,11 +58781,30 @@ angular
   };
 }])
 
+<<<<<<< bdf4db975a8da7e005de2bc058f09223d94f74e7
   //Call server to get back suggested websites
 .factory('Suggestions', ['$http', function ($http){
   var content = {
     data: null
   };
+=======
+}]);;/**
+ * Main module of the application.
+ */
+angular
+    .module('cliprApp', [
+        'ui.router',
+        'ui.bootstrap',
+        'ngAnimate',
+        'ngTouch',
+        'clipr.services',
+        'clipr.clipped',
+        'clipr.sidebar',
+        'clipr.suggested',
+        'clipr.categories',
+        'xeditable'
+    ])
+>>>>>>> [style] Progress on front-end
 
   var getContent = function (title) {
     console.log('URL BEING PASSED TO SERVER', title);

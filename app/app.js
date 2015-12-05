@@ -2,6 +2,7 @@
  * Main module of the application.
  */
 angular
+<<<<<<< bdf4db975a8da7e005de2bc058f09223d94f74e7
   .module('cliprApp', [
     'ui.router',
     'ui.bootstrap',
@@ -13,6 +14,20 @@ angular
     'clipr.suggested',
     'clipr.categories'
   ])
+=======
+    .module('cliprApp', [
+        'ui.router',
+        'ui.bootstrap',
+        'ngAnimate',
+        'ngTouch',
+        'clipr.services',
+        'clipr.clipped',
+        'clipr.sidebar',
+        'clipr.suggested',
+        'clipr.categories',
+        'xeditable'
+    ])
+>>>>>>> [style] Progress on front-end
 
 .run(function($rootScope, $state, AuthService) {
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {

@@ -2,13 +2,97 @@ body {
     background-color: white;
 }
 
+#clipEdit {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position:absolute;
+    left:0px;
+    top:0px;
+}
+
+.fa-pencil-square-o#editButton{
+    position:relative;
+}
+
+/*.editable-wrap{
+    width: 250px;
+    font-size: 12px;
+    overflow: scroll;
+    text-decoration: none;
+}*/
+#clipEditText{
+    color:white;
+    font-size:15px;
+}
+a.editable-click{
+    font-size:15px;
+    color:white;
+    border-bottom: none;
+    text-decoration: none;
+}
+.editable-controls>input{
+    color:black;
+}
+
+#clipEdit.Travel {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position:absolute;
+    left:0px;
+    top:0px;
+    background-color: #D06E00;;
+}
+
+#modalImg {
+    width: 250px;
+    height: 200px;
+    background-size: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-bottom: 5px solid black;
+    border-right: 5px solid black;
+}
+
 .btn.btn-primary {
     background-color: #2CA58D;
 }
 
+.modal-header {
+    height: 200px;
+    width: 100%;
+    border-bottom: 5px solid black;
+}
+
+.modal-header.Shopping {
+    background-color: #D00063;
+}
+
+.modal-header.Food {
+    background-color: #D03800;
+}
+
+.modal-header.Politics {
+    background-color: #1700D0;
+}
+
+.modal-header.Technology {
+    background-color: #00D0B6;
+}
+
+.modal-header.Science {
+    background-color: #008404;
+}
+
+.modal-header.Travel {
+    background-color: #D06E00;
+}
+
 #modal {
     background-color: white;
-    height: 500px;
+    height: 700px;
 }
 
 #categories {
@@ -23,20 +107,26 @@ body {
 }
 
 #navMenu {
-    background-color:white;
+    background-color: white;
     float: left;
-    margin-left:-5%;
+    margin-left: -5%;
     padding-top: 50px;
     z-index: -1;
     overflow-y: scroll;
 }
 
 #clipBox.Food {
-    background-color: #37002B;
+    background-color: #D03800;
 }
 
 #colorBox.Food {
-    background-color: #37002B;
+    background-color: #D03800;
+}
+
+.fa {
+    position: relative;
+    right: 40px;
+    top: 200px;
 }
 
 #categoryBox.Politics {
@@ -52,19 +142,19 @@ body {
 }
 
 #clipBox.Politics {
-    border: 5px solid #0A0B4B;
+    border: 5px solid #1700D0;
 }
 
 #colorBox.Politics {
-    background-color: #0A0B4B;
+    background-color: #1700D0;
 }
 
 #clipBox.Travel {
-   border: 5px solid #451900;
+    border: 5px solid #D06E00;
 }
 
 #colorBox.Travel {
-    background-color: #451900;
+    background-color: #D06E00;
 }
 
 #clipBox {
@@ -98,11 +188,11 @@ body {
 }
 
 #colorBox.Technology {
-    background-color: #03291D;
+    background-color: #00D0B6;
 }
 
 #clipBox.Technology {
-    border: 5px solid #03291D;
+    border: 5px solid #00D0B6;
 }
 
 #categoryBox.Sports {
@@ -112,11 +202,11 @@ body {
 }
 
 #colorBox.Sports {
-    background-color: #5C0800;
+    background-color: #CCD000;
 }
 
 #clipBox.Sports {
-   border: 5px solid #5C0800;
+    border: 5px solid #CCD000;
 }
 
 #categoryBox.Shopping {
@@ -126,11 +216,11 @@ body {
 }
 
 #colorBox.Shopping {
-    background-color: #290030;
+    background-color: #D00063;
 }
 
 #clipBox.Shopping {
-    border: 5px solid #290030;
+    border: 5px solid #D00063;
 }
 
 #categoryBox.Health {
@@ -140,11 +230,11 @@ body {
 }
 
 #colorBox.Health {
-    background-color: #9011A5;
+    background-color: #D00A00;
 }
 
 #clipBox.Health {
-    border: 5px solid #9011A5;
+    border: 5px solid #D00A00;
 }
 
 #categoryBox.Science {
@@ -154,11 +244,11 @@ body {
 }
 
 #colorBox.Science {
-    background-color: #4FB741;
+    background-color: #008404;
 }
 
 #clipBox.Science {
-    border: 5px solid #4FB741;
+    border: 5px solid #008404;
 }
 
 #categoryBox {
@@ -318,9 +408,7 @@ a:hover {
 }
 
 #dropdownCategory {
-    position: absolute;
-    top: 2px;
-    left: 2px;
+   position:relative;
 }
 
 
@@ -349,8 +437,9 @@ a:hover {
     margin-right: 10px;
     height: 200px;
     width: 300px;
-/*    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
-*/}
+    /*    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+*/
+}
 
 #clipBox:hover {
     cursor: pointer;
