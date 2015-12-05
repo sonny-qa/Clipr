@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<div id="modal" <div class="modal-header">
+    <iframe id="clipSelectWebsite" src="{{sceUrl}}" style="width:100%;height:100%"></iframe>
+</div>
+<div class="modal-body">
+	<div class="savedNotes" ng-repeat="article in suggestions">
+		<li><a href="{{ article.suggestionUrl }}" target="_blank">{{ article.suggestionTitle }}</a></li>
+	</div>
+>>>>>>> [fix]: merge sug branch into master
+
+>>>>>>> [fix]: merge sug branch into master
 <div id="modal">
     <div class="modal-header {{item.category}}">
         <div id="modalImg" style="background-image: url('{{item.imgUrl}}')"></div>
@@ -32,8 +46,21 @@
                 </ul>
             </div>
         </div>
+<<<<<<< HEAD
         <div id="suggestions">
             <ul ng-repeat="suggestion in item.suggestions">
                 <a id="suggestion" href="{{suggestion.suggestionUrl}}"> {{suggestion.suggestionTitle}}</a>
         </div>
     </div>
+=======
+            <div id="suggestions">
+                <ul ng-repeat="suggestion in item.suggestions">
+                    <a id="suggestion" href="{{suggestion.suggestionUrl}}"> {{suggestion.suggestionTitle}}</a>
+            </div>
+    </div>
+<<<<<<< HEAD
+=======
+
+</div>
+>>>>>>> [fix]: merge sug branch into master
+>>>>>>> [fix]: merge sug branch into master

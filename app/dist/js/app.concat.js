@@ -62047,6 +62047,7 @@ $scope.loadAllClips();
     });
   };
 
+<<<<<<< HEAD
   $scope.openAside = function(position) {
     console.log('inside asiiiiideee');
     $aside.open({
@@ -62065,6 +62066,11 @@ $scope.loadAllClips();
       }
     });
   };
+=======
+   $scope.item = item;
+   $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
+   $scope.suggestions = Suggestions.content.data;
+>>>>>>> [fix]: merge sug branch into master
 
 }]);
 
@@ -62073,6 +62079,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, No
   $scope.item = item.clip
   // $scope.notes = Notes.notesObj;
 
+<<<<<<< HEAD
   $scope.ok = function() {
     $modalInstance.close();
   };
@@ -62092,6 +62099,13 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, No
     $scope.NoteAndUrl = {
       note: userNotes,
       url: $scope.item.clipUrl
+=======
+    $scope.getRelated = function () {
+      console.log('NEW PASS TO SUGGESTIONS', $scope.item.title);
+      //call service factory - getSuggestions
+      Suggestions.getContent($scope.item.title);
+      // console.log("Suggestions back from server: ", $scope.suggestions);
+>>>>>>> [fix]: merge sug branch into master
     };
     console.log('Notes being passed to server', $scope.NoteAndUrl);
     Notes.addNotes($scope.NoteAndUrl);
