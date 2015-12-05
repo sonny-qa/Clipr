@@ -58742,7 +58742,8 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
    $scope.item = item;
    $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
    $scope.suggestions = Suggestions.content.data;
-   console.log('SCOPE ITEM INSIDE MODAL', $scope.item);
+
+
 
    $scope.ok = function() {
      $modalInstance.close();
@@ -58760,7 +58761,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
        url: $scope.item.clip
      };
      console.log('Notes being passed to server', $scope.NoteAndUrl);
-     Notes.addNotes($scope.NoteAndUrl);
+     // Notes.addNotes($scope.NoteAndUrl);
    };
 
 
@@ -58768,7 +58769,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
       console.log('NEW PASS TO SUGGESTIONS', $scope.item.title);
       //call service factory - getSuggestions
       Suggestions.getContent($scope.item.title);
-      
+      // console.log("Suggestions back from server: ", $scope.suggestions);
     };
 
 };

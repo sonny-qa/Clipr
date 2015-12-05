@@ -132,7 +132,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
       db.label(node, ['Suggestion'],
         function(err) {
           if (err) throw err;
-          console.log('New Suggestion Node Added to Clip!');
+          console.log('New Suggestion Node Added to Clip!', node);
         });
       cb(node);
     });
