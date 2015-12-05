@@ -54,14 +54,12 @@ if (website === "http://localhost:3000") {
     var apiKeys = require('../../APIs.js');
 }
 
-
 //fetches a user node based on an email
 var db= require('seraph')({
   server: "http://clipr.sb02.stations.graphenedb.com:24789",
   user: "clipr",
   pass: 'oSvInWIWVVCQIbxLbfTu'
 });
-
 
 // initialize cloudinary connection for storing and retreiving images
 //TODO: move apiKeys to apiKeysAndPasswords.js
@@ -78,7 +76,7 @@ module.exports = {
       " WHERE node.email = " +
       "'" + email + "'" +
       " RETURN node";
-  db.query(cypher, function(err, result) {
+    db.query(cypher, function(err, result) {
       if (err) throw err;
       console.log('fetch fetchUserByEmail', result[0]);
       cb(result[0]);
@@ -92,7 +90,6 @@ createRelation: function(clip, tag, how, relevance, cb) {
       // console.log('RELATIONSHIP:', relationship);
       //provide a callback on the clip (the 'from') node
       cb(clip);
-
     });
   },
 
@@ -143,6 +140,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
       cb(node);
     });
   },
+
   // captures screen image on chrome_ext click
   urlToImage: function(targetUrl, cb) {
     // Options object to pass to urlImage
@@ -196,16 +194,15 @@ createRelation: function(clip, tag, how, relevance, cb) {
 
   },
 
-
   //Removes all filler words from Website Title
   isStopWord : function(word) {
-      var regex = new RegExp("\\b"+word+"\\b","i");
-      if(stopWords.search(regex) < 0) {
-        return false;
-      }else {
-        return true;
-      }
-    },
+    var regex = new RegExp("\\b"+word+"\\b","i");
+    if(stopWords.search(regex) < 0) {
+      return false;
+    }else {
+      return true;
+    }
+  },
 
   removeStopWords: function(word) {
     words = new Array();
