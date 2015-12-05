@@ -170,6 +170,10 @@ module.exports = {
   loadAllClips: function(req, res) {
     console.log('COOKIES', req.query.cookie);
     var cypher = "MATCH(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips";
+
+    
+    //TODO : Query DB to find suggestionNodes for each clipNode
+      //Attach suggestionNodes as a property of clipNode before sending it back to front-end
     db.query(cypher, function(err, results) {
       res.send(results);
     });
@@ -222,7 +226,7 @@ module.exports = {
 
     db.query(cypher, function (err, result) {
       console.log("Dont::::: ", result);
-      res.send(result);
+      res.send(results);
     });
   },
 
