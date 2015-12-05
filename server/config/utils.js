@@ -56,9 +56,9 @@ if (website === "http://localhost:3000") {
 
 //fetches a user node based on an email
 var db= require('seraph')({
-  server: "http://clipr.sb02.stations.graphenedb.com:24789",
-  user: "clipr",
-  pass: 'oSvInWIWVVCQIbxLbfTu'
+  server: process.env.dbServerUrl || apiKeys.dbServerUrl,
+  user: process.env.dbUser || apiKeys.dbUser,
+  pass: process.env.dbPassword || apiKeys.dbPassword
 });
 
 // initialize cloudinary connection for storing and retreiving images
@@ -209,13 +209,12 @@ createRelation: function(clip, tag, how, relevance, cb) {
     isStopWord(word);
 
     this.replace(/\b[\w]+\b/g,
-        function($0) {
-          if(!isStopWord($0)) {
-            words[words.length] = $0.trim();
-          }
-        });
+      function($0) {
+        if(!isStopWord($0)) {
+          words[words.length] = $0.trim();
+        }
+      });
 
     return words.join(" ");
   }
-
 };
