@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 // Set Response Headers
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -170,8 +170,11 @@ module.exports = {
   loadAllClips: function(req, res) {
     console.log('COOKIES', req.query.cookie);
     var cypher = "MATCH(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips";
+
+    
+    //TODO : Query DB to find suggestionNodes for each clipNode
+      //Attach suggestionNodes as a property of clipNode before sending it back to front-end
     db.query(cypher, function(err, results) {
-      console.log('server results', results);
       res.send(results);
     });
   },
@@ -205,7 +208,7 @@ module.exports = {
       res.send(noteNode);
     });
   },
-  loadNotes: function(req, res) {
+  loadNotes: function (req, res) {
     console.log('inloadnotes');
     var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
     db.query(cypher, function(err, result) {
@@ -215,12 +218,16 @@ module.exports = {
     });
   },
 
+  //When a user request suggestions, we query the DB and send back suggestions
   getSuggestions: function (req, res) {
+    console.log('TRAPSOUL', req.query.title);
+    var title = req.query.title;
+    var cypher = 'MATCH (n:Clip {title:"' + title  + '"})-->(s:Suggestion) RETURN s';
 
-    //When a user request suggestions, we query the DB and send back suggestions
-    //TODO : Write DB Query to fetch suggestions for each clip.
-
-      console.log('SUGGESTIONS', req);
+    db.query(cypher, function (err, result) {
+      console.log("Dont::::: ", result);
+      res.send(results);
+    });
   },
 
     storeClip: function(req, res) {
@@ -234,7 +241,7 @@ module.exports = {
             var cypher = "MATCH (usernode:User {email:" +
                 '"' + email + '"' + "})<--(clipnode:Clip {title:" + '"' + title + '"' + "}) RETURN clipnode"
 
-            db.query(cypher, function(err, res) {
+            db.query(cypher, function (err, res) {
                 var flag = false
                 for (var i = 0; i < res.length; i++) {
                     if (res[i].title === title) {
@@ -249,7 +256,7 @@ module.exports = {
 
         }).then(function(val) {
               console.log('loading corpus & classifiying clip...');
-                natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
+                natural.BayesClassifier.load('classifier.json', null, function (err, classifier) {
                     console.log(classifier.classify(req.body.text));
                     category = classifier.classify(req.body.text);
                     makeImg(clipUrl);
@@ -257,7 +264,7 @@ module.exports = {
               });
 
         function makeImg(clipUrl) {
-            utils.urlToImage(clipUrl, function(imgUrl) {
+            utils.urlToImage(clipUrl, function (imgUrl) {
                 //saveToDB(imgUrl)
                 saveToDbNoWatson(imgUrl);
             });
@@ -266,32 +273,32 @@ module.exports = {
         function saveToDbNoWatson(imgUrl) {
             console.log('insidesavetoDBnoWatson');
 
-            var createClipNode = new Promise(function(resolve, reject) {
+            var createClipNode = new Promise(function (resolve, reject) {
                 db.save({
                     clipUrl: req.body.url,
                     title: req.body.title,
                     imgUrl: imgUrl,
                     text: req.body.text,
                     category: category
-                }, function(err, clipNode) {
+                }, function (err, clipNode) {
                     //returns the clipNode if ressolved correctly
                     resolve(clipNode);
                     reject(err);
                 });
-            }).then(function(clipNode) {
+            }).then(function (clipNode) {
                 //label the clip node
-                db.label(clipNode, ['Clip'], function(err) {});
+                db.label(clipNode, ['Clip'], function (err) {});
                 return clipNode;
-            }).then(function(clipNode) {
+            }).then(function (clipNode) {
                 //extract keywords
                 var clipKeywords = extractKeywordsNoWatson(clipNode);
                 console.log('we have keywords', clipKeywords);
 
-                clipKeywords.forEach(function(element, ind, array) {
+                clipKeywords.forEach(function (element, ind, array) {
                     //create node for each keyword
-                    utils.storeTags(element, function(tagNode, relevance) {
+                    utils.storeTags(element, function (tagNode, relevance) {
                         //create relations for each keyword node
-                        utils.createRelation(clipNode, tagNode, 'contains', relevance, function(fromnode) {
+                        utils.createRelation(clipNode, tagNode, 'contains', relevance, function (fromnode) {
                             // console.log('relationship created');
                         });
                     });
@@ -300,18 +307,18 @@ module.exports = {
                 return clipNode;
             }).then(function(clipNode) {
                 //find the user in the db based on their email
-                utils.fetchUserByEmail(email, function(userNode) {
+                utils.fetchUserByEmail(email, function (userNode) {
                     //create relation: user->clip
-                    utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {
+                    utils.createRelation(clipNode, userNode, 'owns', 'owns', function (fromNode) {
                     });
                 });
                 return clipNode;
-            }).then(function(clipNode){
+            }).then(function (clipNode) {
               //Take first word of title
               var firstWord = clipNode.title.split(' ')[0];
 
-              utils.suggestionsAPI(firstWord, function(suggestions){
-                var suggestionResults = suggestions.results.map(function(item) {
+              utils.suggestionsAPI(firstWord, function (suggestions) {
+                var suggestionResults = suggestions.results.map(function (item) {
                   // console.log("suggestionResults: ", item);
                   return  {
                     title: item.title,
@@ -319,10 +326,10 @@ module.exports = {
                   };
                 });
 
-              suggestionResults.forEach(function(element, ind, array) {
+              suggestionResults.forEach(function (element, ind, array) {
                 console.log('FOREACH ELEMENT :', element);
-                utils.createSuggestionNode(element, function(suggestionNode){
-                  utils.createRelation(clipNode, suggestionNode, 'related', 'related', function(clipNode){
+                utils.createSuggestionNode(element, function (suggestionNode) {
+                  utils.createRelation(clipNode, suggestionNode, 'related', 'related', function (clipNode) {
                   });
                 });
 
@@ -332,7 +339,7 @@ module.exports = {
           });
         }
 
-        function extractKeywordsNoWatson(clipNode) {
+        function extractKeywordsNoWatson (clipNode) {
             var text = clipNode.text;
             //load an instance of term freq - inverse term freq instance
             TfIdf = natural.TfIdf,
@@ -345,7 +352,7 @@ module.exports = {
             var results = tfidf.listTerms(0);
 
             //sort terms by term freq * inverse term freq
-            results.sort(function(a, b) {
+            results.sort(function (a, b) {
                 return b.tfidf - a.tfidf;
             });
 
@@ -354,3 +361,4 @@ module.exports = {
         }
     }
 };
+
