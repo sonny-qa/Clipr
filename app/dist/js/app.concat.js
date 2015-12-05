@@ -58300,6 +58300,7 @@ $scope.loadAllClips();
     element.on('touchend', function(event) {
       var diff = Date.now() - startTime;
 
+<<<<<<< 44adc6393ba57fdcbc65f067f980800ab6f0f61f
       // Use jQuery originalEvent
       var originalEvent = event.originalEvent || event;
       var touches = (originalEvent.changedTouches && originalEvent.changedTouches.length) ?
@@ -58332,6 +58333,11 @@ $scope.loadAllClips();
   $scope.notes = Notes.notesObj;
 =======
 var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, Notes) {
+=======
+var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, Notes) {
+  $scope.collections= Clips.clips.collections;
+
+>>>>>>> [style] Add suggestions box
 console.log('item', item)
   $scope.item = item.clip
   // $scope.notes = Notes.notesObj;
@@ -58623,7 +58629,8 @@ angular
   var clips = {
     data: {},
     clips: [],
-    categories: {}
+    categories: {},
+    collections:{}
   };
 
   var loadClipsByCategory = function(topic) {

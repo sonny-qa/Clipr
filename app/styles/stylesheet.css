@@ -6,14 +6,15 @@ body {
     width: 250px;
     height: 500px;
     border-right: 5px solid black;
-    position:absolute;
-    left:0px;
-    top:0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }
 
-.fa-pencil-square-o#editButton{
-    position:relative;
+.fa-pencil-square-o#editButton {
+    position: relative;
 }
+
 
 /*.editable-wrap{
     width: 250px;
@@ -21,28 +22,32 @@ body {
     overflow: scroll;
     text-decoration: none;
 }*/
-#clipEditText{
-    color:white;
-    font-size:15px;
+
+#clipEditText {
+    color: white;
+    font-size: 15px;
 }
-a.editable-click{
-    font-size:15px;
-    color:white;
+
+a.editable-click {
+    font-size: 15px;
+    color: white;
     border-bottom: none;
     text-decoration: none;
 }
-.editable-controls>input{
-    color:black;
+
+.editable-controls>input {
+    color: black;
 }
 
 #clipEdit.Travel {
     width: 250px;
     height: 500px;
     border-right: 5px solid black;
-    position:absolute;
-    left:0px;
-    top:0px;
-    background-color: #D06E00;;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #D06E00;
+    ;
 }
 
 #modalImg {
@@ -309,20 +314,6 @@ a#articleTitle {
     color: #0A2342;
 }
 
-.suggestions.ng-enter,
-.suggestions.ng-leave {
-    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-}
-
-.suggestions.ng-enter,
-.suggestions.ng-leave.ng-leave-active {
-    opacity: 0;
-}
-
-.suggestions.ng-leave,
-.suggestions.ng-enter.ng-enter-active {
-    opacity: 1;
-}
 
 #clipTitle {
     font-size: 12px;
@@ -397,6 +388,14 @@ a:hover {
     color: #01A2A6;
 }
 
+#suggestions {
+    width: 650px;
+    height:500px;
+    position: absolute;
+    right: 0px;
+    top:0px;
+}
+
 .clipShowWrapper {
     position: absolute;
     left: 25%;
@@ -408,7 +407,7 @@ a:hover {
 }
 
 #dropdownCategory {
-   position:relative;
+    position: relative;
 }
 
 
