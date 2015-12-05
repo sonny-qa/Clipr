@@ -2,14 +2,11 @@
     <iframe id="clipSelectWebsite" src="{{sceUrl}}" style="width:100%;height:100%"></iframe>
 </div>
 <div class="modal-body" ng-init="getRelated()">
-	<div class="savedNotes" ng-show='sites' ng-repeat="article in suggestions.results">
-		<li><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></li>
+	<div class="savedNotes" ng-repeat="article in suggestions">
+		<li><a href="{{ article.suggestionUrl }}" target="_blank">{{ article.suggestionTitle }}</a></li>
 	</div>
     
         
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="displaySuggestions()">Suggestions</button>
-    </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">Close</button>
     </div>
