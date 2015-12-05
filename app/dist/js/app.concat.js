@@ -58485,9 +58485,10 @@ angular
   //loadClips - hhtp request to server func
   //return back array of clip objects
   var clips = {
-    data: [],
+    data: {},
     clips: [],
-    categories: {}
+    categories: {},
+    suggestions : []
   };
 
   var loadClipsByCategory = function(topic) {
@@ -58507,6 +58508,7 @@ angular
   };
 
   var loadAllClips = function(cookie) {
+
     return $http({
       method: 'GET',
       url: '/loadAllClips',
@@ -58514,23 +58516,30 @@ angular
         cookie: cookie
       }
     }).then(function(response) {
-      clips.data = response.data;
-      clips.clips = response.data;
+      // clips.clips = response.data;
+      console.log('RESPONSE DATA FROM LOADALLCLIPS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' , response.data);
       for (var x = 0; x < response.data.length; x++) {
+        // console.log('This is the response.data in LoadAllCLips: ', response.data);
+        //check if clip exists in data
+        var clip= response.data[x].clips
 
-        console.log('This is the response.data in LoadAllCLips: ', response.data);
+        var clipNode= response.data[x];
+         //if exists
+         if (clips.data[clip.clipUrl]){
+          clips.data[clip.clipUrl].suggestions.push(clipNode.suggestions);
+         }else{
+          clips.data[clip.clipUrl]= clipNode.clips;
+          clips.data[clip.clipUrl].suggestions=[clipNode.suggestions];
+         }
 
-        var clip = response.data[x];
-
-        console.log('CLIPS', x);
-        
         if (!clips.categories[clip.category]) {
           clips.categories[clip.category] = [clip];
         } else {
           clips.categories[clip.category].push(clip);
         }
-      console.log('clips.categories', clips.categories);
       }
+      // console.log('clips.categories', clips.categories);
+      console.log('CLIPS.data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', clips.data);
     });
   };
 
@@ -58615,7 +58624,7 @@ angular
 .factory('Suggestions', ['$http', function ($http){
   var content = {
     data: null
-  }; 
+  };
 
   var getContent = function (title) {
     console.log('URL BEING PASSED TO SERVER', title);
