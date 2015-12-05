@@ -58487,8 +58487,7 @@ angular
   var clips = {
     data: {},
     clips: [],
-    categories: {},
-    suggestions : []
+    categories: {}
   };
 
   var loadClipsByCategory = function(topic) {
@@ -58508,7 +58507,6 @@ angular
   };
 
   var loadAllClips = function(cookie) {
-
     return $http({
       method: 'GET',
       url: '/loadAllClips',
@@ -58516,12 +58514,12 @@ angular
         cookie: cookie
       }
     }).then(function(response) {
-      // clips.clips = response.data;
-      console.log('RESPONSE DATA FROM LOADALLCLIPS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' , response.data);
+      clips.data= response.data;
+      clips.clips= response.data;
+      clips.categories={};
       for (var x = 0; x < response.data.length; x++) {
-        // console.log('This is the response.data in LoadAllCLips: ', response.data);
         //check if clip exists in data
-        var clip= response.data[x].clips
+        var clip= response.data[x].clips;
 
         var clipNode= response.data[x];
          //if exists
@@ -58538,8 +58536,8 @@ angular
           clips.categories[clip.category].push(clip);
         }
       }
-      // console.log('clips.categories', clips.categories);
-      console.log('CLIPS.data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', clips.data);
+      console.log('CLIPS DATA LOOKS LIKE THIS ::::::::::::::::::::::::::::::::::::::', clips.data);
+      console.log('CLIPS CLIPS LOOKS LIKE THIS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', clips.clips);
     });
   };
 
@@ -58678,11 +58676,19 @@ angular
 
    $scope.clips = Clips.clips;
    $scope.clipShow = false;
+   $scope.categories= Clips.clips;
 
    $scope.loadAllClips = function() {
      Clips.loadAllClips($cookies.get('clipr'));
+     console.log('SCOPE CLIPS ----------------------------------------', $scope.clips);
    };
 
+  $scope.loadClipsByCategory = function(category) {
+    Clips.loadClipsByCategory(category);
+    $state.go('main');
+  }
+
+$scope.loadAllClips();
 
    $scope.logOut = function() {
      AuthService.logOut();

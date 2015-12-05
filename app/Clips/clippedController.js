@@ -4,11 +4,19 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
    $scope.clips = Clips.clips;
    $scope.clipShow = false;
+   $scope.categories= Clips.clips;
 
    $scope.loadAllClips = function() {
      Clips.loadAllClips($cookies.get('clipr'));
+     console.log('SCOPE CLIPS ----------------------------------------', $scope.clips);
    };
 
+  $scope.loadClipsByCategory = function(category) {
+    Clips.loadClipsByCategory(category);
+    $state.go('main');
+  }
+
+$scope.loadAllClips();
 
    $scope.logOut = function() {
      AuthService.logOut();
@@ -77,7 +85,6 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
    $scope.item = item;
    $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
    $scope.suggestions = Suggestions.content.data;
-   $scope.sites = false;
 
    $scope.ok = function() {
      $modalInstance.close();
@@ -97,11 +104,6 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
      console.log('Notes being passed to server', $scope.NoteAndUrl);
      // Notes.addNotes($scope.NoteAndUrl);
    };
-
-   $scope.displaySites = function () {
-    $scope.sites = true;
-   };
-
 
     $scope.getRelated = function () {
       console.log('NEW PASS TO SUGGESTIONS', $scope.item.title);

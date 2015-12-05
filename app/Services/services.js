@@ -19,8 +19,7 @@ angular.module('clipr.services', ['ngCookies'])
   var clips = {
     data: {},
     clips: [],
-    categories: {},
-    suggestions : []
+    categories: {}
   };
 
   var loadClipsByCategory = function(topic) {
@@ -40,7 +39,6 @@ angular.module('clipr.services', ['ngCookies'])
   };
 
   var loadAllClips = function(cookie) {
-
     return $http({
       method: 'GET',
       url: '/loadAllClips',
@@ -48,12 +46,12 @@ angular.module('clipr.services', ['ngCookies'])
         cookie: cookie
       }
     }).then(function(response) {
-      // clips.clips = response.data;
-      console.log('RESPONSE DATA FROM LOADALLCLIPS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' , response.data);
+      clips.data= response.data;
+      clips.clips= response.data;
+      clips.categories={};
       for (var x = 0; x < response.data.length; x++) {
-        // console.log('This is the response.data in LoadAllCLips: ', response.data);
         //check if clip exists in data
-        var clip= response.data[x].clips
+        var clip= response.data[x].clips;
 
         var clipNode= response.data[x];
          //if exists
@@ -70,8 +68,8 @@ angular.module('clipr.services', ['ngCookies'])
           clips.categories[clip.category].push(clip);
         }
       }
-      // console.log('clips.categories', clips.categories);
-      console.log('CLIPS.data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', clips.data);
+      console.log('CLIPS DATA LOOKS LIKE THIS ::::::::::::::::::::::::::::::::::::::', clips.data);
+      console.log('CLIPS CLIPS LOOKS LIKE THIS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', clips.clips);
     });
   };
 
