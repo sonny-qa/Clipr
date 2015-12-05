@@ -127,9 +127,9 @@ app.get('/auth/google/callback', passport.authenticate('google', {
   });
 
 var db = require('seraph')({
-    server: "http://clipr.sb02.stations.graphenedb.com:24789",
-    user: "clipr",
-    pass: 'oSvInWIWVVCQIbxLbfTu'
+  server: process.env.dbServerUrl || apiKeys.dbServerUrl,
+  user: process.env.dbUser || apiKeys.dbUser,
+  pass: process.env.dbPassword || apiKeys.dbPassword
 });
   // googleCallback: passport.authenticate('google', {
   //       failureRedirect: '/#/landing'
