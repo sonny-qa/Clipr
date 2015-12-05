@@ -285,6 +285,7 @@ module.exports = {
                 console.log(classifier.classify(req.body.text));
                 category = classifier.classify(req.body.text);
                 res.send("Clip added to: "+ category)
+
                 makeImg(clipUrl);
             });
         }).catch(function(error) {
