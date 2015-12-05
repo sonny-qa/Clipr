@@ -13,9 +13,6 @@
     "client_id": "313073444392-hcbme8h90e4m4vef5aqev4q2p0t4nugo.apps.googleusercontent.com",
     "scopes": ["https://www.googleapis.com/auth/plus.login"]
   },
-  "chrome_url_overrides": {
-    "newtab": "home.html"
-  },
   "icons": {
     "16": "apple-icon-precomposed.png",
     "42": "apple-icon-precomposed.png",
