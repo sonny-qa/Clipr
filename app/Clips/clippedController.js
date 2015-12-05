@@ -77,6 +77,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
    $scope.item = item;
    $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
    $scope.suggestions = Suggestions.content.data;
+   $scope.sites = false;
 
    $scope.ok = function() {
      $modalInstance.close();
@@ -95,6 +96,10 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
      };
      console.log('Notes being passed to server', $scope.NoteAndUrl);
      // Notes.addNotes($scope.NoteAndUrl);
+   };
+
+   $scope.displaySites = function () {
+    $scope.sites = true;
    };
 
 
