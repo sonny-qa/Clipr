@@ -48,21 +48,24 @@ var http = require('http');
 var urlImage = require('url-to-image');
 var cloudinary = require('cloudinary');
 var natural = require('natural');
-var apiKeys = require('../../APIs.js');
+
+var website = (process.env.SITE || "http://localhost:3000");
+if (website === "http://localhost:3000") {
+    var apiKeys = require('../../APIs.js');
+}
+
 //fetches a user node based on an email
-  var db= require('seraph')({
-  server: "http://clipr.sb02.stations.graphenedb.com:24789",
-  user: "clipr",
-  pass: 'oSvInWIWVVCQIbxLbfTu'
+var db= require('seraph')({
+  server: process.env.dbServerUrl || apiKeys.dbServerUrl,
+  user: process.env.dbUser || apiKeys.dbUser,
+  pass: process.env.dbPassword || apiKeys.dbPassword
 });
 
-
 // initialize cloudinary connection for storing and retreiving images
-//TODO: move apiKeys to apiKeysAndPasswords.js
 cloudinary.config({
-  cloud_name: 'cjpuskar',
-  api_key: '499291937259717',
-  api_secret: 'eaGBQyaTw9EKtPG351ZrkTmTMWc'
+  cloud_name: process.env.cloud_name || apiKeys.cloudName,
+  api_key: process.env.cloudinary_api_key || apiKeys.cloudinary_api_key,
+  api_secret: process.env.cloudinary_api_password || apiKeys.cloudinary_api_password
 });
 
 module.exports = {
@@ -72,7 +75,7 @@ module.exports = {
       " WHERE node.email = " +
       "'" + email + "'" +
       " RETURN node";
-  db.query(cypher, function(err, result) {
+    db.query(cypher, function(err, result) {
       if (err) throw err;
       console.log('fetch fetchUserByEmail', result[0]);
       cb(result[0]);
@@ -86,14 +89,13 @@ createRelation: function(clip, tag, how, relevance, cb) {
       // console.log('RELATIONSHIP:', relationship);
       //provide a callback on the clip (the 'from') node
       cb(clip);
-
     });
   },
 
   //TODO: move apiKeys to apiKeysAndPasswords.js
   createWatsonUrl: function(url, cb) {
     console.log('inside watson');
-    var API = '5770c0482acff843085443bfe94677476ed180e5';
+    var API = process.env.watsonAPI || apiKeys.watsonAPI;
     var baseUrl = 'http://gateway-a.watsonplatform.net/calls/';
     var endUrl = 'url/URLGetRankedKeywords?apikey=' + API + '&outputMode=json&url=';
     var fullUrl = baseUrl + endUrl + url;
@@ -137,6 +139,7 @@ createRelation: function(clip, tag, how, relevance, cb) {
       cb(node);
     });
   },
+
   // captures screen image on chrome_ext click
   urlToImage: function(targetUrl, cb) {
     // Options object to pass to urlImage
@@ -190,29 +193,27 @@ createRelation: function(clip, tag, how, relevance, cb) {
 
   },
 
-
   //Removes all filler words from Website Title
   isStopWord : function(word) {
-      var regex = new RegExp("\\b"+word+"\\b","i");
-      if(stopWords.search(regex) < 0) {
-        return false;
-      }else {
-        return true;
-      }
-    },
+    var regex = new RegExp("\\b"+word+"\\b","i");
+    if(stopWords.search(regex) < 0) {
+      return false;
+    }else {
+      return true;
+    }
+  },
 
   removeStopWords: function(word) {
     words = new Array();
     isStopWord(word);
 
     this.replace(/\b[\w]+\b/g,
-        function($0) {
-          if(!isStopWord($0)) {
-            words[words.length] = $0.trim();
-          }
-        });
+      function($0) {
+        if(!isStopWord($0)) {
+          words[words.length] = $0.trim();
+        }
+      });
 
     return words.join(" ");
   }
-
 };

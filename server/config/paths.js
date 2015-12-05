@@ -19,13 +19,13 @@ var website = (process.env.SITE || "http://localhost:3000");
 var callbackURL = website + '/auth/google/callback';
 
 if (website === "http://localhost:3000") {
-    var keysAndPassword = require('../../APIs.js');
+    var apiKeys = require('../../APIs.js');
 }
 
 // Used in Google OAuth
 var passport = require('passport');
-var clientID = process.env.clientID || keysAndPassword.clientID;
-var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
+var clientID = process.env.clientID || apiKeys.clientID;
+var clientSecret = process.env.clientSecret || apiKeys.clientSecret;
 /**
   Google OAuth2
 **/
@@ -127,9 +127,9 @@ app.get('/auth/google/callback', passport.authenticate('google', {
   });
 
 var db = require('seraph')({
-    server: "http://clipr.sb02.stations.graphenedb.com:24789",
-    user: "clipr",
-    pass: 'oSvInWIWVVCQIbxLbfTu'
+  server: process.env.dbServerUrl || apiKeys.dbServerUrl,
+  user: process.env.dbUser || apiKeys.dbUser,
+  pass: process.env.dbPassword || apiKeys.dbPassword
 });
   // googleCallback: passport.authenticate('google', {
   //       failureRedirect: '/#/landing'
