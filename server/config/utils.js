@@ -49,6 +49,7 @@ var urlImage = require('url-to-image');
 var cloudinary = require('cloudinary');
 var natural = require('natural');
 
+var website = (process.env.SITE || "http://localhost:3000");
 if (website === "http://localhost:3000") {
     var apiKeys = require('../../APIs.js');
 }
