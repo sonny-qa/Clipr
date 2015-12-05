@@ -19,13 +19,13 @@ var website = (process.env.SITE || "http://localhost:3000");
 var callbackURL = website + '/auth/google/callback';
 
 if (website === "http://localhost:3000") {
-    var keysAndPassword = require('../../APIs.js');
+    var apiKeys = require('../../APIs.js');
 }
 
 // Used in Google OAuth
 var passport = require('passport');
-var clientID = process.env.clientID || keysAndPassword.clientID;
-var clientSecret = process.env.clientSecret || keysAndPassword.clientSecret;
+var clientID = process.env.clientID || apiKeys.clientID;
+var clientSecret = process.env.clientSecret || apiKeys.clientSecret;
 /**
   Google OAuth2
 **/
