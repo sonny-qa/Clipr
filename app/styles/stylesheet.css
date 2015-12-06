@@ -298,7 +298,7 @@ a#articleTitle {
 #articleTitle:hover {
     text-decoration: underline;
 }
-
+/*
 #suggestions {
     position: fixed;
     color: #0A2342;
@@ -308,7 +308,7 @@ a#articleTitle {
     right: 0px;
     background-color: #01A2A6;
     overflow: hidden;
-}
+}*/
 
 #suggestTitle {
     color: #0A2342;

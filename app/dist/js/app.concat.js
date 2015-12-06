@@ -58630,12 +58630,13 @@ angular
     data: {},
     clips: [],
     categories: {},
-    collections:{}
+    collections: {}
   };
 
   var loadClipsByCategory = function(topic) {
     var categorizedClips = [];
     if (topic === 'all') {
+<<<<<<< 5eca9c814148b877d06d8cf86bb44266ccfd917e
       clips.clips = clips.data;
     }
     for (var x = 0; x < clips.data.length; x++) {
@@ -58643,6 +58644,16 @@ angular
       console.log(node);
       if (node.category === topic) {
         categorizedClips.push(node);
+=======
+      for (var key in clips.categories) {
+        for (var clip in clips.categories[key]){
+          categorizedClips.push(clips.categories[key][clip]);
+        }
+      }
+    } else {
+      for (var key in clips.categories[topic]) {
+        categorizedClips.push(clips.categories[topic][key]);
+>>>>>>> [FIX] Conflict is fixed
       }
     }
     clips.clips = categorizedClips;
@@ -58664,6 +58675,7 @@ angular
 =======
       clips.data = response.data;
       clips.clips = response.data;
+<<<<<<< 5eca9c814148b877d06d8cf86bb44266ccfd917e
       clips.categories={}
 >>>>>>> [feat] Categories successfully changes on click
       for (var x = 0; x < response.data.length; x++) {
@@ -58678,19 +58690,38 @@ angular
           clips.data[clip.clipUrl]= clipNode.clips;
           clips.data[clip.clipUrl].suggestions=[clipNode.suggestions];
          }
+=======
+      clips.categories = {}
+      for (var x = 0; x < response.data.length; x++) {
+
+        var clip = response.data[x].clips;
+        var suggestion = response.data[x].suggestions;
+>>>>>>> [FIX] Conflict is fixed
 
         if (!clips.categories[clip.category]) {
-          clips.categories[clip.category] = [clip];
+          clips.categories[clip.category] = {}
+          clips.categories[clip.category][clip.title] = clip;
+          clips.categories[clip.category][clip.title].suggestions = [suggestion];
+          console.log(clips.categories[clip.category][clip.title])
         } else {
-          clips.categories[clip.category].push(clip);
+          if (clips.categories[clip.category][clip.title]) {
+            clips.categories[clip.category][clip.title].suggestions.push(suggestion);
+          } else {
+            clips.categories[clip.category][clip.title] = clip;
+            clips.categories[clip.category][clip.title].suggestions = [suggestion];
+          }
         }
 <<<<<<< 8b477e0c8615439fdd76ae8d033f9cf0c5618f3c
 =======
         console.log('clips.categories', clips.categories);
 >>>>>>> [feat] Categories successfully changes on click
       }
+<<<<<<< 5eca9c814148b877d06d8cf86bb44266ccfd917e
       console.log('CLIPS DATA LOOKS LIKE THIS ::::::::::::::::::::::::::::::::::::::', clips.data);
       console.log('CLIPS CLIPS LOOKS LIKE THIS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', clips.clips);
+=======
+      loadClipsByCategory('all');
+>>>>>>> [FIX] Conflict is fixed
     });
   };
 
@@ -58699,11 +58730,11 @@ angular
       method: 'POST',
       url: '/changeCategory',
       params: {
-        category: category, 
+        category: category,
         clipTitle: clipTitle
       }
-    }).then(function(response){
-      loadAllClips($cookies.get('clipr')).then(function(response){
+    }).then(function(response) {
+      loadAllClips($cookies.get('clipr')).then(function(response) {
         console.log('response')
         loadClipsByCategory(category);
       });
