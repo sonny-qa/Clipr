@@ -105,6 +105,12 @@ a.editable-click {
     padding-bottom: 20px;
 }
 
+#iconBar{
+    position: relative;
+    top:200px;
+    width: 300px;
+}
+
 #categoryBox.Food {
     background-image: url('http://img2.timeinc.net/health/img/mag/2013/09/fall-foods-superfruit-400x400.jpg');
     -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
@@ -128,10 +134,8 @@ a.editable-click {
     background-color: #D03800;
 }
 
-.fa {
-    position: relative;
-    right: 40px;
-    top: 200px;
+.fa-ellipsis-h {
+  float: right;
 }
 
 #categoryBox.Politics {
@@ -298,6 +302,8 @@ a#articleTitle {
 #articleTitle:hover {
     text-decoration: underline;
 }
+
+
 /*
 #suggestions {
     position: fixed;
@@ -313,7 +319,6 @@ a#articleTitle {
 #suggestTitle {
     color: #0A2342;
 }
-
 
 #clipTitle {
     font-size: 12px;
@@ -390,10 +395,10 @@ a:hover {
 
 #suggestions {
     width: 650px;
-    height:500px;
+    height: 500px;
     position: absolute;
     right: 0px;
-    top:0px;
+    top: 0px;
 }
 
 .clipShowWrapper {
@@ -420,6 +425,11 @@ a:hover {
     size: 50%;
  
 }*/
+
+.fa-trash-o {
+    position: relative;
+    float:left;
+}
 
 #dropdown:hover {
     background-color: #0A2342;
