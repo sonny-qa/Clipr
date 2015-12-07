@@ -123,7 +123,7 @@ app.get('/auth/google/callback', passport.authenticate('google', {
         var email = req.session.passport.user.email;
         res.cookie('clipr', email);
     // Successful authentication, redirect home.
-    res.redirect('/#/categories');
+    res.redirect('/#/clips');
   });
 
 var db = require('seraph')({

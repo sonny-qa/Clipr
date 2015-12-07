@@ -37,7 +37,7 @@ angular
       views: {
         "main": {
           templateUrl: 'html/landingView.html',
-          controller: 'landingController'
+          controller: 'ClipController'
         }
       }
     })
