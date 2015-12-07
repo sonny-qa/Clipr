@@ -36,9 +36,6 @@ $scope.loadAllClips();
     }
   };
 
-  $scope.changeCategory = function(category, clipTitle) {
-    Clips.changeCategory(category, clipTitle);
-  }
 
   $scope.showModal = function(clip, size) {
     $scope.opts = {
@@ -100,6 +97,10 @@ console.log('item', item)
   $scope.ok = function() {
     $modalInstance.close();
   };
+
+   $scope.changeCategory = function(category, clipTitle) {
+    Clips.changeCategory(category, clipTitle);
+  }
 
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');

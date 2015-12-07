@@ -395,6 +395,19 @@ a#articleTitle {
     color: #0A2342;
 }
 
+#slogan {
+    top: 100px;
+    position: relative;
+}
+
+#clipModalTitle {
+    position: absolute;
+    left: 275px;
+    font-size: 20px;
+    top: 100px;
+    color:white;
+}
+
 #navLink:hover {
     color: #0A2342;
     cursor: pointer;
@@ -407,7 +420,10 @@ a#articleTitle {
 #brand {
     font-family: 'Anton', sans-serif;
     position: absolute;
+    top: 5%;
+    left: 2%;
     color: white;
+    font-size: 100px;
 }
 
 #brand:hover {

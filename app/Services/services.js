@@ -85,7 +85,7 @@ angular.module('clipr.services', ['ngCookies'])
     }).then(function(response) {
       loadAllClips($cookies.get('clipr')).then(function(response) {
         console.log('response')
-        loadClipsByCategory(category);
+        // loadClipsByCategory(category);
       });
     })
   }
