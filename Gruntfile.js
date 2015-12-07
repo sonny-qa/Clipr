@@ -93,9 +93,16 @@ module.exports = function(grunt) {
         src: 'app/apple-icon-144x144.png',
         dest: 'app/dist/'
       },
-      css: {
-        src: 'bower_components/angular-aside/dist/css/angular-aside.min.css',
-        dest: 'app/dist/css'
+      fonts: {
+        files: [{
+          expand: true,
+          flatten: true,
+          src: [
+            'app/bower_components/font-awesome/fonts/*.{eot,svg,ttf,woff,woff2,otf}'            
+          ],
+          dest: 'app/dist/fonts/',
+          filter: 'isFile'          
+        }]
       }
     },
 
