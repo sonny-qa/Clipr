@@ -9,7 +9,4 @@ app.post('/user/post/storeclip', paths.storeClip);
 
 app.get('/loadAllClips', paths.loadAllClips);
 
-app.post('/user/post/addNote', paths.addNote);
-
-app.get('/user/get/loadNotes', paths.loadNotes);
 

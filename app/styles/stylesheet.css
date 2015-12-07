@@ -47,8 +47,48 @@ a.editable-click {
     left: 0px;
     top: 0px;
     background-color: #D06E00;
-    ;
 }
+
+#clipEdit.Shopping {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #D00063;
+}
+
+#clipEdit.Science {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #008404;
+}
+
+#clipEdit.Technology {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #00D0B6;
+}
+
+#clipEdit.Politics {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #1700D0;
+}
+
 
 #modalImg {
     width: 250px;
@@ -105,9 +145,8 @@ a.editable-click {
     padding-bottom: 20px;
 }
 
-#iconBar{
+#iconBar {
     position: relative;
-    top:200px;
     width: 300px;
 }
 
@@ -135,7 +174,7 @@ a.editable-click {
 }
 
 .fa-ellipsis-h {
-  float: right;
+    float: right;
 }
 
 #categoryBox.Politics {
@@ -303,6 +342,10 @@ a#articleTitle {
     text-decoration: underline;
 }
 
+#suggestion {
+    font-size: 15px;
+}
+
 
 /*
 #suggestions {
@@ -428,7 +471,7 @@ a:hover {
 
 .fa-trash-o {
     position: relative;
-    float:left;
+    float: left;
 }
 
 #dropdown:hover {
@@ -600,6 +643,15 @@ h3 {
         border-right: 0;
         border-top: 20px;
     }
+}
+
+.footer {
+    background-color: #ffffff;
+    bottom: 0;
+    position: fixed;
+    padding: 10px;
+}
+ }
 }
 
 .footer {
