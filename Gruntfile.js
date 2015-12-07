@@ -151,9 +151,9 @@ module.exports = function(grunt) {
           // target file : src files
           'app/dist/css/stylesheet.min.css': 
           [
-            'app/bower_components/bootstrap/dist/css/bootstrap.min.css', 
+            'app/bower_components/bootstrap/dist/css/bootstrap.css', 
             'app/bower_components/bootstrap-social/bootstrap-social.css', 
-            'app/bower_components/font-awesome/css/font-awesome.min.css', 
+            'app/bower_components/font-awesome/css/font-awesome.css', 
             // 'app/bower_components/angular-xeditable/css/xeditable.css',
             // 'app/bower_components/dist/css/jasny-bootstrap/css/jasny-bootstrap.min.css', 
             // 'app/assets/fonts/Raleway/css/fonts.css', 
