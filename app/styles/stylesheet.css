@@ -1,14 +1,142 @@
 body {
-    background-color: #FFFDF7;
+    background-color: white;
+}
+
+#clipEdit {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.fa-pencil-square-o#editButton {
+    position: relative;
+}
+
+
+/*.editable-wrap{
+    width: 250px;
+    font-size: 12px;
+    overflow: scroll;
+    text-decoration: none;
+}*/
+
+#clipEditText {
+    color: white;
+    font-size: 15px;
+}
+
+a.editable-click {
+    font-size: 15px;
+    color: white;
+    border-bottom: none;
+    text-decoration: none;
+}
+
+.editable-controls>input {
+    color: black;
+}
+
+#clipEdit.Travel {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #D06E00;
+}
+
+#clipEdit.Shopping {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #D00063;
+}
+
+#clipEdit.Science {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #008404;
+}
+
+#clipEdit.Technology {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #00D0B6;
+}
+
+#clipEdit.Politics {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid black;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #1700D0;
+}
+
+#modalImg {
+    width: 250px;
+    height: 200px;
+    background-size: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-bottom: 5px solid black;
+    border-right: 5px solid black;
 }
 
 .btn.btn-primary {
     background-color: #2CA58D;
 }
 
+.modal-header {
+    height: 200px;
+    width: 100%;
+    border-bottom: 5px solid black;
+}
+
+.modal-header.Shopping {
+    background-color: #D00063;
+}
+
+.modal-header.Food {
+    background-color: #D03800;
+}
+
+.modal-header.Politics {
+    background-color: #1700D0;
+}
+
+.modal-header.Technology {
+    background-color: #00D0B6;
+}
+
+.modal-header.Science {
+    background-color: #008404;
+}
+
+.modal-header.Travel {
+    background-color: #D06E00;
+}
+
 #modal {
-    background-color: #FFFDF7;
-    height: 500px;
+    background-color: white;
+    height: 700px;
 }
 
 #categories {
@@ -16,33 +144,84 @@ body {
     padding-bottom: 20px;
 }
 
+#iconBar {
+    position: relative;
+    width: 300px;
+}
+
+#categoryBox.Food {
+    background-image: url('http://img2.timeinc.net/health/img/mag/2013/09/fall-foods-superfruit-400x400.jpg');
+    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+    color: white;
+}
+
+#navMenu {
+    background-color: white;
+    float: left;
+    margin-left: -5%;
+    padding-top: 50px;
+    z-index: -1;
+    overflow-y: scroll;
+}
+
+#clipBox.Food {
+    background-color: #D03800;
+}
+
+#colorBox.Food {
+    background-color: #D03800;
+}
+
+.fa-ellipsis-h {
+    float: right;
+}
+
 #categoryBox.Politics {
     background-image: url('http://ionenewsone.files.wordpress.com/2011/07/obama-podium.jpg');
     -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
     color: white;
 }
-#colorBoxClips.Politics {
-    background-color: #0A0B4B;
+
+#categoryBox.Travel {
+    background-image: url('http://www.imaginamalta.com/wp-content/uploads/2014/07/Travel-8.jpg');
+    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+    color: white;
 }
+
+#clipBox.Politics {
+    border: 5px solid #1700D0;
+}
+
 #colorBox.Politics {
-    background-color: #0A0B4B;
+    background-color: #1700D0;
 }
-#colorBoxClips {
+
+#clipBox.Travel {
+    border: 5px solid #D06E00;
+}
+
+#colorBox.Travel {
+    background-color: #D06E00;
+}
+
+#clipBox {
     opacity: .8;
     position: absolute;
     left: -0px;
-    top:0px;
-    height: 300px;
-    width:100%;
+    top: 0px;
+    height: 100px;
+    width: 300px;
     margin-bottom: 10px;
 }
+
 #colorBox {
     opacity: .7;
     position: absolute;
     left: -0px;
-    height: 300px;
-    width: 300px;
+    height: 150px;
+    width: 100%;
     margin-bottom: 10px;
+    z-index: 3;
 }
 
 #colorBox:hover {
@@ -56,10 +235,11 @@ body {
 }
 
 #colorBox.Technology {
-    background-color: #03291D;
+    background-color: #00D0B6;
 }
-#colorBoxClips.Technology {
-    background-color: #03291D;
+
+#clipBox.Technology {
+    border: 5px solid #00D0B6;
 }
 
 #categoryBox.Sports {
@@ -69,10 +249,11 @@ body {
 }
 
 #colorBox.Sports {
-    background-color: #5C0800;
+    background-color: #CCD000;
 }
-#colorBoxClips.Sports {
-    background-color: #5C0800;
+
+#clipBox.Sports {
+    border: 5px solid #CCD000;
 }
 
 #categoryBox.Shopping {
@@ -82,11 +263,13 @@ body {
 }
 
 #colorBox.Shopping {
-    background-color: #290030;
+    background-color: #D00063;
 }
-#colorBoxClips.Shopping {
-    background-color: #290030;
+
+#clipBox.Shopping {
+    border: 5px solid #D00063;
 }
+
 #categoryBox.Health {
     background-image: url('http://www.oecd.org/media/oecdorg/topics/health/48300184.jpg');
     -webkit-filter: grayscale(0.6) sepia(0.1);
@@ -94,10 +277,11 @@ body {
 }
 
 #colorBox.Health {
-    background-color: #9011A5;
+    background-color: #D00A00;
 }
-#colorBoxClips.Health {
-    background-color: #9011A5;
+
+#clipBox.Health {
+    border: 5px solid #D00A00;
 }
 
 #categoryBox.Science {
@@ -107,20 +291,18 @@ body {
 }
 
 #colorBox.Science {
-    background-color: #4FB741;
-}
-#colorBoxClips.Science {
-    background-color: #4FB741;
+    background-color: #008404;
 }
 
-
+#clipBox.Science {
+    border: 5px solid #008404;
+}
 
 #categoryBox {
-    height: 300px;
+    height: 150px;
+    width: 100%;
     position: relative;
-    width: 300px;
     color: white;
-    z-index: 1;
 }
 
 
@@ -135,29 +317,36 @@ table tr:nth-child(even) {
     color: white;
     position: absolute;
     bottom: 2px;
-    left: 20px;
-    z-index: 4;
-    font-size: 25px;
-}
-#showMore{
-    position:absolute;
-    top:90px;
-    left:35px;
-}
-
-#articleTitle {
-    color: white;
-    text-align:center;
-    position: absolute;
-    top: 50%;
+    left: 2px;
     z-index: 4;
     font-size: 15px;
 }
 
-#articleTitle:hover{
+#showMore {
+    position: absolute;
+    bottom: 2%;
+    left: 75px;
+}
+
+a#articleTitle {
+    color: white;
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    text-align: center;
+    font-size: 15px;
+}
+
+#articleTitle:hover {
     text-decoration: underline;
 }
 
+#suggestion {
+    font-size: 15px;
+}
+
+
+/*
 #suggestions {
     position: fixed;
     color: #0A2342;
@@ -167,25 +356,10 @@ table tr:nth-child(even) {
     right: 0px;
     background-color: #01A2A6;
     overflow: hidden;
-}
+}*/
 
 #suggestTitle {
     color: #0A2342;
-}
-
-.suggestions.ng-enter,
-.suggestions.ng-leave {
-    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-}
-
-.suggestions.ng-enter,
-.suggestions.ng-leave.ng-leave-active {
-    opacity: 0;
-}
-
-.suggestions.ng-leave,
-.suggestions.ng-enter.ng-enter-active {
-    opacity: 1;
 }
 
 #clipTitle {
@@ -206,14 +380,14 @@ table tr:nth-child(even) {
 }
 
 #header.head {
-    background-color: #FFFDF7;
+    background-color: white;
     color: #0A2342;
 }
 
 #navbrand {
     font-family: 'Anton', sans-serif;
     color: #0A2342;
-    background-color: #FFFDF7;
+    background-color: white;
     font-size: 50px;
 }
 
@@ -261,6 +435,14 @@ a:hover {
     color: #01A2A6;
 }
 
+#suggestions {
+    width: 650px;
+    height: 500px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
 .clipShowWrapper {
     position: absolute;
     left: 25%;
@@ -269,6 +451,10 @@ a:hover {
 .clipShowWrapper {
     position: absolute;
     left: 25%;
+}
+
+#dropdownCategory {
+    position: relative;
 }
 
 
@@ -282,23 +468,32 @@ a:hover {
  
 }*/
 
+.fa-trash-o {
+    position: relative;
+    float: left;
+}
+
+#dropdown:hover {
+    background-color: #0A2342;
+    color: white;
+}
+
 #clipBox {
     font-size: 14px;
-    position:relative;
-    background-color: #FFFDF7;
-    background-size:100%;
-    border: 2px solid #FFFDF7;
+    position: relative;
+    background-color: white;
+    background-size: 100%;
     color: #0A2342;
-    margin-top: 5px;
-    padding-top: 15px;
-    margin-left: 10px;
+    display: inline-block;
     text-align: center;
-    height: 300px;
-    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+    margin-right: 10px;
+    height: 200px;
+    width: 300px;
+    /*    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+*/
 }
 
 #clipBox:hover {
-    border: 5px solid white;
     cursor: pointer;
 }
 
@@ -384,7 +579,7 @@ body {
     position: fixed;
     border-radius: 20px;
     border: #2CA58D;
-    background-color: #FFFDF7;
+    background-color: white;
     border-top: 20px;
 }
 
@@ -409,7 +604,7 @@ body {
     border-left: 0;
     border-right: 0;
     border-top: 0;
-    background-color: #FFFDF7;
+    background-color: white;
     color: #0A2342;
 }
 
@@ -419,7 +614,7 @@ body {
 }
 
 h3 {
-    color: #FFFDF7;
+    color: white;
 }
 
 @media (max-width: 992px) {

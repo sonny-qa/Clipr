@@ -1,6 +1,31 @@
-<div id="sidebar">
+<!-- <div id="sidebar">
     <ul class="nav list-group">
-        <li ng-repeat="(category,values) in categories.categories">
-            <a class="list-group-item" ng-click="loadClipsByCategory(category)"><i class="icon-home icon-1x"></i>{{category}}</a>
+    	<li>
+        <div ng-repeat="(category,values) in categories.categories" class="col-md-2">
+            <div class="col-md-2 {{category}}" id="categoryBox" ng-click="loadClipsByCategory(category)">
+                <div id="colorBox" class="{{category}}">
+                </div>
+            </div>
+            <h4 id="categoryText">{{category}}</h4>
+        </div>
     </ul>
-</div>
+</div> -->
+
+<nav class="navmenu navmenu-default" role="navigation">
+  <a class="navmenu-brand" href="#">Brand</a>
+
+  <ul class="nav navmenu-nav">
+    <li class="active"><a href="#">Link</a></li>
+    <li><a href="#">Link</a></li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+      <ul class="dropdown-menu navmenu-nav" role="menu">
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li><a href="#">Separated link</a></li>
+        <li><a href="#">One more separated link</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>

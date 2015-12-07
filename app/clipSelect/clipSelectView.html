@@ -1,13 +1,42 @@
-<div id="modal" <div class="modal-header">
-    <iframe id="clipSelectWebsite" src="{{sceUrl}}" style="width:100%;height:100%"></iframe>
-</div>
-<div class="modal-body">
-	<div class="savedNotes" ng-repeat="article in suggestions">
-		<li><a href="{{ article.suggestionUrl }}" target="_blank">{{ article.suggestionTitle }}</a></li>
-	</div>
 
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">Close</button>
+<div id="modal">
+    <div class="modal-header {{item.category}}">
+        <div id="modalImg" style="background-image: url('{{item.imgUrl}}')"></div>
     </div>
-
-</div>
+    <div class="modal-body" ng-init="display()">
+        <div id="clipEdit" class="{{item.category}}">
+            <div>
+                <p id="clipEditText"> Title: <a id="clipEditText">{{ item.title }}</a></p>
+            </div>
+            <div class="btn-group" id="dropdownCategory">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{item.category}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li id="dropdown" ng-click="changeCategory('Politics', clip.title)">Politics</li>
+                    <li id="dropdown" ng-click="changeCategory('Shopping', clip.title)">Shopping</li>
+                    <li id="dropdown" ng-click="changeCategory('Technology', clip.title)">Technology</li>
+                    <li id="dropdown" ng-click="changeCategory('News', clip.title)">News</li>
+                    <li id="dropdown" ng-click="changeCategory('Entertainment', clip.title)">Entertainment</li>
+                    <li id="dropdown" ng-click="changeCategory('Food', clip.title)">Food</li>
+                    <li id="dropdown" ng-click="changeCategory('Sports', clip.title)">Sports</li>
+                    <li id="dropdown" ng-click="changeCategory('Travel', clip.title)">Travel</li>
+                    <li id="dropdown" ng-click="changeCategory('Business', clip.title)">Business</li>
+                    <li id="dropdown" ng-click="changeCategory('Science', clip.title)">Science</li>
+                    <li id="dropdown" ng-click="changeCategory('Travel', clip.title)">Travel</li>
+                </ul>
+            </div>
+           <div class="btn-group" id="dropdownCategory">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   + Collection <span class="caret"></span>
+                </button>
+              <!--   <ul class="dropdown-menu" ng-repeat="collection in collections">
+                    <li id="dropdown" ng-click="addToCollection('collection.name', clip)">{{collection.name}}</li>
+                </ul> -->
+            </div>
+        </div>
+            <div id="suggestions">
+                <ul ng-repeat="suggestion in item.suggestions">
+                    <a id="suggestion" href="{{suggestion.suggestionUrl}}"> {{suggestion.suggestionTitle}}</a>
+            </div>
+    </div>

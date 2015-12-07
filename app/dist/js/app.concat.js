@@ -38225,7 +38225,13 @@ $provide.value("$locale", {
 
 })(window, document);
 
-!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');;/**
+!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');;/*!
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under the MIT license
+ */
+if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires jQuery");+function(a){"use strict";var b=a.fn.jquery.split(" ")[0].split(".");if(b[0]<2&&b[1]<9||1==b[0]&&9==b[1]&&b[2]<1||b[0]>2)throw new Error("Bootstrap's JavaScript requires jQuery version 1.9.1 or higher, but lower than version 3")}(jQuery),+function(a){"use strict";function b(){var a=document.createElement("bootstrap"),b={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd otransitionend",transition:"transitionend"};for(var c in b)if(void 0!==a.style[c])return{end:b[c]};return!1}a.fn.emulateTransitionEnd=function(b){var c=!1,d=this;a(this).one("bsTransitionEnd",function(){c=!0});var e=function(){c||a(d).trigger(a.support.transition.end)};return setTimeout(e,b),this},a(function(){a.support.transition=b(),a.support.transition&&(a.event.special.bsTransitionEnd={bindType:a.support.transition.end,delegateType:a.support.transition.end,handle:function(b){return a(b.target).is(this)?b.handleObj.handler.apply(this,arguments):void 0}})})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var c=a(this),e=c.data("bs.alert");e||c.data("bs.alert",e=new d(this)),"string"==typeof b&&e[b].call(c)})}var c='[data-dismiss="alert"]',d=function(b){a(b).on("click",c,this.close)};d.VERSION="3.3.6",d.TRANSITION_DURATION=150,d.prototype.close=function(b){function c(){g.detach().trigger("closed.bs.alert").remove()}var e=a(this),f=e.attr("data-target");f||(f=e.attr("href"),f=f&&f.replace(/.*(?=#[^\s]*$)/,""));var g=a(f);b&&b.preventDefault(),g.length||(g=e.closest(".alert")),g.trigger(b=a.Event("close.bs.alert")),b.isDefaultPrevented()||(g.removeClass("in"),a.support.transition&&g.hasClass("fade")?g.one("bsTransitionEnd",c).emulateTransitionEnd(d.TRANSITION_DURATION):c())};var e=a.fn.alert;a.fn.alert=b,a.fn.alert.Constructor=d,a.fn.alert.noConflict=function(){return a.fn.alert=e,this},a(document).on("click.bs.alert.data-api",c,d.prototype.close)}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.button"),f="object"==typeof b&&b;e||d.data("bs.button",e=new c(this,f)),"toggle"==b?e.toggle():b&&e.setState(b)})}var c=function(b,d){this.$element=a(b),this.options=a.extend({},c.DEFAULTS,d),this.isLoading=!1};c.VERSION="3.3.6",c.DEFAULTS={loadingText:"loading..."},c.prototype.setState=function(b){var c="disabled",d=this.$element,e=d.is("input")?"val":"html",f=d.data();b+="Text",null==f.resetText&&d.data("resetText",d[e]()),setTimeout(a.proxy(function(){d[e](null==f[b]?this.options[b]:f[b]),"loadingText"==b?(this.isLoading=!0,d.addClass(c).attr(c,c)):this.isLoading&&(this.isLoading=!1,d.removeClass(c).removeAttr(c))},this),0)},c.prototype.toggle=function(){var a=!0,b=this.$element.closest('[data-toggle="buttons"]');if(b.length){var c=this.$element.find("input");"radio"==c.prop("type")?(c.prop("checked")&&(a=!1),b.find(".active").removeClass("active"),this.$element.addClass("active")):"checkbox"==c.prop("type")&&(c.prop("checked")!==this.$element.hasClass("active")&&(a=!1),this.$element.toggleClass("active")),c.prop("checked",this.$element.hasClass("active")),a&&c.trigger("change")}else this.$element.attr("aria-pressed",!this.$element.hasClass("active")),this.$element.toggleClass("active")};var d=a.fn.button;a.fn.button=b,a.fn.button.Constructor=c,a.fn.button.noConflict=function(){return a.fn.button=d,this},a(document).on("click.bs.button.data-api",'[data-toggle^="button"]',function(c){var d=a(c.target);d.hasClass("btn")||(d=d.closest(".btn")),b.call(d,"toggle"),a(c.target).is('input[type="radio"]')||a(c.target).is('input[type="checkbox"]')||c.preventDefault()}).on("focus.bs.button.data-api blur.bs.button.data-api",'[data-toggle^="button"]',function(b){a(b.target).closest(".btn").toggleClass("focus",/^focus(in)?$/.test(b.type))})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.carousel"),f=a.extend({},c.DEFAULTS,d.data(),"object"==typeof b&&b),g="string"==typeof b?b:f.slide;e||d.data("bs.carousel",e=new c(this,f)),"number"==typeof b?e.to(b):g?e[g]():f.interval&&e.pause().cycle()})}var c=function(b,c){this.$element=a(b),this.$indicators=this.$element.find(".carousel-indicators"),this.options=c,this.paused=null,this.sliding=null,this.interval=null,this.$active=null,this.$items=null,this.options.keyboard&&this.$element.on("keydown.bs.carousel",a.proxy(this.keydown,this)),"hover"==this.options.pause&&!("ontouchstart"in document.documentElement)&&this.$element.on("mouseenter.bs.carousel",a.proxy(this.pause,this)).on("mouseleave.bs.carousel",a.proxy(this.cycle,this))};c.VERSION="3.3.6",c.TRANSITION_DURATION=600,c.DEFAULTS={interval:5e3,pause:"hover",wrap:!0,keyboard:!0},c.prototype.keydown=function(a){if(!/input|textarea/i.test(a.target.tagName)){switch(a.which){case 37:this.prev();break;case 39:this.next();break;default:return}a.preventDefault()}},c.prototype.cycle=function(b){return b||(this.paused=!1),this.interval&&clearInterval(this.interval),this.options.interval&&!this.paused&&(this.interval=setInterval(a.proxy(this.next,this),this.options.interval)),this},c.prototype.getItemIndex=function(a){return this.$items=a.parent().children(".item"),this.$items.index(a||this.$active)},c.prototype.getItemForDirection=function(a,b){var c=this.getItemIndex(b),d="prev"==a&&0===c||"next"==a&&c==this.$items.length-1;if(d&&!this.options.wrap)return b;var e="prev"==a?-1:1,f=(c+e)%this.$items.length;return this.$items.eq(f)},c.prototype.to=function(a){var b=this,c=this.getItemIndex(this.$active=this.$element.find(".item.active"));return a>this.$items.length-1||0>a?void 0:this.sliding?this.$element.one("slid.bs.carousel",function(){b.to(a)}):c==a?this.pause().cycle():this.slide(a>c?"next":"prev",this.$items.eq(a))},c.prototype.pause=function(b){return b||(this.paused=!0),this.$element.find(".next, .prev").length&&a.support.transition&&(this.$element.trigger(a.support.transition.end),this.cycle(!0)),this.interval=clearInterval(this.interval),this},c.prototype.next=function(){return this.sliding?void 0:this.slide("next")},c.prototype.prev=function(){return this.sliding?void 0:this.slide("prev")},c.prototype.slide=function(b,d){var e=this.$element.find(".item.active"),f=d||this.getItemForDirection(b,e),g=this.interval,h="next"==b?"left":"right",i=this;if(f.hasClass("active"))return this.sliding=!1;var j=f[0],k=a.Event("slide.bs.carousel",{relatedTarget:j,direction:h});if(this.$element.trigger(k),!k.isDefaultPrevented()){if(this.sliding=!0,g&&this.pause(),this.$indicators.length){this.$indicators.find(".active").removeClass("active");var l=a(this.$indicators.children()[this.getItemIndex(f)]);l&&l.addClass("active")}var m=a.Event("slid.bs.carousel",{relatedTarget:j,direction:h});return a.support.transition&&this.$element.hasClass("slide")?(f.addClass(b),f[0].offsetWidth,e.addClass(h),f.addClass(h),e.one("bsTransitionEnd",function(){f.removeClass([b,h].join(" ")).addClass("active"),e.removeClass(["active",h].join(" ")),i.sliding=!1,setTimeout(function(){i.$element.trigger(m)},0)}).emulateTransitionEnd(c.TRANSITION_DURATION)):(e.removeClass("active"),f.addClass("active"),this.sliding=!1,this.$element.trigger(m)),g&&this.cycle(),this}};var d=a.fn.carousel;a.fn.carousel=b,a.fn.carousel.Constructor=c,a.fn.carousel.noConflict=function(){return a.fn.carousel=d,this};var e=function(c){var d,e=a(this),f=a(e.attr("data-target")||(d=e.attr("href"))&&d.replace(/.*(?=#[^\s]+$)/,""));if(f.hasClass("carousel")){var g=a.extend({},f.data(),e.data()),h=e.attr("data-slide-to");h&&(g.interval=!1),b.call(f,g),h&&f.data("bs.carousel").to(h),c.preventDefault()}};a(document).on("click.bs.carousel.data-api","[data-slide]",e).on("click.bs.carousel.data-api","[data-slide-to]",e),a(window).on("load",function(){a('[data-ride="carousel"]').each(function(){var c=a(this);b.call(c,c.data())})})}(jQuery),+function(a){"use strict";function b(b){var c,d=b.attr("data-target")||(c=b.attr("href"))&&c.replace(/.*(?=#[^\s]+$)/,"");return a(d)}function c(b){return this.each(function(){var c=a(this),e=c.data("bs.collapse"),f=a.extend({},d.DEFAULTS,c.data(),"object"==typeof b&&b);!e&&f.toggle&&/show|hide/.test(b)&&(f.toggle=!1),e||c.data("bs.collapse",e=new d(this,f)),"string"==typeof b&&e[b]()})}var d=function(b,c){this.$element=a(b),this.options=a.extend({},d.DEFAULTS,c),this.$trigger=a('[data-toggle="collapse"][href="#'+b.id+'"],[data-toggle="collapse"][data-target="#'+b.id+'"]'),this.transitioning=null,this.options.parent?this.$parent=this.getParent():this.addAriaAndCollapsedClass(this.$element,this.$trigger),this.options.toggle&&this.toggle()};d.VERSION="3.3.6",d.TRANSITION_DURATION=350,d.DEFAULTS={toggle:!0},d.prototype.dimension=function(){var a=this.$element.hasClass("width");return a?"width":"height"},d.prototype.show=function(){if(!this.transitioning&&!this.$element.hasClass("in")){var b,e=this.$parent&&this.$parent.children(".panel").children(".in, .collapsing");if(!(e&&e.length&&(b=e.data("bs.collapse"),b&&b.transitioning))){var f=a.Event("show.bs.collapse");if(this.$element.trigger(f),!f.isDefaultPrevented()){e&&e.length&&(c.call(e,"hide"),b||e.data("bs.collapse",null));var g=this.dimension();this.$element.removeClass("collapse").addClass("collapsing")[g](0).attr("aria-expanded",!0),this.$trigger.removeClass("collapsed").attr("aria-expanded",!0),this.transitioning=1;var h=function(){this.$element.removeClass("collapsing").addClass("collapse in")[g](""),this.transitioning=0,this.$element.trigger("shown.bs.collapse")};if(!a.support.transition)return h.call(this);var i=a.camelCase(["scroll",g].join("-"));this.$element.one("bsTransitionEnd",a.proxy(h,this)).emulateTransitionEnd(d.TRANSITION_DURATION)[g](this.$element[0][i])}}}},d.prototype.hide=function(){if(!this.transitioning&&this.$element.hasClass("in")){var b=a.Event("hide.bs.collapse");if(this.$element.trigger(b),!b.isDefaultPrevented()){var c=this.dimension();this.$element[c](this.$element[c]())[0].offsetHeight,this.$element.addClass("collapsing").removeClass("collapse in").attr("aria-expanded",!1),this.$trigger.addClass("collapsed").attr("aria-expanded",!1),this.transitioning=1;var e=function(){this.transitioning=0,this.$element.removeClass("collapsing").addClass("collapse").trigger("hidden.bs.collapse")};return a.support.transition?void this.$element[c](0).one("bsTransitionEnd",a.proxy(e,this)).emulateTransitionEnd(d.TRANSITION_DURATION):e.call(this)}}},d.prototype.toggle=function(){this[this.$element.hasClass("in")?"hide":"show"]()},d.prototype.getParent=function(){return a(this.options.parent).find('[data-toggle="collapse"][data-parent="'+this.options.parent+'"]').each(a.proxy(function(c,d){var e=a(d);this.addAriaAndCollapsedClass(b(e),e)},this)).end()},d.prototype.addAriaAndCollapsedClass=function(a,b){var c=a.hasClass("in");a.attr("aria-expanded",c),b.toggleClass("collapsed",!c).attr("aria-expanded",c)};var e=a.fn.collapse;a.fn.collapse=c,a.fn.collapse.Constructor=d,a.fn.collapse.noConflict=function(){return a.fn.collapse=e,this},a(document).on("click.bs.collapse.data-api",'[data-toggle="collapse"]',function(d){var e=a(this);e.attr("data-target")||d.preventDefault();var f=b(e),g=f.data("bs.collapse"),h=g?"toggle":e.data();c.call(f,h)})}(jQuery),+function(a){"use strict";function b(b){var c=b.attr("data-target");c||(c=b.attr("href"),c=c&&/#[A-Za-z]/.test(c)&&c.replace(/.*(?=#[^\s]*$)/,""));var d=c&&a(c);return d&&d.length?d:b.parent()}function c(c){c&&3===c.which||(a(e).remove(),a(f).each(function(){var d=a(this),e=b(d),f={relatedTarget:this};e.hasClass("open")&&(c&&"click"==c.type&&/input|textarea/i.test(c.target.tagName)&&a.contains(e[0],c.target)||(e.trigger(c=a.Event("hide.bs.dropdown",f)),c.isDefaultPrevented()||(d.attr("aria-expanded","false"),e.removeClass("open").trigger(a.Event("hidden.bs.dropdown",f)))))}))}function d(b){return this.each(function(){var c=a(this),d=c.data("bs.dropdown");d||c.data("bs.dropdown",d=new g(this)),"string"==typeof b&&d[b].call(c)})}var e=".dropdown-backdrop",f='[data-toggle="dropdown"]',g=function(b){a(b).on("click.bs.dropdown",this.toggle)};g.VERSION="3.3.6",g.prototype.toggle=function(d){var e=a(this);if(!e.is(".disabled, :disabled")){var f=b(e),g=f.hasClass("open");if(c(),!g){"ontouchstart"in document.documentElement&&!f.closest(".navbar-nav").length&&a(document.createElement("div")).addClass("dropdown-backdrop").insertAfter(a(this)).on("click",c);var h={relatedTarget:this};if(f.trigger(d=a.Event("show.bs.dropdown",h)),d.isDefaultPrevented())return;e.trigger("focus").attr("aria-expanded","true"),f.toggleClass("open").trigger(a.Event("shown.bs.dropdown",h))}return!1}},g.prototype.keydown=function(c){if(/(38|40|27|32)/.test(c.which)&&!/input|textarea/i.test(c.target.tagName)){var d=a(this);if(c.preventDefault(),c.stopPropagation(),!d.is(".disabled, :disabled")){var e=b(d),g=e.hasClass("open");if(!g&&27!=c.which||g&&27==c.which)return 27==c.which&&e.find(f).trigger("focus"),d.trigger("click");var h=" li:not(.disabled):visible a",i=e.find(".dropdown-menu"+h);if(i.length){var j=i.index(c.target);38==c.which&&j>0&&j--,40==c.which&&j<i.length-1&&j++,~j||(j=0),i.eq(j).trigger("focus")}}}};var h=a.fn.dropdown;a.fn.dropdown=d,a.fn.dropdown.Constructor=g,a.fn.dropdown.noConflict=function(){return a.fn.dropdown=h,this},a(document).on("click.bs.dropdown.data-api",c).on("click.bs.dropdown.data-api",".dropdown form",function(a){a.stopPropagation()}).on("click.bs.dropdown.data-api",f,g.prototype.toggle).on("keydown.bs.dropdown.data-api",f,g.prototype.keydown).on("keydown.bs.dropdown.data-api",".dropdown-menu",g.prototype.keydown)}(jQuery),+function(a){"use strict";function b(b,d){return this.each(function(){var e=a(this),f=e.data("bs.modal"),g=a.extend({},c.DEFAULTS,e.data(),"object"==typeof b&&b);f||e.data("bs.modal",f=new c(this,g)),"string"==typeof b?f[b](d):g.show&&f.show(d)})}var c=function(b,c){this.options=c,this.$body=a(document.body),this.$element=a(b),this.$dialog=this.$element.find(".modal-dialog"),this.$backdrop=null,this.isShown=null,this.originalBodyPad=null,this.scrollbarWidth=0,this.ignoreBackdropClick=!1,this.options.remote&&this.$element.find(".modal-content").load(this.options.remote,a.proxy(function(){this.$element.trigger("loaded.bs.modal")},this))};c.VERSION="3.3.6",c.TRANSITION_DURATION=300,c.BACKDROP_TRANSITION_DURATION=150,c.DEFAULTS={backdrop:!0,keyboard:!0,show:!0},c.prototype.toggle=function(a){return this.isShown?this.hide():this.show(a)},c.prototype.show=function(b){var d=this,e=a.Event("show.bs.modal",{relatedTarget:b});this.$element.trigger(e),this.isShown||e.isDefaultPrevented()||(this.isShown=!0,this.checkScrollbar(),this.setScrollbar(),this.$body.addClass("modal-open"),this.escape(),this.resize(),this.$element.on("click.dismiss.bs.modal",'[data-dismiss="modal"]',a.proxy(this.hide,this)),this.$dialog.on("mousedown.dismiss.bs.modal",function(){d.$element.one("mouseup.dismiss.bs.modal",function(b){a(b.target).is(d.$element)&&(d.ignoreBackdropClick=!0)})}),this.backdrop(function(){var e=a.support.transition&&d.$element.hasClass("fade");d.$element.parent().length||d.$element.appendTo(d.$body),d.$element.show().scrollTop(0),d.adjustDialog(),e&&d.$element[0].offsetWidth,d.$element.addClass("in"),d.enforceFocus();var f=a.Event("shown.bs.modal",{relatedTarget:b});e?d.$dialog.one("bsTransitionEnd",function(){d.$element.trigger("focus").trigger(f)}).emulateTransitionEnd(c.TRANSITION_DURATION):d.$element.trigger("focus").trigger(f)}))},c.prototype.hide=function(b){b&&b.preventDefault(),b=a.Event("hide.bs.modal"),this.$element.trigger(b),this.isShown&&!b.isDefaultPrevented()&&(this.isShown=!1,this.escape(),this.resize(),a(document).off("focusin.bs.modal"),this.$element.removeClass("in").off("click.dismiss.bs.modal").off("mouseup.dismiss.bs.modal"),this.$dialog.off("mousedown.dismiss.bs.modal"),a.support.transition&&this.$element.hasClass("fade")?this.$element.one("bsTransitionEnd",a.proxy(this.hideModal,this)).emulateTransitionEnd(c.TRANSITION_DURATION):this.hideModal())},c.prototype.enforceFocus=function(){a(document).off("focusin.bs.modal").on("focusin.bs.modal",a.proxy(function(a){this.$element[0]===a.target||this.$element.has(a.target).length||this.$element.trigger("focus")},this))},c.prototype.escape=function(){this.isShown&&this.options.keyboard?this.$element.on("keydown.dismiss.bs.modal",a.proxy(function(a){27==a.which&&this.hide()},this)):this.isShown||this.$element.off("keydown.dismiss.bs.modal")},c.prototype.resize=function(){this.isShown?a(window).on("resize.bs.modal",a.proxy(this.handleUpdate,this)):a(window).off("resize.bs.modal")},c.prototype.hideModal=function(){var a=this;this.$element.hide(),this.backdrop(function(){a.$body.removeClass("modal-open"),a.resetAdjustments(),a.resetScrollbar(),a.$element.trigger("hidden.bs.modal")})},c.prototype.removeBackdrop=function(){this.$backdrop&&this.$backdrop.remove(),this.$backdrop=null},c.prototype.backdrop=function(b){var d=this,e=this.$element.hasClass("fade")?"fade":"";if(this.isShown&&this.options.backdrop){var f=a.support.transition&&e;if(this.$backdrop=a(document.createElement("div")).addClass("modal-backdrop "+e).appendTo(this.$body),this.$element.on("click.dismiss.bs.modal",a.proxy(function(a){return this.ignoreBackdropClick?void(this.ignoreBackdropClick=!1):void(a.target===a.currentTarget&&("static"==this.options.backdrop?this.$element[0].focus():this.hide()))},this)),f&&this.$backdrop[0].offsetWidth,this.$backdrop.addClass("in"),!b)return;f?this.$backdrop.one("bsTransitionEnd",b).emulateTransitionEnd(c.BACKDROP_TRANSITION_DURATION):b()}else if(!this.isShown&&this.$backdrop){this.$backdrop.removeClass("in");var g=function(){d.removeBackdrop(),b&&b()};a.support.transition&&this.$element.hasClass("fade")?this.$backdrop.one("bsTransitionEnd",g).emulateTransitionEnd(c.BACKDROP_TRANSITION_DURATION):g()}else b&&b()},c.prototype.handleUpdate=function(){this.adjustDialog()},c.prototype.adjustDialog=function(){var a=this.$element[0].scrollHeight>document.documentElement.clientHeight;this.$element.css({paddingLeft:!this.bodyIsOverflowing&&a?this.scrollbarWidth:"",paddingRight:this.bodyIsOverflowing&&!a?this.scrollbarWidth:""})},c.prototype.resetAdjustments=function(){this.$element.css({paddingLeft:"",paddingRight:""})},c.prototype.checkScrollbar=function(){var a=window.innerWidth;if(!a){var b=document.documentElement.getBoundingClientRect();a=b.right-Math.abs(b.left)}this.bodyIsOverflowing=document.body.clientWidth<a,this.scrollbarWidth=this.measureScrollbar()},c.prototype.setScrollbar=function(){var a=parseInt(this.$body.css("padding-right")||0,10);this.originalBodyPad=document.body.style.paddingRight||"",this.bodyIsOverflowing&&this.$body.css("padding-right",a+this.scrollbarWidth)},c.prototype.resetScrollbar=function(){this.$body.css("padding-right",this.originalBodyPad)},c.prototype.measureScrollbar=function(){var a=document.createElement("div");a.className="modal-scrollbar-measure",this.$body.append(a);var b=a.offsetWidth-a.clientWidth;return this.$body[0].removeChild(a),b};var d=a.fn.modal;a.fn.modal=b,a.fn.modal.Constructor=c,a.fn.modal.noConflict=function(){return a.fn.modal=d,this},a(document).on("click.bs.modal.data-api",'[data-toggle="modal"]',function(c){var d=a(this),e=d.attr("href"),f=a(d.attr("data-target")||e&&e.replace(/.*(?=#[^\s]+$)/,"")),g=f.data("bs.modal")?"toggle":a.extend({remote:!/#/.test(e)&&e},f.data(),d.data());d.is("a")&&c.preventDefault(),f.one("show.bs.modal",function(a){a.isDefaultPrevented()||f.one("hidden.bs.modal",function(){d.is(":visible")&&d.trigger("focus")})}),b.call(f,g,this)})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.tooltip"),f="object"==typeof b&&b;(e||!/destroy|hide/.test(b))&&(e||d.data("bs.tooltip",e=new c(this,f)),"string"==typeof b&&e[b]())})}var c=function(a,b){this.type=null,this.options=null,this.enabled=null,this.timeout=null,this.hoverState=null,this.$element=null,this.inState=null,this.init("tooltip",a,b)};c.VERSION="3.3.6",c.TRANSITION_DURATION=150,c.DEFAULTS={animation:!0,placement:"top",selector:!1,template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',trigger:"hover focus",title:"",delay:0,html:!1,container:!1,viewport:{selector:"body",padding:0}},c.prototype.init=function(b,c,d){if(this.enabled=!0,this.type=b,this.$element=a(c),this.options=this.getOptions(d),this.$viewport=this.options.viewport&&a(a.isFunction(this.options.viewport)?this.options.viewport.call(this,this.$element):this.options.viewport.selector||this.options.viewport),this.inState={click:!1,hover:!1,focus:!1},this.$element[0]instanceof document.constructor&&!this.options.selector)throw new Error("`selector` option must be specified when initializing "+this.type+" on the window.document object!");for(var e=this.options.trigger.split(" "),f=e.length;f--;){var g=e[f];if("click"==g)this.$element.on("click."+this.type,this.options.selector,a.proxy(this.toggle,this));else if("manual"!=g){var h="hover"==g?"mouseenter":"focusin",i="hover"==g?"mouseleave":"focusout";this.$element.on(h+"."+this.type,this.options.selector,a.proxy(this.enter,this)),this.$element.on(i+"."+this.type,this.options.selector,a.proxy(this.leave,this))}}this.options.selector?this._options=a.extend({},this.options,{trigger:"manual",selector:""}):this.fixTitle()},c.prototype.getDefaults=function(){return c.DEFAULTS},c.prototype.getOptions=function(b){return b=a.extend({},this.getDefaults(),this.$element.data(),b),b.delay&&"number"==typeof b.delay&&(b.delay={show:b.delay,hide:b.delay}),b},c.prototype.getDelegateOptions=function(){var b={},c=this.getDefaults();return this._options&&a.each(this._options,function(a,d){c[a]!=d&&(b[a]=d)}),b},c.prototype.enter=function(b){var c=b instanceof this.constructor?b:a(b.currentTarget).data("bs."+this.type);return c||(c=new this.constructor(b.currentTarget,this.getDelegateOptions()),a(b.currentTarget).data("bs."+this.type,c)),b instanceof a.Event&&(c.inState["focusin"==b.type?"focus":"hover"]=!0),c.tip().hasClass("in")||"in"==c.hoverState?void(c.hoverState="in"):(clearTimeout(c.timeout),c.hoverState="in",c.options.delay&&c.options.delay.show?void(c.timeout=setTimeout(function(){"in"==c.hoverState&&c.show()},c.options.delay.show)):c.show())},c.prototype.isInStateTrue=function(){for(var a in this.inState)if(this.inState[a])return!0;return!1},c.prototype.leave=function(b){var c=b instanceof this.constructor?b:a(b.currentTarget).data("bs."+this.type);return c||(c=new this.constructor(b.currentTarget,this.getDelegateOptions()),a(b.currentTarget).data("bs."+this.type,c)),b instanceof a.Event&&(c.inState["focusout"==b.type?"focus":"hover"]=!1),c.isInStateTrue()?void 0:(clearTimeout(c.timeout),c.hoverState="out",c.options.delay&&c.options.delay.hide?void(c.timeout=setTimeout(function(){"out"==c.hoverState&&c.hide()},c.options.delay.hide)):c.hide())},c.prototype.show=function(){var b=a.Event("show.bs."+this.type);if(this.hasContent()&&this.enabled){this.$element.trigger(b);var d=a.contains(this.$element[0].ownerDocument.documentElement,this.$element[0]);if(b.isDefaultPrevented()||!d)return;var e=this,f=this.tip(),g=this.getUID(this.type);this.setContent(),f.attr("id",g),this.$element.attr("aria-describedby",g),this.options.animation&&f.addClass("fade");var h="function"==typeof this.options.placement?this.options.placement.call(this,f[0],this.$element[0]):this.options.placement,i=/\s?auto?\s?/i,j=i.test(h);j&&(h=h.replace(i,"")||"top"),f.detach().css({top:0,left:0,display:"block"}).addClass(h).data("bs."+this.type,this),this.options.container?f.appendTo(this.options.container):f.insertAfter(this.$element),this.$element.trigger("inserted.bs."+this.type);var k=this.getPosition(),l=f[0].offsetWidth,m=f[0].offsetHeight;if(j){var n=h,o=this.getPosition(this.$viewport);h="bottom"==h&&k.bottom+m>o.bottom?"top":"top"==h&&k.top-m<o.top?"bottom":"right"==h&&k.right+l>o.width?"left":"left"==h&&k.left-l<o.left?"right":h,f.removeClass(n).addClass(h)}var p=this.getCalculatedOffset(h,k,l,m);this.applyPlacement(p,h);var q=function(){var a=e.hoverState;e.$element.trigger("shown.bs."+e.type),e.hoverState=null,"out"==a&&e.leave(e)};a.support.transition&&this.$tip.hasClass("fade")?f.one("bsTransitionEnd",q).emulateTransitionEnd(c.TRANSITION_DURATION):q()}},c.prototype.applyPlacement=function(b,c){var d=this.tip(),e=d[0].offsetWidth,f=d[0].offsetHeight,g=parseInt(d.css("margin-top"),10),h=parseInt(d.css("margin-left"),10);isNaN(g)&&(g=0),isNaN(h)&&(h=0),b.top+=g,b.left+=h,a.offset.setOffset(d[0],a.extend({using:function(a){d.css({top:Math.round(a.top),left:Math.round(a.left)})}},b),0),d.addClass("in");var i=d[0].offsetWidth,j=d[0].offsetHeight;"top"==c&&j!=f&&(b.top=b.top+f-j);var k=this.getViewportAdjustedDelta(c,b,i,j);k.left?b.left+=k.left:b.top+=k.top;var l=/top|bottom/.test(c),m=l?2*k.left-e+i:2*k.top-f+j,n=l?"offsetWidth":"offsetHeight";d.offset(b),this.replaceArrow(m,d[0][n],l)},c.prototype.replaceArrow=function(a,b,c){this.arrow().css(c?"left":"top",50*(1-a/b)+"%").css(c?"top":"left","")},c.prototype.setContent=function(){var a=this.tip(),b=this.getTitle();a.find(".tooltip-inner")[this.options.html?"html":"text"](b),a.removeClass("fade in top bottom left right")},c.prototype.hide=function(b){function d(){"in"!=e.hoverState&&f.detach(),e.$element.removeAttr("aria-describedby").trigger("hidden.bs."+e.type),b&&b()}var e=this,f=a(this.$tip),g=a.Event("hide.bs."+this.type);return this.$element.trigger(g),g.isDefaultPrevented()?void 0:(f.removeClass("in"),a.support.transition&&f.hasClass("fade")?f.one("bsTransitionEnd",d).emulateTransitionEnd(c.TRANSITION_DURATION):d(),this.hoverState=null,this)},c.prototype.fixTitle=function(){var a=this.$element;(a.attr("title")||"string"!=typeof a.attr("data-original-title"))&&a.attr("data-original-title",a.attr("title")||"").attr("title","")},c.prototype.hasContent=function(){return this.getTitle()},c.prototype.getPosition=function(b){b=b||this.$element;var c=b[0],d="BODY"==c.tagName,e=c.getBoundingClientRect();null==e.width&&(e=a.extend({},e,{width:e.right-e.left,height:e.bottom-e.top}));var f=d?{top:0,left:0}:b.offset(),g={scroll:d?document.documentElement.scrollTop||document.body.scrollTop:b.scrollTop()},h=d?{width:a(window).width(),height:a(window).height()}:null;return a.extend({},e,g,h,f)},c.prototype.getCalculatedOffset=function(a,b,c,d){return"bottom"==a?{top:b.top+b.height,left:b.left+b.width/2-c/2}:"top"==a?{top:b.top-d,left:b.left+b.width/2-c/2}:"left"==a?{top:b.top+b.height/2-d/2,left:b.left-c}:{top:b.top+b.height/2-d/2,left:b.left+b.width}},c.prototype.getViewportAdjustedDelta=function(a,b,c,d){var e={top:0,left:0};if(!this.$viewport)return e;var f=this.options.viewport&&this.options.viewport.padding||0,g=this.getPosition(this.$viewport);if(/right|left/.test(a)){var h=b.top-f-g.scroll,i=b.top+f-g.scroll+d;h<g.top?e.top=g.top-h:i>g.top+g.height&&(e.top=g.top+g.height-i)}else{var j=b.left-f,k=b.left+f+c;j<g.left?e.left=g.left-j:k>g.right&&(e.left=g.left+g.width-k)}return e},c.prototype.getTitle=function(){var a,b=this.$element,c=this.options;return a=b.attr("data-original-title")||("function"==typeof c.title?c.title.call(b[0]):c.title)},c.prototype.getUID=function(a){do a+=~~(1e6*Math.random());while(document.getElementById(a));return a},c.prototype.tip=function(){if(!this.$tip&&(this.$tip=a(this.options.template),1!=this.$tip.length))throw new Error(this.type+" `template` option must consist of exactly 1 top-level element!");return this.$tip},c.prototype.arrow=function(){return this.$arrow=this.$arrow||this.tip().find(".tooltip-arrow")},c.prototype.enable=function(){this.enabled=!0},c.prototype.disable=function(){this.enabled=!1},c.prototype.toggleEnabled=function(){this.enabled=!this.enabled},c.prototype.toggle=function(b){var c=this;b&&(c=a(b.currentTarget).data("bs."+this.type),c||(c=new this.constructor(b.currentTarget,this.getDelegateOptions()),a(b.currentTarget).data("bs."+this.type,c))),b?(c.inState.click=!c.inState.click,c.isInStateTrue()?c.enter(c):c.leave(c)):c.tip().hasClass("in")?c.leave(c):c.enter(c)},c.prototype.destroy=function(){var a=this;clearTimeout(this.timeout),this.hide(function(){a.$element.off("."+a.type).removeData("bs."+a.type),a.$tip&&a.$tip.detach(),a.$tip=null,a.$arrow=null,a.$viewport=null})};var d=a.fn.tooltip;a.fn.tooltip=b,a.fn.tooltip.Constructor=c,a.fn.tooltip.noConflict=function(){return a.fn.tooltip=d,this}}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.popover"),f="object"==typeof b&&b;(e||!/destroy|hide/.test(b))&&(e||d.data("bs.popover",e=new c(this,f)),"string"==typeof b&&e[b]())})}var c=function(a,b){this.init("popover",a,b)};if(!a.fn.tooltip)throw new Error("Popover requires tooltip.js");c.VERSION="3.3.6",c.DEFAULTS=a.extend({},a.fn.tooltip.Constructor.DEFAULTS,{placement:"right",trigger:"click",content:"",template:'<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'}),c.prototype=a.extend({},a.fn.tooltip.Constructor.prototype),c.prototype.constructor=c,c.prototype.getDefaults=function(){return c.DEFAULTS},c.prototype.setContent=function(){var a=this.tip(),b=this.getTitle(),c=this.getContent();a.find(".popover-title")[this.options.html?"html":"text"](b),a.find(".popover-content").children().detach().end()[this.options.html?"string"==typeof c?"html":"append":"text"](c),a.removeClass("fade top bottom left right in"),a.find(".popover-title").html()||a.find(".popover-title").hide()},c.prototype.hasContent=function(){return this.getTitle()||this.getContent()},c.prototype.getContent=function(){var a=this.$element,b=this.options;return a.attr("data-content")||("function"==typeof b.content?b.content.call(a[0]):b.content)},c.prototype.arrow=function(){return this.$arrow=this.$arrow||this.tip().find(".arrow")};var d=a.fn.popover;a.fn.popover=b,a.fn.popover.Constructor=c,a.fn.popover.noConflict=function(){return a.fn.popover=d,this}}(jQuery),+function(a){"use strict";function b(c,d){this.$body=a(document.body),this.$scrollElement=a(a(c).is(document.body)?window:c),this.options=a.extend({},b.DEFAULTS,d),this.selector=(this.options.target||"")+" .nav li > a",this.offsets=[],this.targets=[],this.activeTarget=null,this.scrollHeight=0,this.$scrollElement.on("scroll.bs.scrollspy",a.proxy(this.process,this)),this.refresh(),this.process()}function c(c){return this.each(function(){var d=a(this),e=d.data("bs.scrollspy"),f="object"==typeof c&&c;e||d.data("bs.scrollspy",e=new b(this,f)),"string"==typeof c&&e[c]()})}b.VERSION="3.3.6",b.DEFAULTS={offset:10},b.prototype.getScrollHeight=function(){return this.$scrollElement[0].scrollHeight||Math.max(this.$body[0].scrollHeight,document.documentElement.scrollHeight)},b.prototype.refresh=function(){var b=this,c="offset",d=0;this.offsets=[],this.targets=[],this.scrollHeight=this.getScrollHeight(),a.isWindow(this.$scrollElement[0])||(c="position",d=this.$scrollElement.scrollTop()),this.$body.find(this.selector).map(function(){var b=a(this),e=b.data("target")||b.attr("href"),f=/^#./.test(e)&&a(e);return f&&f.length&&f.is(":visible")&&[[f[c]().top+d,e]]||null}).sort(function(a,b){return a[0]-b[0]}).each(function(){b.offsets.push(this[0]),b.targets.push(this[1])})},b.prototype.process=function(){var a,b=this.$scrollElement.scrollTop()+this.options.offset,c=this.getScrollHeight(),d=this.options.offset+c-this.$scrollElement.height(),e=this.offsets,f=this.targets,g=this.activeTarget;if(this.scrollHeight!=c&&this.refresh(),b>=d)return g!=(a=f[f.length-1])&&this.activate(a);if(g&&b<e[0])return this.activeTarget=null,this.clear();for(a=e.length;a--;)g!=f[a]&&b>=e[a]&&(void 0===e[a+1]||b<e[a+1])&&this.activate(f[a])},b.prototype.activate=function(b){this.activeTarget=b,this.clear();var c=this.selector+'[data-target="'+b+'"],'+this.selector+'[href="'+b+'"]',d=a(c).parents("li").addClass("active");
+d.parent(".dropdown-menu").length&&(d=d.closest("li.dropdown").addClass("active")),d.trigger("activate.bs.scrollspy")},b.prototype.clear=function(){a(this.selector).parentsUntil(this.options.target,".active").removeClass("active")};var d=a.fn.scrollspy;a.fn.scrollspy=c,a.fn.scrollspy.Constructor=b,a.fn.scrollspy.noConflict=function(){return a.fn.scrollspy=d,this},a(window).on("load.bs.scrollspy.data-api",function(){a('[data-spy="scroll"]').each(function(){var b=a(this);c.call(b,b.data())})})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.tab");e||d.data("bs.tab",e=new c(this)),"string"==typeof b&&e[b]()})}var c=function(b){this.element=a(b)};c.VERSION="3.3.6",c.TRANSITION_DURATION=150,c.prototype.show=function(){var b=this.element,c=b.closest("ul:not(.dropdown-menu)"),d=b.data("target");if(d||(d=b.attr("href"),d=d&&d.replace(/.*(?=#[^\s]*$)/,"")),!b.parent("li").hasClass("active")){var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a.Event("show.bs.tab",{relatedTarget:e[0]});if(e.trigger(f),b.trigger(g),!g.isDefaultPrevented()&&!f.isDefaultPrevented()){var h=a(d);this.activate(b.closest("li"),c),this.activate(h,h.parent(),function(){e.trigger({type:"hidden.bs.tab",relatedTarget:b[0]}),b.trigger({type:"shown.bs.tab",relatedTarget:e[0]})})}}},c.prototype.activate=function(b,d,e){function f(){g.removeClass("active").find("> .dropdown-menu > .active").removeClass("active").end().find('[data-toggle="tab"]').attr("aria-expanded",!1),b.addClass("active").find('[data-toggle="tab"]').attr("aria-expanded",!0),h?(b[0].offsetWidth,b.addClass("in")):b.removeClass("fade"),b.parent(".dropdown-menu").length&&b.closest("li.dropdown").addClass("active").end().find('[data-toggle="tab"]').attr("aria-expanded",!0),e&&e()}var g=d.find("> .active"),h=e&&a.support.transition&&(g.length&&g.hasClass("fade")||!!d.find("> .fade").length);g.length&&h?g.one("bsTransitionEnd",f).emulateTransitionEnd(c.TRANSITION_DURATION):f(),g.removeClass("in")};var d=a.fn.tab;a.fn.tab=b,a.fn.tab.Constructor=c,a.fn.tab.noConflict=function(){return a.fn.tab=d,this};var e=function(c){c.preventDefault(),b.call(a(this),"show")};a(document).on("click.bs.tab.data-api",'[data-toggle="tab"]',e).on("click.bs.tab.data-api",'[data-toggle="pill"]',e)}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.affix"),f="object"==typeof b&&b;e||d.data("bs.affix",e=new c(this,f)),"string"==typeof b&&e[b]()})}var c=function(b,d){this.options=a.extend({},c.DEFAULTS,d),this.$target=a(this.options.target).on("scroll.bs.affix.data-api",a.proxy(this.checkPosition,this)).on("click.bs.affix.data-api",a.proxy(this.checkPositionWithEventLoop,this)),this.$element=a(b),this.affixed=null,this.unpin=null,this.pinnedOffset=null,this.checkPosition()};c.VERSION="3.3.6",c.RESET="affix affix-top affix-bottom",c.DEFAULTS={offset:0,target:window},c.prototype.getState=function(a,b,c,d){var e=this.$target.scrollTop(),f=this.$element.offset(),g=this.$target.height();if(null!=c&&"top"==this.affixed)return c>e?"top":!1;if("bottom"==this.affixed)return null!=c?e+this.unpin<=f.top?!1:"bottom":a-d>=e+g?!1:"bottom";var h=null==this.affixed,i=h?e:f.top,j=h?g:b;return null!=c&&c>=e?"top":null!=d&&i+j>=a-d?"bottom":!1},c.prototype.getPinnedOffset=function(){if(this.pinnedOffset)return this.pinnedOffset;this.$element.removeClass(c.RESET).addClass("affix");var a=this.$target.scrollTop(),b=this.$element.offset();return this.pinnedOffset=b.top-a},c.prototype.checkPositionWithEventLoop=function(){setTimeout(a.proxy(this.checkPosition,this),1)},c.prototype.checkPosition=function(){if(this.$element.is(":visible")){var b=this.$element.height(),d=this.options.offset,e=d.top,f=d.bottom,g=Math.max(a(document).height(),a(document.body).height());"object"!=typeof d&&(f=e=d),"function"==typeof e&&(e=d.top(this.$element)),"function"==typeof f&&(f=d.bottom(this.$element));var h=this.getState(g,b,e,f);if(this.affixed!=h){null!=this.unpin&&this.$element.css("top","");var i="affix"+(h?"-"+h:""),j=a.Event(i+".bs.affix");if(this.$element.trigger(j),j.isDefaultPrevented())return;this.affixed=h,this.unpin="bottom"==h?this.getPinnedOffset():null,this.$element.removeClass(c.RESET).addClass(i).trigger(i.replace("affix","affixed")+".bs.affix")}"bottom"==h&&this.$element.offset({top:g-b-f})}};var d=a.fn.affix;a.fn.affix=b,a.fn.affix.Constructor=c,a.fn.affix.noConflict=function(){return a.fn.affix=d,this},a(window).on("load",function(){a('[data-spy="affix"]').each(function(){var c=a(this),d=c.data();d.offset=d.offset||{},null!=d.offsetBottom&&(d.offset.bottom=d.offsetBottom),null!=d.offsetTop&&(d.offset.top=d.offsetTop),b.call(c,d)})})}(jQuery);;/**
  * @license AngularJS v1.4.8
  * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
@@ -43160,7 +43166,1036 @@ angular.module('ngResource', ['ng']).
 
 
 })(window, window.angular);
-;/**
+;/*!
+ * Jasny Bootstrap v3.1.3 (http://jasny.github.io/bootstrap)
+ * Copyright 2012-2014 Arnold Daniels
+ * Licensed under Apache-2.0 (https://github.com/jasny/bootstrap/blob/master/LICENSE)
+ */
+
+if (typeof jQuery === 'undefined') { throw new Error('Jasny Bootstrap\'s JavaScript requires jQuery') }
+
+/* ========================================================================
+ * Bootstrap: transition.js v3.1.3
+ * http://getbootstrap.com/javascript/#transitions
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+  // ============================================================
+
+  function transitionEnd() {
+    var el = document.createElement('bootstrap')
+
+    var transEndEventNames = {
+      WebkitTransition : 'webkitTransitionEnd',
+      MozTransition    : 'transitionend',
+      OTransition      : 'oTransitionEnd otransitionend',
+      transition       : 'transitionend'
+    }
+
+    for (var name in transEndEventNames) {
+      if (el.style[name] !== undefined) {
+        return { end: transEndEventNames[name] }
+      }
+    }
+
+    return false // explicit for ie8 (  ._.)
+  }
+
+  if ($.support.transition !== undefined) return  // Prevent conflict with Twitter Bootstrap
+
+  // http://blog.alexmaccaw.com/css-transitions
+  $.fn.emulateTransitionEnd = function (duration) {
+    var called = false, $el = this
+    $(this).one($.support.transition.end, function () { called = true })
+    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
+    setTimeout(callback, duration)
+    return this
+  }
+
+  $(function () {
+    $.support.transition = transitionEnd()
+  })
+
+}(window.jQuery);
+
+/* ========================================================================
+ * Bootstrap: offcanvas.js v3.1.3
+ * http://jasny.github.io/bootstrap/javascript/#offcanvas
+ * ========================================================================
+ * Copyright 2013-2014 Arnold Daniels
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License")
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ======================================================================== */
+
++function ($) { "use strict";
+
+  // OFFCANVAS PUBLIC CLASS DEFINITION
+  // =================================
+
+  var OffCanvas = function (element, options) {
+    this.$element = $(element)
+    this.options  = $.extend({}, OffCanvas.DEFAULTS, options)
+    this.state    = null
+    this.placement = null
+    
+    if (this.options.recalc) {
+      this.calcClone()
+      $(window).on('resize', $.proxy(this.recalc, this))
+    }
+    
+    if (this.options.autohide)
+      $(document).on('click', $.proxy(this.autohide, this))
+
+    if (this.options.toggle) this.toggle()
+    
+    if (this.options.disablescrolling) {
+        this.options.disableScrolling = this.options.disablescrolling
+        delete this.options.disablescrolling
+    }
+  }
+
+  OffCanvas.DEFAULTS = {
+    toggle: true,
+    placement: 'auto',
+    autohide: true,
+    recalc: true,
+    disableScrolling: true
+  }
+
+  OffCanvas.prototype.offset = function () {
+    switch (this.placement) {
+      case 'left':
+      case 'right':  return this.$element.outerWidth()
+      case 'top':
+      case 'bottom': return this.$element.outerHeight()
+    }
+  }
+  
+  OffCanvas.prototype.calcPlacement = function () {
+    if (this.options.placement !== 'auto') {
+        this.placement = this.options.placement
+        return
+    }
+    
+    if (!this.$element.hasClass('in')) {
+      this.$element.css('visiblity', 'hidden !important').addClass('in')
+    } 
+    
+    var horizontal = $(window).width() / this.$element.width()
+    var vertical = $(window).height() / this.$element.height()
+        
+    var element = this.$element
+    function ab(a, b) {
+      if (element.css(b) === 'auto') return a
+      if (element.css(a) === 'auto') return b
+      
+      var size_a = parseInt(element.css(a), 10)
+      var size_b = parseInt(element.css(b), 10)
+  
+      return size_a > size_b ? b : a
+    }
+    
+    this.placement = horizontal >= vertical ? ab('left', 'right') : ab('top', 'bottom')
+      
+    if (this.$element.css('visibility') === 'hidden !important') {
+      this.$element.removeClass('in').css('visiblity', '')
+    }
+  }
+  
+  OffCanvas.prototype.opposite = function (placement) {
+    switch (placement) {
+      case 'top':    return 'bottom'
+      case 'left':   return 'right'
+      case 'bottom': return 'top'
+      case 'right':  return 'left'
+    }
+  }
+  
+  OffCanvas.prototype.getCanvasElements = function() {
+    // Return a set containing the canvas plus all fixed elements
+    var canvas = this.options.canvas ? $(this.options.canvas) : this.$element
+    
+    var fixed_elements = canvas.find('*').filter(function() {
+      return $(this).css('position') === 'fixed'
+    }).not(this.options.exclude)
+    
+    return canvas.add(fixed_elements)
+  }
+  
+  OffCanvas.prototype.slide = function (elements, offset, callback) {
+    // Use jQuery animation if CSS transitions aren't supported
+    if (!$.support.transition) {
+      var anim = {}
+      anim[this.placement] = "+=" + offset
+      return elements.animate(anim, 350, callback)
+    }
+
+    var placement = this.placement
+    var opposite = this.opposite(placement)
+    
+    elements.each(function() {
+      if ($(this).css(placement) !== 'auto')
+        $(this).css(placement, (parseInt($(this).css(placement), 10) || 0) + offset)
+      
+      if ($(this).css(opposite) !== 'auto')
+        $(this).css(opposite, (parseInt($(this).css(opposite), 10) || 0) - offset)
+    })
+    
+    this.$element
+      .one($.support.transition.end, callback)
+      .emulateTransitionEnd(350)
+  }
+
+  OffCanvas.prototype.disableScrolling = function() {
+    var bodyWidth = $('body').width()
+    var prop = 'padding-' + this.opposite(this.placement)
+
+    if ($('body').data('offcanvas-style') === undefined) {
+      $('body').data('offcanvas-style', $('body').attr('style') || '')
+    }
+      
+    $('body').css('overflow', 'hidden')
+
+    if ($('body').width() > bodyWidth) {
+      var padding = parseInt($('body').css(prop), 10) + $('body').width() - bodyWidth
+      
+      setTimeout(function() {
+        $('body').css(prop, padding)
+      }, 1)
+    }
+  }
+
+  OffCanvas.prototype.show = function () {
+    if (this.state) return
+    
+    var startEvent = $.Event('show.bs.offcanvas')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    this.state = 'slide-in'
+    this.calcPlacement();
+    
+    var elements = this.getCanvasElements()
+    var placement = this.placement
+    var opposite = this.opposite(placement)
+    var offset = this.offset()
+
+    if (elements.index(this.$element) !== -1) {
+      $(this.$element).data('offcanvas-style', $(this.$element).attr('style') || '')
+      this.$element.css(placement, -1 * offset)
+      this.$element.css(placement); // Workaround: Need to get the CSS property for it to be applied before the next line of code
+    }
+
+    elements.addClass('canvas-sliding').each(function() {
+      if ($(this).data('offcanvas-style') === undefined) $(this).data('offcanvas-style', $(this).attr('style') || '')
+      if ($(this).css('position') === 'static') $(this).css('position', 'relative')
+      if (($(this).css(placement) === 'auto' || $(this).css(placement) === '0px') &&
+          ($(this).css(opposite) === 'auto' || $(this).css(opposite) === '0px')) {
+        $(this).css(placement, 0)
+      }
+    })
+    
+    if (this.options.disableScrolling) this.disableScrolling()
+    
+    var complete = function () {
+      if (this.state != 'slide-in') return
+      
+      this.state = 'slid'
+
+      elements.removeClass('canvas-sliding').addClass('canvas-slid')
+      this.$element.trigger('shown.bs.offcanvas')
+    }
+
+    setTimeout($.proxy(function() {
+      this.$element.addClass('in')
+      this.slide(elements, offset, $.proxy(complete, this))
+    }, this), 1)
+  }
+
+  OffCanvas.prototype.hide = function (fast) {
+    if (this.state !== 'slid') return
+
+    var startEvent = $.Event('hide.bs.offcanvas')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    this.state = 'slide-out'
+
+    var elements = $('.canvas-slid')
+    var placement = this.placement
+    var offset = -1 * this.offset()
+
+    var complete = function () {
+      if (this.state != 'slide-out') return
+      
+      this.state = null
+      this.placement = null
+      
+      this.$element.removeClass('in')
+      
+      elements.removeClass('canvas-sliding')
+      elements.add(this.$element).add('body').each(function() {
+        $(this).attr('style', $(this).data('offcanvas-style')).removeData('offcanvas-style')
+      })
+
+      this.$element.trigger('hidden.bs.offcanvas')
+    }
+
+    elements.removeClass('canvas-slid').addClass('canvas-sliding')
+    
+    setTimeout($.proxy(function() {
+      this.slide(elements, offset, $.proxy(complete, this))
+    }, this), 1)
+  }
+
+  OffCanvas.prototype.toggle = function () {
+    if (this.state === 'slide-in' || this.state === 'slide-out') return
+    this[this.state === 'slid' ? 'hide' : 'show']()
+  }
+
+  OffCanvas.prototype.calcClone = function() {
+    this.$calcClone = this.$element.clone()
+      .html('')
+      .addClass('offcanvas-clone').removeClass('in')
+      .appendTo($('body'))
+  }
+
+  OffCanvas.prototype.recalc = function () {
+    if (this.$calcClone.css('display') === 'none' || (this.state !== 'slid' && this.state !== 'slide-in')) return
+    
+    this.state = null
+    this.placement = null
+    var elements = this.getCanvasElements()
+    
+    this.$element.removeClass('in')
+    
+    elements.removeClass('canvas-slid')
+    elements.add(this.$element).add('body').each(function() {
+      $(this).attr('style', $(this).data('offcanvas-style')).removeData('offcanvas-style')
+    })
+  }
+  
+  OffCanvas.prototype.autohide = function (e) {
+    if ($(e.target).closest(this.$element).length === 0) this.hide()
+  }
+
+  // OFFCANVAS PLUGIN DEFINITION
+  // ==========================
+
+  var old = $.fn.offcanvas
+
+  $.fn.offcanvas = function (option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.offcanvas')
+      var options = $.extend({}, OffCanvas.DEFAULTS, $this.data(), typeof option === 'object' && option)
+
+      if (!data) $this.data('bs.offcanvas', (data = new OffCanvas(this, options)))
+      if (typeof option === 'string') data[option]()
+    })
+  }
+
+  $.fn.offcanvas.Constructor = OffCanvas
+
+
+  // OFFCANVAS NO CONFLICT
+  // ====================
+
+  $.fn.offcanvas.noConflict = function () {
+    $.fn.offcanvas = old
+    return this
+  }
+
+
+  // OFFCANVAS DATA-API
+  // =================
+
+  $(document).on('click.bs.offcanvas.data-api', '[data-toggle=offcanvas]', function (e) {
+    var $this   = $(this), href
+    var target  = $this.attr('data-target')
+        || e.preventDefault()
+        || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') //strip for ie7
+    var $canvas = $(target)
+    var data    = $canvas.data('bs.offcanvas')
+    var option  = data ? 'toggle' : $this.data()
+
+    e.stopPropagation()
+
+    if (data) data.toggle()
+      else $canvas.offcanvas(option)
+  })
+
+}(window.jQuery);
+
+/* ============================================================
+ * Bootstrap: rowlink.js v3.1.3
+ * http://jasny.github.io/bootstrap/javascript/#rowlink
+ * ============================================================
+ * Copyright 2012-2014 Arnold Daniels
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ============================================================ */
+
++function ($) { "use strict";
+
+  var Rowlink = function (element, options) {
+    this.$element = $(element)
+    this.options = $.extend({}, Rowlink.DEFAULTS, options)
+    
+    this.$element.on('click.bs.rowlink', 'td:not(.rowlink-skip)', $.proxy(this.click, this))
+  }
+
+  Rowlink.DEFAULTS = {
+    target: "a"
+  }
+
+  Rowlink.prototype.click = function(e) {
+    var target = $(e.currentTarget).closest('tr').find(this.options.target)[0]
+    if ($(e.target)[0] === target) return
+    
+    e.preventDefault();
+    
+    if (target.click) {
+      target.click()
+    } else if (document.createEvent) {
+      var evt = document.createEvent("MouseEvents"); 
+      evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); 
+      target.dispatchEvent(evt);
+    }
+  }
+
+  
+  // ROWLINK PLUGIN DEFINITION
+  // ===========================
+
+  var old = $.fn.rowlink
+
+  $.fn.rowlink = function (options) {
+    return this.each(function () {
+      var $this = $(this)
+      var data = $this.data('bs.rowlink')
+      if (!data) $this.data('bs.rowlink', (data = new Rowlink(this, options)))
+    })
+  }
+
+  $.fn.rowlink.Constructor = Rowlink
+
+
+  // ROWLINK NO CONFLICT
+  // ====================
+
+  $.fn.rowlink.noConflict = function () {
+    $.fn.rowlink = old
+    return this
+  }
+
+
+  // ROWLINK DATA-API
+  // ==================
+
+  $(document).on('click.bs.rowlink.data-api', '[data-link="row"]', function (e) {
+    if ($(e.target).closest('.rowlink-skip').length !== 0) return
+    
+    var $this = $(this)
+    if ($this.data('bs.rowlink')) return
+    $this.rowlink($this.data())
+    $(e.target).trigger('click.bs.rowlink')
+  })
+  
+}(window.jQuery);
+
+/* ===========================================================
+ * Bootstrap: inputmask.js v3.1.0
+ * http://jasny.github.io/bootstrap/javascript/#inputmask
+ * 
+ * Based on Masked Input plugin by Josh Bush (digitalbush.com)
+ * ===========================================================
+ * Copyright 2012-2014 Arnold Daniels
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License")
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================== */
+
++function ($) { "use strict";
+
+  var isIphone = (window.orientation !== undefined)
+  var isAndroid = navigator.userAgent.toLowerCase().indexOf("android") > -1
+  var isIE = window.navigator.appName == 'Microsoft Internet Explorer'
+
+  // INPUTMASK PUBLIC CLASS DEFINITION
+  // =================================
+
+  var Inputmask = function (element, options) {
+    if (isAndroid) return // No support because caret positioning doesn't work on Android
+    
+    this.$element = $(element)
+    this.options = $.extend({}, Inputmask.DEFAULTS, options)
+    this.mask = String(this.options.mask)
+    
+    this.init()
+    this.listen()
+        
+    this.checkVal() //Perform initial check for existing values
+  }
+
+  Inputmask.DEFAULTS = {
+    mask: "",
+    placeholder: "_",
+    definitions: {
+      '9': "[0-9]",
+      'a': "[A-Za-z]",
+      'w': "[A-Za-z0-9]",
+      '*': "."
+    }
+  }
+
+  Inputmask.prototype.init = function() {
+    var defs = this.options.definitions
+    var len = this.mask.length
+
+    this.tests = [] 
+    this.partialPosition = this.mask.length
+    this.firstNonMaskPos = null
+
+    $.each(this.mask.split(""), $.proxy(function(i, c) {
+      if (c == '?') {
+        len--
+        this.partialPosition = i
+      } else if (defs[c]) {
+        this.tests.push(new RegExp(defs[c]))
+        if (this.firstNonMaskPos === null)
+          this.firstNonMaskPos =  this.tests.length - 1
+      } else {
+        this.tests.push(null)
+      }
+    }, this))
+
+    this.buffer = $.map(this.mask.split(""), $.proxy(function(c, i) {
+      if (c != '?') return defs[c] ? this.options.placeholder : c
+    }, this))
+
+    this.focusText = this.$element.val()
+
+    this.$element.data("rawMaskFn", $.proxy(function() {
+      return $.map(this.buffer, function(c, i) {
+        return this.tests[i] && c != this.options.placeholder ? c : null
+      }).join('')
+    }, this))
+  }
+    
+  Inputmask.prototype.listen = function() {
+    if (this.$element.attr("readonly")) return
+
+    var pasteEventName = (isIE ? 'paste' : 'input') + ".mask"
+
+    this.$element
+      .on("unmask.bs.inputmask", $.proxy(this.unmask, this))
+
+      .on("focus.bs.inputmask", $.proxy(this.focusEvent, this))
+      .on("blur.bs.inputmask", $.proxy(this.blurEvent, this))
+
+      .on("keydown.bs.inputmask", $.proxy(this.keydownEvent, this))
+      .on("keypress.bs.inputmask", $.proxy(this.keypressEvent, this))
+
+      .on(pasteEventName, $.proxy(this.pasteEvent, this))
+  }
+
+  //Helper Function for Caret positioning
+  Inputmask.prototype.caret = function(begin, end) {
+    if (this.$element.length === 0) return
+    if (typeof begin == 'number') {
+      end = (typeof end == 'number') ? end : begin
+      return this.$element.each(function() {
+        if (this.setSelectionRange) {
+          this.setSelectionRange(begin, end)
+        } else if (this.createTextRange) {
+          var range = this.createTextRange()
+          range.collapse(true)
+          range.moveEnd('character', end)
+          range.moveStart('character', begin)
+          range.select()
+        }
+      })
+    } else {
+      if (this.$element[0].setSelectionRange) {
+        begin = this.$element[0].selectionStart
+        end = this.$element[0].selectionEnd
+      } else if (document.selection && document.selection.createRange) {
+        var range = document.selection.createRange()
+        begin = 0 - range.duplicate().moveStart('character', -100000)
+        end = begin + range.text.length
+      }
+      return {
+        begin: begin, 
+        end: end
+      }
+    }
+  }
+  
+  Inputmask.prototype.seekNext = function(pos) {
+    var len = this.mask.length
+    while (++pos <= len && !this.tests[pos]);
+
+    return pos
+  }
+  
+  Inputmask.prototype.seekPrev = function(pos) {
+    while (--pos >= 0 && !this.tests[pos]);
+
+    return pos
+  }
+
+  Inputmask.prototype.shiftL = function(begin,end) {
+    var len = this.mask.length
+
+    if (begin < 0) return
+
+    for (var i = begin, j = this.seekNext(end); i < len; i++) {
+      if (this.tests[i]) {
+        if (j < len && this.tests[i].test(this.buffer[j])) {
+          this.buffer[i] = this.buffer[j]
+          this.buffer[j] = this.options.placeholder
+        } else
+          break
+        j = this.seekNext(j)
+      }
+    }
+    this.writeBuffer()
+    this.caret(Math.max(this.firstNonMaskPos, begin))
+  }
+
+  Inputmask.prototype.shiftR = function(pos) {
+    var len = this.mask.length
+
+    for (var i = pos, c = this.options.placeholder; i < len; i++) {
+      if (this.tests[i]) {
+        var j = this.seekNext(i)
+        var t = this.buffer[i]
+        this.buffer[i] = c
+        if (j < len && this.tests[j].test(t))
+          c = t
+        else
+          break
+      }
+    }
+  },
+
+  Inputmask.prototype.unmask = function() {
+    this.$element
+      .unbind(".mask")
+      .removeData("inputmask")
+  }
+
+  Inputmask.prototype.focusEvent = function() {
+    this.focusText = this.$element.val()
+    var len = this.mask.length 
+    var pos = this.checkVal()
+    this.writeBuffer()
+
+    var that = this
+    var moveCaret = function() {
+      if (pos == len)
+        that.caret(0, pos)
+      else
+        that.caret(pos)
+    }
+
+    moveCaret()
+    setTimeout(moveCaret, 50)
+  }
+
+  Inputmask.prototype.blurEvent = function() {
+    this.checkVal()
+    if (this.$element.val() !== this.focusText)
+      this.$element.trigger('change')
+  }
+
+  Inputmask.prototype.keydownEvent = function(e) {
+    var k = e.which
+
+    //backspace, delete, and escape get special treatment
+    if (k == 8 || k == 46 || (isIphone && k == 127)) {
+      var pos = this.caret(),
+      begin = pos.begin,
+      end = pos.end
+
+      if (end - begin === 0) {
+        begin = k != 46 ? this.seekPrev(begin) : (end = this.seekNext(begin - 1))
+        end = k == 46 ? this.seekNext(end) : end
+      }
+      this.clearBuffer(begin, end)
+      this.shiftL(begin, end - 1)
+
+      return false
+    } else if (k == 27) {//escape
+      this.$element.val(this.focusText)
+      this.caret(0, this.checkVal())
+      return false
+    }
+  }
+
+  Inputmask.prototype.keypressEvent = function(e) {
+    var len = this.mask.length
+
+    var k = e.which,
+    pos = this.caret()
+
+    if (e.ctrlKey || e.altKey || e.metaKey || k < 32)  {//Ignore
+      return true
+    } else if (k) {
+      if (pos.end - pos.begin !== 0) {
+        this.clearBuffer(pos.begin, pos.end)
+        this.shiftL(pos.begin, pos.end - 1)
+      }
+
+      var p = this.seekNext(pos.begin - 1)
+      if (p < len) {
+        var c = String.fromCharCode(k)
+        if (this.tests[p].test(c)) {
+          this.shiftR(p)
+          this.buffer[p] = c
+          this.writeBuffer()
+          var next = this.seekNext(p)
+          this.caret(next)
+        }
+      }
+      return false
+    }
+  }
+
+  Inputmask.prototype.pasteEvent = function() {
+    var that = this
+
+    setTimeout(function() {
+      that.caret(that.checkVal(true))
+    }, 0)
+  }
+
+  Inputmask.prototype.clearBuffer = function(start, end) {
+    var len = this.mask.length
+
+    for (var i = start; i < end && i < len; i++) {
+      if (this.tests[i])
+        this.buffer[i] = this.options.placeholder
+    }
+  }
+
+  Inputmask.prototype.writeBuffer = function() {
+    return this.$element.val(this.buffer.join('')).val()
+  }
+
+  Inputmask.prototype.checkVal = function(allow) {
+    var len = this.mask.length
+    //try to place characters where they belong
+    var test = this.$element.val()
+    var lastMatch = -1
+
+    for (var i = 0, pos = 0; i < len; i++) {
+      if (this.tests[i]) {
+        this.buffer[i] = this.options.placeholder
+        while (pos++ < test.length) {
+          var c = test.charAt(pos - 1)
+          if (this.tests[i].test(c)) {
+            this.buffer[i] = c
+            lastMatch = i
+            break
+          }
+        }
+        if (pos > test.length)
+          break
+      } else if (this.buffer[i] == test.charAt(pos) && i != this.partialPosition) {
+        pos++
+        lastMatch = i
+      }
+    }
+    if (!allow && lastMatch + 1 < this.partialPosition) {
+      this.$element.val("")
+      this.clearBuffer(0, len)
+    } else if (allow || lastMatch + 1 >= this.partialPosition) {
+      this.writeBuffer()
+      if (!allow) this.$element.val(this.$element.val().substring(0, lastMatch + 1))
+    }
+    return (this.partialPosition ? i : this.firstNonMaskPos)
+  }
+
+  
+  // INPUTMASK PLUGIN DEFINITION
+  // ===========================
+
+  var old = $.fn.inputmask
+  
+  $.fn.inputmask = function (options) {
+    return this.each(function () {
+      var $this = $(this)
+      var data = $this.data('bs.inputmask')
+      
+      if (!data) $this.data('bs.inputmask', (data = new Inputmask(this, options)))
+    })
+  }
+
+  $.fn.inputmask.Constructor = Inputmask
+
+
+  // INPUTMASK NO CONFLICT
+  // ====================
+
+  $.fn.inputmask.noConflict = function () {
+    $.fn.inputmask = old
+    return this
+  }
+
+
+  // INPUTMASK DATA-API
+  // ==================
+
+  $(document).on('focus.bs.inputmask.data-api', '[data-mask]', function (e) {
+    var $this = $(this)
+    if ($this.data('bs.inputmask')) return
+    $this.inputmask($this.data())
+  })
+
+}(window.jQuery);
+
+/* ===========================================================
+ * Bootstrap: fileinput.js v3.1.3
+ * http://jasny.github.com/bootstrap/javascript/#fileinput
+ * ===========================================================
+ * Copyright 2012-2014 Arnold Daniels
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License")
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================== */
+
++function ($) { "use strict";
+
+  var isIE = window.navigator.appName == 'Microsoft Internet Explorer'
+
+  // FILEUPLOAD PUBLIC CLASS DEFINITION
+  // =================================
+
+  var Fileinput = function (element, options) {
+    this.$element = $(element)
+    
+    this.$input = this.$element.find(':file')
+    if (this.$input.length === 0) return
+
+    this.name = this.$input.attr('name') || options.name
+
+    this.$hidden = this.$element.find('input[type=hidden][name="' + this.name + '"]')
+    if (this.$hidden.length === 0) {
+      this.$hidden = $('<input type="hidden">').insertBefore(this.$input)
+    }
+
+    this.$preview = this.$element.find('.fileinput-preview')
+    var height = this.$preview.css('height')
+    if (this.$preview.css('display') !== 'inline' && height !== '0px' && height !== 'none') {
+      this.$preview.css('line-height', height)
+    }
+        
+    this.original = {
+      exists: this.$element.hasClass('fileinput-exists'),
+      preview: this.$preview.html(),
+      hiddenVal: this.$hidden.val()
+    }
+    
+    this.listen()
+  }
+  
+  Fileinput.prototype.listen = function() {
+    this.$input.on('change.bs.fileinput', $.proxy(this.change, this))
+    $(this.$input[0].form).on('reset.bs.fileinput', $.proxy(this.reset, this))
+    
+    this.$element.find('[data-trigger="fileinput"]').on('click.bs.fileinput', $.proxy(this.trigger, this))
+    this.$element.find('[data-dismiss="fileinput"]').on('click.bs.fileinput', $.proxy(this.clear, this))
+  },
+
+  Fileinput.prototype.change = function(e) {
+    var files = e.target.files === undefined ? (e.target && e.target.value ? [{ name: e.target.value.replace(/^.+\\/, '')}] : []) : e.target.files
+    
+    e.stopPropagation()
+
+    if (files.length === 0) {
+      this.clear()
+      return
+    }
+
+    this.$hidden.val('')
+    this.$hidden.attr('name', '')
+    this.$input.attr('name', this.name)
+
+    var file = files[0]
+
+    if (this.$preview.length > 0 && (typeof file.type !== "undefined" ? file.type.match(/^image\/(gif|png|jpeg)$/) : file.name.match(/\.(gif|png|jpe?g)$/i)) && typeof FileReader !== "undefined") {
+      var reader = new FileReader()
+      var preview = this.$preview
+      var element = this.$element
+
+      reader.onload = function(re) {
+        var $img = $('<img>')
+        $img[0].src = re.target.result
+        files[0].result = re.target.result
+        
+        element.find('.fileinput-filename').text(file.name)
+        
+        // if parent has max-height, using `(max-)height: 100%` on child doesn't take padding and border into account
+        if (preview.css('max-height') != 'none') $img.css('max-height', parseInt(preview.css('max-height'), 10) - parseInt(preview.css('padding-top'), 10) - parseInt(preview.css('padding-bottom'), 10)  - parseInt(preview.css('border-top'), 10) - parseInt(preview.css('border-bottom'), 10))
+        
+        preview.html($img)
+        element.addClass('fileinput-exists').removeClass('fileinput-new')
+
+        element.trigger('change.bs.fileinput', files)
+      }
+
+      reader.readAsDataURL(file)
+    } else {
+      this.$element.find('.fileinput-filename').text(file.name)
+      this.$preview.text(file.name)
+      
+      this.$element.addClass('fileinput-exists').removeClass('fileinput-new')
+      
+      this.$element.trigger('change.bs.fileinput')
+    }
+  },
+
+  Fileinput.prototype.clear = function(e) {
+    if (e) e.preventDefault()
+    
+    this.$hidden.val('')
+    this.$hidden.attr('name', this.name)
+    this.$input.attr('name', '')
+
+    //ie8+ doesn't support changing the value of input with type=file so clone instead
+    if (isIE) { 
+      var inputClone = this.$input.clone(true);
+      this.$input.after(inputClone);
+      this.$input.remove();
+      this.$input = inputClone;
+    } else {
+      this.$input.val('')
+    }
+
+    this.$preview.html('')
+    this.$element.find('.fileinput-filename').text('')
+    this.$element.addClass('fileinput-new').removeClass('fileinput-exists')
+    
+    if (e !== undefined) {
+      this.$input.trigger('change')
+      this.$element.trigger('clear.bs.fileinput')
+    }
+  },
+
+  Fileinput.prototype.reset = function() {
+    this.clear()
+
+    this.$hidden.val(this.original.hiddenVal)
+    this.$preview.html(this.original.preview)
+    this.$element.find('.fileinput-filename').text('')
+
+    if (this.original.exists) this.$element.addClass('fileinput-exists').removeClass('fileinput-new')
+     else this.$element.addClass('fileinput-new').removeClass('fileinput-exists')
+    
+    this.$element.trigger('reset.bs.fileinput')
+  },
+
+  Fileinput.prototype.trigger = function(e) {
+    this.$input.trigger('click')
+    e.preventDefault()
+  }
+
+  
+  // FILEUPLOAD PLUGIN DEFINITION
+  // ===========================
+
+  var old = $.fn.fileinput
+  
+  $.fn.fileinput = function (options) {
+    return this.each(function () {
+      var $this = $(this),
+          data = $this.data('bs.fileinput')
+      if (!data) $this.data('bs.fileinput', (data = new Fileinput(this, options)))
+      if (typeof options == 'string') data[options]()
+    })
+  }
+
+  $.fn.fileinput.Constructor = Fileinput
+
+
+  // FILEINPUT NO CONFLICT
+  // ====================
+
+  $.fn.fileinput.noConflict = function () {
+    $.fn.fileinput = old
+    return this
+  }
+
+
+  // FILEUPLOAD DATA-API
+  // ==================
+
+  $(document).on('click.fileinput.data-api', '[data-provides="fileinput"]', function (e) {
+    var $this = $(this)
+    if ($this.data('bs.fileinput')) return
+    $this.fileinput($this.data())
+      
+    var $target = $(e.target).closest('[data-dismiss="fileinput"],[data-trigger="fileinput"]');
+    if ($target.length > 0) {
+      e.preventDefault()
+      $target.trigger('click.bs.fileinput')
+    }
+  })
+
+}(window.jQuery);
+;/*!
+angular-xeditable - 0.1.9
+Edit-in-place for angular.js
+Build date: 2015-03-26 
+*/
+angular.module("xeditable",[]).value("editableOptions",{theme:"default",icon_set:"default",buttons:"right",blurElem:"cancel",blurForm:"ignore",activate:"focus",isDisabled:!1,activationEvent:"click"}),angular.module("xeditable").directive("editableBsdate",["editableDirectiveFactory",function(a){return a({directiveName:"editableBsdate",inputTpl:"<div></div>",render:function(){this.parent.render.call(this);var a=angular.element('<input type="text" class="form-control" ng-model="$data"/>'),b=angular.element('<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>'),c=angular.element('<span class="input-group-btn"></span>');a.attr("datepicker-popup",this.attrs.eDatepickerPopupXEditable||"yyyy/MM/dd"),a.attr("is-open",this.attrs.eIsOpen),a.attr("date-disabled",this.attrs.eDateDisabled),a.attr("datepicker-popup",this.attrs.eDatepickerPopup),a.attr("datepicker-mode",this.attrs.eDatepickerMode||"day"),a.attr("min-date",this.attrs.eMinDate),a.attr("max-date",this.attrs.eMaxDate),a.attr("show-weeks",this.attrs.eShowWeeks||!0),a.attr("starting-day",this.attrs.eStartingDay||0),a.attr("init-date",this.attrs.eInitDate||new Date),a.attr("min-mode",this.attrs.eMinMode||"day"),a.attr("max-mode",this.attrs.eMaxMode||"year"),a.attr("format-day",this.attrs.eFormatDay||"dd"),a.attr("format-month",this.attrs.eFormatMonth||"MMMM"),a.attr("format-year",this.attrs.eFormatYear||"yyyy"),a.attr("format-day-header",this.attrs.eFormatDayHeader||"EEE"),a.attr("format-day-title",this.attrs.eFormatDayTitle||"MMMM yyyy"),a.attr("format-month-title",this.attrs.eFormatMonthTitle||"yyyy"),a.attr("year-range",this.attrs.eYearRange||20),a.attr("show-button-bar",this.attrs.eShowButtonBar||!0),a.attr("current-text",this.attrs.eCurrentText||"Today"),a.attr("clear-text",this.attrs.eClearText||"Clear"),a.attr("close-text",this.attrs.eCloseText||"Done"),a.attr("close-on-date-selection",this.attrs.eCloseOnDateSelection||!0),a.attr("date-picker-append-to-body",this.attrs.eDatePickerAppendToBody||!1),a.attr("date-disabled",this.attrs.eDateDisabled),b.attr("ng-click",this.attrs.eNgClick),c.append(b),this.inputEl.prepend(a),this.inputEl.append(c),this.inputEl.removeAttr("class"),this.inputEl.attr("class","input-group")}})}]),angular.module("xeditable").directive("editableBstime",["editableDirectiveFactory",function(a){return a({directiveName:"editableBstime",inputTpl:"<timepicker></timepicker>",render:function(){this.parent.render.call(this);var a=angular.element('<div class="well well-small" style="display:inline-block;"></div>');a.attr("ng-model",this.inputEl.attr("ng-model")),this.inputEl.removeAttr("ng-model"),this.attrs.eNgChange&&(a.attr("ng-change",this.inputEl.attr("ng-change")),this.inputEl.removeAttr("ng-change")),this.inputEl.wrap(a)}})}]),angular.module("xeditable").directive("editableCheckbox",["editableDirectiveFactory",function(a){return a({directiveName:"editableCheckbox",inputTpl:'<input type="checkbox">',render:function(){this.parent.render.call(this),this.attrs.eTitle&&(this.inputEl.wrap("<label></label>"),this.inputEl.parent().append(this.attrs.eTitle))},autosubmit:function(){var a=this;a.inputEl.bind("change",function(){setTimeout(function(){a.scope.$apply(function(){a.scope.$form.$submit()})},500)})}})}]),angular.module("xeditable").directive("editableChecklist",["editableDirectiveFactory","editableNgOptionsParser",function(a,b){return a({directiveName:"editableChecklist",inputTpl:"<span></span>",useCopy:!0,render:function(){this.parent.render.call(this);var a=b(this.attrs.eNgOptions),c='<label ng-repeat="'+a.ngRepeat+'"><input type="checkbox" checklist-model="$parent.$data" checklist-value="'+a.locals.valueFn+'"><span ng-bind="'+a.locals.displayFn+'"></span></label>';this.inputEl.removeAttr("ng-model"),this.inputEl.removeAttr("ng-options"),this.inputEl.html(c)}})}]),angular.module("xeditable").directive("editableCombodate",["editableDirectiveFactory","editableCombodate",function(a,b){return a({directiveName:"editableCombodate",inputTpl:'<input type="text">',render:function(){this.parent.render.call(this);var a=b.getInstance(this.inputEl,{value:new Date(this.scope.$data)}),c=this;a.$widget.find("select").bind("change",function(){c.scope.$data=new Date(a.getValue()).toISOString()})}})}]),function(){var a="text|password|email|tel|number|url|search|color|date|datetime|time|month|week|file".split("|");angular.forEach(a,function(a){var b="editable"+a.charAt(0).toUpperCase()+a.slice(1);angular.module("xeditable").directive(b,["editableDirectiveFactory",function(c){return c({directiveName:b,inputTpl:'<input type="'+a+'">'})}])}),angular.module("xeditable").directive("editableRange",["editableDirectiveFactory",function(a){return a({directiveName:"editableRange",inputTpl:'<input type="range" id="range" name="range">',render:function(){this.parent.render.call(this),this.inputEl.after("<output>{{$data}}</output>")}})}])}(),angular.module("xeditable").directive("editableRadiolist",["editableDirectiveFactory","editableNgOptionsParser",function(a,b){return a({directiveName:"editableRadiolist",inputTpl:"<span></span>",render:function(){this.parent.render.call(this);var a=b(this.attrs.eNgOptions),c='<label ng-repeat="'+a.ngRepeat+'"><input type="radio" ng-disabled="'+this.attrs.eNgDisabled+'" ng-model="$parent.$data" value="{{'+a.locals.valueFn+'}}"><span ng-bind="'+a.locals.displayFn+'"></span></label>';this.inputEl.removeAttr("ng-model"),this.inputEl.removeAttr("ng-options"),this.inputEl.html(c)},autosubmit:function(){var a=this;a.inputEl.bind("change",function(){setTimeout(function(){a.scope.$apply(function(){a.scope.$form.$submit()})},500)})}})}]),angular.module("xeditable").directive("editableSelect",["editableDirectiveFactory",function(a){return a({directiveName:"editableSelect",inputTpl:"<select></select>",autosubmit:function(){var a=this;a.inputEl.bind("change",function(){a.scope.$apply(function(){a.scope.$form.$submit()})})}})}]),angular.module("xeditable").directive("editableTextarea",["editableDirectiveFactory",function(a){return a({directiveName:"editableTextarea",inputTpl:"<textarea></textarea>",addListeners:function(){var a=this;a.parent.addListeners.call(a),a.single&&"no"!==a.buttons&&a.autosubmit()},autosubmit:function(){var a=this;a.inputEl.bind("keydown",function(b){(b.ctrlKey||b.metaKey)&&13===b.keyCode&&a.scope.$apply(function(){a.scope.$form.$submit()})})}})}]),angular.module("xeditable").factory("editableController",["$q","editableUtils",function(a,b){function c(a,c,d,e,f,g,h,i,j,k){var l,m,n=this;n.scope=a,n.elem=d,n.attrs=c,n.inputEl=null,n.editorEl=null,n.single=!0,n.error="",n.theme=f[h.theme]||f["default"],n.parent={},n.icon_set="default"===h.icon_set?g["default"][h.theme]:g.external[h.icon_set],n.inputTpl="",n.directiveName="",n.useCopy=!1,n.single=null,n.buttons="right",n.init=function(b){if(n.single=b,n.name=c.eName||c[n.directiveName],!c[n.directiveName])throw"You should provide value for `"+n.directiveName+"` in editable element!";l=e(c[n.directiveName]),n.buttons=n.single?n.attrs.buttons||h.buttons:"no",c.eName&&n.scope.$watch("$data",function(a){n.scope.$form.$data[c.eName]=a}),c.onshow&&(n.onshow=function(){return n.catchError(e(c.onshow)(a))}),c.onhide&&(n.onhide=function(){return e(c.onhide)(a)}),c.oncancel&&(n.oncancel=function(){return e(c.oncancel)(a)}),c.onbeforesave&&(n.onbeforesave=function(){return n.catchError(e(c.onbeforesave)(a))}),c.onaftersave&&(n.onaftersave=function(){return n.catchError(e(c.onaftersave)(a))}),a.$parent.$watch(c[n.directiveName],function(){n.setLocalValue(),n.handleEmpty()})},n.render=function(){var a=n.theme;n.inputEl=angular.element(n.inputTpl),n.controlsEl=angular.element(a.controlsTpl),n.controlsEl.append(n.inputEl),"no"!==n.buttons&&(n.buttonsEl=angular.element(a.buttonsTpl),n.submitEl=angular.element(a.submitTpl),n.cancelEl=angular.element(a.cancelTpl),n.icon_set&&(n.submitEl.find("span").addClass(n.icon_set.ok),n.cancelEl.find("span").addClass(n.icon_set.cancel)),n.buttonsEl.append(n.submitEl).append(n.cancelEl),n.controlsEl.append(n.buttonsEl),n.inputEl.addClass("editable-has-buttons")),n.errorEl=angular.element(a.errorTpl),n.controlsEl.append(n.errorEl),n.editorEl=angular.element(n.single?a.formTpl:a.noformTpl),n.editorEl.append(n.controlsEl);for(var d in c.$attr)if(!(d.length<=1)){var e=!1,f=d.substring(1,2);if("e"===d.substring(0,1)&&f===f.toUpperCase()&&(e=d.substring(1),"Form"!==e&&"NgSubmit"!==e)){e=e.substring(0,1).toLowerCase()+b.camelToDash(e.substring(1));var g="value"!==e&&""===c[d]?e:c[d];n.inputEl.attr(e,g)}}n.inputEl.addClass("editable-input"),n.inputEl.attr("ng-model","$data"),n.editorEl.addClass(b.camelToDash(n.directiveName)),n.single&&(n.editorEl.attr("editable-form","$form"),n.editorEl.attr("blur",n.attrs.blur||("no"===n.buttons?"cancel":h.blurElem))),angular.isFunction(a.postrender)&&a.postrender.call(n)},n.setLocalValue=function(){n.scope.$data=n.useCopy?angular.copy(l(a.$parent)):l(a.$parent)},n.show=function(){return n.setLocalValue(),n.render(),d.after(n.editorEl),j(n.editorEl)(a),n.addListeners(),d.addClass("editable-hide"),n.onshow()},n.hide=function(){return n.editorEl.remove(),d.removeClass("editable-hide"),n.onhide()},n.cancel=function(){n.oncancel()},n.addListeners=function(){n.inputEl.bind("keyup",function(a){if(n.single)switch(a.keyCode){case 27:n.scope.$apply(function(){n.scope.$form.$cancel()})}}),n.single&&"no"===n.buttons&&n.autosubmit(),n.editorEl.bind("click",function(a){a.which&&1!==a.which||n.scope.$form.$visible&&(n.scope.$form._clicked=!0)})},n.setWaiting=function(a){a?(m=!n.inputEl.attr("disabled")&&!n.inputEl.attr("ng-disabled")&&!n.inputEl.attr("ng-enabled"),m&&(n.inputEl.attr("disabled","disabled"),n.buttonsEl&&n.buttonsEl.find("button").attr("disabled","disabled"))):m&&(n.inputEl.removeAttr("disabled"),n.buttonsEl&&n.buttonsEl.find("button").removeAttr("disabled"))},n.activate=function(a,b){setTimeout(function(){var c=n.inputEl[0];"focus"===h.activate&&c.focus&&(a&&(b=b||a,c.onfocus=function(){var c=this;setTimeout(function(){c.setSelectionRange(a,b)})}),c.focus()),"select"===h.activate&&c.select&&c.select()},0)},n.setError=function(b){angular.isObject(b)||(a.$error=b,n.error=b)},n.catchError=function(a,b){return angular.isObject(a)&&b!==!0?k.when(a).then(angular.bind(this,function(a){this.catchError(a,!0)}),angular.bind(this,function(a){this.catchError(a,!0)})):b&&angular.isObject(a)&&a.status&&200!==a.status&&a.data&&angular.isString(a.data)?(this.setError(a.data),a=a.data):angular.isString(a)&&this.setError(a),a},n.save=function(){l.assign(a.$parent,n.useCopy?angular.copy(n.scope.$data):n.scope.$data)},n.handleEmpty=function(){var b=l(a.$parent),c=null===b||void 0===b||""===b||angular.isArray(b)&&0===b.length;d.toggleClass("editable-empty",c)},n.autosubmit=angular.noop,n.onshow=angular.noop,n.onhide=angular.noop,n.oncancel=angular.noop,n.onbeforesave=angular.noop,n.onaftersave=angular.noop}return c.$inject=["$scope","$attrs","$element","$parse","editableThemes","editableIcons","editableOptions","$rootScope","$compile","$q"],c}]),angular.module("xeditable").factory("editableDirectiveFactory",["$parse","$compile","editableThemes","$rootScope","$document","editableController","editableFormController","editableOptions",function(a,b,c,d,e,f,g,h){return function(b){return{restrict:"A",scope:!0,require:[b.directiveName,"?^form"],controller:f,link:function(c,f,i,j){var k,l=j[0],m=!1;if(j[1])k=j[1],m=!0;else if(i.eForm){var n=a(i.eForm)(c);if(n)k=n,m=!0;else for(var o=0;o<e[0].forms.length;o++)if(e[0].forms[o].name===i.eForm){k=null,m=!0;break}}angular.forEach(b,function(a,b){void 0!==l[b]&&(l.parent[b]=l[b])}),angular.extend(l,b);var p=angular.isDefined(i.editDisabled)?c.$eval(i.editDisabled):h.isDisabled;if(!p)if(l.init(!m),c.$editable=l,f.addClass("editable"),m)if(k){if(c.$form=k,!c.$form.$addEditable)throw"Form with editable elements should have `editable-form` attribute.";c.$form.$addEditable(l)}else d.$$editableBuffer=d.$$editableBuffer||{},d.$$editableBuffer[i.eForm]=d.$$editableBuffer[i.eForm]||[],d.$$editableBuffer[i.eForm].push(l),c.$form=null;else c.$form=g(),c.$form.$addEditable(l),i.eForm&&(c.$parent[i.eForm]=c.$form),(!i.eForm||i.eClickable)&&(f.addClass("editable-click"),f.bind(h.activationEvent,function(a){a.preventDefault(),a.editable=l,c.$apply(function(){c.$form.$show()})}))}}}}]),angular.module("xeditable").factory("editableFormController",["$parse","$document","$rootScope","editablePromiseCollection","editableUtils",function(a,b,c,d,e){var f=[],g=function(a,b){if(b==a)return!0;for(var c=b.parentNode;null!==c;){if(c==a)return!0;c=c.parentNode}return!1},h=function(a,b){var c=!0,d=a.$editables;return angular.forEach(d,function(a){var d=a.editorEl[0];g(d,b.target)&&(c=!1)}),c};b.bind("click",function(a){if(!(a.which&&1!==a.which||a.isDefaultPrevented())){for(var b=[],d=[],e=0;e<f.length;e++)f[e]._clicked?f[e]._clicked=!1:f[e].$waiting||("cancel"===f[e]._blur&&h(f[e],a)&&b.push(f[e]),"submit"===f[e]._blur&&h(f[e],a)&&d.push(f[e]));(b.length||d.length)&&c.$apply(function(){angular.forEach(b,function(a){a.$cancel()}),angular.forEach(d,function(a){a.$submit()})})}});var i={$addEditable:function(a){this.$editables.push(a),a.elem.bind("$destroy",angular.bind(this,this.$removeEditable,a)),a.scope.$form||(a.scope.$form=this),this.$visible&&a.catchError(a.show())},$removeEditable:function(a){for(var b=0;b<this.$editables.length;b++)if(this.$editables[b]===a)return void this.$editables.splice(b,1)},$show:function(){if(!this.$visible){this.$visible=!0;var a=d();a.when(this.$onshow()),this.$setError(null,""),angular.forEach(this.$editables,function(b){a.when(b.show())}),a.then({onWait:angular.bind(this,this.$setWaiting),onTrue:angular.bind(this,this.$activate),onFalse:angular.bind(this,this.$activate),onString:angular.bind(this,this.$activate)}),setTimeout(angular.bind(this,function(){this._clicked=!1,-1===e.indexOf(f,this)&&f.push(this)}),0)}},$activate:function(a){var b;if(this.$editables.length){if(angular.isString(a))for(b=0;b<this.$editables.length;b++)if(this.$editables[b].name===a)return void this.$editables[b].activate();for(b=0;b<this.$editables.length;b++)if(this.$editables[b].error)return void this.$editables[b].activate();this.$editables[0].activate(this.$editables[0].elem[0].selectionStart,this.$editables[0].elem[0].selectionEnd)}},$hide:function(){this.$visible&&(this.$visible=!1,this.$onhide(),angular.forEach(this.$editables,function(a){a.hide()}),e.arrayRemove(f,this))},$cancel:function(){this.$visible&&(this.$oncancel(),angular.forEach(this.$editables,function(a){a.cancel()}),this.$hide())},$setWaiting:function(a){this.$waiting=!!a,angular.forEach(this.$editables,function(b){b.setWaiting(!!a)})},$setError:function(a,b){angular.forEach(this.$editables,function(c){a&&c.name!==a||c.setError(b)})},$submit:function(){function a(a){var b=d();b.when(this.$onbeforesave()),b.then({onWait:angular.bind(this,this.$setWaiting),onTrue:a?angular.bind(this,this.$save):angular.bind(this,this.$hide),onFalse:angular.bind(this,this.$hide),onString:angular.bind(this,this.$activate)})}if(!this.$waiting){this.$setError(null,"");var b=d();angular.forEach(this.$editables,function(a){b.when(a.onbeforesave())}),b.then({onWait:angular.bind(this,this.$setWaiting),onTrue:angular.bind(this,a,!0),onFalse:angular.bind(this,a,!1),onString:angular.bind(this,this.$activate)})}},$save:function(){angular.forEach(this.$editables,function(a){a.save()});var a=d();a.when(this.$onaftersave()),angular.forEach(this.$editables,function(b){a.when(b.onaftersave())}),a.then({onWait:angular.bind(this,this.$setWaiting),onTrue:angular.bind(this,this.$hide),onFalse:angular.bind(this,this.$hide),onString:angular.bind(this,this.$activate)})},$onshow:angular.noop,$oncancel:angular.noop,$onhide:angular.noop,$onbeforesave:angular.noop,$onaftersave:angular.noop};return function(){return angular.extend({$editables:[],$visible:!1,$waiting:!1,$data:{},_clicked:!1,_blur:null},i)}}]),angular.module("xeditable").directive("editableForm",["$rootScope","$parse","editableFormController","editableOptions",function(a,b,c,d){return{restrict:"A",require:["form"],compile:function(){return{pre:function(b,d,e,f){var g,h=f[0];e.editableForm?b[e.editableForm]&&b[e.editableForm].$show?(g=b[e.editableForm],angular.extend(h,g)):(g=c(),b[e.editableForm]=g,angular.extend(g,h)):(g=c(),angular.extend(h,g));var i=a.$$editableBuffer,j=h.$name;j&&i&&i[j]&&(angular.forEach(i[j],function(a){g.$addEditable(a)}),delete i[j])},post:function(a,c,e,f){var g;g=e.editableForm&&a[e.editableForm]&&a[e.editableForm].$show?a[e.editableForm]:f[0],e.onshow&&(g.$onshow=angular.bind(g,b(e.onshow),a)),e.onhide&&(g.$onhide=angular.bind(g,b(e.onhide),a)),e.oncancel&&(g.$oncancel=angular.bind(g,b(e.oncancel),a)),e.shown&&b(e.shown)(a)&&g.$show(),g._blur=e.blur||d.blurForm,e.ngSubmit||e.submit||(e.onbeforesave&&(g.$onbeforesave=function(){return b(e.onbeforesave)(a,{$data:g.$data})}),e.onaftersave&&(g.$onaftersave=function(){return b(e.onaftersave)(a,{$data:g.$data})}),c.bind("submit",function(b){b.preventDefault(),a.$apply(function(){g.$submit()})})),c.bind("click",function(a){a.which&&1!==a.which||g.$visible&&(g._clicked=!0)})}}}}}]),angular.module("xeditable").factory("editablePromiseCollection",["$q",function(a){function b(){return{promises:[],hasFalse:!1,hasString:!1,when:function(b,c){if(b===!1)this.hasFalse=!0;else if(!c&&angular.isObject(b))this.promises.push(a.when(b));else{if(!angular.isString(b))return;this.hasString=!0}},then:function(b){function c(){h.hasString||h.hasFalse?!h.hasString&&h.hasFalse?e():f():d()}b=b||{};var d=b.onTrue||angular.noop,e=b.onFalse||angular.noop,f=b.onString||angular.noop,g=b.onWait||angular.noop,h=this;this.promises.length?(g(!0),a.all(this.promises).then(function(a){g(!1),angular.forEach(a,function(a){h.when(a,!0)}),c()},function(){g(!1),f()})):c()}}}return b}]),angular.module("xeditable").factory("editableUtils",[function(){return{indexOf:function(a,b){if(a.indexOf)return a.indexOf(b);for(var c=0;c<a.length;c++)if(b===a[c])return c;return-1},arrayRemove:function(a,b){var c=this.indexOf(a,b);return c>=0&&a.splice(c,1),b},camelToDash:function(a){var b=/[A-Z]/g;return a.replace(b,function(a,b){return(b?"-":"")+a.toLowerCase()})},dashToCamel:function(a){var b=/([\:\-\_]+(.))/g,c=/^moz([A-Z])/;return a.replace(b,function(a,b,c,d){return d?c.toUpperCase():c}).replace(c,"Moz$1")}}}]),angular.module("xeditable").factory("editableNgOptionsParser",[function(){function a(a){var c;if(!(c=a.match(b)))throw"ng-options parse error";var d,e=c[2]||c[1],f=c[4]||c[6],g=c[5],h=(c[3]||"",c[2]?c[1]:f),i=c[7],j=c[8],k=j?c[8]:null;return void 0===g?(d=f+" in "+i,void 0!==j&&(d+=" track by "+k)):d="("+g+", "+f+") in "+i,{ngRepeat:d,locals:{valueName:f,keyName:g,valueFn:h,displayFn:e}}}var b=/^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+(.*?)(?:\s+track\s+by\s+(.*?))?$/;return a}]),angular.module("xeditable").factory("editableCombodate",[function(){function a(a,b){if(this.$element=angular.element(a),"INPUT"!=this.$element[0].nodeName)throw"Combodate should be applied to INPUT element";this.defaults={format:"YYYY-MM-DD HH:mm",template:"D / MMM / YYYY   H : mm",value:null,minYear:1970,maxYear:2015,yearDescending:!0,minuteStep:5,secondStep:1,firstItem:"empty",errorClass:null,customClass:"",roundTime:!0,smartDays:!0},this.options=angular.extend({},this.defaults,b),this.init()}return a.prototype={constructor:a,init:function(){if(this.map={day:["D","date"],month:["M","month"],year:["Y","year"],hour:["[Hh]","hours"],minute:["m","minutes"],second:["s","seconds"],ampm:["[Aa]",""]},this.$widget=angular.element('<span class="combodate"></span>').html(this.getTemplate()),this.initCombos(),this.options.smartDays){var a=this;this.$widget.find("select").bind("change",function(b){(angular.element(b.target).hasClass("month")||angular.element(b.target).hasClass("year"))&&a.fillCombo("day")})}this.$widget.find("select").css("width","auto"),this.$element.css("display","none").after(this.$widget),this.setValue(this.$element.val()||this.options.value)},getTemplate:function(){var a=this.options.template,b=this.options.customClass;return angular.forEach(this.map,function(b){b=b[0];var c=new RegExp(b+"+"),d=b.length>1?b.substring(1,2):b;a=a.replace(c,"{"+d+"}")}),a=a.replace(/ /g,"&nbsp;"),angular.forEach(this.map,function(c,d){c=c[0];var e=c.length>1?c.substring(1,2):c;a=a.replace("{"+e+"}",'<select class="'+d+" "+b+'"></select>')}),a},initCombos:function(){for(var a in this.map){var b=this.$widget[0].querySelectorAll("."+a);this["$"+a]=b.length?angular.element(b):null,this.fillCombo(a)}},fillCombo:function(a){var b=this["$"+a];if(b){var c="fill"+a.charAt(0).toUpperCase()+a.slice(1),d=this[c](),e=b.val();b.html("");for(var f=0;f<d.length;f++)b.append('<option value="'+d[f][0]+'">'+d[f][1]+"</option>");b.val(e)}},fillCommon:function(a){var b,c=[];if("name"===this.options.firstItem){b=moment.relativeTime||moment.langData()._relativeTime;var d="function"==typeof b[a]?b[a](1,!0,a,!1):b[a];d=d.split(" ").reverse()[0],c.push(["",d])}else"empty"===this.options.firstItem&&c.push(["",""]);return c},fillDay:function(){var a,b,c=this.fillCommon("d"),d=-1!==this.options.template.indexOf("DD"),e=31;if(this.options.smartDays&&this.$month&&this.$year){var f=parseInt(this.$month.val(),10),g=parseInt(this.$year.val(),10);isNaN(f)||isNaN(g)||(e=moment([g,f]).daysInMonth())}for(b=1;e>=b;b++)a=d?this.leadZero(b):b,c.push([b,a]);return c},fillMonth:function(){var a,b,c=this.fillCommon("M"),d=-1!==this.options.template.indexOf("MMMM"),e=-1!==this.options.template.indexOf("MMM"),f=-1!==this.options.template.indexOf("MM");for(b=0;11>=b;b++)a=d?moment().date(1).month(b).format("MMMM"):e?moment().date(1).month(b).format("MMM"):f?this.leadZero(b+1):b+1,c.push([b,a]);return c},fillYear:function(){var a,b,c=[],d=-1!==this.options.template.indexOf("YYYY");for(b=this.options.maxYear;b>=this.options.minYear;b--)a=d?b:(b+"").substring(2),c[this.options.yearDescending?"push":"unshift"]([b,a]);return c=this.fillCommon("y").concat(c)},fillHour:function(){var a,b,c=this.fillCommon("h"),d=-1!==this.options.template.indexOf("h"),e=(-1!==this.options.template.indexOf("H"),-1!==this.options.template.toLowerCase().indexOf("hh")),f=d?1:0,g=d?12:23;for(b=f;g>=b;b++)a=e?this.leadZero(b):b,c.push([b,a]);return c},fillMinute:function(){var a,b,c=this.fillCommon("m"),d=-1!==this.options.template.indexOf("mm");for(b=0;59>=b;b+=this.options.minuteStep)a=d?this.leadZero(b):b,c.push([b,a]);return c},fillSecond:function(){var a,b,c=this.fillCommon("s"),d=-1!==this.options.template.indexOf("ss");for(b=0;59>=b;b+=this.options.secondStep)a=d?this.leadZero(b):b,c.push([b,a]);return c},fillAmpm:function(){var a=-1!==this.options.template.indexOf("a"),b=(-1!==this.options.template.indexOf("A"),[["am",a?"am":"AM"],["pm",a?"pm":"PM"]]);return b},getValue:function(a){var b,c={},d=this,e=!1;return angular.forEach(this.map,function(a,b){if("ampm"!==b){var f="day"===b?1:0;return c[b]=d["$"+b]?parseInt(d["$"+b].val(),10):f,isNaN(c[b])?(e=!0,!1):void 0}}),e?"":(this.$ampm&&(c.hour=12===c.hour?"am"===this.$ampm.val()?0:12:"am"===this.$ampm.val()?c.hour:c.hour+12),b=moment([c.year,c.month,c.day,c.hour,c.minute,c.second]),this.highlight(b),a=void 0===a?this.options.format:a,null===a?b.isValid()?b:null:b.isValid()?b.format(a):"")},setValue:function(a){function b(a,b){var c={};return angular.forEach(a.children("option"),function(a){var d=angular.element(a).attr("value");if(""!==d){var e=Math.abs(d-b);("undefined"==typeof c.distance||e<c.distance)&&(c={value:d,distance:e})}}),c.value}if(a){var c="string"==typeof a?moment(a,this.options.format,!0):moment(a),d=this,e={};c.isValid()&&(angular.forEach(this.map,function(a,b){"ampm"!==b&&(e[b]=c[a[1]]())}),this.$ampm&&(e.hour>=12?(e.ampm="pm",e.hour>12&&(e.hour-=12)):(e.ampm="am",0===e.hour&&(e.hour=12))),angular.forEach(e,function(a,c){d["$"+c]&&("minute"===c&&d.options.minuteStep>1&&d.options.roundTime&&(a=b(d["$"+c],a)),"second"===c&&d.options.secondStep>1&&d.options.roundTime&&(a=b(d["$"+c],a)),d["$"+c].val(a))}),this.options.smartDays&&this.fillCombo("day"),this.$element.val(c.format(this.options.format)).triggerHandler("change"))}},highlight:function(a){a.isValid()?this.options.errorClass?this.$widget.removeClass(this.options.errorClass):this.$widget.find("select").css("border-color",this.borderColor):this.options.errorClass?this.$widget.addClass(this.options.errorClass):(this.borderColor||(this.borderColor=this.$widget.find("select").css("border-color")),this.$widget.find("select").css("border-color","red"))},leadZero:function(a){return 9>=a?"0"+a:a},destroy:function(){this.$widget.remove(),this.$element.removeData("combodate").show()}},{getInstance:function(b,c){return new a(b,c)}}}]),angular.module("xeditable").factory("editableIcons",function(){var a={"default":{bs2:{ok:"icon-ok icon-white",cancel:"icon-remove"},bs3:{ok:"glyphicon glyphicon-ok",cancel:"glyphicon glyphicon-remove"}},external:{"font-awesome":{ok:"fa fa-check",cancel:"fa fa-times"}}};return a}),angular.module("xeditable").factory("editableThemes",function(){var a={"default":{formTpl:'<form class="editable-wrap"></form>',noformTpl:'<span class="editable-wrap"></span>',controlsTpl:'<span class="editable-controls"></span>',inputTpl:"",errorTpl:'<div class="editable-error" ng-show="$error" ng-bind="$error"></div>',buttonsTpl:'<span class="editable-buttons"></span>',submitTpl:'<button type="submit">save</button>',cancelTpl:'<button type="button" ng-click="$form.$cancel()">cancel</button>'},bs2:{formTpl:'<form class="form-inline editable-wrap" role="form"></form>',noformTpl:'<span class="editable-wrap"></span>',controlsTpl:'<div class="editable-controls controls control-group" ng-class="{\'error\': $error}"></div>',inputTpl:"",errorTpl:'<div class="editable-error help-block" ng-show="$error" ng-bind="$error"></div>',buttonsTpl:'<span class="editable-buttons"></span>',submitTpl:'<button type="submit" class="btn btn-primary"><span></span></button>',cancelTpl:'<button type="button" class="btn" ng-click="$form.$cancel()"><span></span></button>'},bs3:{formTpl:'<form class="form-inline editable-wrap" role="form"></form>',noformTpl:'<span class="editable-wrap"></span>',controlsTpl:'<div class="editable-controls form-group" ng-class="{\'has-error\': $error}"></div>',inputTpl:"",errorTpl:'<div class="editable-error help-block" ng-show="$error" ng-bind="$error"></div>',buttonsTpl:'<span class="editable-buttons"></span>',submitTpl:'<button type="submit" class="btn btn-primary"><span></span></button>',cancelTpl:'<button type="button" class="btn btn-default" ng-click="$form.$cancel()"><span></span></button>',buttonsClass:"",inputClass:"",postrender:function(){switch(this.directiveName){case"editableText":case"editableSelect":case"editableTextarea":case"editableEmail":case"editableTel":case"editableNumber":case"editableUrl":case"editableSearch":case"editableDate":case"editableDatetime":case"editableBsdate":case"editableTime":case"editableMonth":case"editableWeek":if(this.inputEl.addClass("form-control"),this.theme.inputClass){if(this.inputEl.attr("multiple")&&("input-sm"===this.theme.inputClass||"input-lg"===this.theme.inputClass))break;this.inputEl.addClass(this.theme.inputClass)}break;case"editableCheckbox":this.editorEl.addClass("checkbox")}this.buttonsEl&&this.theme.buttonsClass&&this.buttonsEl.find("button").addClass(this.theme.buttonsClass)}}};return a});;/**
  * @license AngularJS v1.4.8
  * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
@@ -58406,65 +59441,63 @@ angular
         'clipr.clipped',
         'clipr.sidebar',
         'clipr.suggested',
-        'clipr.categories'
+        'clipr.categories',
+        'xeditable'
     ])
 
+
 .run(function($rootScope, $state, AuthService) {
-        $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-            if (toState.authenticate && !AuthService.isAuthenticated()) {
-                $state.transitionTo("landing");
-                event.preventDefault();
-            }
-        });
-    })
-    .controller("AppController", ['$scope', '$location', function($scope, $location) {
-        //authentication
-    }])
+    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+      if (toState.authenticate && !AuthService.isAuthenticated()) {
+        $state.transitionTo("landing");
+        event.preventDefault();
+      }
+    });
+  })
+  .controller("AppController", ['$scope', '$location', function($scope, $location) {
+    //authentication
+  }])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/');
 
-    $stateProvider
-        .state('landing', {
-            url: "/landing",
-            views: {
-                "main": {
-                    templateUrl: 'html/landingView.html',
-                    controller: 'landingController'
-                }
-            }
-        })
-        .state('categories',{
-            url:"/categories",
-            views:{
-                "main":{
-                    templateUrl:'html/categories.html',
-                    controller: 'CategoryController'
-                },
-                "header@categories":{
-                    templateUrl:'html/header.html',
-                    controller:'ClipController'
-                }
-            }
-        })
-        .state('main', {
-            authenticate: true,
-            url: "/clips",
-            views: {
-                "main": {
-                    templateUrl: 'html/clippedView.html',
-                    controller: 'ClipController'
-                },
-                "header@categories":{
-                    templateUrl:'html/header.html',
-                    controller:'ClipController'
-                }
-                // 'sidebar@main': {
-                //     templateUrl: 'html/sidebarView.html',
-                //     controller: 'SidebarController'
-                // }
-            }
-        });
+  $stateProvider
+    .state('landing', {
+      url: "/landing",
+      views: {
+        "main": {
+          templateUrl: 'html/landingView.html',
+          controller: 'ClipController'
+        }
+      }
+    })
+    .state('categories', {
+      url: "/categories",
+      views: {
+        "main": {
+          templateUrl: 'html/categories.html',
+          controller: 'CategoryController'
+        },
+        "header@categories": {
+          templateUrl: 'html/header.html',
+          controller: 'ClipController'
+        }
+      }
+    })
+    .state('main', {
+      authenticate: true,
+      url: "/clips",
+      views: {
+        "main": {
+          templateUrl: 'html/clippedView.html',
+          controller: 'ClipController'
+        },
+        "header@categories": {
+          templateUrl: 'html/header.html',
+          controller: 'ClipController'
+        }
+      }
+    });
 
 }]);angular.module('clipr.services', ['ngCookies'])
 
@@ -58481,29 +59514,30 @@ angular
   };
 })
 
-.factory('Clips', ["$http", function($http) {
+.factory('Clips', ["$http", "$state", "$cookies", function($http, $state, $cookies) {
   //loadClips - hhtp request to server func
   //return back array of clip objects
   var clips = {
     data: {},
     clips: [],
-    categories: {}
+    categories: {},
+    collections: {}
   };
 
   var loadClipsByCategory = function(topic) {
     var categorizedClips = [];
     if (topic === 'all') {
-      clips.clips = clips.data;
-    }
-    for (var x = 0; x < clips.data.length; x++) {
-      var node = clips.data[x];
-      console.log(node);
-      if (node.category === topic) {
-        categorizedClips.push(node);
+      for (var key in clips.categories) {
+        for (var clip in clips.categories[key]){
+          categorizedClips.push(clips.categories[key][clip]);
+        }
+      }
+    } else {
+      for (var key in clips.categories[topic]) {
+        categorizedClips.push(clips.categories[topic][key]);
       }
     }
     clips.clips = categorizedClips;
-      console.log("clips.clips__++++_+++ ",  clips.clips);
   };
 
   var loadAllClips = function(cookie) {
@@ -58514,37 +59548,54 @@ angular
         cookie: cookie
       }
     }).then(function(response) {
-      clips.data= response.data;
-      clips.clips= response.data;
-      clips.categories={};
+      clips.data = response.data;
+      clips.clips = response.data;
+      clips.categories = {}
       for (var x = 0; x < response.data.length; x++) {
-        //check if clip exists in data
-        var clip= response.data[x].clips;
 
-        var clipNode= response.data[x];
-         //if exists
-         if (clips.data[clip.clipUrl]){
-          clips.data[clip.clipUrl].suggestions.push(clipNode.suggestions);
-         }else{
-          clips.data[clip.clipUrl]= clipNode.clips;
-          clips.data[clip.clipUrl].suggestions=[clipNode.suggestions];
-         }
+        var clip = response.data[x].clips;
+        var suggestion = response.data[x].suggestions;
 
         if (!clips.categories[clip.category]) {
-          clips.categories[clip.category] = [clip];
+          clips.categories[clip.category] = {}
+          clips.categories[clip.category][clip.title] = clip;
+          clips.categories[clip.category][clip.title].suggestions = [suggestion];
+          console.log(clips.categories[clip.category][clip.title])
         } else {
-          clips.categories[clip.category].push(clip);
+          if (clips.categories[clip.category][clip.title]) {
+            clips.categories[clip.category][clip.title].suggestions.push(suggestion);
+          } else {
+            clips.categories[clip.category][clip.title] = clip;
+            clips.categories[clip.category][clip.title].suggestions = [suggestion];
+          }
         }
+        console.log('clips.categories', clips.categories);
       }
-      console.log('CLIPS DATA LOOKS LIKE THIS ::::::::::::::::::::::::::::::::::::::', clips.data);
-      console.log('CLIPS CLIPS LOOKS LIKE THIS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', clips.clips);
+      loadClipsByCategory('all');
     });
   };
+
+  var changeCategory = function(category, clipTitle) {
+    return $http({
+      method: 'POST',
+      url: '/changeCategory',
+      params: {
+        category: category,
+        clipTitle: clipTitle
+      }
+    }).then(function(response) {
+      loadAllClips($cookies.get('clipr')).then(function(response) {
+        console.log('response')
+        loadClipsByCategory(category);
+      });
+    })
+  }
 
   return {
     loadClipsByCategory: loadClipsByCategory,
     loadAllClips: loadAllClips,
-    clips: clips
+    clips: clips,
+    changeCategory: changeCategory
   };
 
 }])
@@ -58616,38 +59667,9 @@ angular
     isAuthenticated: isAuthenticated,
     logOut: logOut
   };
-}])
 
-  //Call server to get back suggested websites
-.factory('Suggestions', ['$http', function ($http){
-  var content = {
-    data: null
-  };
-
-  var getContent = function (title) {
-    console.log('URL BEING PASSED TO SERVER', title);
-    return $http({
-      method: 'GET',
-      url: '/getSuggestions',
-      params: {
-        title: title
-      }
-    }).then(function (response) {
-      content.data = response.data;
-      console.log("this is content.data ", content.data);
-    })
-    .catch(function (err) {
-      if(err) {
-        console.log('error inside getContent ', err);
-      }
-    });
-  };
-
-  return {
-    content: content,
-    getContent: getContent
-  };
-}]);;angular.module('clipr.categories', [])
+}]);
+;angular.module('clipr.categories', [])
 
 .controller('CategoryController', ['$scope', 'Clips','$cookies','$state', function($scope, Clips, $cookies, $state) {
 
@@ -58672,127 +59694,127 @@ angular
 
 }]);angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', 'Suggestions', '$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, Suggestions, $cookies) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies','$state', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies, $state) {
 
-   $scope.clips = Clips.clips;
-   $scope.clipShow = false;
-   $scope.categories= Clips.clips;
+  $scope.clips = Clips.clips;
+  $scope.clipShow = false;
+  $scope.categories=Clips.clips;
 
-   $scope.loadAllClips = function() {
-     Clips.loadAllClips($cookies.get('clipr'));
-     console.log('SCOPE CLIPS ----------------------------------------', $scope.clips);
-   };
 
   $scope.loadClipsByCategory = function(category) {
     Clips.loadClipsByCategory(category);
-    $state.go('main');
+    $state.go('main')
   }
+
+  $scope.navToClips = function() {
+   Clips.loadAllClips($cookies.get('clipr'));
+   $state.go('main')
+ };
+
+  $scope.loadAllClips = function() {
+    Clips.loadAllClips($cookies.get('clipr'));
+  };
 
 $scope.loadAllClips();
 
-   $scope.logOut = function() {
-     AuthService.logOut();
-   };
+  $scope.logOut = function() {
+    AuthService.logOut();
+  };
 
-   $scope.clipToggle = function() {
-       if($scope.clipShow===false){
-           $scope.clipShow=true;
-       }
-       if($scope.clipShow===true){
-           $scope.clipShow=false;
-       }
-   };
+  $scope.clipToggle = function() {
+    if ($scope.clipShow === false) {
+      $scope.clipShow = true;
+    }
+    if ($scope.clipShow === true) {
+      $scope.clipShow = false;
+    }
+  };
 
-   $scope.showModal = function(clipUrl, title) {
-     $scope.opts = {
-       size: 'lg',
-       backdrop: true,
-       backdropClick: true,
-       dialogFade: false,
-       keyboard: true,
-       templateUrl: 'html/clipSelectView.html',
-       controller: ModalInstanceCtrl,
-       resolve: {}
-     };
+  $scope.changeCategory = function(category, clipTitle) {
+    Clips.changeCategory(category, clipTitle);
+  }
 
-     $scope.opts.resolve.item = function() {
-       return angular.copy({
-         clip: clipUrl,
-         title: title
-       }); // pass name to Dialog
-     };
+  $scope.showModal = function(clip, size) {
+    $scope.opts = {
+      size: size,
+      backdrop: true,
+      backdropClick: true,
+      dialogFade: false,
+      keyboard: true,
+      templateUrl: 'html/clipSelectView.html',
+      controller: ModalInstanceCtrl,
+      resolve: {}
+    };
 
-     var modalInstance = $modal.open($scope.opts);
-     modalInstance.result.then(function() {
-       //on ok button press
-     }, function() {
-       //on cancel button press
-       console.log("Modal Closed");
-     });
-   };
+    $scope.opts.resolve.item = function() {
+      return angular.copy({
+        clipUrl: clip.clipUrl, 
+        category: clip.category,
+        clip: clip
+      }); // pass name to Dialog
+    };
 
-   $scope.openAside = function(position) {
-     console.log('inside asiiiiideee');
-     $aside.open({
-       templateUrl: 'html/categorySuggestionsView.html',
-       placement: position,
-       backdrop: false,
-       controller: function($scope, $modalInstance) {
-         $scope.ok = function(e) {
-           $modalInstance.close();
-           e.stopPropagation();
-         };
-         $scope.cancel = function(e) {
-           $modalInstance.dismiss();
-           e.stopPropagation();
-         };
-       }
-     });
-   };
+    var modalInstance = $modal.open($scope.opts);
+    modalInstance.result.then(function() {
+      //on ok button press
+    }, function() {
+      //on cancel button press
+      console.log("Modal Closed");
+    });
+  };
+
+  $scope.openAside = function(position) {
+    console.log('inside asiiiiideee');
+    $aside.open({
+      templateUrl: './Suggestions/categorySuggestionsView.html',
+      placement: position,
+      backdrop: false,
+      controller: function($scope, $modalInstance) {
+        $scope.ok = function(e) {
+          $modalInstance.close();
+          e.stopPropagation();
+        };
+        $scope.cancel = function(e) {
+          $modalInstance.dismiss();
+          e.stopPropagation();
+        };
+      }
+    });
+  };
 
 }]);
 
-var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes, Suggestions) {
+var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, Notes) {
+  $scope.collections= Clips.clips.collections;
 
-   $scope.item = item;
-   $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
-   $scope.suggestions = Suggestions.content.data;
-   $scope.sites = false;
+console.log('item', item)
+  $scope.item = item.clip
+  // $scope.notes = Notes.notesObj;
 
-   $scope.ok = function() {
-     $modalInstance.close();
-   };
+  $scope.ok = function() {
+    $modalInstance.close();
+  };
 
-   $scope.cancel = function() {
-     $modalInstance.dismiss('cancel');
-   };
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
 
-   //On 'save', make call to server with notes and site url
-   //fetch Notes and display it
-   $scope.save = function(userNotes) {
-     $scope.NoteAndUrl = {
-       note: userNotes,
-       url: $scope.item.clip
-     };
-     console.log('Notes being passed to server', $scope.NoteAndUrl);
-     // Notes.addNotes($scope.NoteAndUrl);
-   };
-
-   $scope.displaySites = function () {
-    $scope.sites = true;
-   };
-
-
-    $scope.getRelated = function () {
-      console.log('NEW PASS TO SUGGESTIONS', $scope.item.title);
-      //call service factory - getSuggestions
-      Suggestions.getContent($scope.item.title);
-      // console.log("Suggestions back from server: ", $scope.suggestions);
+  //On 'save', make call to server with notes and site url
+  //fetch Notes and display it
+  $scope.save = function(userNotes) {
+    $scope.NoteAndUrl = {
+      note: userNotes,
+      url: $scope.item.clipUrl
     };
+    console.log('Notes being passed to server', $scope.NoteAndUrl);
+    Notes.addNotes($scope.NoteAndUrl);
+  };
 
+  // $scope.display = function() {
+  //   console.log('display function!!!');
+  //   Notes.loadNotes($scope.item.clipUrl);
+  // };
 };
-
-
 ;angular.module('clipr.sidebar',['ui.router'])
 
 .controller('SidebarController',['$scope', 'Clips', function($scope, Clips){
@@ -58815,4 +59837,4 @@ var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Not
 
 
 	
-;;
+;

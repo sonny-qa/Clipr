@@ -123,7 +123,7 @@ app.get('/auth/google/callback', passport.authenticate('google', {
         var email = req.session.passport.user.email;
         res.cookie('clipr', email);
     // Successful authentication, redirect home.
-    res.redirect('/#/categories');
+    res.redirect('/#/clips');
   });
 
 var db = require('seraph')({
@@ -247,8 +247,8 @@ module.exports = {
                 for (var i = 0; i < res.length; i++) {
                     if (res[i].title === title) {
 
-                        flag = true
-                        break
+                        flag = true;
+                        break;
                     }
                 }
                 if (!flag) {resolve(flag)}
@@ -362,4 +362,3 @@ module.exports = {
         }
     }
 };
-

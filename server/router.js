@@ -5,13 +5,8 @@ app.get('/auth/google', paths.googleAuth);
 
 app.post('/user/post/storeclip', paths.storeClip);
 
-app.post('/loadClipsByCategory', paths.loadClipsByCategory);
+// app.post('/loadClipsByCategory', paths.loadClipsByCategory);
 
 app.get('/loadAllClips', paths.loadAllClips);
 
-app.post('/user/post/addNote', paths.addNote);
 
-app.get('/user/get/loadNotes', paths.loadNotes);
-
-//DELETE
-// app.get('/getSuggestions', paths.getSuggestions);
