@@ -89,7 +89,6 @@ a.editable-click {
     background-color: #1700D0;
 }
 
-
 #modalImg {
     width: 250px;
     height: 200px;
@@ -643,15 +642,6 @@ h3 {
         border-right: 0;
         border-top: 20px;
     }
-}
-
-.footer {
-    background-color: #ffffff;
-    bottom: 0;
-    position: fixed;
-    padding: 10px;
-}
- }
 }
 
 .footer {

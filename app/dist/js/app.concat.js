@@ -58023,7 +58023,6 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
   var touchCoordinates;
   var lastLabelClickCoordinates;
 
-<<<<<<< 3c8aaf8f8e3d8522b3b8a209e438bd627e4989c3
 
   // TAP EVENTS AND GHOST CLICKS
   //
@@ -58123,7 +58122,6 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     event.stopPropagation();
     event.preventDefault();
 
-<<<<<<< 8b477e0c8615439fdd76ae8d033f9cf0c5618f3c
     // Blur focused form elements
     event.target && event.target.blur && event.target.blur();
   }
@@ -58136,31 +58134,6 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     var x = touches[0].clientX;
     var y = touches[0].clientY;
     touchCoordinates.push(x, y);
-=======
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies) {
-=======
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies','$state', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies, $state) {
->>>>>>> [style] Restyle clipview
-
-  $scope.clips = Clips.clips;
-  $scope.clipShow = false;
-  $scope.categories=Clips.clips;
-
-
-  $scope.loadClipsByCategory = function(category) {
-    Clips.loadClipsByCategory(category);
-    $state.go('main')
-  }
-
-  $scope.navToClips = function() {
-   Clips.loadAllClips($cookies.get('clipr'));
-   $state.go('main')
- };
-
-  $scope.loadAllClips = function() {
-    Clips.loadAllClips($cookies.get('clipr'));
-  };
->>>>>>> [feat] Categories successfully changes on click
 
     $timeout(function() {
       // Remove the allowable region.
@@ -58173,7 +58146,6 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
     }, PREVENT_DURATION, false);
   }
 
-<<<<<<< 8b477e0c8615439fdd76ae8d033f9cf0c5618f3c
   // On the first call, attaches some event handlers. Then whenever it gets called, it creates a
   // zone around the touchstart where clicks will get busted.
   function preventGhostClick(x, y) {
@@ -58185,7 +58157,6 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
 
     lastPreventedTime = Date.now();
 
-<<<<<<< 3c8aaf8f8e3d8522b3b8a209e438bd627e4989c3
     checkAllowableRegions(touchCoordinates, x, y);
   }
 
@@ -58202,9 +58173,6 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
       tapping = false;
       element.removeClass(ACTIVE_CLASS_NAME);
     }
-=======
-$scope.loadAllClips();
->>>>>>> [style] Restyle clipview
 
     element.on('touchstart', function(event) {
       tapping = true;
@@ -58213,78 +58181,11 @@ $scope.loadAllClips();
       if (tapElement.nodeType == 3) {
         tapElement = tapElement.parentNode;
       }
-=======
-  $scope.logOut = function() {
-    AuthService.logOut();
-  };
-
-  $scope.clipToggle = function() {
-    if ($scope.clipShow === false) {
-      $scope.clipShow = true;
-    }
-    if ($scope.clipShow === true) {
-      $scope.clipShow = false;
-    }
-  };
-
-  $scope.changeCategory = function(category, clipTitle) {
-    Clips.changeCategory(category, clipTitle);
-  }
-
-  $scope.showModal = function(clip, size) {
-    $scope.opts = {
-      size: size,
-      backdrop: true,
-      backdropClick: true,
-      dialogFade: false,
-      keyboard: true,
-      templateUrl: './clipSelect/clipSelectView.html',
-      controller: ModalInstanceCtrl,
-      resolve: {}
-    };
-
-    $scope.opts.resolve.item = function() {
-      return angular.copy({
-        clipUrl: clip.clipUrl, 
-        category: clip.category,
-        clip: clip
-      }); // pass name to Dialog
-    };
-
-    var modalInstance = $modal.open($scope.opts);
-    modalInstance.result.then(function() {
-      //on ok button press
-    }, function() {
-      //on cancel button press
-      console.log("Modal Closed");
-    });
-  };
-
-  $scope.openAside = function(position) {
-    console.log('inside asiiiiideee');
-    $aside.open({
-      templateUrl: './Suggestions/categorySuggestionsView.html',
-      placement: position,
-      backdrop: false,
-      controller: function($scope, $modalInstance) {
-        $scope.ok = function(e) {
-          $modalInstance.close();
-          e.stopPropagation();
-        };
-        $scope.cancel = function(e) {
-          $modalInstance.dismiss();
-          e.stopPropagation();
-        };
-      }
-    });
-  };
->>>>>>> [feat] Categories successfully changes on click
 
       element.addClass(ACTIVE_CLASS_NAME);
 
       startTime = Date.now();
 
-<<<<<<< 8b477e0c8615439fdd76ae8d033f9cf0c5618f3c
       // Use jQuery originalEvent
       var originalEvent = event.originalEvent || event;
       var touches = originalEvent.touches && originalEvent.touches.length ? originalEvent.touches : [originalEvent];
@@ -58300,7 +58201,6 @@ $scope.loadAllClips();
     element.on('touchend', function(event) {
       var diff = Date.now() - startTime;
 
-<<<<<<< 44adc6393ba57fdcbc65f067f980800ab6f0f61f
       // Use jQuery originalEvent
       var originalEvent = event.originalEvent || event;
       var touches = (originalEvent.changedTouches && originalEvent.changedTouches.length) ?
@@ -58315,7 +58215,6 @@ $scope.loadAllClips();
         // Call preventGhostClick so the clickbuster will catch the corresponding click.
         preventGhostClick(x, y);
 
-<<<<<<< bdf4db975a8da7e005de2bc058f09223d94f74e7
         // Blur the focused element (the button, probably) before firing the callback.
         // This doesn't work perfectly on Android Chrome, but seems to work elsewhere.
         // I couldn't get anything to work reliably on Android Chrome.
@@ -58327,47 +58226,6 @@ $scope.loadAllClips();
           element.triggerHandler('click', [event]);
         }
       }
-=======
-  $scope.item = item;
-  $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
-  $scope.notes = Notes.notesObj;
-=======
-var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, Notes) {
-=======
-var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, Notes) {
-  $scope.collections= Clips.clips.collections;
-
->>>>>>> [style] Add suggestions box
-console.log('item', item)
-  $scope.item = item.clip
-  // $scope.notes = Notes.notesObj;
->>>>>>> [style] Progress on front-end
-
-  $scope.ok = function() {
-    $modalInstance.close();
-  };
-
-  $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
-  };
-
-  //On 'save', make call to server with notes and site url
-  //fetch Notes and display it
-  $scope.save = function(userNotes) {
-    $scope.NoteAndUrl = {
-      note: userNotes,
-      url: $scope.item.clipUrl
-    };
-    console.log('Notes being passed to server', $scope.NoteAndUrl);
-    Notes.addNotes($scope.NoteAndUrl);
-  };
-
-  // $scope.display = function() {
-  //   console.log('display function!!!');
-  //   Notes.loadNotes($scope.item.clipUrl);
-  // };
-};;angular.module('clipr.sidebar',['ui.router'])
->>>>>>> [feat] Categories successfully changes on click
 
       resetState();
     });
@@ -58548,65 +58406,67 @@ angular
         'clipr.clipped',
         'clipr.sidebar',
         'clipr.suggested',
-        'clipr.categories'
+        'clipr.categories',
+        'xeditable'
     ])
 
+
 .run(function($rootScope, $state, AuthService) {
-        $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-            if (toState.authenticate && !AuthService.isAuthenticated()) {
-                $state.transitionTo("landing");
-                event.preventDefault();
-            }
-        });
-    })
-    .controller("AppController", ['$scope', '$location', function($scope, $location) {
-        //authentication
-    }])
+    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+      if (toState.authenticate && !AuthService.isAuthenticated()) {
+        $state.transitionTo("landing");
+        event.preventDefault();
+      }
+    });
+  })
+  .controller("AppController", ['$scope', '$location', function($scope, $location) {
+    //authentication
+  }])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/');
 
-    $stateProvider
-        .state('landing', {
-            url: "/landing",
-            views: {
-                "main": {
-                    templateUrl: 'html/landingView.html',
-                    controller: 'landingController'
-                }
-            }
-        })
-        .state('categories',{
-            url:"/categories",
-            views:{
-                "main":{
-                    templateUrl:'html/categories.html',
-                    controller: 'CategoryController'
-                },
-                "header@categories":{
-                    templateUrl:'html/header.html',
-                    controller:'ClipController'
-                }
-            }
-        })
-        .state('main', {
-            authenticate: true,
-            url: "/clips",
-            views: {
-                "main": {
-                    templateUrl: 'html/clippedView.html',
-                    controller: 'ClipController'
-                },
-                "header@categories":{
-                    templateUrl:'html/header.html',
-                    controller:'ClipController'
-                }
-                // 'sidebar@main': {
-                //     templateUrl: 'html/sidebarView.html',
-                //     controller: 'SidebarController'
-                // }
-            }
-        });
+  $stateProvider
+    .state('landing', {
+      url: "/landing",
+      views: {
+        "main": {
+          templateUrl: 'html/landingView.html',
+          controller: 'landingController'
+        }
+      }
+    })
+    .state('categories', {
+      url: "/categories",
+      views: {
+        "main": {
+          templateUrl: 'html/categories.html',
+          controller: 'CategoryController'
+        },
+        "header@categories": {
+          templateUrl: 'html/header.html',
+          controller: 'ClipController'
+        }
+      }
+    })
+    .state('main', {
+      authenticate: true,
+      url: "/clips",
+      views: {
+        "main": {
+          templateUrl: 'html/clippedView.html',
+          controller: 'ClipController'
+        },
+        "header@categories": {
+          templateUrl: 'html/header.html',
+          controller: 'ClipController'
+        },
+        'sidebar@main': {
+          templateUrl: 'Clips/sidebarView.html',
+          controller: 'SidebarController'
+        }
+      }
+    });
 
 }]);angular.module('clipr.services', ['ngCookies'])
 
@@ -58636,15 +58496,6 @@ angular
   var loadClipsByCategory = function(topic) {
     var categorizedClips = [];
     if (topic === 'all') {
-<<<<<<< 5eca9c814148b877d06d8cf86bb44266ccfd917e
-      clips.clips = clips.data;
-    }
-    for (var x = 0; x < clips.data.length; x++) {
-      var node = clips.data[x];
-      console.log(node);
-      if (node.category === topic) {
-        categorizedClips.push(node);
-=======
       for (var key in clips.categories) {
         for (var clip in clips.categories[key]){
           categorizedClips.push(clips.categories[key][clip]);
@@ -58653,11 +58504,9 @@ angular
     } else {
       for (var key in clips.categories[topic]) {
         categorizedClips.push(clips.categories[topic][key]);
->>>>>>> [FIX] Conflict is fixed
       }
     }
     clips.clips = categorizedClips;
-      console.log("clips.clips__++++_+++ ",  clips.clips);
   };
 
   var loadAllClips = function(cookie) {
@@ -58668,35 +58517,13 @@ angular
         cookie: cookie
       }
     }).then(function(response) {
-<<<<<<< 8b477e0c8615439fdd76ae8d033f9cf0c5618f3c
-      clips.data= response.data;
-      clips.clips= response.data;
-      clips.categories={};
-=======
       clips.data = response.data;
       clips.clips = response.data;
-<<<<<<< 5eca9c814148b877d06d8cf86bb44266ccfd917e
-      clips.categories={}
->>>>>>> [feat] Categories successfully changes on click
-      for (var x = 0; x < response.data.length; x++) {
-        //check if clip exists in data
-        var clip= response.data[x].clips;
-
-        var clipNode= response.data[x];
-         //if exists
-         if (clips.data[clip.clipUrl]){
-          clips.data[clip.clipUrl].suggestions.push(clipNode.suggestions);
-         }else{
-          clips.data[clip.clipUrl]= clipNode.clips;
-          clips.data[clip.clipUrl].suggestions=[clipNode.suggestions];
-         }
-=======
       clips.categories = {}
       for (var x = 0; x < response.data.length; x++) {
 
         var clip = response.data[x].clips;
         var suggestion = response.data[x].suggestions;
->>>>>>> [FIX] Conflict is fixed
 
         if (!clips.categories[clip.category]) {
           clips.categories[clip.category] = {}
@@ -58711,17 +58538,9 @@ angular
             clips.categories[clip.category][clip.title].suggestions = [suggestion];
           }
         }
-<<<<<<< 8b477e0c8615439fdd76ae8d033f9cf0c5618f3c
-=======
         console.log('clips.categories', clips.categories);
->>>>>>> [feat] Categories successfully changes on click
       }
-<<<<<<< 5eca9c814148b877d06d8cf86bb44266ccfd917e
-      console.log('CLIPS DATA LOOKS LIKE THIS ::::::::::::::::::::::::::::::::::::::', clips.data);
-      console.log('CLIPS CLIPS LOOKS LIKE THIS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<', clips.clips);
-=======
       loadClipsByCategory('all');
->>>>>>> [FIX] Conflict is fixed
     });
   };
 
@@ -58817,108 +58636,9 @@ angular
     isAuthenticated: isAuthenticated,
     logOut: logOut
   };
-}])
 
-<<<<<<< bdf4db975a8da7e005de2bc058f09223d94f74e7
-  //Call server to get back suggested websites
-.factory('Suggestions', ['$http', function ($http){
-  var content = {
-    data: null
-  };
-=======
-}]);;/**
- * Main module of the application.
- */
-angular
-    .module('cliprApp', [
-        'ui.router',
-        'ui.bootstrap',
-        'ngAnimate',
-        'ngTouch',
-        'clipr.services',
-        'clipr.clipped',
-        'clipr.sidebar',
-        'clipr.suggested',
-        'clipr.categories',
-        'xeditable'
-    ])
->>>>>>> [style] Progress on front-end
-
-  var getContent = function (title) {
-    console.log('URL BEING PASSED TO SERVER', title);
-    return $http({
-      method: 'GET',
-      url: '/getSuggestions',
-      params: {
-        title: title
-      }
-    }).then(function (response) {
-      content.data = response.data;
-      console.log("this is content.data ", content.data);
-    })
-<<<<<<< 3c8aaf8f8e3d8522b3b8a209e438bd627e4989c3
-    .catch(function (err) {
-      if(err) {
-        console.log('error inside getContent ', err);
-      }
-    });
-  };
-=======
-    .controller("AppController", ['$scope', '$location', function($scope, $location) {
-        //authentication
-    }])
-
-.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
-
-    $stateProvider
-        .state('landing', {
-            url: "/landing",
-            views: {
-                "main": {
-                    templateUrl: 'Landing/landingView.html',
-                    controller: 'AuthController'
-                }
-            }
-        })
-        .state('categories',{
-            url:"/categories", 
-            views:{
-                "main":{
-                    templateUrl:'categories/categories.html',
-                    controller: 'CategoryController'
-                },
-                "header@categories":{
-                    templateUrl:'header/header.html',
-                    controller:'ClipController'
-                }
-            }
-        })
-        .state('main', {
-            authenticate: true,
-            url: "/clips",
-            views: {
-                "main": {
-                    templateUrl: 'Clips/clippedView.html',
-                    controller: 'ClipController'
-                },
-                "header@categories":{
-                    templateUrl:'header/header.html',
-                    controller:'ClipController'
-                },
-                'sidebar@main': {
-                    templateUrl: 'Clips/sidebarView.html',
-                    controller: 'SidebarController'
-                }
-            }
-        })
->>>>>>> [style] Restyle clipview
-
-  return {
-    content: content,
-    getContent: getContent
-  };
-}]);;angular.module('clipr.categories', [])
+}]);
+;angular.module('clipr.categories', [])
 
 .controller('CategoryController', ['$scope', 'Clips','$cookies','$state', function($scope, Clips, $cookies, $state) {
 
@@ -58943,127 +58663,127 @@ angular
 
 }]);angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', 'Suggestions', '$cookies', function($scope, Clips, $modal, Notes, AuthService, $aside, Suggestions, $cookies) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies','$state', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies, $state) {
 
-   $scope.clips = Clips.clips;
-   $scope.clipShow = false;
-   $scope.categories= Clips.clips;
+  $scope.clips = Clips.clips;
+  $scope.clipShow = false;
+  $scope.categories=Clips.clips;
 
-   $scope.loadAllClips = function() {
-     Clips.loadAllClips($cookies.get('clipr'));
-     console.log('SCOPE CLIPS ----------------------------------------', $scope.clips);
-   };
 
   $scope.loadClipsByCategory = function(category) {
     Clips.loadClipsByCategory(category);
-    $state.go('main');
+    $state.go('main')
   }
+
+  $scope.navToClips = function() {
+   Clips.loadAllClips($cookies.get('clipr'));
+   $state.go('main')
+ };
+
+  $scope.loadAllClips = function() {
+    Clips.loadAllClips($cookies.get('clipr'));
+  };
 
 $scope.loadAllClips();
 
-   $scope.logOut = function() {
-     AuthService.logOut();
-   };
+  $scope.logOut = function() {
+    AuthService.logOut();
+  };
 
-   $scope.clipToggle = function() {
-       if($scope.clipShow===false){
-           $scope.clipShow=true;
-       }
-       if($scope.clipShow===true){
-           $scope.clipShow=false;
-       }
-   };
+  $scope.clipToggle = function() {
+    if ($scope.clipShow === false) {
+      $scope.clipShow = true;
+    }
+    if ($scope.clipShow === true) {
+      $scope.clipShow = false;
+    }
+  };
 
-   $scope.showModal = function(clipUrl, title) {
-     $scope.opts = {
-       size: 'lg',
-       backdrop: true,
-       backdropClick: true,
-       dialogFade: false,
-       keyboard: true,
-       templateUrl: 'html/clipSelectView.html',
-       controller: ModalInstanceCtrl,
-       resolve: {}
-     };
+  $scope.changeCategory = function(category, clipTitle) {
+    Clips.changeCategory(category, clipTitle);
+  }
 
-     $scope.opts.resolve.item = function() {
-       return angular.copy({
-         clip: clipUrl,
-         title: title
-       }); // pass name to Dialog
-     };
+  $scope.showModal = function(clip, size) {
+    $scope.opts = {
+      size: size,
+      backdrop: true,
+      backdropClick: true,
+      dialogFade: false,
+      keyboard: true,
+      templateUrl: './clipSelect/clipSelectView.html',
+      controller: ModalInstanceCtrl,
+      resolve: {}
+    };
 
-     var modalInstance = $modal.open($scope.opts);
-     modalInstance.result.then(function() {
-       //on ok button press
-     }, function() {
-       //on cancel button press
-       console.log("Modal Closed");
-     });
-   };
+    $scope.opts.resolve.item = function() {
+      return angular.copy({
+        clipUrl: clip.clipUrl, 
+        category: clip.category,
+        clip: clip
+      }); // pass name to Dialog
+    };
 
-   $scope.openAside = function(position) {
-     console.log('inside asiiiiideee');
-     $aside.open({
-       templateUrl: 'html/categorySuggestionsView.html',
-       placement: position,
-       backdrop: false,
-       controller: function($scope, $modalInstance) {
-         $scope.ok = function(e) {
-           $modalInstance.close();
-           e.stopPropagation();
-         };
-         $scope.cancel = function(e) {
-           $modalInstance.dismiss();
-           e.stopPropagation();
-         };
-       }
-     });
-   };
+    var modalInstance = $modal.open($scope.opts);
+    modalInstance.result.then(function() {
+      //on ok button press
+    }, function() {
+      //on cancel button press
+      console.log("Modal Closed");
+    });
+  };
+
+  $scope.openAside = function(position) {
+    console.log('inside asiiiiideee');
+    $aside.open({
+      templateUrl: './Suggestions/categorySuggestionsView.html',
+      placement: position,
+      backdrop: false,
+      controller: function($scope, $modalInstance) {
+        $scope.ok = function(e) {
+          $modalInstance.close();
+          e.stopPropagation();
+        };
+        $scope.cancel = function(e) {
+          $modalInstance.dismiss();
+          e.stopPropagation();
+        };
+      }
+    });
+  };
 
 }]);
 
-var ModalInstanceCtrl = function($scope, $modalInstance, $modal, item, $sce, Notes, Suggestions) {
+var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, Notes) {
+  $scope.collections= Clips.clips.collections;
 
-   $scope.item = item;
-   $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
-   $scope.suggestions = Suggestions.content.data;
-   $scope.sites = false;
+console.log('item', item)
+  $scope.item = item.clip
+  // $scope.notes = Notes.notesObj;
 
-   $scope.ok = function() {
-     $modalInstance.close();
-   };
+  $scope.ok = function() {
+    $modalInstance.close();
+  };
 
-   $scope.cancel = function() {
-     $modalInstance.dismiss('cancel');
-   };
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
 
-   //On 'save', make call to server with notes and site url
-   //fetch Notes and display it
-   $scope.save = function(userNotes) {
-     $scope.NoteAndUrl = {
-       note: userNotes,
-       url: $scope.item.clip
-     };
-     console.log('Notes being passed to server', $scope.NoteAndUrl);
-     // Notes.addNotes($scope.NoteAndUrl);
-   };
-
-   $scope.displaySites = function () {
-    $scope.sites = true;
-   };
-
-
-    $scope.getRelated = function () {
-      console.log('NEW PASS TO SUGGESTIONS', $scope.item.title);
-      //call service factory - getSuggestions
-      Suggestions.getContent($scope.item.title);
-      // console.log("Suggestions back from server: ", $scope.suggestions);
+  //On 'save', make call to server with notes and site url
+  //fetch Notes and display it
+  $scope.save = function(userNotes) {
+    $scope.NoteAndUrl = {
+      note: userNotes,
+      url: $scope.item.clipUrl
     };
+    console.log('Notes being passed to server', $scope.NoteAndUrl);
+    Notes.addNotes($scope.NoteAndUrl);
+  };
 
+  // $scope.display = function() {
+  //   console.log('display function!!!');
+  //   Notes.loadNotes($scope.item.clipUrl);
+  // };
 };
-
-
 ;angular.module('clipr.sidebar',['ui.router'])
 
 .controller('SidebarController',['$scope', 'Clips', function($scope, Clips){
