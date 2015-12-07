@@ -177,7 +177,7 @@ a.editable-click {
 }
 
 #categoryBox.Politics {
-    background-image: url('http://ionenewsone.files.wordpress.com/2011/07/obama-podium.jpg');
+    background-image: url('../../images/obama-podium.jpg');
     -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
     color: white;
 }
@@ -229,7 +229,7 @@ a.editable-click {
 }
 
 #categoryBox.Technology {
-    background-image: url('http://blogs.scientificamerican.com/media/inline/blog/Image/Obama-tech-advisors.jpg');
+    background-image: url('../../images/Obama-tech-advisors.jpg');
     -webkit-filter: grayscale(0.6) sepia(0.1);
     color: white;
 }
@@ -243,7 +243,7 @@ a.editable-click {
 }
 
 #categoryBox.Sports {
-    background-image: url('http://www3.pictures.zimbio.com/gi/NBA+Finals+Game+6+Boston+Celtics+v+Los+Angeles+YVhOaWeJxRvl.jpg');
+    background-image: url('../../images/sports-Kobe.jpg');
     -webkit-filter: grayscale(0.6) sepia(0.1);
     color: white;
 }
@@ -257,7 +257,7 @@ a.editable-click {
 }
 
 #categoryBox.Shopping {
-    background-image: url('https://timebusinessblog.files.wordpress.com/2012/08/107428671-e13446287357841.jpg?w=480&h=320&crop=1');
+    background-image:url('../../images/shopping.jpg');
     -webkit-filter: grayscale(0.6) sepia(0.1);
     color: white;
 }
@@ -271,7 +271,7 @@ a.editable-click {
 }
 
 #categoryBox.Health {
-    background-image: url('http://www.oecd.org/media/oecdorg/topics/health/48300184.jpg');
+    background-image: url('../../images/health.jpg');
     -webkit-filter: grayscale(0.6) sepia(0.1);
     color: white;
 }
@@ -285,7 +285,7 @@ a.editable-click {
 }
 
 #categoryBox.Science {
-    background-image: url('https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQal6if-21agDe7ziamXBvYKihiECmOuZ3VWBN0uZZY1C2MySKBUA');
+    background-image: url('../../images/science.jpg');
     -webkit-filter: grayscale(0.6) sepia(0.1);
     color: white;
 }
