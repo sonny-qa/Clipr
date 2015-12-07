@@ -47,7 +47,7 @@ $scope.loadAllClips();
       backdropClick: true,
       dialogFade: false,
       keyboard: true,
-      templateUrl: './clipSelect/clipSelectView.html',
+      templateUrl: 'html/clipSelectView.html',
       controller: ModalInstanceCtrl,
       resolve: {}
     };

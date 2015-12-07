@@ -107,9 +107,11 @@ module.exports = function(grunt) {
         src: [
           'app/bower_components/jquery/dist/jquery.js',
           'app/bower_components/angular/angular.js',
+          'app/bower_components/bootstrap/dist/js/bootstrap.min.js',
           'app/bower_components/angular-animate/angular-animate.js',
           'app/bower_components/angular-cookies/angular-cookies.js',
           'app/bower_components/angular-resource/angular-resource.js',
+          'app/bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.js',
           'app/bower_components/angular-xeditable/dist/js/xeditable.min.js',
           'app/bower_components/angular-route/angular-route.js',
           'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',

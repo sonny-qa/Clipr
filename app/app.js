@@ -65,10 +65,6 @@ angular
         "header@categories": {
           templateUrl: 'html/header.html',
           controller: 'ClipController'
-        },
-        'sidebar@main': {
-          templateUrl: 'Clips/sidebarView.html',
-          controller: 'SidebarController'
         }
       }
     });
