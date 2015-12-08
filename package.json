@@ -65,6 +65,7 @@
     "grunt-cli": "^0.1.13",
     "grunt-sass": "^1.1.0",
     "joi": "^7.0.0",
+    "keyword-extractor": "0.0.12",
     "lodash": "^3.10.1",
     "natural": "^0.2.1",
     "passport": "^0.3.2",
