@@ -36,9 +36,10 @@ $scope.loadAllClips();
     }
   };
 
-  $scope.changeCategory = function(category, clipTitle) {
-    Clips.changeCategory(category, clipTitle);
+  $scope.delete = function(clipTitle) {
+      Clips.deleteClip(clipTitle)
   }
+
 
   $scope.showModal = function(clip, size) {
     $scope.opts = {
@@ -55,6 +56,7 @@ $scope.loadAllClips();
     $scope.opts.resolve.item = function() {
       return angular.copy({
         clipUrl: clip.clipUrl, 
+        title: clip.title,
         category: clip.category,
         clip: clip
       }); // pass name to Dialog
@@ -92,14 +94,17 @@ $scope.loadAllClips();
 
 var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, Notes) {
   $scope.collections= Clips.clips.collections;
-
-console.log('item', item)
   $scope.item = item.clip
   // $scope.notes = Notes.notesObj;
 
   $scope.ok = function() {
     $modalInstance.close();
   };
+
+   $scope.changeCategory = function(category, clip) {
+    clip.category= category;
+    Clips.changeCategory(category, clip.title);
+  }
 
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');

@@ -55910,7 +55910,53 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
     "</ul>\n" +
     "");
 }]);
-!angular.$$csp() && angular.element(document).find('head').prepend('<style type="text/css">.ng-animate.item:not(.left):not(.right){-webkit-transition:0s ease-in-out left;transition:0s ease-in-out left}</style>');;/**
+!angular.$$csp() && angular.element(document).find('head').prepend('<style type="text/css">.ng-animate.item:not(.left):not(.right){-webkit-transition:0s ease-in-out left;transition:0s ease-in-out left}</style>');;'use strict';
+
+var $main = $('body, html');
+var _module = angular.module('ngConfirm', []);
+
+_module.directive('ngConfirm', function ngConfirm() {
+  return {
+    priority: -1,
+    restrict: 'A',
+    link: function ngConfirmLink($scope, $container, args) {
+      var message = args.ngConfirm;
+      var subscribed = false;
+      var contentOnStart = $container.html();
+
+      function onConfirm() {
+        setTimeout(function onConfirmTimeout() {
+          $container.html(contentOnStart);
+          subscribed = false;
+        }, 1);
+      }
+
+      function onBodyClick() {
+        subscribed = false;
+
+        $container.off('click.onConfirm');
+        $container.html(contentOnStart);
+      }
+
+      $container.on('click.triggerConfirm', function clickTriggerConfirm(event) {
+        if (subscribed) {
+          return false;
+        }
+
+        $main.off('click.onBodyClick');
+
+        event.stopImmediatePropagation();
+        event.preventDefault();
+
+        subscribed = true;
+
+        $container.html(message.substr(0, 1) !== ' ' ? ' ' + message : message);
+        $main.one('click.onBodyClick', onBodyClick);
+        $container.one('click.onConfirm', onConfirm);
+      });
+    }
+  };
+});;/**
  * State-based routing for AngularJS
  * @version v0.2.15
  * @link http://angular-ui.github.com/
@@ -61664,7 +61710,7 @@ angular
         'clipr.sidebar',
         'clipr.suggested',
         'clipr.categories',
-        'xeditable'
+        'xeditable',
     ])
 
 
@@ -61797,6 +61843,19 @@ angular
     });
   };
 
+  var deleteClip= function(clipTitle){
+    return $http({
+      method:'POST', 
+      url:'/deleteClip', 
+      params:{
+        clipTitle: clipTitle,
+        email: $cookies.get('clipr')
+      }
+    }).then(function(response){
+      loadAllClips($cookies.get('clipr'));
+    })
+  }
+
   var changeCategory = function(category, clipTitle) {
     return $http({
       method: 'POST',
@@ -61808,7 +61867,7 @@ angular
     }).then(function(response) {
       loadAllClips($cookies.get('clipr')).then(function(response) {
         console.log('response')
-        loadClipsByCategory(category);
+        // loadClipsByCategory(category);
       });
     })
   }
@@ -61817,7 +61876,8 @@ angular
     loadClipsByCategory: loadClipsByCategory,
     loadAllClips: loadAllClips,
     clips: clips,
-    changeCategory: changeCategory
+    changeCategory: changeCategory, 
+    deleteClip: deleteClip
   };
 
 }])
@@ -61952,9 +62012,10 @@ $scope.loadAllClips();
     }
   };
 
-  $scope.changeCategory = function(category, clipTitle) {
-    Clips.changeCategory(category, clipTitle);
+  $scope.delete = function(clipTitle) {
+      Clips.deleteClip(clipTitle)
   }
+
 
   $scope.showModal = function(clip, size) {
     $scope.opts = {
@@ -61971,6 +62032,7 @@ $scope.loadAllClips();
     $scope.opts.resolve.item = function() {
       return angular.copy({
         clipUrl: clip.clipUrl, 
+        title: clip.title,
         category: clip.category,
         clip: clip
       }); // pass name to Dialog
@@ -62008,14 +62070,17 @@ $scope.loadAllClips();
 
 var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, Notes) {
   $scope.collections= Clips.clips.collections;
-
-console.log('item', item)
   $scope.item = item.clip
   // $scope.notes = Notes.notesObj;
 
   $scope.ok = function() {
     $modalInstance.close();
   };
+
+   $scope.changeCategory = function(category, clip) {
+    clip.category= category;
+    Clips.changeCategory(category, clip.title);
+  }
 
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');

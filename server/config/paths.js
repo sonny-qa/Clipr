@@ -127,6 +127,30 @@ app.get('/auth/google/callback', passport.authenticate('google', {
   });
 
 
+app.post('/changeCategory', function(req, res) {
+  var cypher = "MATCH (n:Clip) WHERE n.title='" + req.query.clipTitle + "' SET n.category='" + req.query.category + "' RETURN n"
+  console.log(cypher)
+  db.query(cypher, function(err, results) {
+    if (err) {
+      console.log('ERR', err)
+    }
+    console.log('Category was successfully changed', results);
+    res.send('category successfully changed');
+  })
+})
+
+app.post('/deleteClip', function(req,res){
+  var cypher= "MATCH (n:User {email:'" + req.query.email + "'})-[q]-(c:Clip{title:'"+ req.query.clipTitle + "'})-[w]-(d) delete q,c,w,d";
+  console.log('DELETE CYPHER', cypher);
+  db.query(cypher, function(err,results){
+    if(err){
+      console.log('DELETE ERROR:', err);
+    }
+    console.log('Clip successfully delete from DB');
+    res.send('clip deleted');
+  })
+})
+
 var db = require('seraph')({
   server: process.env.dbServerUrl || apiKeys.dbServerUrl,
   user: process.env.dbUser || apiKeys.dbUser,
@@ -281,7 +305,7 @@ module.exports = {
 
         }).then(function(val) {
             console.log('loading corpus & classifiying clip...');
-            natural.BayesClassifier.load('../classifier.json', null, function(err, classifier) {
+            natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
                 console.log(classifier.classify(req.body.text));
                 category = classifier.classify(req.body.text);
                 res.send("Clip added to: "+ category)
