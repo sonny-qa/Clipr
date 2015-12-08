@@ -52,6 +52,7 @@
     "npm": "2.14.7"
   },
   "dependencies": {
+    "angular-confirm": "^1.2.1",
     "async": "^1.5.0",
     "asynquence": "^0.8.2",
     "bluebird": "^3.0.5",

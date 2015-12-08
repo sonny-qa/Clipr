@@ -36,6 +36,10 @@ $scope.loadAllClips();
     }
   };
 
+  $scope.delete = function(clipTitle) {
+      Clips.deleteClip(clipTitle)
+  }
+
 
   $scope.showModal = function(clip, size) {
     $scope.opts = {
