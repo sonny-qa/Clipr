@@ -109,7 +109,6 @@ chrome.runtime.onMessage.addListener(
                             sendBookmark(JSON.stringify(data), function(resp) {
                           
                                 //we send a message back to the popup controller, with the server's reply
-                                console.log('resp',resp)
                                  sendResponse({status: resp});
 
                             })
