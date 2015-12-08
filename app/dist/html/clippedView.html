@@ -9,10 +9,11 @@
         </ul>
     </nav>
 </div>
-<div id="wrapper">
+<div id="container-fluid">
     <div class="col-lg-2">
         <nav class="navmenu navmenu-default" role="navigation" id="navMenu">
             <ul class="nav navmenu-nav">
+                <li><label>Search: <input ng-model="searchText"></label></li>
                 <li class="active"><a href="#">Recently Added</a></li>
                 <li><a href="#">Most Visited</a></li>
                 <li class="dropdown">
@@ -37,13 +38,19 @@
         </nav>
     </div>
     Clips
-    <div id="main-wrapper" class="col-lg-10 pull right" ng-if="!clipShow">
-        <div class="page-content">
-            <div id="clipWrapper" ng-repeat="clip in clips.clips">
-                <a class="col-xs-6 col-md-3 col-lg-3 {{clip.category}}" id="clipBox" style="background-image: url('{{clip.imgUrl}}')" ng-href="{{clip.clipUrl}}" target="_blank">
+    <!--         <div class="page-content">
+ -->
+    <div class="col-lg-10" id="clipHolder">
+        <div ng-repeat="clip in clips.clips | filter:searchText">
+            <div class="col-lg-3 {{clip.category}}" id="clipBox" style="background-image: url('{{clip.imgUrl}}')">
+                <a ng-href="{{clip.clipUrl}}" target="_blank">
                 </a>
-                <div id="iconBar">
-                    <i ng-click="delete(clip.title)" confirm="Are you sure you want to delete {{clip.title}}?" confirm-title="Confirm Delete" confirm-ok="Yes" confirm-cancel="No" class="fa fa-trash-o"></i><i ng-click="showModal(clip,'lg')" class="fa fa-ellipsis-h"></i></div>
+                <i ng-click="delete(clip.title)" confirm="Are you sure you want to delete {{clip.title}}?" confirm-title="Confirm Delete" confirm-ok="Yes" confirm-cancel="No" class="fa fa-trash-o"></i><i ng-click="showModal(clip,'lg')" class="fa fa-ellipsis-h"></i>
+                <div id="clipOverlay">
+                    <h4 id="overlayTitle"> {{clip.title}}</h4>
+                </div>
             </div>
         </div>
+        <!-- </div> -->
     </div>
+</div>
