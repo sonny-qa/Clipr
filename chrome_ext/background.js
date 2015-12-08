@@ -34,7 +34,7 @@ var checkAuth = new Promise(function(resolve, reject) {
 });
 
 //--------sends creates a bookmark from the current tab & sends to server. expects user email
-function sendBookmark(bkmrkObj) {
+function sendBookmark(bkmrkObj,cb) {
 
     //NOTE change this to https://clipr-app-1.herokuapp.com for heroku
     // var website = "https://clipr-app-1.herokuapp.com";
@@ -47,10 +47,17 @@ function sendBookmark(bkmrkObj) {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', postUrl, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function(e){
+        //var events = JSON.parse(this.responseText)
+        //console.log('response....',e.target.responseText)
+        var resp = e.target.responseText;
+        cb(resp)
+    }
 
     // Send the request
 
     console.log('sending bkmrkobj', bkmrkObj);
+
     xhr.send(bkmrkObj);
 }
 
@@ -76,30 +83,47 @@ var getPageText = function(bkmrkObj, cb) {
 };
 
 
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        //when receving a message from popup.js, this indicates click has happened, so start the process...
+        if (request.clicked) {
 
-//*******************************************************************
-// Event Listeners
-//*******************************************************************
+            //collect tab data
+            chrome.tabs.query({
+                    active: true,
+                    currentWindow: true
+                }, function(tabs) {
+                    tab = tabs[0]
 
-//listener for sending in new bookmark
-chrome.browserAction.onClicked.addListener(function(tab) {
+                    checkAuth.then(function(bkmrkObj) {
 
-    //check auth first to get email
-    checkAuth.then(function(bkmrkObj) {
-
-        //set tab info from current tab onto bkmrkobj
-        bkmrkObj.url = tab.url;
-        bkmrkObj.title = tab.title;
-
-        console.log('sending in ext', bkmrkObj);
-
-            //stringify immediately before send
-            getPageText(bkmrkObj,function(data){
-                sendBookmark(JSON.stringify(data));
-            });
+                        //set tab info from current tab onto bkmrkobj
+                        bkmrkObj.url = tab.url;
+                        bkmrkObj.title = tab.title;
+                        bkmrkObj.timeAdded = Date.now()
 
 
+                        //stringify immediately before send
+                        getPageText(bkmrkObj, function(data) {
+                            console.log('got text', bkmrkObj)
+                            sendBookmark(JSON.stringify(data), function(resp) {
+                          
+                                //we send a message back to the popup controller, with the server's reply
+                                 sendResponse({status: resp});
 
-    });
-});
+                            })
 
+
+
+                        });
+
+                    });
+
+                }
+
+
+
+            );
+        } return true 
+ 
+    })
