@@ -124,12 +124,20 @@ createRelation: function(clip, tag, how, relevance, cb) {
   },
 
   createSuggestionNode: function(suggestion, cb) {
-    //Each suggestion is an object with a title and a url as its property
-    db.save({
-      suggestionTitle : suggestion.title,
-      suggestionUrl : suggestion.url
-    }, function (err, node){
+    //Get image for suggestionNode before saving to DB
+      //Call URLtoImage to fetch sugestion,
+      //Once it completes, save it to DB
+      // console.log('SUGGESTION.URL inside CREATESUGGESTIONNODE', suggestion.url);
 
+    //Each suggestion is an object with a title and a url as its property
+    var saveSuggestionToDb = function(suggestionImgUrl){
+      console.log('SUGGESTIONIMAGE URL FROM CLOUDINARY>>>>>>>>>>>>>', suggestionImgUrl);
+      console.log('SAVING SUGGESTIONNODE TO DATABASE');
+      db.save({
+      suggestionTitle : suggestion.title,
+      suggestionUrl : suggestion.url,
+      suggestionImg : suggestionImgUrl
+      }, function (err, node){
       if (err) throw err;
       db.label(node, ['Suggestion'],
         function(err) {
@@ -138,8 +146,10 @@ createRelation: function(clip, tag, how, relevance, cb) {
         });
       cb(node);
     });
-  },
+   };
 
+   this.urlToImage(suggestion.url, saveSuggestionToDb);
+  },
   // captures screen image on chrome_ext click
   urlToImage: function(targetUrl, cb) {
     // Options object to pass to urlImage
@@ -191,29 +201,5 @@ createRelation: function(clip, tag, how, relevance, cb) {
       cb(bodyParsed);
     });
 
-  },
-
-  //Removes all filler words from Website Title
-  isStopWord : function(word) {
-    var regex = new RegExp("\\b"+word+"\\b","i");
-    if(stopWords.search(regex) < 0) {
-      return false;
-    }else {
-      return true;
-    }
-  },
-
-  removeStopWords: function(word) {
-    words = new Array();
-    isStopWord(word);
-
-    this.replace(/\b[\w]+\b/g,
-      function($0) {
-        if(!isStopWord($0)) {
-          words[words.length] = $0.trim();
-        }
-      });
-
-    return words.join(" ");
   }
 };

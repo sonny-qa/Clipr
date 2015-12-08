@@ -13,7 +13,7 @@ var request = require('request');
 var http = require('http');
 var classifier = require('./classify.js');
 var natural = require('natural');
-
+var keyword_extractor = require("keyword-extractor");
 // Set website (Heroku or Localhost) and callbackURL
 var website = (process.env.SITE || "http://localhost:3000");
 var callbackURL = website + '/auth/google/callback';
@@ -269,51 +269,48 @@ module.exports = {
         var isUserisDup = new Promise(function(resolve, reject) {
 
             //cypher for returning a user with some email
-            var isuserCypher = "MATCH (usernode:User {email:" + '"' + email + '"' + "}) RETURN usernode"
+            var isuserCypher = "MATCH (usernode:User {email:" + '"' + email + '"' + "}) RETURN usernode";
 
             //cypher for find if a clip (defined by title) already exists for a specified user (defined by email)
             var isdupCypher = "MATCH (usernode:User {email:" +
-                '"' + email + '"' + "})<--(clipnode:Clip {title:" + '"' + title + '"' + "}) RETURN clipnode"
+                '"' + email + '"' + "})<--(clipnode:Clip {title:" + '"' + title + '"' + "}) RETURN clipnode";
 
             db.query(isuserCypher, function(err, res) {
               //first check if a user exists with that email
                 if (res.length === 0) {
                   //if not then reject the promise
-                  console.log('user does not exist')
-                    reject("NO USER")
+                  console.log('user does not exist');
+                    reject("NO USER");
                 } else {
                     //now user is acertained, check to see if they already have this clip
                     db.query(isdupCypher, function(err, res) {
                         var flag = false
                         for (var i = 0; i < res.length; i++) {
                             if (res[i].title === title) {
-                                flag = true
-                                break
+                                flag = true;
+                                break;
                             }
                         }
                         if (!flag) {
                             resolve(flag)
                         } else {
                             console.log('error: this user already has this clip');
-                            reject("DUP CLIP FOR USER")
+                            reject("DUP CLIP FOR USER");
                         }
                     });
 
                 }
             })
-
-
         }).then(function(val) {
             console.log('loading corpus & classifiying clip...');
             natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
                 console.log(classifier.classify(req.body.text));
                 category = classifier.classify(req.body.text);
-                res.send("Clip added to: "+ category)
-
+                res.send("Clip added to: "+ category);
                 makeImg(clipUrl);
             });
         }).catch(function(error) {
-          
+
             if (error ==="DUP CLIP FOR USER"){
               res.send("hey, you already have this clip!")
             } else{
@@ -326,10 +323,10 @@ module.exports = {
                 //saveToDB(imgUrl)
                 saveToDbNoWatson(imgUrl);
             });
-        }
+        };
 
         function saveToDbNoWatson(imgUrl) {
-          
+
 
             var createClipNode = new Promise(function(resolve, reject) {
                 db.save({
@@ -371,32 +368,41 @@ module.exports = {
                     utils.createRelation(clipNode, userNode, 'owns', 'owns', function(fromNode) {});
                 });
                 return clipNode;
-            }).then(function(clipNode) {
-                //Take first word of title
-                var firstWord = clipNode.title.split(' ')[0];
+              }).then(function (clipNode) {
+              //Remove stopWords, and then get suggestions for each node with the first two words
+              var parsedTitle = keyword_extractor.extract(clipNode.title,{
+                language:"english",
+                remove_digits: true,
+                return_changed_case:true,
+                remove_duplicates: false
+              }).slice(0,2).join(' ');
 
-                utils.suggestionsAPI(firstWord, function(suggestions) {
-                    var suggestionResults = suggestions.results.map(function(item) {
-                        // console.log("suggestionResults: ", item);
-                        return {
-                            title: item.title,
-                            url: item.url
-                        };
+              console.log('PARSED TITLE---------------->>>>>>', parsedTitle);
+
+              utils.suggestionsAPI(parsedTitle, function (suggestions) {
+                // console.log('TIME TO GET SUGGESTIONS:', suggestions.results);
+                var suggestionResults = suggestions.results.map(function (item) {
+                  console.log("suggestionResults: ", item);
+                  return  {
+                    title: item.title,
+                    url: item.url
+                  };
+                });
+
+                //TODO : if suggestionResults.length is 0, it means no suggestions got back
+                //use default suggestions
+                suggestionResults.forEach(function (element, ind, array) {
+                  console.log('INSIDE SuggestionResults FOREACH:', element);
+                  utils.createSuggestionNode(element, function (suggestionNode) {
+                    utils.createRelation(clipNode, suggestionNode, 'related', 'related', function (clipNode) {
                     });
-
-                    suggestionResults.forEach(function(element, ind, array) {
-                        console.log('FOREACH ELEMENT :', element);
-                        utils.createSuggestionNode(element, function(suggestionNode) {
-                            utils.createRelation(clipNode, suggestionNode, 'related', 'related', function(clipNode) {
-                                //res.send('hello')
-                            });
-                        });
-
-                    });
+                  });
 
                 });
+
+              });
             });
-        };
+        }
 
         function extractKeywordsNoWatson(clipNode) {
             var text = clipNode.text
