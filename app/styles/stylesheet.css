@@ -159,7 +159,7 @@ a.editable-click {
     background-color: white;
     float: left;
     margin-left: -5%;
-    padding-top: 50px;
+    padding-top: 60px;
     z-index: -1;
     overflow-y: scroll;
 }

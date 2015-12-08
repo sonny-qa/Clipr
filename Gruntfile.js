@@ -168,7 +168,7 @@ module.exports = function(grunt) {
                   'app/bower_components/bootstrap-social/bootstrap-social.css',
                   'app/bower_components/font-awesome/css/font-awesome.min.css',
                   'app/bower_components/angular-xeditable/css/xeditable.css',
-                  'app/bower_components/dist/css/jasny-bootstrap/css/jasny-bootstrap.min.css', >>> >>> > [feat] Clip can be deleted with trashcan
+                  'app/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css', 
                   // 'app/assets/fonts/Raleway/css/fonts.css', 
                   // 'app/assets/fonts/Anton/css/fonts.css', 
                   'app/styles/stylesheet.css'
