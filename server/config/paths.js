@@ -202,9 +202,14 @@ module.exports = {
       res.send(results);
     });
 
-    utils.suggestionsAPI(null, function(defaultSugs){
-      // console.log('DEFAULT SUGGESTIONS>>>>>>>>>>>', defaultSugs);
-    }, true);
+    // // TODO : Get default suggestions and store them so you can use them later
+    // if (req.query.cookie !== undefined) {
+    //   utils.suggestionsAPI(null, function(defaultSugs){
+    //     //store trending news in localstorage
+    //     console.log('DEFAULT SUGGESTIONS>>>>>>>>>>>', defaultSugs);
+    //     localStorage.setItem('default', defaultSugs);
+    //   }, true);
+    // }
   },
 
   addNote: function(req, res) {
@@ -267,7 +272,7 @@ module.exports = {
         var clipUrl = req.body.url;
         var title = req.body.title;
         var category;
-
+        var suggestionResults;
         //if this promise resolves, the user is valid, and they don't hae this clip
         var isUserisDup = new Promise(function(resolve, reject) {
 
@@ -383,8 +388,14 @@ module.exports = {
               console.log('PARSED TITLE---------------->>>>>>', parsedTitle);
 
               utils.suggestionsAPI(parsedTitle, function (suggestions) {
-                // console.log('TIME TO GET SUGGESTIONS:', suggestions.results);
-                var suggestionResults = suggestions.results.map(function (item) {
+                console.log('TIME TO GET SUGGESTIONS:', suggestions.results);
+
+                //if suggestionResults.length is 0, it means no suggestions got back
+                //use default suggestions
+                  // if (suggestions.results.length === 0) {
+                  //   suggestionResults = defaultSugs.trending;
+                  // }
+                suggestionResults = suggestions.results.map(function (item) {
                   // console.log("suggestionResults: ", item);
                   return  {
                     title: item.title,
@@ -392,8 +403,6 @@ module.exports = {
                   };
                 });
 
-                //TODO : if suggestionResults.length is 0, it means no suggestions got back
-                //use default suggestions
                 suggestionResults.forEach(function (element, ind, array) {
                   // console.log('INSIDE SuggestionResults FOREACH:', element);
                   utils.createSuggestionNode(element, function (suggestionNode) {
