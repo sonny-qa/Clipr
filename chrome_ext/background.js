@@ -81,30 +81,47 @@ var getPageText = function(bkmrkObj, cb) {
 };
 
 
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        //when receving a message from popup.js, this indicates click has happened, so start the process...
+        if (request.clicked) {
 
-//*******************************************************************
-// Event Listeners
-//*******************************************************************
+            //collect tab data
+            chrome.tabs.query({
+                    active: true,
+                    currentWindow: true
+                }, function(tabs) {
+                    tab = tabs[0]
 
-//listener for sending in new bookmark
-chrome.browserAction.onClicked.addListener(function(tab) {
+                    checkAuth.then(function(bkmrkObj) {
 
-    //check auth first to get email
-    checkAuth.then(function(bkmrkObj) {
-
-        //set tab info from current tab onto bkmrkobj
-        bkmrkObj.url = tab.url;
-        bkmrkObj.title = tab.title;
-
-        console.log('sending in ext', bkmrkObj);
-
-            //stringify immediately before send
-            getPageText(bkmrkObj,function(data){
-                sendBookmark(JSON.stringify(data));
-            });
+                        //set tab info from current tab onto bkmrkobj
+                        bkmrkObj.url = tab.url;
+                        bkmrkObj.title = tab.title;
+                        bkmrkObj.timeAdded = Date.now()
 
 
+                        //stringify immediately before send
+                        getPageText(bkmrkObj, tab.id, function(data) {
+                            console.log('got text', bkmrkObj)
+                            sendBookmark(JSON.stringify(data), function(resp) {
+                          
+                                //we send a message back to the popup controller, with the server's reply
+                                 sendResponse({status: resp});
 
-    });
-});
+                            })
 
+
+
+                        });
+
+                    });
+
+                }
+
+
+
+            );
+        } return true 
+ 
+    })
