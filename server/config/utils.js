@@ -155,17 +155,43 @@ createRelation: function(clip, tag, how, relevance, cb) {
   suggestionsAPI : function(keyword, cb, flag) {
     var farooAPI = process.env.FAROO || apiKeys.FAROO;
 
+    //No flag is passed in, use keyword to
     var fullUrl = 'http://www.faroo.com/api?q=' + keyword + '&start=1&length=3&l=en&src=web&i=false&f=json' + farooAPI;
 
-    if (flag) {
-      fullUrl = 'http://www.faroo.com/api?q=&start=1&length=3&l=en&src=news&f=json' + farooAPI;
-    }
+    // //When a flag is passed in as third argument, grab Trending News from Faroo as default suggestions
+    // if (flag) {
+
+    // }
 
     request(fullUrl, function (err, res, body) {
       if(err) {
         console.log('ERROR inside suggestionsAPI!!');
       }
+
       var bodyParsed = JSON.parse(body);
+      console.log('BODY>>>>>>>>>>>>>>>>',bodyParsed);
+      //check if result has suggestions, if NOT, call suggestionsAPI with flag
+      if (bodyParsed.results.length === 0) {
+        module.exports.getTrendingNews(function(news) {
+          cb(news);
+        });
+      } else {
+        cb(bodyParsed);
+      }
+    });
+  },
+
+  getTrendingNews : function(cb) {
+    var farooAPI = process.env.FAROO || apiKeys.FAROO;
+
+    var fullUrl = 'http://www.faroo.com/api?q=&start=1&length=3&l=en&src=news&f=json' + farooAPI;
+
+    request(fullUrl, function (err, res, body) {
+      if(err) {
+        console.log('ERROR inside getTrendingNews : ', err);
+      }
+      var bodyParsed = JSON.parse(body);
+      console.log('BODY>>>>>>>>>>>>>>>>',bodyParsed);
       cb(bodyParsed);
     });
   }

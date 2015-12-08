@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<div id="modal" <div class="modal-header">
-    <iframe id="clipSelectWebsite" src="{{sceUrl}}" style="width:100%;height:100%"></iframe>
-</div>
-<div class="modal-body">
-	<div class="savedNotes" ng-repeat="article in suggestions">
-		<li><a href="{{ article.suggestionUrl }}" target="_blank">{{ article.suggestionTitle }}</a></li>
-	</div>
->>>>>>> [fix]: merge sug branch into master
-=======
->>>>>>> [fix]: get images for each suggestionNode
-
->>>>>>> [fix]: merge sug branch into master
 <div id="modal">
     <div class="modal-header {{item.category}}">
         <div id="modalImg" style="background-image: url('{{item.imgUrl}}')"></div>
@@ -32,7 +15,7 @@
                     <li id="dropdown" ng-click="changeCategory('Technology', item)">Technology</li>
                     <li id="dropdown" ng-click="changeCategory('News', item)">News</li>
                     <li id="dropdown" ng-click="changeCategory('Entertainment', item)">Entertainment</li>
-                    <li id="dropdown" ng-click="changeCategory('Food', item)">Food</li>
+                    <li id="dropdown" ng-click="chan    geCategory('Food', item)">Food</li>
                     <li id="dropdown" ng-click="changeCategory('Sports', item)">Sports</li>
                     <li id="dropdown" ng-click="changeCategory('Travel', item)">Travel</li>
                     <li id="dropdown" ng-click="changeCategory('Business', item)">Business</li>
@@ -49,24 +32,8 @@
                 </ul>
             </div>
         </div>
-<<<<<<< HEAD
         <div id="suggestions">
             <ul ng-repeat="suggestion in item.suggestions">
                 <a id="suggestion" href="{{suggestion.suggestionUrl}}"> {{suggestion.suggestionTitle}}</a>
         </div>
     </div>
-=======
-            <div id="suggestions">
-                <ul ng-repeat="suggestion in item.suggestions">
-                    <a id="suggestion" href="{{suggestion.suggestionUrl}}"> {{suggestion.suggestionTitle}}</a>
-            </div>
-    </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-</div>
->>>>>>> [fix]: merge sug branch into master
->>>>>>> [fix]: merge sug branch into master
-=======
->>>>>>> [fix]: get images for each suggestionNode

@@ -61818,17 +61818,17 @@ angular
     }).then(function(response) {
       clips.data = response.data;
       clips.clips = response.data;
-      clips.categories = {}
+      clips.categories = {};
       for (var x = 0; x < response.data.length; x++) {
 
         var clip = response.data[x].clips;
         var suggestion = response.data[x].suggestions;
 
         if (!clips.categories[clip.category]) {
-          clips.categories[clip.category] = {}
+          clips.categories[clip.category] = {};
           clips.categories[clip.category][clip.title] = clip;
           clips.categories[clip.category][clip.title].suggestions = [suggestion];
-          console.log(clips.categories[clip.category][clip.title])
+          console.log(clips.categories[clip.category][clip.title]);
         } else {
           if (clips.categories[clip.category][clip.title]) {
             clips.categories[clip.category][clip.title].suggestions.push(suggestion);

@@ -201,7 +201,6 @@ module.exports = {
     db.query(cypher, function(err, results) {
       res.send(results);
     });
-
     // // TODO : Get default suggestions and store them so you can use them later
     // if (req.query.cookie !== undefined) {
     //   utils.suggestionsAPI(null, function(defaultSugs){
@@ -389,12 +388,6 @@ module.exports = {
 
               utils.suggestionsAPI(parsedTitle, function (suggestions) {
                 console.log('TIME TO GET SUGGESTIONS:', suggestions.results);
-
-                //if suggestionResults.length is 0, it means no suggestions got back
-                //use default suggestions
-                  // if (suggestions.results.length === 0) {
-                  //   suggestionResults = defaultSugs.trending;
-                  // }
                 suggestionResults = suggestions.results.map(function (item) {
                   // console.log("suggestionResults: ", item);
                   return  {
