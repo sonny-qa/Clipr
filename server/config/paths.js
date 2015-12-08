@@ -192,16 +192,19 @@ module.exports = {
             //send user to google to authenticate
 
         }),
+
   loadAllClips: function(req, res) {
     console.log('COOKIES', req.query.cookie);
     var cypher = "MATCH(suggestions:Suggestion)<-[:related]-(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips,suggestions";
 
-    //TODO : Query DB to find suggestionNodes for each clipNode
       //Attach suggestionNodes as a property of clipNode before sending it back to front-end
     db.query(cypher, function(err, results) {
-      // console.log('CLIPS AND SUGGESTIONNODES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', results);
       res.send(results);
     });
+
+    utils.suggestionsAPI(null, function(defaultSugs){
+      // console.log('DEFAULT SUGGESTIONS>>>>>>>>>>>', defaultSugs);
+    }, true);
   },
 
   addNote: function(req, res) {
@@ -382,7 +385,7 @@ module.exports = {
               utils.suggestionsAPI(parsedTitle, function (suggestions) {
                 // console.log('TIME TO GET SUGGESTIONS:', suggestions.results);
                 var suggestionResults = suggestions.results.map(function (item) {
-                  console.log("suggestionResults: ", item);
+                  // console.log("suggestionResults: ", item);
                   return  {
                     title: item.title,
                     url: item.url
@@ -392,7 +395,7 @@ module.exports = {
                 //TODO : if suggestionResults.length is 0, it means no suggestions got back
                 //use default suggestions
                 suggestionResults.forEach(function (element, ind, array) {
-                  console.log('INSIDE SuggestionResults FOREACH:', element);
+                  // console.log('INSIDE SuggestionResults FOREACH:', element);
                   utils.createSuggestionNode(element, function (suggestionNode) {
                     utils.createRelation(clipNode, suggestionNode, 'related', 'related', function (clipNode) {
                     });

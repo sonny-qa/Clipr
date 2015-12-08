@@ -189,17 +189,25 @@ createRelation: function(clip, tag, how, relevance, cb) {
   },
 
   //Call to FAROO API to get site suggestions
-  suggestionsAPI : function(keyword, cb) {
+  suggestionsAPI : function(keyword, cb, flag) {
+    var sugStorage = {};
     var farooAPI = process.env.FAROO || apiKeys.FAROO;
+
     var fullUrl = 'http://www.faroo.com/api?q=' + keyword + '&start=1&length=3&l=en&src=web&i=false&f=json' + farooAPI;
+
+    if (flag) {
+      fullUrl = 'http://www.faroo.com/api?q=&start=1&length=3&l=en&src=news&f=json' + farooAPI;
+    }
 
     request(fullUrl, function (err, res, body) {
       if(err) {
         console.log('ERROR inside suggestionsAPI!!');
       }
       var bodyParsed = JSON.parse(body);
-      cb(bodyParsed);
+      //store bodyParsed inside sugStorage
+      sugStorage.suggestions = bodyParsed;
+      console.log('suggestionStorage inside suggestionsAPI +++++________+++++', sugStorage.suggestions);
+      cb(sugStorage.suggestions);
     });
-
   }
 };
