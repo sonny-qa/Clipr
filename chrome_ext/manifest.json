@@ -7,7 +7,7 @@
   ],
   "content_scripts": [{
     "matches": ["http://*/*", "https://*/*"],
-    "js": ["content.js"]
+    "js": ["content.js","popup.js"]
   }],
   "oauth2": {
     "client_id": "313073444392-hcbme8h90e4m4vef5aqev4q2p0t4nugo.apps.googleusercontent.com",
@@ -20,7 +20,9 @@
   },
   "browser_action": {
     "default_title": "Clipr",
-    "default_icon": "apple-icon-precomposed.png"
+    "default_icon": "apple-icon-precomposed.png",
+    "default_popup": "popup.html"
+
   },
   "background": {
     "scripts": ["background.js"],

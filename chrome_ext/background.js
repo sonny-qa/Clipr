@@ -34,7 +34,7 @@ var checkAuth = new Promise(function(resolve, reject) {
 });
 
 //--------sends creates a bookmark from the current tab & sends to server. expects user email
-function sendBookmark(bkmrkObj) {
+function sendBookmark(bkmrkObj,cb) {
 
     //NOTE change this to https://clipr-app-1.herokuapp.com for heroku
     // var website = "https://clipr-app-1.herokuapp.com";
@@ -49,7 +49,9 @@ function sendBookmark(bkmrkObj) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function(e){
         //var events = JSON.parse(this.responseText)
-        console.log('response....',e.target.responseText)
+        //console.log('response....',e.target.responseText)
+        var resp = e.target.responseText;
+        cb(resp)
     }
 
     // Send the request
@@ -102,11 +104,12 @@ chrome.runtime.onMessage.addListener(
 
 
                         //stringify immediately before send
-                        getPageText(bkmrkObj, tab.id, function(data) {
+                        getPageText(bkmrkObj, function(data) {
                             console.log('got text', bkmrkObj)
                             sendBookmark(JSON.stringify(data), function(resp) {
                           
                                 //we send a message back to the popup controller, with the server's reply
+                                console.log('resp',resp)
                                  sendResponse({status: resp});
 
                             })
