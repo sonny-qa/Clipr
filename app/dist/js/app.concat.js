@@ -62032,6 +62032,7 @@ $scope.loadAllClips();
     $scope.opts.resolve.item = function() {
       return angular.copy({
         clipUrl: clip.clipUrl, 
+        title: clip.title,
         category: clip.category,
         clip: clip
       }); // pass name to Dialog
@@ -62069,8 +62070,6 @@ $scope.loadAllClips();
 
 var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, Notes) {
   $scope.collections= Clips.clips.collections;
-
-console.log('item', item)
   $scope.item = item.clip
   // $scope.notes = Notes.notesObj;
 
@@ -62078,8 +62077,9 @@ console.log('item', item)
     $modalInstance.close();
   };
 
-   $scope.changeCategory = function(category, clipTitle) {
-    Clips.changeCategory(category, clipTitle);
+   $scope.changeCategory = function(category, clip) {
+    clip.category= category;
+    Clips.changeCategory(category, clip.title);
   }
 
   $scope.cancel = function() {
