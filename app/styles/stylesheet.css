@@ -39,6 +39,16 @@ a.editable-click {
     color: black;
 }
 
+#clipEdit.Food {
+    width: 250px;
+    height: 500px;
+    border-right: 5px solid #D03800;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #D06E00;
+}
+
 #clipEdit.Travel {
     width: 250px;
     height: 500px;
@@ -145,8 +155,13 @@ a.editable-click {
 }
 
 #iconBar {
-    position: relative;
+    position: absolute;
     width: 300px;
+    top: 300px;
+}
+
+#clipHolder {
+    padding-left: 100px;
 }
 
 #categoryBox.Food {
@@ -157,11 +172,10 @@ a.editable-click {
 
 #navMenu {
     background-color: white;
-    float: left;
-    margin-left: -5%;
+    margin-left: 0px;
     padding-top: 60px;
     z-index: -1;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 #clipBox.Food {
@@ -174,6 +188,8 @@ a.editable-click {
 
 .fa-ellipsis-h {
     float: right;
+    position: relative;
+    top: 200px;
 }
 
 #categoryBox.Politics {
@@ -200,8 +216,33 @@ a.editable-click {
     border: 5px solid #D06E00;
 }
 
+label {
+    margin-left: 10px;
+    width: 100%;
+}
+
 #colorBox.Travel {
     background-color: #D06E00;
+}
+
+#clipOverlay:hover {
+    height: 191px;
+    width: 291px;
+    left: 0px;
+    position: absolute;
+    background-color: #000;
+    opacity: .7;
+}
+
+#clipOverlay {
+    height: 191px;
+    width: 291px;
+    left: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: absolute;
+    background-color: #000;
+    opacity: 0;
 }
 
 #clipBox {
@@ -209,6 +250,7 @@ a.editable-click {
     position: absolute;
     left: -0px;
     top: 0px;
+    margin-top: 10px;
     height: 100px;
     width: 300px;
     margin-bottom: 10px;
@@ -238,6 +280,10 @@ a.editable-click {
     background-color: #00D0B6;
 }
 
+#clipBox.Food {
+    border: 5px solid #D03800;
+}
+
 #clipBox.Technology {
     border: 5px solid #00D0B6;
 }
@@ -257,7 +303,7 @@ a.editable-click {
 }
 
 #categoryBox.Shopping {
-    background-image:url('../../images/shopping.jpg');
+    background-image: url('../../images/shopping.jpg');
     -webkit-filter: grayscale(0.6) sepia(0.1);
     color: white;
 }
@@ -405,7 +451,7 @@ a#articleTitle {
     left: 275px;
     font-size: 20px;
     top: 100px;
-    color:white;
+    color: white;
 }
 
 #navLink:hover {
@@ -447,6 +493,12 @@ a {
     color: #0A2342;
 }
 
+#container-fluid {
+    padding-left: 0px;
+    margin-left: -9%;
+    margin-right: -9%;
+}
+
 a:hover {
     color: #01A2A6;
 }
@@ -484,9 +536,15 @@ a:hover {
  
 }*/
 
+#overlayTitle {
+    opacity: 1;
+    color: white;
+}
+
 .fa-trash-o {
     position: relative;
     float: left;
+    top: 200px;
 }
 
 #dropdown:hover {
@@ -557,7 +615,7 @@ a:hover {
 
 body {
     padding-top: 50px;
-    overflow: hidden;
+    overflow-y: auto;
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
 }
