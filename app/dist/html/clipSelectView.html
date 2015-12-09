@@ -15,7 +15,7 @@
                     <li id="dropdown" ng-click="changeCategory('Technology', item)">Technology</li>
                     <li id="dropdown" ng-click="changeCategory('News', item)">News</li>
                     <li id="dropdown" ng-click="changeCategory('Entertainment', item)">Entertainment</li>
-                    <li id="dropdown" ng-click="chan    geCategory('Food', item)">Food</li>
+                    <li id="dropdown" ng-click="changeCategory('Food', item)">Food</li>
                     <li id="dropdown" ng-click="changeCategory('Sports', item)">Sports</li>
                     <li id="dropdown" ng-click="changeCategory('Travel', item)">Travel</li>
                     <li id="dropdown" ng-click="changeCategory('Business', item)">Business</li>
@@ -32,8 +32,10 @@
                 </ul>
             </div>
         </div>
-        <div id="suggestions">
-            <ul ng-repeat="suggestion in item.suggestions">
-                <a id="suggestion" href="{{suggestion.suggestionUrl}}"> {{suggestion.suggestionTitle}}</a>
+        <div id="suggestions" class="container">
+            <div ng-repeat="suggestion in item.suggestions" class="row">
+                <div><img src="{{suggestion.suggestionImg}}" class="img-rounded col-md-5" alt="Cinque Terre" height="160px", width="100px"></div>
+                <div><a id="suggestion" href="{{suggestion.suggestionUrl}}" class="col-md-5"  style="padding-top:55px;"> {{suggestion.suggestionTitle}}</a></div>
+            </div>
         </div>
     </div>

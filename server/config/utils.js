@@ -120,7 +120,13 @@ createRelation: function(clip, tag, how, relevance, cb) {
       width: '640',
       height: '600',
       // Give a short time to load more resources
-      requestTimeout: '300'
+      requestTimeout: '300',
+       // How long in ms do we wait for phantomjs process to finish.
+      // If the process is running after this time, it is killed.
+      killTimeout: 1000 * 60 * 2,
+
+    // If true, phantomjs script will output requests and responses to stdout
+    verbose: true
     };
 
     // Function to parse url
