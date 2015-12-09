@@ -449,6 +449,8 @@ a#articleTitle {
 
 #slogan {
     top: 100px;
+    left: -70px;
+    color: #0A2342;
     position: relative;
 }
 

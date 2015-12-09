@@ -115,6 +115,7 @@ module.exports = function(grunt) {
               'app/bower_components/jquery/dist/jquery.js',
               'app/bower_components/angular/angular.js',
               'app/bower_components/bootstrap/dist/js/bootstrap.min.js',
+              'app/bower_components/angular-dragdrop/src/angular-dragdrop.min.js',
               'app/bower_components/angular-animate/angular-animate.js',
               'app/bower_components/angular-cookies/angular-cookies.js',
               'app/bower_components/angular-resource/angular-resource.js',
