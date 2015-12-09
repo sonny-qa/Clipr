@@ -239,5 +239,4 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['build']);
   grunt.registerTask('server', ['express', 'open', 'watch']);
   grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'copy', 'concat', 'uglify', 'cssmin', 'imagemin', 'processhtml']);
-  
 };
