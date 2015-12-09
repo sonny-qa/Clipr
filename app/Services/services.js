@@ -20,14 +20,14 @@ angular.module('clipr.services', ['ngCookies'])
     data: {},
     clips: [],
     categories: {},
-    collections: {}
+    collections: []
   };
 
   var loadClipsByCategory = function(topic) {
     var categorizedClips = [];
     if (topic === 'all') {
       for (var key in clips.categories) {
-        for (var clip in clips.categories[key]){
+        for (var clip in clips.categories[key]) {
           categorizedClips.push(clips.categories[key][clip]);
         }
       }
@@ -74,15 +74,66 @@ angular.module('clipr.services', ['ngCookies'])
     });
   };
 
-  var deleteClip= function(clipTitle){
+  var loadCollections = function() {
+    return $http({
+      method: 'POST',
+      url: '/loadCollections'
+    }).then(function(response) {
+      console.log('load collection response', response)
+      var response= response.data;
+      var result=[];
+      for(var i=0; i<response.length;i++){
+        result.push(response[i].collection);
+      }
+      console.log('result', result)
+      clips.collections=result;
+    })
+  }
+
+  var addToCollection= function(collection,clip){
     return $http({
       method:'POST', 
-      url:'/deleteClip', 
+      url:'/addToCollection',
       params:{
+        collection: collection,
+        clip: clip.title
+      }
+    })
+  }
+  var showCollectionClips= function(collection){
+    return $http({
+      method:'POST', 
+      url:'/showCollectionClips', 
+      params:{
+        collection: collection
+      }
+    }).then(function(response){
+      clips.clips= response.data
+    })
+  }
+
+  var addCollection = function(collection) {
+    return $http({
+      method: 'POST',
+      url: '/addCollection',
+      params: {
+        collection: collection
+      }
+    }).then(function(response) {
+      console.log('received response')
+      loadCollections();
+    })
+  }
+
+  var deleteClip = function(clipTitle) {
+    return $http({
+      method: 'POST',
+      url: '/deleteClip',
+      params: {
         clipTitle: clipTitle,
         email: $cookies.get('clipr')
       }
-    }).then(function(response){
+    }).then(function(response) {
       loadAllClips($cookies.get('clipr'));
     })
   }
@@ -98,7 +149,7 @@ angular.module('clipr.services', ['ngCookies'])
     }).then(function(response) {
       loadAllClips($cookies.get('clipr')).then(function(response) {
         console.log('response')
-        // loadClipsByCategory(category);
+          // loadClipsByCategory(category);
       });
     })
   }
@@ -107,8 +158,12 @@ angular.module('clipr.services', ['ngCookies'])
     loadClipsByCategory: loadClipsByCategory,
     loadAllClips: loadAllClips,
     clips: clips,
-    changeCategory: changeCategory, 
-    deleteClip: deleteClip
+    changeCategory: changeCategory,
+    deleteClip: deleteClip,
+    addCollection: addCollection,
+    loadCollections: loadCollections,
+    addToCollection: addToCollection,
+    showCollectionClips: showCollectionClips
   };
 
 }])

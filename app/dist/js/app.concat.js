@@ -61789,14 +61789,14 @@ angular
     data: {},
     clips: [],
     categories: {},
-    collections: {}
+    collections: []
   };
 
   var loadClipsByCategory = function(topic) {
     var categorizedClips = [];
     if (topic === 'all') {
       for (var key in clips.categories) {
-        for (var clip in clips.categories[key]){
+        for (var clip in clips.categories[key]) {
           categorizedClips.push(clips.categories[key][clip]);
         }
       }
@@ -61843,15 +61843,66 @@ angular
     });
   };
 
-  var deleteClip= function(clipTitle){
+  var loadCollections = function() {
+    return $http({
+      method: 'POST',
+      url: '/loadCollections'
+    }).then(function(response) {
+      console.log('load collection response', response)
+      var response= response.data;
+      var result=[];
+      for(var i=0; i<response.length;i++){
+        result.push(response[i].collection);
+      }
+      console.log('result', result)
+      clips.collections=result;
+    })
+  }
+
+  var addToCollection= function(collection,clip){
     return $http({
       method:'POST', 
-      url:'/deleteClip', 
+      url:'/addToCollection',
       params:{
+        collection: collection,
+        clip: clip.title
+      }
+    })
+  }
+  var showCollectionClips= function(collection){
+    return $http({
+      method:'POST', 
+      url:'/showCollectionClips', 
+      params:{
+        collection: collection
+      }
+    }).then(function(response){
+      clips.clips= response.data
+    })
+  }
+
+  var addCollection = function(collection) {
+    return $http({
+      method: 'POST',
+      url: '/addCollection',
+      params: {
+        collection: collection
+      }
+    }).then(function(response) {
+      console.log('received response')
+      loadCollections();
+    })
+  }
+
+  var deleteClip = function(clipTitle) {
+    return $http({
+      method: 'POST',
+      url: '/deleteClip',
+      params: {
         clipTitle: clipTitle,
         email: $cookies.get('clipr')
       }
-    }).then(function(response){
+    }).then(function(response) {
       loadAllClips($cookies.get('clipr'));
     })
   }
@@ -61867,7 +61918,7 @@ angular
     }).then(function(response) {
       loadAllClips($cookies.get('clipr')).then(function(response) {
         console.log('response')
-        // loadClipsByCategory(category);
+          // loadClipsByCategory(category);
       });
     })
   }
@@ -61876,8 +61927,12 @@ angular
     loadClipsByCategory: loadClipsByCategory,
     loadAllClips: loadAllClips,
     clips: clips,
-    changeCategory: changeCategory, 
-    deleteClip: deleteClip
+    changeCategory: changeCategory,
+    deleteClip: deleteClip,
+    addCollection: addCollection,
+    loadCollections: loadCollections,
+    addToCollection: addToCollection,
+    showCollectionClips: showCollectionClips
   };
 
 }])
@@ -61950,8 +62005,7 @@ angular
     logOut: logOut
   };
 
-}]);
-;angular.module('clipr.categories', [])
+}]);;angular.module('clipr.categories', [])
 
 .controller('CategoryController', ['$scope', 'Clips','$cookies','$state', function($scope, Clips, $cookies, $state) {
 
@@ -61976,12 +62030,25 @@ angular
 
 }]);angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies','$state', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies, $state) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies', '$state', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies, $state) {
 
   $scope.clips = Clips.clips;
   $scope.clipShow = false;
-  $scope.categories=Clips.clips;
+  $scope.categories = Clips.clips;
+  $scope.collection = "";
 
+
+  $scope.submit = function() {
+    console.log('in submit')
+    Clips.addCollection($scope.collection);
+      $scope.collection = "";
+    
+  }
+
+ $scope.showCollectionClips= function(collection){
+  console.log('in show colllection clips', collection)
+  Clips.showCollectionClips(collection);
+ }
 
   $scope.loadClipsByCategory = function(category) {
     Clips.loadClipsByCategory(category);
@@ -61989,15 +62056,20 @@ angular
   }
 
   $scope.navToClips = function() {
-   Clips.loadAllClips($cookies.get('clipr'));
-   $state.go('main')
- };
+    Clips.loadAllClips($cookies.get('clipr'));
+    $state.go('main')
+  };
 
   $scope.loadAllClips = function() {
     Clips.loadAllClips($cookies.get('clipr'));
   };
 
-$scope.loadAllClips();
+  $scope.loadAllClips();
+
+  $scope.loadCollections = function() {
+    Clips.loadCollections();
+  }
+ $scope.loadCollections();
 
   $scope.logOut = function() {
     AuthService.logOut();
@@ -62013,7 +62085,7 @@ $scope.loadAllClips();
   };
 
   $scope.delete = function(clipTitle) {
-      Clips.deleteClip(clipTitle)
+    Clips.deleteClip(clipTitle)
   }
 
 
@@ -62069,16 +62141,22 @@ $scope.loadAllClips();
 }]);
 
 var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, Notes) {
-  $scope.collections= Clips.clips.collections;
+  $scope.collections = Clips.clips.collections
   $scope.item = item.clip
-  // $scope.notes = Notes.notesObj;
+    // $scope.notes = Notes.notesObj;
 
   $scope.ok = function() {
     $modalInstance.close();
   };
 
-   $scope.changeCategory = function(category, clip) {
-    clip.category= category;
+  $scope.addToCollection= function(collection,clip){
+    console.log(collection)
+    console.log(clip)
+    Clips.addToCollection(collection,clip);
+  }
+
+  $scope.changeCategory = function(category, clip) {
+    clip.category = category;
     Clips.changeCategory(category, clip.title);
   }
 
@@ -62101,8 +62179,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, No
   //   console.log('display function!!!');
   //   Notes.loadNotes($scope.item.clipUrl);
   // };
-};
-;angular.module('clipr.sidebar',['ui.router'])
+};;angular.module('clipr.sidebar',['ui.router'])
 
 .controller('SidebarController',['$scope', 'Clips', function($scope, Clips){
 

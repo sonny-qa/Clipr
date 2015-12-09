@@ -39,6 +39,12 @@ a.editable-click {
     color: black;
 }
 
+.add-btn {
+    height: auto;
+    text-align: center;
+    width: auto;
+}
+
 #clipEdit.Food {
     width: 250px;
     height: 500px;
