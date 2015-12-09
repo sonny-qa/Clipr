@@ -62038,6 +62038,7 @@ $scope.loadAllClips();
       }); // pass name to Dialog
     };
 
+<<<<<<< HEAD
     var modalInstance = $modal.open($scope.opts);
     modalInstance.result.then(function() {
       //on ok button press
@@ -62046,6 +62047,11 @@ $scope.loadAllClips();
       console.log("Modal Closed");
     });
   };
+=======
+   $scope.item = item;
+   $scope.sceUrl = $sce.trustAsResourceUrl($scope.item.clip);
+   $scope.suggestions = Suggestions.content.data;
+>>>>>>> fe975c3b39c49779f330a72b0fdf83471f95e8e3
 
   $scope.openAside = function(position) {
     console.log('inside asiiiiideee');
@@ -62073,6 +62079,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, No
   $scope.item = item.clip
   // $scope.notes = Notes.notesObj;
 
+<<<<<<< HEAD
   $scope.ok = function() {
     $modalInstance.close();
   };
@@ -62092,6 +62099,13 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, No
     $scope.NoteAndUrl = {
       note: userNotes,
       url: $scope.item.clipUrl
+=======
+    $scope.getRelated = function () {
+      console.log('NEW PASS TO SUGGESTIONS', $scope.item.title);
+      //call service factory - getSuggestions
+      Suggestions.getContent($scope.item.title);
+      // console.log("Suggestions back from server: ", $scope.suggestions);
+>>>>>>> fe975c3b39c49779f330a72b0fdf83471f95e8e3
     };
     console.log('Notes being passed to server', $scope.NoteAndUrl);
     Notes.addNotes($scope.NoteAndUrl);
