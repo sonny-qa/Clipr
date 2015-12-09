@@ -27,8 +27,8 @@
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     + List <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" ng-repeat="list in lists">
-                    <li id="dropdown" ng-click="addToCollection('collection.name', clip)">{{list.name}}</li>
+                <ul class="dropdown-menu">
+                    <li id="dropdown" ng-repeat="collection in collections" ng-click="addToCollection(collection, item)">{{collection}}</li>
                 </ul>
             </div>
         </div>

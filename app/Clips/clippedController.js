@@ -1,11 +1,24 @@
 angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies','$state', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies, $state) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies', '$state', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies, $state) {
 
   $scope.clips = Clips.clips;
   $scope.clipShow = false;
-  $scope.categories=Clips.clips;
+  $scope.categories = Clips.clips;
+  $scope.collection = "";
 
+
+  $scope.submit = function() {
+    console.log('in submit')
+    Clips.addCollection($scope.collection);
+      $scope.collection = "";
+    
+  }
+
+ $scope.showCollectionClips= function(collection){
+  console.log('in show colllection clips', collection)
+  Clips.showCollectionClips(collection);
+ }
 
   $scope.loadClipsByCategory = function(category) {
     Clips.loadClipsByCategory(category);
@@ -13,15 +26,20 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
   }
 
   $scope.navToClips = function() {
-   Clips.loadAllClips($cookies.get('clipr'));
-   $state.go('main')
- };
+    Clips.loadAllClips($cookies.get('clipr'));
+    $state.go('main')
+  };
 
   $scope.loadAllClips = function() {
     Clips.loadAllClips($cookies.get('clipr'));
   };
 
-$scope.loadAllClips();
+  $scope.loadAllClips();
+
+  $scope.loadCollections = function() {
+    Clips.loadCollections();
+  }
+ $scope.loadCollections();
 
   $scope.logOut = function() {
     AuthService.logOut();
@@ -37,7 +55,7 @@ $scope.loadAllClips();
   };
 
   $scope.delete = function(clipTitle) {
-      Clips.deleteClip(clipTitle)
+    Clips.deleteClip(clipTitle)
   }
 
 
@@ -93,16 +111,22 @@ $scope.loadAllClips();
 }]);
 
 var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, Notes) {
-  $scope.collections= Clips.clips.collections;
+  $scope.collections = Clips.clips.collections
   $scope.item = item.clip
-  // $scope.notes = Notes.notesObj;
+    // $scope.notes = Notes.notesObj;
 
   $scope.ok = function() {
     $modalInstance.close();
   };
 
-   $scope.changeCategory = function(category, clip) {
-    clip.category= category;
+  $scope.addToCollection= function(collection,clip){
+    console.log(collection)
+    console.log(clip)
+    Clips.addToCollection(collection,clip);
+  }
+
+  $scope.changeCategory = function(category, clip) {
+    clip.category = category;
     Clips.changeCategory(category, clip.title);
   }
 

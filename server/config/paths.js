@@ -13,13 +13,13 @@ var request = require('request');
 var http = require('http');
 var classifier = require('./classify.js');
 var natural = require('natural');
-var keyword_extractor = require("keyword-extractor");
+
 // Set website (Heroku or Localhost) and callbackURL
 var website = (process.env.SITE || "http://localhost:3000");
 var callbackURL = website + '/auth/google/callback';
 
 if (website === "http://localhost:3000") {
-    var apiKeys = require('../../APIs.js');
+  var apiKeys = require('../../APIs.js');
 }
 
 // Used in Google OAuth
@@ -33,95 +33,100 @@ var clientSecret = process.env.clientSecret || apiKeys.clientSecret;
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+  extended: true
 }));
 // Set Response Headers
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 
 app.use(session({
-    secret: 'this is a secret',
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: false
-    }
+  secret: 'this is a secret',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: false
+  }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new GoogleStrategy({
-    clientID: clientID,
-    clientSecret: clientSecret,
-    callbackURL: callbackURL,
+  clientID: clientID,
+  clientSecret: clientSecret,
+  callbackURL: callbackURL,
 
 }, function(accessToken, refreshToken, profile, done) {
-    console.log('looking for gid', profile);
-    var cypher = "MATCH (node: User)" +
-        " WHERE node.username = " +
-        "'" + profile.displayName + "'" +
-        " RETURN node";
-    db.query(cypher, function(err, result) {
+  console.log('looking for gid', profile);
+  var cypher = "MATCH (node: User)" +
+    " WHERE node.username = " +
+    "'" + profile.displayName + "'" +
+    " RETURN node";
+  db.query(cypher, function(err, result) {
 
+    if (err) {
+      throw err;
+    }
+    console.log("results: ", result);
+    if (result.length === 0) {
+      //create node
+      console.log('CREATING NODE IN CREATE NODE :', result);
+      db.save({
+        username: profile.displayName,
+        sessionToken: accessToken,
+        email: profile.emails[0].value
+      }, function(err, node) {
         if (err) {
+          throw err;
+        }
+
+        db.label(node, ['User'], function(err) {
+          if (err) {
             throw err;
-        }
-        console.log("results: ", result);
-        if (result.length === 0) {
-            //create node
-            console.log('CREATING NODE IN CREATE NODE :', result);
-            db.save({
-                username: profile.displayName,
-                sessionToken: accessToken,
-                email: profile.emails[0].value
-            }, function(err, node) {
-                if (err) {
-                    throw err;
-                }
+          }
 
-                db.label(node, ['User'], function(err) {
-                    if (err) {
-                        throw err;
-                    }
+          return done(null, node);
+        });
 
-                    return done(null, node);
-                });
-
-            });
-        } else {
+      });
+    } else {
 
 
-            //attach user node and acces token to user
-            profile.userOne = result[0];
-            profile.accessToken = accessToken;
-            profile.email = result[0].email;
+      //attach user node and acces token to user
+      profile.userOne = result[0];
+      profile.accessToken = accessToken;
+      profile.email = result[0].email;
 
-        }
-        return done(null, profile);
+    }
+    return done(null, profile);
 
-    });
+  });
 
 }));
 
 passport.serializeUser(function(user, done) {
-    done(null, user);
+  done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
-    done(null, obj);
+  done(null, obj);
+});
+var db = require('seraph')({
+  server: process.env.dbServerUrl || apiKeys.dbServerUrl,
+  user: process.env.dbUser || apiKeys.dbUser,
+  pass: process.env.dbPassword || apiKeys.dbPassword
 });
 
 app.get('/auth/google/callback', passport.authenticate('google', {
-        failureRedirect: '/#/landing'
-    }),
-    function(req, res) {
-        console.log('req', req);
-        //when they come back after a successful login, setup clipr cookie
-        var email = req.session.passport.user.email;
-        res.cookie('clipr', email);
+    failureRedirect: '/#/landing'
+  }),
+  function(req, res) {
+    console.log('req', req);
+    //when they come back after a successful login, setup clipr cookie
+    var email = req.session.passport.user.email;
+    res.cookie('clipr', email);
     // Successful authentication, redirect home.
     res.redirect('/#/clips');
   });
@@ -139,11 +144,11 @@ app.post('/changeCategory', function(req, res) {
   })
 })
 
-app.post('/deleteClip', function(req,res){
-  var cypher= "MATCH (n:User {email:'" + req.query.email + "'})-[q]-(c:Clip{title:'"+ req.query.clipTitle + "'})-[w]-(d) delete q,c,w,d";
+app.post('/deleteClip', function(req, res) {
+  var cypher = "MATCH (n:User {email:'" + req.query.email + "'})-[q]-(c:Clip{title:'" + req.query.clipTitle + "'})-[w]-(d) delete q,c,w,d";
   console.log('DELETE CYPHER', cypher);
-  db.query(cypher, function(err,results){
-    if(err){
+  db.query(cypher, function(err, results) {
+    if (err) {
       console.log('DELETE ERROR:', err);
     }
     console.log('Clip successfully delete from DB');
@@ -151,11 +156,49 @@ app.post('/deleteClip', function(req,res){
   })
 })
 
-var db = require('seraph')({
-  server: process.env.dbServerUrl || apiKeys.dbServerUrl,
-  user: process.env.dbUser || apiKeys.dbUser,
-  pass: process.env.dbPassword || apiKeys.dbPassword
+app.post('/loadCollections', function(req, res) {
+  var cypher = "MATCH (n:Collection) RETURN n"
+  db.query(cypher, function(err, result) {
+    if (err) {
+      console.log('error retrieving collections')
+    }
+    console.log('collection result', result)
+    res.send(result);
+  })
+})
+
+app.post('/addCollection', function(req, res) {
+  console.log('in add collection');
+  db.save({
+    collection: req.query.collection
+  }, function(err, collectionNode) {
+    if (err) {
+      console.log('error creating collection')
+    }
+    //label the clip node
+    console.log('in label collection')
+    db.label(collectionNode, ['Collection'], function(err, result) {
+      if (err) {
+        console.log('error labeling collection node')
+      }
+      res.send(result);
+    })
+  })
 });
+
+app.post('/showCollectionClips', function(req, res) {
+  var cypher = 'MATCH (n:Clip)-[:partOf]->(c:Collection) WHERE c.collection="' + req.query.collection + '" RETURN n'
+  console.log(cypher)
+  db.query(cypher, function(err, result) {
+    if (err) {
+      console.log('error retrieving collection clips')
+    }
+    console.log('collection clips:', result)
+    res.send(result);
+  })
+})
+
+
 // googleCallback: passport.authenticate('google', {
 //       failureRedirect: '/#/landing'
 //     }),
@@ -171,84 +214,89 @@ var db = require('seraph')({
 
 module.exports = {
 
-    loadClipsByCategory: function(req, res) {
-        console.log('in clips by category', req.query.category);
-        var cypher = "MATCH(clips)-[:BELONGSTO]->(category) WHERE category.category='" + req.query.category + "' RETURN clips";
-        db.query(cypher, function(err, results) {
-            if (err) throw err;
-            console.log('category results', results);
-            res.send(results);
-        });
+  addToCollection: function(req, res) {
+    var cypher = 'MATCH (n:Clip {title:"' + req.query.clip + '"}),(c:Collection {collection:"' + req.query.collection + '"}) CREATE n-[r:partOf]->c  RETURN r'
+    console.log(cypher)
+    db.query(cypher, function(err, result) {
+      if (err) {
+        console.log('error in relating collection')
+      }
+      console.log('Added To Collection', result)
+    })
+  },
+
+  loadClipsByCategory: function(req, res) {
+    console.log('in clips by category', req.query.category);
+    var cypher = "MATCH(clips)-[:BELONGSTO]->(category) WHERE category.category='" + req.query.category + "' RETURN clips";
+    db.query(cypher, function(err, results) {
+      if (err) throw err;
+      console.log('category results', results);
+      res.send(results);
+    });
+  },
+  //   db: require('seraph')({
+  //   server: "http://clipr.sb02.stations.graphenedb.com:24789",
+  //   user: "clipr",
+  //   pass: 'oSvInWIWVVCQIbxLbfTu'
+  // }),
+  googleAuth: passport.authenticate('google', {
+      scope: ['https://www.googleapis.com/auth/plus.login', 'email']
     },
-    //   db: require('seraph')({
-    //   server: "http://clipr.sb02.stations.graphenedb.com:24789",
-    //   user: "clipr",
-    //   pass: 'oSvInWIWVVCQIbxLbfTu'
-    // }),
-    googleAuth: passport.authenticate('google', {
-            scope: ['https://www.googleapis.com/auth/plus.login', 'email']
-        },
-        function(req, res) {
-            //send user to google to authenticate
+    function(req, res) {
+      //send user to google to authenticate
 
-        }),
-
+    }),
   loadAllClips: function(req, res) {
     console.log('COOKIES', req.query.cookie);
     var cypher = "MATCH(suggestions:Suggestion)<-[:related]-(clips:Clip)-[:owns]->(user:User)WHERE user.email='" + req.query.cookie + "'RETURN clips,suggestions";
 
-      //Attach suggestionNodes as a property of clipNode before sending it back to front-end
+    //TODO : Query DB to find suggestionNodes for each clipNode
+    //Attach suggestionNodes as a property of clipNode before sending it back to front-end
     db.query(cypher, function(err, results) {
+      // console.log('CLIPS AND SUGGESTIONNODES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', results);
       res.send(results);
     });
-    // // TODO : Get default suggestions and store them so you can use them later
-    // if (req.query.cookie !== undefined) {
-    //   utils.suggestionsAPI(null, function(defaultSugs){
-    //     //store trending news in localstorage
-    //     console.log('DEFAULT SUGGESTIONS>>>>>>>>>>>', defaultSugs);
-    //     localStorage.setItem('default', defaultSugs);
-    //   }, true);
-    // }
   },
 
-  addNote: function(req, res) {
-    console.log('in addNote');
-    console.log('url', req.query.url);
-    // console.log('url', req.query.user)
+  // addNote: function(req, res) {
+  //   console.log('in addNote');
+  //   console.log('url', req.query.url);
+  //   // console.log('url', req.query.user)
 
-    var clipNode;
-    var noteNode;
-    db.find({
-      clipUrl: req.query.url
-    }, function(err, clip) {
-      if (err) throw err;
-      clipNode = clip;
-    });
-    console.log(req.query.note);
-    db.save({
-      note: req.query.note
-    }, function(err, note) {
-      console.log(' note was saved', note);
-      noteNode = note;
-      if (err) throw err;
-      db.label(noteNode, ['Note'], function(err) {
-        if (err) throw err;
-        console.log('noteNode', noteNode);
-        console.log('clipNode', clipNode);
-      });
-      utils.createRelation(noteNode, clipNode[0], 'belongsTo', 3);
-      res.send(noteNode);
-    });
-  },
-  loadNotes: function (req, res) {
-    console.log('inloadnotes');
-    var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
-    db.query(cypher, function(err, result) {
-      if (err) throw err;
-      // console.log('NOTESRESULT', result);
-      res.send(result);
-    });
-  },
+  //   var clipNode;
+  //   var noteNode;
+  //   db.find({
+  //     clipUrl: req.query.url
+  //   }, function(err, clip) {
+  //     if (err) throw err;
+  //     clipNode = clip;
+  //   });
+  //   console.log(req.query.note);
+  //   db.save({
+  //     note: req.query.note
+  //   }, function(err, note) {
+  //     console.log(' note was saved', note);
+  //     noteNode = note;
+  //     if (err) throw err;
+  //     db.label(noteNode, ['Note'], function(err) {
+  //       if (err) throw err;
+  //       console.log('noteNode', noteNode);
+  //       console.log('clipNode', clipNode);
+  //     });
+  //     utils.createRelation(noteNode, clipNode[0], 'belongsTo', 3);
+  //     res.send(noteNode);
+  //   });
+  // },
+
+  // loadNotes: function(req, res) {
+  //   console.log('inloadnotes');
+  //   var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
+  //   db.query(cypher, function(err, result) {
+  //     if (err) throw err;
+  //     // console.log('NOTESRESULT', result);
+  //     res.send(result);
+  //   });
+  // },
 
   //KEEP FOR NOW ---------------------
   //When a user request suggestions, we query the DB and send back suggestions
@@ -263,8 +311,7 @@ module.exports = {
   //   });
   // },
 
-
-    storeClip: function(req, res) {
+storeClip: function(req, res) {
         // Declaring Variables
         var email = req.body.email;
         // Img url to send to DB
