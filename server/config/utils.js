@@ -1,39 +1,3 @@
-var stopWords = "a,able,about,above,abst,accordance,according,accordingly,across,act,actually,added,adj,\
-affected,affecting,affects,after,afterwards,again,against,ah,all,almost,alone,along,already,also,although,\
-always,am,among,amongst,an,and,announce,another,any,anybody,anyhow,anymore,anyone,anything,anyway,anyways,\
-anywhere,apparently,approximately,are,aren,arent,arise,around,as,aside,ask,asking,at,auth,available,away,awfully,\
-b,back,be,became,because,become,becomes,becoming,been,before,beforehand,begin,beginning,beginnings,begins,behind,\
-being,believe,below,beside,besides,between,beyond,biol,both,brief,briefly,but,by,c,ca,came,can,cannot,can't,cause,causes,\
-certain,certainly,co,com,come,comes,contain,containing,contains,could,couldnt,d,date,did,didn't,different,do,does,doesn't,\
-doing,done,don't,down,downwards,due,during,e,each,ed,edu,effect,eg,eight,eighty,either,else,elsewhere,end,ending,enough,\
-especially,et,et-al,etc,even,ever,every,everybody,everyone,everything,everywhere,ex,except,f,far,few,ff,fifth,first,five,fix,\
-followed,following,follows,for,former,formerly,forth,found,four,from,further,furthermore,g,gave,get,gets,getting,give,given,gives,\
-giving,go,goes,gone,got,gotten,h,had,happens,hardly,has,hasn't,have,haven't,having,he,hed,hence,her,here,hereafter,hereby,herein,\
-heres,hereupon,hers,herself,hes,hi,hid,him,himself,his,hither,home,how,howbeit,however,hundred,i,id,ie,if,i'll,im,immediate,\
-immediately,importance,important,in,inc,indeed,index,information,instead,into,invention,inward,is,isn't,it,itd,it'll,its,itself,\
-i've,j,just,k,keep,keeps,kept,kg,km,know,known,knows,l,largely,last,lately,later,latter,latterly,least,less,lest,let,lets,like,\
-liked,likely,line,little,'ll,look,looking,looks,ltd,m,made,mainly,make,makes,many,may,maybe,me,mean,means,meantime,meanwhile,\
-merely,mg,might,million,miss,ml,more,moreover,most,mostly,mr,mrs,much,mug,must,my,myself,n,na,name,namely,nay,nd,near,nearly,\
-necessarily,necessary,need,needs,neither,never,nevertheless,new,next,nine,ninety,no,nobody,non,none,nonetheless,noone,nor,\
-normally,nos,not,noted,nothing,now,nowhere,o,obtain,obtained,obviously,of,off,often,oh,ok,okay,old,omitted,on,once,one,ones,\
-only,onto,or,ord,other,others,otherwise,ought,our,ours,ourselves,out,outside,over,overall,owing,own,p,page,pages,part,\
-particular,particularly,past,per,perhaps,placed,please,plus,poorly,possible,possibly,potentially,pp,predominantly,present,\
-previously,primarily,probably,promptly,proud,provides,put,q,que,quickly,quite,qv,r,ran,rather,rd,re,readily,really,recent,\
-recently,ref,refs,regarding,regardless,regards,related,relatively,research,respectively,resulted,resulting,results,right,run,s,\
-said,same,saw,say,saying,says,sec,section,see,seeing,seem,seemed,seeming,seems,seen,self,selves,sent,seven,several,shall,she,shed,\
-she'll,shes,should,shouldn't,show,showed,shown,showns,shows,significant,significantly,similar,similarly,since,six,slightly,so,\
-some,somebody,somehow,someone,somethan,something,sometime,sometimes,somewhat,somewhere,soon,sorry,specifically,specified,specify,\
-specifying,still,stop,strongly,sub,substantially,successfully,such,sufficiently,suggest,sup,sure,t,take,taken,taking,tell,tends,\
-th,than,thank,thanks,thanx,that,that'll,thats,that've,the,their,theirs,them,themselves,then,thence,there,thereafter,thereby,\
-thered,therefore,therein,there'll,thereof,therere,theres,thereto,thereupon,there've,these,they,theyd,they'll,theyre,they've,\
-think,this,those,thou,though,thoughh,thousand,throug,through,throughout,thru,thus,til,tip,to,together,too,took,toward,towards,\
-tried,tries,truly,try,trying,ts,twice,two,u,un,under,unfortunately,unless,unlike,unlikely,until,unto,up,upon,ups,us,use,used,\
-useful,usefully,usefulness,uses,using,usually,v,value,various,'ve,very,via,viz,vol,vols,vs,w,want,wants,was,wasn't,way,we,wed,\
-welcome,we'll,went,were,weren't,we've,what,whatever,what'll,whats,when,whence,whenever,where,whereafter,whereas,whereby,wherein,\
-wheres,whereupon,wherever,whether,which,while,whim,whither,who,whod,whoever,whole,who'll,whom,whomever,whos,whose,why,widely,\
-willing,wish,with,within,without,won't,words,world,would,wouldn't,www,x,y,yes,yet,you,youd,you'll,your,youre,yours,yourself,\
-yourselves,you've,z,zero";
-
 // DB HELPER FUNCTIONS
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var session = require('express-session');
@@ -48,7 +12,6 @@ var http = require('http');
 var urlImage = require('url-to-image');
 var cloudinary = require('cloudinary');
 var natural = require('natural');
-
 var website = (process.env.SITE || "http://localhost:3000");
 if (website === "http://localhost:3000") {
     var apiKeys = require('../../APIs.js');
@@ -124,12 +87,20 @@ createRelation: function(clip, tag, how, relevance, cb) {
   },
 
   createSuggestionNode: function(suggestion, cb) {
-    //Each suggestion is an object with a title and a url as its property
-    db.save({
-      suggestionTitle : suggestion.title,
-      suggestionUrl : suggestion.url
-    }, function (err, node){
+    //Get image for suggestionNode before saving to DB
+      //Call URLtoImage to fetch sugestion,
+      //Once it completes, save it to DB
+      // console.log('SUGGESTION.URL inside CREATESUGGESTIONNODE', suggestion.url);
 
+    //Each suggestion is an object with a title and a url as its property
+    var saveSuggestionToDb = function(suggestionImgUrl){
+      console.log('SUGGESTIONIMAGE URL FROM CLOUDINARY>>>>>>>>>>>>>', suggestionImgUrl);
+      console.log('SAVING SUGGESTIONNODE TO DATABASE');
+      db.save({
+      suggestionTitle : suggestion.title,
+      suggestionUrl : suggestion.url,
+      suggestionImg : suggestionImgUrl
+      }, function (err, node){
       if (err) throw err;
       db.label(node, ['Suggestion'],
         function(err) {
@@ -138,8 +109,10 @@ createRelation: function(clip, tag, how, relevance, cb) {
         });
       cb(node);
     });
-  },
+   };
 
+   this.urlToImage(suggestion.url, saveSuggestionToDb);
+  },
   // captures screen image on chrome_ext click
   urlToImage: function(targetUrl, cb) {
     // Options object to pass to urlImage
@@ -147,7 +120,13 @@ createRelation: function(clip, tag, how, relevance, cb) {
       width: '640',
       height: '600',
       // Give a short time to load more resources
-      requestTimeout: '300'
+      requestTimeout: '300',
+       // How long in ms do we wait for phantomjs process to finish.
+      // If the process is running after this time, it is killed.
+      killTimeout: 1000 * 60 * 2,
+
+    // If true, phantomjs script will output requests and responses to stdout
+    verbose: false
     };
 
     // Function to parse url
@@ -179,41 +158,47 @@ createRelation: function(clip, tag, how, relevance, cb) {
   },
 
   //Call to FAROO API to get site suggestions
-  suggestionsAPI : function(keyword, cb) {
+  suggestionsAPI : function(keyword, cb, flag) {
     var farooAPI = process.env.FAROO || apiKeys.FAROO;
+
+    //No flag is passed in, use keyword to
     var fullUrl = 'http://www.faroo.com/api?q=' + keyword + '&start=1&length=3&l=en&src=web&i=false&f=json' + farooAPI;
+
+    // //When a flag is passed in as third argument, grab Trending News from Faroo as default suggestions
+    // if (flag) {
+
+    // }
 
     request(fullUrl, function (err, res, body) {
       if(err) {
         console.log('ERROR inside suggestionsAPI!!');
       }
+
       var bodyParsed = JSON.parse(body);
+      console.log('BODY>>>>>>>>>>>>>>>>',bodyParsed);
+      //check if result has suggestions, if NOT, call suggestionsAPI with flag
+      if (bodyParsed.results.length === 0) {
+        module.exports.getTrendingNews(function(news) {
+          cb(news);
+        });
+      } else {
+        cb(bodyParsed);
+      }
+    });
+  },
+
+  getTrendingNews : function(cb) {
+    var farooAPI = process.env.FAROO || apiKeys.FAROO;
+
+    var fullUrl = 'http://www.faroo.com/api?q=&start=1&length=3&l=en&src=news&f=json' + farooAPI;
+
+    request(fullUrl, function (err, res, body) {
+      if(err) {
+        console.log('ERROR inside getTrendingNews : ', err);
+      }
+      var bodyParsed = JSON.parse(body);
+      console.log('BODY>>>>>>>>>>>>>>>>',bodyParsed);
       cb(bodyParsed);
     });
-
-  },
-
-  //Removes all filler words from Website Title
-  isStopWord : function(word) {
-    var regex = new RegExp("\\b"+word+"\\b","i");
-    if(stopWords.search(regex) < 0) {
-      return false;
-    }else {
-      return true;
-    }
-  },
-
-  removeStopWords: function(word) {
-    words = new Array();
-    isStopWord(word);
-
-    this.replace(/\b[\w]+\b/g,
-      function($0) {
-        if(!isStopWord($0)) {
-          words[words.length] = $0.trim();
-        }
-      });
-
-    return words.join(" ");
   }
 };

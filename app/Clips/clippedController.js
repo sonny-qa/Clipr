@@ -55,7 +55,7 @@ $scope.loadAllClips();
 
     $scope.opts.resolve.item = function() {
       return angular.copy({
-        clipUrl: clip.clipUrl, 
+        clipUrl: clip.clipUrl,
         title: clip.title,
         category: clip.category,
         clip: clip
