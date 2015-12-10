@@ -176,7 +176,7 @@ a.editable-click {
 }*/
 
 #categoryBox.Food {
-    background-image: url('http://img2.timeinc.net/health/img/mag/2013/09/fall-foods-superfruit-400x400.jpg');
+    background-image: url('../../images/food.jpg');
     -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
     color: white;
 }
@@ -242,7 +242,7 @@ a.editable-click {
 }
 
 #categoryBox.Travel {
-    background-image: url('http://www.imaginamalta.com/wp-content/uploads/2014/07/Travel-8.jpg');
+    background-image: url('../../images/Travel.jpg');
     -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
     color: white;
 }
