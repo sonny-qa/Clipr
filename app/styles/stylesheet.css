@@ -124,7 +124,6 @@ a.editable-click {
     height: 200px;
     width: 100%;
     border-bottom: 5px solid black;
-    padding: 0px;
 }
 
 .modal-header.Shopping {
@@ -398,6 +397,19 @@ a#articleTitle {
     font-size: 15px;
 }
 
+
+/*
+#suggestions {
+    position: fixed;
+    color: #0A2342;
+    height: 100%;
+    width: 30%;
+    top: 40px;
+    right: 0px;
+    background-color: #01A2A6;
+    overflow: hidden;
+}*/
+
 #suggestTitle {
     color: #0A2342;
 }
@@ -446,15 +458,7 @@ a#articleTitle {
     position: absolute;
     left: 275px;
     font-size: 20px;
-    top: 20px;
-    color: white;
-}
-
-#clipModalHeader {
-    position: absolute;
-    left: 498px;
-    font-size: 20px;
-    top: 150px;
+    top: 100px;
     color: white;
 }
 
@@ -513,25 +517,7 @@ a:hover {
     position: absolute;
     right: 0px;
     top: 0px;
-    background-color: rgba(128,128,128,0.06);
-    text-align: center;
 }
-
-#suggestions .row {
-    margin-bottom: 9px;
-}
-
-#suggestions .row img {
-    border: 1px solid black;
-    padding: 0px;
-    margin-left: 5px;
-    margin-top: 1px;
-}
-
-#suggestions .row a {
-    padding-top: 55px;
-    margin: auto
-} 
 
 .clipShowWrapper {
     position: absolute;
