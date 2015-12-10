@@ -23,6 +23,17 @@ angular.module('clipr.services', ['ngCookies'])
     collections: []
   };
 
+  var recentlyAdded = function() {
+    loadClipsByCategory('all')
+    var sortedClips = clips.clips.sort(function(a, b) {
+      a.timeAdded = a.timeAdded || null;
+      b.timeAdded = b.timeAdded || null;
+      return b.timeAdded - a.timeAdded;
+    })
+    console.log(sortedClips)
+    clips.clips = sortedClips.slice(0, 9);
+  }
+
   var loadClipsByCategory = function(topic) {
     var categorizedClips = [];
     if (topic === 'all') {
@@ -162,51 +173,12 @@ angular.module('clipr.services', ['ngCookies'])
     addCollection: addCollection,
     loadCollections: loadCollections,
     addToCollection: addToCollection,
-    showCollectionClips: showCollectionClips
+    showCollectionClips: showCollectionClips,
+    recentlyAdded: recentlyAdded
   };
 
 }])
 
-.factory('Notes', ["$http", function($http) {
-
-  var notesObj = {
-    data: []
-  };
-
-  var loadNotes = function(param) {
-    return $http({
-        method: 'GET',
-        url: '/user/get/loadNotes',
-        params: {
-          url: param
-        }
-      })
-      .then(function(response) {
-        notesObj.data = response.data;
-        console.log(notesObj);
-      });
-  };
-
-  var addNotes = function(param) {
-    return $http({
-        method: 'POST',
-        url: '/user/post/addNote',
-        params: param
-      })
-      .then(function(response) {
-        console.log('factory response', response);
-        notesObj.data.push(response.data);
-        console.log('notesArr inside addNotes', notesObj);
-      });
-  };
-  return {
-    loadNotes: loadNotes,
-    addNotes: addNotes,
-    notesObj: notesObj
-  };
-
-
-}])
 
 .factory('AuthService', ['$http', 'Session', '$cookies', '$state', function($http, Session, $cookies, $state) {
 
