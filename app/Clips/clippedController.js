@@ -1,6 +1,6 @@
 angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies', '$state', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies, $state) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'AuthService', '$aside', '$cookies', '$state', function($scope, Clips, $modal, AuthService, $aside, $cookies, $state) {
 
   $scope.clips = Clips.clips;
   $scope.clipShow = false;
@@ -14,6 +14,18 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
       $scope.collection = "";
     
   }
+
+  $scope.mostVisited= function(){
+    Clips.mostVisited();
+  }
+
+  $scope.incrementCount= function(clipTitle){
+    Clips.incrementCount(clipTitle);
+  }
+
+ $scope.recentlyAdded= function(){
+  Clips.recentlyAdded();
+ }
 
  $scope.showCollectionClips= function(collection){
   console.log('in show colllection clips', collection)
