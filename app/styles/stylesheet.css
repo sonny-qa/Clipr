@@ -501,6 +501,9 @@ a#articleTitle {
     font-size: 20px;
     top: 60px;
     padding-right: 10px;
+    color: #0A2342;
+    font-family: 'Anton', sans-serif;
+    position: absolute;
 }
 
 #clipModalHeader {
