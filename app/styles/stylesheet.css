@@ -1,6 +1,7 @@
 /*body {
     background-color: white;
 }*/
+
 body,
 html {
     width: 100%;
@@ -819,10 +820,9 @@ h3 {
     padding: 10px;
 }
 
+/*---------------------START OF LANDING PAGE CSS----------------*/
 
 
-
-/*//BEGINNING OF LANDING PAGE CSS*/
 .topnav {
     font-size: 14px;
 }
