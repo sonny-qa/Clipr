@@ -45,6 +45,29 @@ h6 {
     right: 0;
 }
 
+.btn-twitter {
+    color: #fff;
+    background-color: #55acee;
+    border-color: rgba(0, 0, 0, 0.2);
+    left: -43px;
+    bottom: 465px;
+}
+
+.btn-facebook {
+    color: #fff;
+    background-color: #3b5998;
+    border-color: rgba(0, 0, 0, 0.2);
+    left: -79px;
+    bottom: 465px;
+}
+
+.btn-social-icon {
+    position: absolute;
+    text-align: left;
+    height: 34px;
+    width: 34px;
+}
+
 
 /*.editable-wrap{
     width: 250px;
