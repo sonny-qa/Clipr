@@ -35,6 +35,8 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
   $scope.showCollectionClips = function(collection) {
     console.log('in show colllection clips', collection)
     Clips.showCollectionClips(collection);
+    $scope.categoryDisplay =  collection + ':';
+
   }
 
   $scope.loadClipsByCategory = function(category) {
@@ -55,7 +57,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
   };
 
   $scope.loadAllClips = function() {
-    $scope.categoryDisplay= 'Your Clips';
+    $scope.categoryDisplay = 'Your Clips';
     Clips.loadAllClips($cookies.get('clipr'));
   };
 
