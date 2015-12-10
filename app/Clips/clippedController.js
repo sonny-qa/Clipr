@@ -34,6 +34,21 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
     Clips.loadAllClips($cookies.get('clipr'));
   };
 
+  $scope.changeCategory = function(event,ui,item_id){
+      // console.log(event);
+      var clipTitle= ui.draggable.find("h4").attr('title').toString();
+      console.log('itemID', item_id);
+      var category= item_id.toString();
+      Clips.changeCategory(category, clipTitle)
+
+  };
+
+  // $scope.changeCategory = function(category, clip) {
+  //   console.log('in change category')
+  //   clip.category = category;
+  //   Clips.changeCategory(category, clip.title);
+  // }
+
   $scope.loadAllClips();
 
   $scope.loadCollections = function() {

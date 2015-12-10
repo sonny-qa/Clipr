@@ -80,35 +80,35 @@ angular.module('clipr.services', ['ngCookies'])
       url: '/loadCollections'
     }).then(function(response) {
       console.log('load collection response', response)
-      var response= response.data;
-      var result=[];
-      for(var i=0; i<response.length;i++){
+      var response = response.data;
+      var result = [];
+      for (var i = 0; i < response.length; i++) {
         result.push(response[i].collection);
       }
       console.log('result', result)
-      clips.collections=result;
+      clips.collections = result;
     })
   }
 
-  var addToCollection= function(collection,clip){
+  var addToCollection = function(collection, clip) {
     return $http({
-      method:'POST', 
-      url:'/addToCollection',
-      params:{
+      method: 'POST',
+      url: '/addToCollection',
+      params: {
         collection: collection,
         clip: clip.title
       }
     })
   }
-  var showCollectionClips= function(collection){
+  var showCollectionClips = function(collection) {
     return $http({
-      method:'POST', 
-      url:'/showCollectionClips', 
-      params:{
+      method: 'POST',
+      url: '/showCollectionClips',
+      params: {
         collection: collection
       }
-    }).then(function(response){
-      clips.clips= response.data
+    }).then(function(response) {
+      clips.clips = response.data
     })
   }
 
@@ -148,8 +148,7 @@ angular.module('clipr.services', ['ngCookies'])
       }
     }).then(function(response) {
       loadAllClips($cookies.get('clipr')).then(function(response) {
-        console.log('response')
-          // loadClipsByCategory(category);
+        loadClipsByCategory(category);
       });
     })
   }
