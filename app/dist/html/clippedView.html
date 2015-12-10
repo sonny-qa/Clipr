@@ -33,11 +33,11 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-autohide="false" data-toggle="dropdown"> Your Lists <b class="caret"></b></a>
                     <ul class="dropdown-menu navmenu-nav" role="menu">
-                        <ul ng-init="loadCollections()" ng-repeat="collection in clips.collections">
+                        <ul ng-init= "loadCollections()" ng-repeat="collection in clips.collections">
                             <a ng-click="showCollectionClips(collection)">{{collection}}</a>
                         </ul>
                         <form ng-submit="submit()">
-                            <input type="text" placeholder="Add new collection" ng-model="collection" name="collection" />
+                            <input type="text" placeholder="Add new collection" ng-model="collection" name="collection"/>
                             <input type="submit" id="submit" value="Submit" />
                         </form>
                     </ul>
@@ -49,14 +49,12 @@
  -->
     <div class="col-lg-10" id="clipHolder">
         <div ng-repeat="clip in clips.clips | filter:searchText">
-            <div data-drag="true" jqyoui-draggable>
-                <div class="col-lg-3 {{clip.category}}" id="clipBox" style="background-image: url('{{clip.imgUrl}}')">
-                    <a ng-href="{{clip.clipUrl}}" target="_blank">
-                    </a>
-                    <i ng-click="delete(clip.title)" confirm="Are you sure you want to delete {{clip.title}}?" confirm-title="Confirm Delete" confirm-ok="Yes" confirm-cancel="No" class="fa fa-trash-o"></i><i ng-click="showModal(clip,'lg')" class="fa fa-ellipsis-h"></i>
-                    <div id="clipOverlay">
-                        <h4 id="overlayTitle"> {{clip.title}}</h4>
-                    </div>
+            <div class="col-lg-3 {{clip.category}}" id="clipBox" style="background-image: url('{{clip.imgUrl}}')">
+                <a ng-href="{{clip.clipUrl}}" target="_blank">
+                </a>
+                <i ng-click="delete(clip.title)" confirm="Are you sure you want to delete {{clip.title}}?" confirm-title="Confirm Delete" confirm-ok="Yes" confirm-cancel="No" class="fa fa-trash-o"></i><i ng-click="showModal(clip,'lg')" class="fa fa-ellipsis-h"></i>
+                <div id="clipOverlay">
+                    <h4 id="overlayTitle"> {{clip.title}}</h4>
                 </div>
             </div>
         </div>
