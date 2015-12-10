@@ -504,7 +504,7 @@ a#articleTitle {
 }
 
 #navbrand {
-    font-family: 'Anton', sans-serif;
+    font-family: "Helvetica Neue", sans-serif;
     color: white;
     background-color: #0A2342;
     font-size: 50px;
@@ -541,7 +541,7 @@ a#articleTitle {
 }
 
 #navLink:hover {
-    color: #0A2342;
+    color: #2CA58D;
     cursor: pointer;
 }
 
@@ -772,6 +772,7 @@ nav#navMenu.navmenu.navmenu-default {
 li.search {
     padding-left: 10px;
 }
+
 #sidebar .list-group-item {
     border-radius: 0;
     border-left: 0;
