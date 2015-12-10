@@ -708,12 +708,12 @@ a:hover {
     color: #2CA58D;
 }
 
-body {
+/*body {
     padding-top: 50px;
     overflow-y: auto;
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
-}
+}*/
 
 #wrapper {
     min-height: 100%;
