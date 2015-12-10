@@ -216,12 +216,13 @@ app.post('/showCollectionClips', function(req, res) {
 module.exports = {
 
   incrementCount: function(req, res) {
-
+    console.log('in increment count')
     var cypher = 'MATCH (n:Clip {title:"' + req.query.clipTitle + '"}) SET n.clickCount= n.clickCount + 1 RETURN n'
     db.query(cypher, function(err, result) {
       if (err) {
         console.log('error increasing clickCount')
       }
+      console.log('countresult', result)
       res.send(result)
     })
   },

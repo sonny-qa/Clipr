@@ -15,6 +15,10 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
     
   }
 
+  $scope.mostVisited= function(){
+    Clips.mostVisited();
+  }
+
   $scope.incrementCount= function(clipTitle){
     Clips.incrementCount(clipTitle);
   }

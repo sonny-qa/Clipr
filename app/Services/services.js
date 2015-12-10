@@ -23,6 +23,18 @@ angular.module('clipr.services', ['ngCookies'])
     collections: []
   };
 
+  var mostVisited = function() {
+    loadClipsByCategory('all');
+    var sortedClips = clips.clips.sort(function(a, b) {
+      a.clickCount = a.clickCount || null;
+      b.clickCount = b.clickCount || null;
+      return b.clickCount - a.clickCount;
+    })
+    console.log('MOSTVISITED', sortedClips)
+    clips.clips = sortedClips.slice(0, 9);
+  
+  }
+
   var recentlyAdded = function() {
     loadClipsByCategory('all')
     var sortedClips = clips.clips.sort(function(a, b) {
@@ -180,7 +192,7 @@ angular.module('clipr.services', ['ngCookies'])
     loadClipsByCategory: loadClipsByCategory,
     loadAllClips: loadAllClips,
     incrementCount: incrementCount,
-    mostViewed: mostViewed,
+    mostVisited: mostVisited,
     clips: clips,
     changeCategory: changeCategory,
     deleteClip: deleteClip,
