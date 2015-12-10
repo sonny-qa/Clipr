@@ -1,3 +1,4 @@
+
 /*body {
     background-color: white;
 }*/
@@ -503,7 +504,7 @@ a#articleTitle {
 }
 
 #navbrand {
-    font-family: 'Anton', sans-serif;
+    font-family: "Helvetica Neue", sans-serif;
     color: white;
     background-color: #0A2342;
     font-size: 50px;
@@ -526,7 +527,7 @@ a#articleTitle {
     top: 50px;
     padding-right: 10px;
     color: #0A2342;
-    font-family: 'Anton', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
     position: absolute;
 }
 
@@ -536,11 +537,11 @@ a#articleTitle {
     font-size: 20px;
     top: 150px;
     color: #0A2342;
-    font-family: 'Anton', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
 }
 
 #navLink:hover {
-    color: #0A2342;
+    color: #2CA58D;
     cursor: pointer;
 }
 
@@ -549,7 +550,7 @@ a#articleTitle {
 }
 
 #brand {
-    font-family: 'Anton', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
     position: absolute;
     top: 5%;
     left: 2%;
@@ -559,7 +560,7 @@ a#articleTitle {
 
 #brand:hover {
     color: #0A2342;
-    font-family: 'Anton', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
     position: absolute;
     color: #0A2342;
 }
@@ -760,6 +761,16 @@ a:hover {
 
 .nav.list-group {
     padding-top: 20px;
+}
+
+/* This is for the sidebar nav menu */
+nav#navMenu.navmenu.navmenu-default {
+    padding-left: 10px;
+}
+
+/* Search bar inside sidebar nav menu*/
+li.search {
+    padding-left: 10px;
 }
 
 #sidebar .list-group-item {
