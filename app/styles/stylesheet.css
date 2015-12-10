@@ -822,9 +822,11 @@ h3 {
 
 /*---------------------START OF LANDING PAGE CSS----------------*/
 
-
+.fa-google-plus-square {
+    color: #D64837;
+}
 .topnav {
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .lead {
@@ -837,7 +839,7 @@ h3 {
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background: url(../images/intro-bg.jpeg) no-repeat center center;
+    background: url(../images/intro-bg.jpg) no-repeat center center;
     background-size: cover;
 }
 
