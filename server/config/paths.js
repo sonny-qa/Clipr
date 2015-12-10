@@ -3,8 +3,6 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var session = require('express-session');
 var app = require('../server.js');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var keyword_extractor = require('keyword-extractor');
 var bodyParser = require('body-parser');
 var express = require('express');
 var path = require('path');
@@ -197,20 +195,6 @@ app.post('/showCollectionClips', function(req, res) {
   })
 })
 
-
-// googleCallback: passport.authenticate('google', {
-//       failureRedirect: '/#/landing'
-//     }),
-//     function(req, res) {
-//       console.log('req', req)
-//       console.log('res', res)
-//       //when they come back after a successful login, setup clipr cookie
-//       res.cookie('clipr', req.session.passport.user.accessToken)
-//         // Successful authentication, redirect home.
-//       res.redirect('/#/clips');
-//     }),
-
-
 module.exports = {
 
   incrementCount: function(req, res) {
@@ -245,11 +229,7 @@ module.exports = {
       res.send(results);
     });
   },
-  //   db: require('seraph')({
-  //   server: "http://clipr.sb02.stations.graphenedb.com:24789",
-  //   user: "clipr",
-  //   pass: 'oSvInWIWVVCQIbxLbfTu'
-  // }),
+
   googleAuth: passport.authenticate('google', {
       scope: ['https://www.googleapis.com/auth/plus.login', 'email']
     },
@@ -268,46 +248,6 @@ module.exports = {
       res.send(results);
     });
   },
-
-  // addNote: function(req, res) {
-  //   console.log('in addNote');
-  //   console.log('url', req.query.url);
-  //   // console.log('url', req.query.user)
-
-  //   var clipNode;
-  //   var noteNode;
-  //   db.find({
-  //     clipUrl: req.query.url
-  //   }, function(err, clip) {
-  //     if (err) throw err;
-  //     clipNode = clip;
-  //   });
-  //   console.log(req.query.note);
-  //   db.save({
-  //     note: req.query.note
-  //   }, function(err, note) {
-  //     console.log(' note was saved', note);
-  //     noteNode = note;
-  //     if (err) throw err;
-  //     db.label(noteNode, ['Note'], function(err) {
-  //       if (err) throw err;
-  //       console.log('noteNode', noteNode);
-  //       console.log('clipNode', clipNode);
-  //     });
-  //     utils.createRelation(noteNode, clipNode[0], 'belongsTo', 3);
-  //     res.send(noteNode);
-  //   });
-  // },
-
-  // loadNotes: function(req, res) {
-  //   console.log('inloadnotes');
-  //   var cypher = "MATCH(notes)-[:belongsTo]->(clip) WHERE clip.clipUrl='" + req.query.url + "' RETURN notes";
-  //   db.query(cypher, function(err, result) {
-  //     if (err) throw err;
-  //     // console.log('NOTESRESULT', result);
-  //     res.send(result);
-  //   });
-  // },
 
   //KEEP FOR NOW ---------------------
   //When a user request suggestions, we query the DB and send back suggestions
