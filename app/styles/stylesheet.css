@@ -166,9 +166,6 @@ a.editable-click {
     top: 300px;
 }
 
-#clipHolder {
-    padding-left: 100px;
-}
 
 #categoryBox.Food {
     background-image: url('http://img2.timeinc.net/health/img/mag/2013/09/fall-foods-superfruit-400x400.jpg');
@@ -181,7 +178,6 @@ a.editable-click {
     margin-left: 0px;
     padding-top: 60px;
     z-index: -1;
-    overflow-y: auto;
 }
 
 #clipBox.Food {
@@ -397,7 +393,10 @@ a#articleTitle {
     font-size: 15px;
 }
 
-
+#clipHolder{
+    left:100px;
+    z-index: 2;
+}
 /*
 #suggestions {
     position: fixed;

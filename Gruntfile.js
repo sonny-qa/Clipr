@@ -113,6 +113,7 @@ module.exports = function(grunt) {
           js: {
             src: [
               'app/bower_components/jquery/dist/jquery.js',
+              "app/bower_components/jquery-ui/jquery-ui.min.js",
               'app/bower_components/angular/angular.js',
               'app/bower_components/bootstrap/dist/js/bootstrap.min.js',
               'app/bower_components/angular-dragdrop/src/angular-dragdrop.min.js',

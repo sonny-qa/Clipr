@@ -4,6 +4,7 @@ var session = require('express-session');
 var app = require('../server.js');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var keyword_extractor= require('keyword-extractor');
 var bodyParser = require('body-parser');
 var natural = require('natural');
 var express = require('express');
