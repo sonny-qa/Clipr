@@ -3,7 +3,6 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var session = require('express-session');
 var app = require('../server.js');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
 var bodyParser = require('body-parser');
 var path = require('path');
 var Promise = require('bluebird');
@@ -12,6 +11,7 @@ var http = require('http');
 var urlImage = require('url-to-image');
 var cloudinary = require('cloudinary');
 var natural = require('natural');
+
 var website = (process.env.SITE || "http://localhost:3000");
 if (website === "http://localhost:3000") {
     var apiKeys = require('../../APIs.js');

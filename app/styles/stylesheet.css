@@ -124,6 +124,7 @@ a.editable-click {
     height: 200px;
     width: 100%;
     border-bottom: 5px solid black;
+    padding: 0px;
 }
 
 .modal-header.Shopping {
@@ -166,6 +167,9 @@ a.editable-click {
     top: 300px;
 }
 
+#clipHolder {
+    padding-left: 100px;
+}
 
 #categoryBox.Food {
     background-image: url('http://img2.timeinc.net/health/img/mag/2013/09/fall-foods-superfruit-400x400.jpg');
@@ -178,6 +182,7 @@ a.editable-click {
     margin-left: 0px;
     padding-top: 60px;
     z-index: -1;
+    overflow-y: auto;
 }
 
 #clipBox.Food {
@@ -393,22 +398,6 @@ a#articleTitle {
     font-size: 15px;
 }
 
-#clipHolder{
-    left:100px;
-    z-index: 2;
-}
-/*
-#suggestions {
-    position: fixed;
-    color: #0A2342;
-    height: 100%;
-    width: 30%;
-    top: 40px;
-    right: 0px;
-    background-color: #01A2A6;
-    overflow: hidden;
-}*/
-
 #suggestTitle {
     color: #0A2342;
 }
@@ -457,7 +446,15 @@ a#articleTitle {
     position: absolute;
     left: 275px;
     font-size: 20px;
-    top: 100px;
+    top: 20px;
+    color: white;
+}
+
+#clipModalHeader {
+    position: absolute;
+    left: 498px;
+    font-size: 20px;
+    top: 150px;
     color: white;
 }
 
@@ -516,7 +513,25 @@ a:hover {
     position: absolute;
     right: 0px;
     top: 0px;
+    background-color: rgba(128,128,128,0.06);
+    text-align: center;
 }
+
+#suggestions .row {
+    margin-bottom: 9px;
+}
+
+#suggestions .row img {
+    border: 1px solid black;
+    padding: 0px;
+    margin-left: 5px;
+    margin-top: 1px;
+}
+
+#suggestions .row a {
+    padding-top: 55px;
+    margin: auto
+} 
 
 .clipShowWrapper {
     position: absolute;

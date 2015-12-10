@@ -23,4 +23,3 @@ app.use(express.static(__dirname + '../../app/dist'));
 
 app.listen(port);
 console.log('Bits please server is now running at ' + port);
-

@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var keyword_extractor = require('keyword-extractor');
 var bodyParser = require('body-parser');
-var natural = require('natural');
 var express = require('express');
 var path = require('path');
 var Promise = require('bluebird');
@@ -14,6 +13,7 @@ var request = require('request');
 var http = require('http');
 var classifier = require('./classify.js');
 var natural = require('natural');
+var keyword_extractor = require("keyword-extractor");
 
 // Set website (Heroku or Localhost) and callbackURL
 var website = (process.env.SITE || "http://localhost:3000");
@@ -42,8 +42,6 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
-
 app.use(session({
   secret: 'this is a secret',
   resave: true,

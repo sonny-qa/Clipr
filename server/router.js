@@ -12,3 +12,4 @@ app.get('/loadAllClips', paths.loadAllClips);
 app.post('/addToCollection', paths.addToCollection);
 
 app.post('/incrementCount', paths.incrementCount);
+
