@@ -107,9 +107,8 @@ chrome.runtime.onMessage.addListener(
                         getPageText(bkmrkObj, function(data) {
                             console.log('got text', bkmrkObj)
                             sendBookmark(JSON.stringify(data), function(resp) {
-                          
+
                                 //we send a message back to the popup controller, with the server's reply
-                                console.log('resp',resp)
                                  sendResponse({status: resp});
 
                             })
@@ -125,6 +124,6 @@ chrome.runtime.onMessage.addListener(
 
 
             );
-        } return true 
- 
+        } return true
+
     })

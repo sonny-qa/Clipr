@@ -4,38 +4,60 @@
     </div>
     <nav class="collapse navbar-collapse" id="js-navbar-collapse">
         <ul class="nav navbar-nav">
-            <li><a id="navLink" href="#/categories">Back</a></li>
+            <li><a id="navLink" ng-click='loadClipsByCategory("all")'>Back</a></li>
             <li><a id="navLink" ng-click='logOut()'>Logout</a></li>
         </ul>
     </nav>
 </div>
-<div id="wrapper">
+<div id="container-fluid">
     <div class="col-lg-2">
         <nav class="navmenu navmenu-default" role="navigation" id="navMenu">
             <ul class="nav navmenu-nav">
+                <li>
+                    <label>Search:
+                        <input ng-model="searchText">
+                    </label>
+                </li>
                 <li class="active"><a href="#">Recently Added</a></li>
                 <li><a href="#">Most Visited</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Categories <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-autohide="false" data-toggle="dropdown"> Categories <b class="caret"></b></a>
                     <ul class="dropdown-menu navmenu-nav" role="menu" ng-repeat="(category,values) in categories.categories">
-                        <li class="{{category}}" id="categoryBox" ng-click="loadClipsByCategory(category)">
+                        <li data-drop="true" jqyoui-droppable="{onDrop:'changeCategory(category,$index)'}" class="{{category}}" id="categoryBox" ng-click="loadClipsByCategory(category)">
                             <div id="colorBox" class="{{category}}">
                             </div>
                             <h4 id="categoryText">{{category}}</h4>
                         </li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-autohide="false" data-toggle="dropdown"> Your Lists <b class="caret"></b></a>
+                    <ul class="dropdown-menu navmenu-nav" role="menu">
+                        <ul ng-init= "loadCollections()" ng-repeat="collection in clips.collections">
+                            <a ng-click="showCollectionClips(collection)">{{collection}}</a>
+                        </ul>
+                        <form ng-submit="submit()">
+                            <input type="text" placeholder="Add new collection" ng-model="collection" name="collection"/>
+                            <input type="submit" id="submit" value="Submit" />
+                        </form>
+                    </ul>
             </ul>
         </nav>
     </div>
     Clips
-    <div id="main-wrapper" class="col-lg-10 pull right" ng-if="!clipShow">
-        <div class="page-content">
-            <div id="clipWrapper" ng-repeat="clip in clips.clips">
-                <a class="col-xs-6 col-md-3 col-lg-3 {{clip.category}}" id="clipBox" style="background-image: url('{{clip.imgUrl}}')" ng-href="{{clip.clipUrl}}" target="_blank">
+    <!--         <div class="page-content">
+ -->
+    <div class="col-lg-10" id="clipHolder">
+        <div ng-repeat="clip in clips.clips | filter:searchText">
+            <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{placeholder:true, animate:true}" class="col-lg-3 {{clip.category}}" id="clipBox" style="background-image: url('{{clip.imgUrl}}')">
+                <a ng-href="{{clip.clipUrl}}" target="_blank">
                 </a>
-                <div id="iconBar" ng-click="showModal(clip,'lg')">
-                    <i class="fa fa-trash-o"></i><i class="fa fa-ellipsis-h"></i></div>
+                <i ng-click="delete(clip.title)" confirm="Are you sure you want to delete {{clip.title}}?" confirm-title="Confirm Delete" confirm-ok="Yes" confirm-cancel="No" class="fa fa-trash-o"></i><i ng-click="showModal(clip,'lg')" class="fa fa-ellipsis-h"></i>
+                <div id="clipOverlay">
+                    <h4 id="overlayTitle" title='{{clip.title}}'> {{clip.title}}</h4>
+                </div>
             </div>
         </div>
+        <!-- </div> -->
     </div>
+</div>

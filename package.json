@@ -52,6 +52,7 @@
     "npm": "2.14.7"
   },
   "dependencies": {
+    "angular-confirm": "^1.2.1",
     "async": "^1.5.0",
     "asynquence": "^0.8.2",
     "bluebird": "^3.0.5",
@@ -65,6 +66,7 @@
     "grunt-cli": "^0.1.13",
     "grunt-sass": "^1.1.0",
     "joi": "^7.0.0",
+    "keyword-extractor": "0.0.12",
     "lodash": "^3.10.1",
     "natural": "^0.2.1",
     "passport": "^0.3.2",

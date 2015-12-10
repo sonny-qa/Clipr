@@ -12,7 +12,8 @@ angular
         'clipr.sidebar',
         'clipr.suggested',
         'clipr.categories',
-        'xeditable'
+        'xeditable',
+        'ngDragDrop'
     ])
 
 

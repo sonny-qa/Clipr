@@ -1,11 +1,24 @@
 angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies','$state', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies, $state) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'Notes', 'AuthService', '$aside', '$cookies', '$state', function($scope, Clips, $modal, Notes, AuthService, $aside, $cookies, $state) {
 
   $scope.clips = Clips.clips;
   $scope.clipShow = false;
-  $scope.categories=Clips.clips;
+  $scope.categories = Clips.clips;
+  $scope.collection = "";
 
+
+  $scope.submit = function() {
+    console.log('in submit')
+    Clips.addCollection($scope.collection);
+      $scope.collection = "";
+    
+  }
+
+ $scope.showCollectionClips= function(collection){
+  console.log('in show colllection clips', collection)
+  Clips.showCollectionClips(collection);
+ }
 
   $scope.loadClipsByCategory = function(category) {
     Clips.loadClipsByCategory(category);
@@ -13,15 +26,35 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
   }
 
   $scope.navToClips = function() {
-   Clips.loadAllClips($cookies.get('clipr'));
-   $state.go('main')
- };
+    Clips.loadAllClips($cookies.get('clipr'));
+    $state.go('main')
+  };
 
   $scope.loadAllClips = function() {
     Clips.loadAllClips($cookies.get('clipr'));
   };
 
-$scope.loadAllClips();
+  $scope.changeCategory = function(event,ui,item_id){
+      // console.log(event);
+      var clipTitle= ui.draggable.find("h4").attr('title').toString();
+      console.log('itemID', item_id);
+      var category= item_id.toString();
+      Clips.changeCategory(category, clipTitle)
+
+  };
+
+  // $scope.changeCategory = function(category, clip) {
+  //   console.log('in change category')
+  //   clip.category = category;
+  //   Clips.changeCategory(category, clip.title);
+  // }
+
+  $scope.loadAllClips();
+
+  $scope.loadCollections = function() {
+    Clips.loadCollections();
+  }
+ $scope.loadCollections();
 
   $scope.logOut = function() {
     AuthService.logOut();
@@ -36,9 +69,10 @@ $scope.loadAllClips();
     }
   };
 
-  $scope.changeCategory = function(category, clipTitle) {
-    Clips.changeCategory(category, clipTitle);
+  $scope.delete = function(clipTitle) {
+    Clips.deleteClip(clipTitle)
   }
+
 
   $scope.showModal = function(clip, size) {
     $scope.opts = {
@@ -54,7 +88,8 @@ $scope.loadAllClips();
 
     $scope.opts.resolve.item = function() {
       return angular.copy({
-        clipUrl: clip.clipUrl, 
+        clipUrl: clip.clipUrl,
+        title: clip.title,
         category: clip.category,
         clip: clip
       }); // pass name to Dialog
@@ -91,15 +126,24 @@ $scope.loadAllClips();
 }]);
 
 var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, Notes) {
-  $scope.collections= Clips.clips.collections;
-
-console.log('item', item)
+  $scope.collections = Clips.clips.collections
   $scope.item = item.clip
-  // $scope.notes = Notes.notesObj;
+    // $scope.notes = Notes.notesObj;
 
   $scope.ok = function() {
     $modalInstance.close();
   };
+
+  $scope.addToCollection= function(collection,clip){
+    console.log(collection)
+    console.log(clip)
+    Clips.addToCollection(collection,clip);
+  }
+
+  $scope.changeCategory = function(category, clip) {
+    clip.category = category;
+    Clips.changeCategory(category, clip.title);
+  }
 
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');

@@ -9,4 +9,4 @@ app.post('/user/post/storeclip', paths.storeClip);
 
 app.get('/loadAllClips', paths.loadAllClips);
 
-
+app.post('/addToCollection', paths.addToCollection);
