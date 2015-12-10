@@ -195,20 +195,6 @@ app.post('/showCollectionClips', function(req, res) {
   })
 })
 
-
-// googleCallback: passport.authenticate('google', {
-//       failureRedirect: '/#/landing'
-//     }),
-//     function(req, res) {
-//       console.log('req', req)
-//       console.log('res', res)
-//       //when they come back after a successful login, setup clipr cookie
-//       res.cookie('clipr', req.session.passport.user.accessToken)
-//         // Successful authentication, redirect home.
-//       res.redirect('/#/clips');
-//     }),
-
-
 module.exports = {
 
   incrementCount: function(req, res) {
