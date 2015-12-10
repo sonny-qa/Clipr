@@ -78759,11 +78759,11 @@ angular
   }])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/clips');
 
   $stateProvider
     .state('landing', {
-      url: "/landing",
+      url: "/",
       views: {
         "main": {
           templateUrl: 'html/landingView.html',
