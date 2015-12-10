@@ -6,34 +6,46 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
   $scope.clipShow = false;
   $scope.categories = Clips.clips;
   $scope.collection = "";
+  $scope.categoryDisplay;
 
 
   $scope.submit = function() {
     console.log('in submit')
     Clips.addCollection($scope.collection);
-      $scope.collection = "";
-    
+    $scope.collection = "";
+
   }
 
-  $scope.mostVisited= function(){
+  $scope.mostVisited = function() {
+    $scope.categoryDisplay = 'Your Most Visited Clips:';
+
     Clips.mostVisited();
   }
 
-  $scope.incrementCount= function(clipTitle){
+  $scope.incrementCount = function(clipTitle) {
     Clips.incrementCount(clipTitle);
   }
 
- $scope.recentlyAdded= function(){
-  Clips.recentlyAdded();
- }
+  $scope.recentlyAdded = function() {
+    $scope.categoryDisplay = 'Your Recently Added Clips:';
 
- $scope.showCollectionClips= function(collection){
-  console.log('in show colllection clips', collection)
-  Clips.showCollectionClips(collection);
- }
+    Clips.recentlyAdded();
+  }
+
+  $scope.showCollectionClips = function(collection) {
+    console.log('in show colllection clips', collection)
+    Clips.showCollectionClips(collection);
+  }
 
   $scope.loadClipsByCategory = function(category) {
     Clips.loadClipsByCategory(category);
+    if (category === 'all') {
+      console.log('true')
+      $scope.categoryDisplay = 'Your Clips:';
+      console.log($scope.categoryDisplay)
+    } else {
+      $scope.categoryDisplay = 'Your ' + category + ' clips:';
+    }
     $state.go('main')
   }
 
@@ -43,15 +55,16 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
   };
 
   $scope.loadAllClips = function() {
+    $scope.categoryDisplay= 'Your Clips';
     Clips.loadAllClips($cookies.get('clipr'));
   };
 
-  $scope.changeCategory = function(event,ui,item_id){
-      // console.log(event);
-      var clipTitle= ui.draggable.find("h4").attr('title').toString();
-      console.log('itemID', item_id);
-      var category= item_id.toString();
-      Clips.changeCategory(category, clipTitle)
+  $scope.changeCategory = function(event, ui, item_id) {
+    // console.log(event);
+    var clipTitle = ui.draggable.find("h4").attr('title').toString();
+    console.log('itemID', item_id);
+    var category = item_id.toString();
+    Clips.changeCategory(category, clipTitle)
 
   };
 
@@ -66,7 +79,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
   $scope.loadCollections = function() {
     Clips.loadCollections();
   }
- $scope.loadCollections();
+  $scope.loadCollections();
 
   $scope.logOut = function() {
     AuthService.logOut();
@@ -146,10 +159,10 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item) {
     $modalInstance.close();
   };
 
-  $scope.addToCollection= function(collection,clip){
+  $scope.addToCollection = function(collection, clip) {
     console.log(collection)
     console.log(clip)
-    Clips.addToCollection(collection,clip);
+    Clips.addToCollection(collection, clip);
   }
 
   $scope.changeCategory = function(category, clip) {

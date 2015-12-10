@@ -5,14 +5,19 @@ body {
 #clipEdit {
     width: 250px;
     height: 500px;
-    border-right: 5px solid black;
     position: absolute;
     left: 0px;
     top: 0px;
+    z-index: 2;
 }
 
 .fa-pencil-square-o#editButton {
     position: relative;
+}
+
+#js-navbar-collapse {
+    position: absolute;
+    right: 0;
 }
 
 
@@ -48,72 +53,64 @@ a.editable-click {
 #clipEdit.Food {
     width: 250px;
     height: 500px;
-    border-right: 5px solid #D03800;
     position: absolute;
     left: 0px;
     top: 0px;
-    background-color: #D06E00;
+    border-right: 5px solid #D03800;
 }
 
 #clipEdit.Travel {
     width: 250px;
     height: 500px;
-    border-right: 5px solid black;
     position: absolute;
     left: 0px;
     top: 0px;
-    background-color: #D06E00;
+    border-right: 5px solid #D06E00;
 }
 
 #clipEdit.Shopping {
     width: 250px;
     height: 500px;
-    border-right: 5px solid black;
     position: absolute;
     left: 0px;
     top: 0px;
-    background-color: #D00063;
+    border-right: 5px solid #D00063;
 }
 
 #clipEdit.Science {
     width: 250px;
     height: 500px;
-    border-right: 5px solid black;
     position: absolute;
     left: 0px;
     top: 0px;
-    background-color: #008404;
+    border-right: 5px solid #008404;
 }
 
 #clipEdit.Technology {
     width: 250px;
     height: 500px;
-    border-right: 5px solid black;
     position: absolute;
     left: 0px;
     top: 0px;
-    background-color: #00D0B6;
+    border-right: 5px solid #00D0B6;
 }
 
 #clipEdit.Politics {
     width: 250px;
     height: 500px;
-    border-right: 5px solid black;
     position: absolute;
     left: 0px;
     top: 0px;
-    background-color: #1700D0;
+    border-right: 5px solid #1700D0;
 }
 
 #modalImg {
     width: 250px;
-    height: 200px;
+    height: 195px;
     background-size: 100%;
     position: absolute;
     top: 0px;
     left: 0px;
-    border-bottom: 5px solid black;
-    border-right: 5px solid black;
 }
 
 .btn.btn-primary {
@@ -123,32 +120,38 @@ a.editable-click {
 .modal-header {
     height: 200px;
     width: 100%;
-    border-bottom: 5px solid black;
     padding: 0px;
+    background-color: white;
 }
 
 .modal-header.Shopping {
-    background-color: #D00063;
+    border-bottom: 5px solid #D00063;
+    border-left: 5px solid #D00063;
 }
 
 .modal-header.Food {
-    background-color: #D03800;
+    border-bottom: 5px solid #D03800;
+    border-left: 5px solid #D03800;
 }
 
 .modal-header.Politics {
-    background-color: #1700D0;
+    border-bottom: 5px solid #1700D0;
+    border-left: 5px solid #1700D0;
 }
 
 .modal-header.Technology {
-    background-color: #00D0B6;
+    border-bottom: 5px solid #00D0B6;
+    border-left: 5px solid #00D0B6;
 }
 
 .modal-header.Science {
-    background-color: #008404;
+    border-bottom: 5px solid #008404;
+    border-left: 5px solid #008404;
 }
 
 .modal-header.Travel {
-    background-color: #D06E00;
+    border-bottom: 5px solid #D06E00;
+    border-left: 5px solid #D06E00;
 }
 
 #modal {
@@ -183,6 +186,38 @@ a.editable-click {
     padding-top: 60px;
     z-index: -1;
     overflow-y: auto;
+}
+
+#catLink {
+    color: #0A2342;
+}
+
+#catLink.Food {
+    color: #D03800
+}
+
+#catLink.Shopping {
+    color: #D00063;
+}
+
+#catLink.Politics {
+    color: #1700D0;
+}
+
+#catLink.Travel {
+    color: #D06E00;
+}
+
+#catLink.Sports {
+    color: #CCD000;
+}
+
+#catLink.Technology {
+    color: #00D0B6;
+}
+
+#catLink.Science {
+    color: #008404;
 }
 
 #clipBox.Food {
@@ -398,6 +433,24 @@ a#articleTitle {
     font-size: 15px;
 }
 
+#clipHolder {
+    left: 100px;
+    z-index: 2;
+}
+
+
+/*
+#suggestions {
+    position: fixed;
+    color: #0A2342;
+    height: 100%;
+    width: 30%;
+    top: 40px;
+    right: 0px;
+    background-color: #01A2A6;
+    overflow: hidden;
+}*/
+
 #suggestTitle {
     color: #0A2342;
 }
@@ -420,19 +473,19 @@ a#articleTitle {
 }
 
 #header.head {
-    background-color: white;
-    color: #0A2342;
+    background-color: #0A2342;
+    color: white;
 }
 
 #navbrand {
     font-family: 'Anton', sans-serif;
-    color: #0A2342;
-    background-color: white;
+    color: white;
+    background-color: #0A2342;
     font-size: 50px;
 }
 
 #navLink {
-    color: #0A2342;
+    color: white;
 }
 
 #slogan {
@@ -447,15 +500,15 @@ a#articleTitle {
     left: 275px;
     font-size: 20px;
     top: 20px;
-    color: white;
 }
 
 #clipModalHeader {
     position: absolute;
     left: 498px;
     font-size: 20px;
-    top: 150px;
-    color: white;
+    top: 100px;
+    color: #0A2342;
+    font-family: 'Anton', sans-serif;
 }
 
 #navLink:hover {
@@ -513,7 +566,6 @@ a:hover {
     position: absolute;
     right: 0px;
     top: 0px;
-    background-color: rgba(128,128,128,0.06);
     text-align: center;
 }
 
