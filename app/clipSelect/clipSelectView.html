@@ -2,6 +2,7 @@
     <div class="modal-header {{item.category}}">
         <div id="modalImg" style="background-image: url('{{item.imgUrl}}')"></div>
         <a id="clipModalTitle">{{ item.title }}</a>
+        <h3 class="clipModalHeader" style="position: absolute; left: 498px; font-size: 20px; top: 150px; color: white">Suggested Sites</h3>
     </div>
     <div class="modal-body" ng-init="display()">
         <div id="clipEdit" class="{{item.category}}">
@@ -32,10 +33,11 @@
                 </ul>
             </div>
         </div>
-        <div id="suggestions" class="container" style="background-color: rgba(128,128,128,0.22);">
+        <div id="suggestions" class="container">
             <div ng-repeat="suggestion in item.suggestions" class="row">
                 <div><img src="{{suggestion.suggestionImg}}" class="img-rounded col-md-5" alt="Cinque Terre" height="160px", width="100px"></div>
-                <div><a id="suggestion" href="{{suggestion.suggestionUrl}}" class="col-md-5"  style="padding-top:55px;"> {{suggestion.suggestionTitle}}</a></div>
+                <div><a id="suggestion" href="{{suggestion.suggestionUrl}}" class="col-md-5"> {{suggestion.suggestionTitle}}</a></div>
             </div>
         </div>
     </div>
+</div>
