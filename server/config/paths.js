@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var keyword_extractor = require('keyword-extractor');
 var bodyParser = require('body-parser');
-var natural = require('natural');
 var express = require('express');
 var path = require('path');
 var Promise = require('bluebird');
