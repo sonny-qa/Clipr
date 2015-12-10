@@ -2,6 +2,13 @@
     background-color: white;
 }*/
 
+
+/*body {
+    padding-top: 50px;
+    overflow-y: auto;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+}*/
 body,
 html {
     width: 100%;
@@ -707,13 +714,6 @@ a:hover {
 #googlebutton.fa.fa-google-plus-square:hover {
     color: #2CA58D;
 }
-
-/*body {
-    padding-top: 50px;
-    overflow-y: auto;
-    font-family: 'Raleway', sans-serif;
-    font-size: 20px;
-}*/
 
 #wrapper {
     min-height: 100%;

@@ -9,8 +9,9 @@
         </ul>
     </nav>
 </div>
-<div id="container-fluid">
-    <div class="col-lg-2 pull-left">
+
+<div id="container-fluid" style="padding-top:50px;">
+    <div class="col-lg-2">
         <nav class="navmenu navmenu-default" role="navigation" id="navMenu">
             <ul class="nav navmenu-nav">
                 <li>
@@ -49,7 +50,7 @@
  -->
     <div class="col-lg-10" id="clipHolder">
      <a id="catLink" class='{{categoryDisplay}}'>{{categoryDisplay}}</a>
-        
+
         <div ng-repeat="clip in clips.clips | filter:searchText">
             <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{placeholder:true, animate:true}" class="col-lg-3 {{clip.category}}" id="clipBox" style="background-image: url('{{clip.imgUrl}}')">
                 <i ng-click="delete(clip.title)" confirm="Are you sure you want to delete {{clip.title}}?" confirm-title="Confirm Delete" confirm-ok="Yes" confirm-cancel="No" class="fa fa-trash-o"></i><i ng-click="showModal(clip,'lg')" class="fa fa-ellipsis-h"></i>
