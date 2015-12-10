@@ -527,7 +527,7 @@ a#articleTitle {
     top: 50px;
     padding-right: 10px;
     color: #0A2342;
-    font-family: 'Anton', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
     position: absolute;
 }
 
@@ -537,7 +537,7 @@ a#articleTitle {
     font-size: 20px;
     top: 150px;
     color: #0A2342;
-    font-family: 'Anton', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
 }
 
 #navLink:hover {
@@ -550,7 +550,7 @@ a#articleTitle {
 }
 
 #brand {
-    font-family: 'Anton', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
     position: absolute;
     top: 5%;
     left: 2%;
@@ -560,7 +560,7 @@ a#articleTitle {
 
 #brand:hover {
     color: #0A2342;
-    font-family: 'Anton', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
     position: absolute;
     color: #0A2342;
 }
