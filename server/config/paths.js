@@ -229,11 +229,7 @@ module.exports = {
       res.send(results);
     });
   },
-  //   db: require('seraph')({
-  //   server: "http://clipr.sb02.stations.graphenedb.com:24789",
-  //   user: "clipr",
-  //   pass: 'oSvInWIWVVCQIbxLbfTu'
-  // }),
+
   googleAuth: passport.authenticate('google', {
       scope: ['https://www.googleapis.com/auth/plus.login', 'email']
     },
