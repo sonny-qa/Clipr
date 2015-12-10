@@ -34,6 +34,18 @@ angular.module('clipr.services', ['ngCookies'])
     clips.clips = sortedClips.slice(0, 9);
   }
 
+  var incrementCount = function(clipTitle) {
+    return $http({
+      method: 'POST',
+      url: '/incrementCount',
+      params: {
+        clipTitle: clipTitle
+      }
+    }).then(function(response) {
+      loadAllClips($cookies.get('clipr'));
+    })
+  }
+
   var loadClipsByCategory = function(topic) {
     var categorizedClips = [];
     if (topic === 'all') {
@@ -167,6 +179,8 @@ angular.module('clipr.services', ['ngCookies'])
   return {
     loadClipsByCategory: loadClipsByCategory,
     loadAllClips: loadAllClips,
+    incrementCount: incrementCount,
+    mostViewed: mostViewed,
     clips: clips,
     changeCategory: changeCategory,
     deleteClip: deleteClip,

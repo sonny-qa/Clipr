@@ -61844,6 +61844,18 @@ angular
     clips.clips = sortedClips.slice(0, 9);
   }
 
+  var incrementCount = function(clipTitle) {
+    return $http({
+      method: 'POST',
+      url: '/incrementCount',
+      params: {
+        clipTitle: clipTitle
+      }
+    }).then(function(response) {
+      loadAllClips($cookies.get('clipr'));
+    })
+  }
+
   var loadClipsByCategory = function(topic) {
     var categorizedClips = [];
     if (topic === 'all') {
@@ -61977,6 +61989,7 @@ angular
   return {
     loadClipsByCategory: loadClipsByCategory,
     loadAllClips: loadAllClips,
+    incrementCount: incrementCount,
     clips: clips,
     changeCategory: changeCategory,
     deleteClip: deleteClip,
@@ -62055,6 +62068,10 @@ angular
     Clips.addCollection($scope.collection);
       $scope.collection = "";
     
+  }
+
+  $scope.incrementCount= function(clipTitle){
+    Clips.incrementCount(clipTitle);
   }
 
  $scope.recentlyAdded= function(){

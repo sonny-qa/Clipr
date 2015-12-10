@@ -15,6 +15,10 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
     
   }
 
+  $scope.incrementCount= function(clipTitle){
+    Clips.incrementCount(clipTitle);
+  }
+
  $scope.recentlyAdded= function(){
   Clips.recentlyAdded();
  }
