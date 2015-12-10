@@ -47,7 +47,7 @@ module.exports = function(grunt) {
     clean: {
       release: [
         'app/dist/**/',
-        'tempImg/',
+        'tempImg/'
       ]
     },
 
