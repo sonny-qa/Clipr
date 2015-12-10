@@ -79178,7 +79178,7 @@ angular
   $scope.openAside = function(position) {
     console.log('inside asiiiiideee');
     $aside.open({
-      templateUrl: './Suggestions/categorySuggestionsView.html',
+      templateUrl: 'html/categorySuggestionsView.html',
       placement: position,
       backdrop: false,
       controller: function($scope, $modalInstance) {
@@ -79196,7 +79196,7 @@ angular
 
 }]);
 
-var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, Notes) {
+var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item) {
   $scope.collections = Clips.clips.collections
   $scope.item = item.clip
     // $scope.notes = Notes.notesObj;
@@ -79222,14 +79222,14 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, No
 
   //On 'save', make call to server with notes and site url
   //fetch Notes and display it
-  $scope.save = function(userNotes) {
-    $scope.NoteAndUrl = {
-      note: userNotes,
-      url: $scope.item.clipUrl
-    };
-    console.log('Notes being passed to server', $scope.NoteAndUrl);
-    Notes.addNotes($scope.NoteAndUrl);
-  };
+  // $scope.save = function(userNotes) {
+  //   $scope.NoteAndUrl = {
+  //     note: userNotes,
+  //     url: $scope.item.clipUrl
+  //   };
+  //   console.log('Notes being passed to server', $scope.NoteAndUrl);
+  //   Notes.addNotes($scope.NoteAndUrl);
+  // };
 
   // $scope.display = function() {
   //   console.log('display function!!!');
