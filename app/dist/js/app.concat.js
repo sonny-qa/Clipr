@@ -78759,6 +78759,7 @@ angular
   }])
 
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
+
   $urlRouterProvider.otherwise('/clips');
 
   $stateProvider
