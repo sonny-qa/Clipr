@@ -1,3 +1,4 @@
+
 /*body {
     background-color: white;
 }*/
@@ -762,6 +763,15 @@ a:hover {
     padding-top: 20px;
 }
 
+/* This is for the sidebar nav menu */
+nav#navMenu.navmenu.navmenu-default {
+    padding-left: 10px;
+}
+
+/* Search bar inside sidebar nav menu*/
+li.search {
+    padding-left: 10px;
+}
 #sidebar .list-group-item {
     border-radius: 0;
     border-left: 0;
