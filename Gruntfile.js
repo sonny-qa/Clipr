@@ -135,23 +135,23 @@ module.exports = function(grunt) {
         dest: 'app/dist/js/app.min.js'
       }
     },
-
     // Minify CSS
     cssmin: {
       build: {
         files: {
           // target file : src files
-          'app/dist/css/stylesheet.min.css': [
-          'app/bower_components/bootstrap/dist/css/bootstrap.css',
-          'app/bower_components/bootstrap-social/bootstrap-social.css',
-          'app/bower_components/font-awesome/css/font-awesome.css',
-          'app/bower_components/angular-xeditable/css/xeditable.css',
-          'app/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.css', 
-          'app/styles/stylesheet.css'
-          ]
+            'app/dist/css/stylesheet.min.css': [
+              'app/bower_components/bootstrap/dist/css/bootstrap.min.css',
+              'app/bower_components/bootstrap-social/bootstrap-social.css',
+              'app/bower_components/font-awesome/css/font-awesome.min.css',
+              'app/bower_components/angular-xeditable/css/xeditable.css',
+              'app/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css',
+              'app/styles/stylesheet.css'
+            ]
+          }
         }
-      }
-    },
+      },
+
 
     //Compress Images
     imagemin: {
@@ -159,7 +159,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'app/assets/',
-          src: 'images/*.{png,jpg,gif}',
+          src: 'images/*.{png,jpg,gif,jpeg}',
           dest: 'app/dist/'
         }]
       }
@@ -256,9 +256,9 @@ module.exports = function(grunt) {
   });
 
   // Default Tasks
-  grunt.registerTask('default', ['build']); 
-  grunt.registerTask('dev', ['build']); 
-  grunt.registerTask('server', ['express', 'open', 'watch']); 
+  grunt.registerTask('default', ['build']);
+  grunt.registerTask('dev', ['build']);
+  grunt.registerTask('server', ['express', 'open', 'watch']);
   grunt.registerTask('build', ['clean', 'jshint', 'csslint', 'copy',
     'concat', 'uglify', 'cssmin', 'imagemin', 'processhtml']);
 };
