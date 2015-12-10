@@ -1,14 +1,14 @@
 // Gruntfile.js
 module.exports = function(grunt) {
 
-    // tells how much time each task takes
-    require('time-grunt')(grunt);
-    require('jit-grunt')(grunt)({
-      pluginsRoot: 'node_modules'
-    });
+  // tells how much time each task takes
+  require('time-grunt')(grunt);
+  require('jit-grunt')(grunt)({
+    pluginsRoot: 'node_modules'
+  });
 
-    // Load Plugins
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  // Load Plugins
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     // Project Configuration
     grunt.initConfig({
@@ -113,7 +113,7 @@ module.exports = function(grunt) {
           js: {
             src: [
               'app/bower_components/jquery/dist/jquery.js',
-              "app/bower_components/jquery-ui/jquery-ui.min.js",
+              "app/bower_components/jquery-ui/jquery-ui.js",
               'app/bower_components/angular/angular.js',
               'app/bower_components/bootstrap/dist/js/bootstrap.min.js',
               'app/bower_components/angular-dragdrop/src/angular-dragdrop.min.js',
