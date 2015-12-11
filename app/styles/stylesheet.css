@@ -1,3 +1,6 @@
+Css 
+
+
 
 /*body {
     background-color: white;
@@ -10,6 +13,7 @@
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
 }*/
+
 body,
 html {
     width: 100%;
@@ -23,7 +27,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Raleway", sans-serif;
     font-weight: 700;
 }
 
@@ -49,16 +53,18 @@ h6 {
     color: #fff;
     background-color: #55acee;
     border-color: rgba(0, 0, 0, 0.2);
-    left: -43px;
-    bottom: 465px;
+    position: absolute;
+    top: 100px;
+    left: 10px;
 }
 
 .btn-facebook {
     color: #fff;
     background-color: #3b5998;
     border-color: rgba(0, 0, 0, 0.2);
-    left: -79px;
-    bottom: 465px;
+    position: absolute;
+    top: 100px;
+    left: 50px;
 }
 
 .btn-social-icon {
@@ -90,6 +96,30 @@ a.editable-click {
 
 .editable-controls>input {
     color: black;
+}
+
+#suggestionOverlay:hover{
+    background: black;
+    opacity:.7;
+    height: 191px;
+    width: 291px;
+    left: 0px;
+    position: absolute;
+}
+
+#suggestionOverlay {
+    background: -webkit-linear-gradient(transparent, black);
+    height: 191px;
+    width: 291px;
+    left: 0px;
+    position: absolute;
+}
+
+#suggestionTitle {
+    position: absolute;
+    bottom: 2px;
+    color: white;
+    font-size: 15px;
 }
 
 .add-btn {
@@ -132,6 +162,10 @@ a.editable-click {
     left: 0px;
     top: 0px;
     border-right: 5px solid #008404;
+}
+
+button{
+    margin-left: 10px;
 }
 
 #clipEdit.Technology {
@@ -505,7 +539,7 @@ a#articleTitle {
 }
 
 #clipTitle {
-    font-size: 12px;
+    font-size: 15px;
 }
 
 #landing {
@@ -546,11 +580,10 @@ a#articleTitle {
 
 #clipModalTitle {
     left: 270px;
-    font-size: 40px;
-    top: 50px;
+    font-size: 30px;
     padding-right: 10px;
     color: #0A2342;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Raleway', sans-serif;
     position: absolute;
 }
 
@@ -560,7 +593,7 @@ a#articleTitle {
     font-size: 20px;
     top: 150px;
     color: #0A2342;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 #navLink:hover {
@@ -573,7 +606,7 @@ a#articleTitle {
 }
 
 #brand {
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Raleway', sans-serif;
     position: absolute;
     top: 5%;
     left: 2%;
@@ -583,7 +616,7 @@ a#articleTitle {
 
 #brand:hover {
     color: #0A2342;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Raleway', sans-serif;
     position: absolute;
     color: #0A2342;
 }
@@ -786,12 +819,16 @@ a:hover {
     padding-top: 20px;
 }
 
+
 /* This is for the sidebar nav menu */
+
 nav#navMenu.navmenu.navmenu-default {
     padding-left: 10px;
 }
 
+
 /* Search bar inside sidebar nav menu*/
+
 li.search {
     padding-left: 10px;
 }
@@ -854,13 +891,25 @@ h3 {
     padding: 10px;
 }
 
+
 /*---------------------START OF LANDING PAGE CSS----------------*/
 
 .fa-google-plus-square {
     color: #D64837;
 }
+
 .topnav {
     font-size: 18px;
+    color: white;
+    background-color: #0a2342;
+}
+
+.topnav.navbar-brand {
+    color: white;
+}
+
+a.topnav {
+    color: white;
 }
 
 .lead {
@@ -869,55 +918,77 @@ h3 {
 }
 
 .intro-header {
-    padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-top: 50px;
+    /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 50px;
     text-align: center;
+    width: 100%;
+    height: 1000px;
     color: #f8f8f8;
-    background: url(../images/intro-bg.jpg) no-repeat center center;
-    background-size: cover;
+    /*    background: url(../images/intro-bg.jpg) no-repeat center center;
+*/
+}
+
+.video-container {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+video {
+    position: absolute;
+    z-index: -1;
+    left: 0px;
+    opacity: 0.78;
 }
 
 .intro-message {
     position: relative;
-    padding-top: 20%;
+    padding-top: 10%;
     padding-bottom: 20%;
+    color: #0a2342;
 }
 
 .intro-message > h1 {
     margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
-    font-size: 5em;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, .6);
+    font-size: 150px;
+    color: #0a2342;
+}
+
+.navbar-default .navbar-nav>li>a,
+.navbar-default .navbar-text {
+    color: white;
 }
 
 .intro-divider {
     width: 400px;
     border-top: 1px solid #f8f8f8;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .intro-message > h3 {
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
 @media(max-width:767px) {
     .intro-message {
         padding-bottom: 15%;
     }
-
     .intro-message > h1 {
         font-size: 3em;
     }
-
     ul.intro-social-buttons > li {
         display: block;
         margin-bottom: 20px;
         padding: 0;
     }
-
     ul.intro-social-buttons > li:last-child {
         margin-bottom: 0;
     }
-
     .intro-divider {
         width: 100%;
     }
@@ -960,7 +1031,7 @@ h3 {
 
 .banner h2 {
     margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     font-size: 3em;
 }
 
@@ -983,20 +1054,20 @@ h3 {
 @media(max-width:767px) {
     .banner h2 {
         margin: 0;
-        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
         font-size: 3em;
     }
-
     ul.banner-social-buttons > li {
         display: block;
         margin-bottom: 20px;
         padding: 0;
     }
-
     ul.banner-social-buttons > li:last-child {
         margin-bottom: 0;
     }
 }
+
+
 
 footer {
     padding: 50px 0;
