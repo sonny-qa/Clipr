@@ -13,7 +13,8 @@ angular
         'clipr.suggested',
         'clipr.categories',
         'xeditable',
-        'ngDragDrop'
+        'ngDragDrop',
+        
     ])
 
 

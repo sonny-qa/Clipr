@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <script>
 
     var event = document.createEvent('Event');
@@ -44,6 +45,9 @@
 //     }
 //}
 </script>
+=======
+
+>>>>>>> clip-moments
 <div ng-controller="ClipController" id="header" class="head navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-header">
         <a class="navbar-brand" id="navbrand" href="#/">CLIPPR</a>
@@ -52,10 +56,17 @@
         <ul class="nav navbar-nav">
             <li><a id="navLink" ng-click='loadClipsByCategory("all")'>All Clips</a></li>
             <li><a id="navLink" ng-click='logOut()'>Logout</a></li>
+<<<<<<< HEAD
         </ul>
         <div class="navbar-left">
             <a type="button" class="btn btn-success" id="chrome-button" rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ccgfgdnpcafmblafaojcahhjedhbnjal" onclick="chrome.webstore.install()" style="display:block;">Add to Chrome</a>
         </div>
+=======
+            <li><a id="navLink" rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ccgfgdnpcafmblafaojcahhjedhbnjal" onclick="chrome.webstore.install()">Add to Chrome</a></li>
+<!--         <li class="navbar-left">
+            <a type="button" class="btn btn-success" id="chrome-button" rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ccgfgdnpcafmblafaojcahhjedhbnjal" onclick="chrome.webstore.install()" style="display:block;">Add to Chrome</a>
+        </li> -->
+>>>>>>> clip-moments
     </nav>
 </div>
 
@@ -115,6 +126,7 @@
                 <a ng-click="incrementCount(clip.title)" ng-href="{{clip.clipUrl}}" target="_blank">
                     <div id="clipOverlay">
                         <h4 id="overlayTitle" title='{{clip.title}}'> {{clip.title}}</h4>
+                        <h6 id="overlayTime"><span>added </span><span am-time-ago="clip.timeAdded"></span></h6>
                     </div>
                 </a>
             </div>

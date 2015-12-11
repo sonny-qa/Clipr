@@ -528,11 +528,13 @@ a#articleTitle {
 
 }
 
-#chrome-button {
+
+/*#chrome-button {
         background-color: #0A2342;
         border-color: #0A2342;
         color: white;
-}
+}*/
+
 
 #header.head {
     background-color: #0A2342;
@@ -678,6 +680,14 @@ a:hover {
 #overlayTitle {
     opacity: 1;
     color: white;
+}
+
+#overlayTime {
+    position: absolute;
+    float: right;
+    bottom: 0;
+    color: white;
+    right: 6px;
 }
 
 .fa-trash-o {

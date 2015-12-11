@@ -1,4 +1,4 @@
-angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
+angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angularMoment'])
 
 .controller('ClipController', ['$scope', 'Clips', '$modal', 'AuthService', '$aside', '$cookies', '$state', function($scope, Clips, $modal, AuthService, $aside, $cookies, $state) {
 
