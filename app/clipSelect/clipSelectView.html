@@ -7,7 +7,7 @@
     <div class="modal-body" ng-init="display()">
         <div id="clipEdit" class="{{item.category}}">
             <div class="btn-group" id="dropdownCategory">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{item.category}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -24,34 +24,36 @@
                     <li id="dropdown" ng-click="changeCategory('Travel', item)">Travel</li>
                 </ul>
             </div>
+        </br> </br>
             <div class="btn-group" id="dropdownCategory">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    + List <span class="caret"></span>
+                    Add To List <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li id="dropdown" ng-repeat="collection in collections" ng-click="addToCollection(collection, item)">{{collection}}</li>
                 </ul>
             </div>
         </div>
-
-         <!-- Twitter Button -->
-            <div class='twitter'>
-                <a class="btn btn-social-icon btn-twitter" ng-click="windowOpen(item.clipUrl)">
-                    <span class="fa fa-twitter"></span>
-                </a>
-            </div>
-
-            <!-- FaceBook button -->
-            <div class="facebook">
-                <a class="btn btn-social-icon btn-facebook" ng-click="fbShare(item.clipUrl, item.title, 520, 350)">
-                    <span class="fa fa-facebook"></span>
-                </a>
-            </div>
-            
+        <!-- Twitter Button -->
+        <div class='twitter'>
+            <a class="btn btn-social-icon btn-twitter" ng-click="windowOpen(item.clipUrl)">
+                <span class="fa fa-twitter"></span>
+            </a>
+        </div>
+        <!-- FaceBook button -->
+        <div class="facebook">
+            <a class="btn btn-social-icon btn-facebook" ng-click="fbShare(item.clipUrl, item.title, 520, 350)">
+                <span class="fa fa-facebook"></span>
+            </a>
+        </div>
         <div id="suggestions" class="container">
-            <div ng-repeat="suggestion in item.suggestions" class="row">
-                <div><img src="{{suggestion.suggestionImg}}" class="img-rounded col-md-5" alt="Cinque Terre" height="160px", width="100px"></div>
-                <div><a id="suggestion" href="{{suggestion.suggestionUrl}}" class="col-md-5"> {{suggestion.suggestionTitle}}</a></div>
+            <div ng-repeat="suggestion in item.suggestions">
+                <div class="col-lg-2 {{item.category}}" id="clipBox" style="background-image: url('{{suggestion.suggestionImg}}')">
+                    <div id="suggestionOverlay">
+                        <a href="{{suggestion.suggestionUrl}}"><h4 id="suggestionTitle" title='{{clip.title}}'> {{suggestion.suggestionTitle}}</h4></a>
+                    </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
