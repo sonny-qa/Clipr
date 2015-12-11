@@ -98,6 +98,15 @@ a.editable-click {
     color: black;
 }
 
+#suggestionOverlay:hover{
+    background: black;
+    opacity:.7;
+    height: 191px;
+    width: 291px;
+    left: 0px;
+    position: absolute;
+}
+
 #suggestionOverlay {
     background: -webkit-linear-gradient(transparent, black);
     height: 191px;
@@ -1057,6 +1066,8 @@ video {
         margin-bottom: 0;
     }
 }
+
+
 
 footer {
     padding: 50px 0;

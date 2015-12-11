@@ -65,7 +65,7 @@ module.exports = function(grunt) {
             'app/Landing/*.html',
             'app/Profile/*.html',
             'app/Services/*.html',
-            'app/Suggestions/*.html'
+            'app/Suggestions/*.html',
           ],
           dest: 'app/dist/html',
           filter: 'isFile'
@@ -85,9 +85,19 @@ module.exports = function(grunt) {
           dest: 'app/dist/fonts/',
           filter: 'isFile'
         }]
+      }, 
+      movie:{
+        files:[{
+          expand: true,
+          flatten: true,
+          src:[
+          'app/assets/images/clipVideo.mp4'
+          ], 
+          dest:'app/dist/mov',
+          filter:'isFile'
+        }]
       }
     },
-
     concat: {
       options: {
         separator: ';'
