@@ -1,6 +1,6 @@
 angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angularMoment'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'AuthService', '$aside', '$cookies', '$state', function($scope, Clips, $modal, AuthService, $aside, $cookies, $state) {
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'AuthService', '$aside', '$cookies', '$state', '$window', function($scope, Clips, $modal, AuthService, $aside, $cookies, $state, $window) {
 
   $scope.clips = Clips.clips;
   $scope.clipShow = false;
@@ -150,12 +150,13 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
 
 }]);
 
-var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item) {
+var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, $window) {
   $scope.collections = Clips.clips.collections
   $scope.item = item.clip
   
 
   $scope.windowOpen= function(clipUrl){
+    console.log("windowOpen");
     $window.open('https://twitter.com/intent/tweet?hashtags=clipr&text=' + clipUrl, 'height=300, width=400');
   };
 
