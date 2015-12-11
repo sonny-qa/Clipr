@@ -1,4 +1,3 @@
-
 /*body {
     background-color: white;
 }*/
@@ -51,7 +50,7 @@ h6 {
     background-color: #55acee;
     border-color: rgba(0, 0, 0, 0.2);
     position: absolute;
-    top: 100px;
+    top: 200px;
     left: 10px;
 }
 
@@ -60,7 +59,7 @@ h6 {
     background-color: #3b5998;
     border-color: rgba(0, 0, 0, 0.2);
     position: absolute;
-    top: 100px;
+    top: 200px;
     left: 50px;
 }
 
@@ -95,9 +94,9 @@ a.editable-click {
     color: black;
 }
 
-#suggestionOverlay:hover{
+#suggestionOverlay:hover {
     background: black;
-    opacity:.7;
+    opacity: .7;
     height: 191px;
     width: 291px;
     left: 0px;
@@ -143,6 +142,12 @@ a.editable-click {
     border-right: 5px solid #D06E00;
 }
 
+#modalButton {
+    width: 100%;
+    height: 60px;
+    margin-top: 10px;
+}
+
 #clipEdit.Shopping {
     width: 250px;
     height: 500px;
@@ -161,7 +166,7 @@ a.editable-click {
     border-right: 5px solid #008404;
 }
 
-button{
+button {
     margin-left: 10px;
 }
 
@@ -546,7 +551,6 @@ a#articleTitle {
     width: 10%;
 }
 
-
 #header.head {
     background-color: #0A2342;
     color: white;
@@ -575,8 +579,8 @@ a#articleTitle {
     width: 250px;
     text-align: center;
     font-size: 25px;
-    left:0px;
-    color:white;
+    left: 0px;
+    color: white;
     padding-right: 5px;
     padding-left: 5px;
     font-family: 'Raleway', sans-serif;
@@ -678,6 +682,8 @@ a:hover {
 
 #dropdownCategory {
     position: relative;
+    width: 100%;
+    margin-top:10px;
 }
 
 
@@ -1062,8 +1068,6 @@ video {
         margin-bottom: 0;
     }
 }
-
-
 
 footer {
     padding: 50px 0;
