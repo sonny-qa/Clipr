@@ -34,7 +34,7 @@ var checkAuth = new Promise(function(resolve, reject) {
 });
 
 //--------sends creates a bookmark from the current tab & sends to server. expects user email
-function sendBookmark(bkmrkObj,cb) {
+function sendBookmark(bkmrkObj, cb) {
 
     //NOTE change this to https://clipr-app-1.herokuapp.com for heroku
     // var website = "https://clipr-app-1.herokuapp.com";
@@ -47,7 +47,7 @@ function sendBookmark(bkmrkObj,cb) {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', postUrl, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onload = function(e){
+    xhr.onload = function(e) {
         //var events = JSON.parse(this.responseText)
         //console.log('response....',e.target.responseText)
         var resp = e.target.responseText;
@@ -82,10 +82,29 @@ var getPageText = function(bkmrkObj, cb) {
 
 };
 
+//event listener, that will listen to the user's browser telling us no extension
+// chrome.runtime.onMessage.addListener(
+//     function(request, sender, sendResponse) {
+//             if (request.areYouThere){
+//                 console.log('we got areyouthere msg..')
+//                 sendResponse(true);
+//             }
+//     })
+
+// chrome.runtime.onMessage.addListener(
+//     function(request,sender,sendResponse){
+//          //when receving a message from popup.js, this indicates click has happened, so start the process...
+//         console.log('bacground heard a message...',request)
+//         if (request === 'hello-browser'){
+//             console.log('sending {ext:true}')
+//             sendResponse({ext:'kkk'});
+//         } return true
+//     })
+
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        //when receving a message from popup.js, this indicates click has happened, so start the process...
+
         if (request.clicked) {
 
             //collect tab data
@@ -109,7 +128,9 @@ chrome.runtime.onMessage.addListener(
                             sendBookmark(JSON.stringify(data), function(resp) {
 
                                 //we send a message back to the popup controller, with the server's reply
-                                 sendResponse({status: resp});
+                                sendResponse({
+                                    status: resp
+                                });
 
                             })
 
@@ -124,6 +145,7 @@ chrome.runtime.onMessage.addListener(
 
 
             );
-        } return true
+        }
+        return true
 
     })

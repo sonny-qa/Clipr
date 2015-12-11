@@ -79145,6 +79145,16 @@ angular
     AuthService.logOut();
   };
 
+
+// $scope.chromeExt = function(){
+//   chrome.webstore.install('https://chrome.google.com/webstore/detail/ccgfgdnpcafmblafaojcahhjedhbnjal',
+//     function(data){
+//       console.log('success')
+//     },function(data){
+//       console.log('failure')
+//     })
+  //<link rel="chrome-webstore-item" href=" ccgfgdnpcafmblafaojcahhjedhbnjal">
+//};
   $scope.clipToggle = function() {
     if ($scope.clipShow === false) {
       $scope.clipShow = true;

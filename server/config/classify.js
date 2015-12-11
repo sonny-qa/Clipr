@@ -5,7 +5,7 @@ var async = require('async');
 
 // var async = require('async');
 
-// classifier = new natural.BayesClassifier();
+//classifier = new natural.BayesClassifier();
 
 
 
@@ -34,18 +34,20 @@ module.exports = {
 
   // loadClassifier: function(text) {
 
-  //   natural.BayesClassifier.load('classifier.json', null, function(err, classifier) {
+  //   natural.BayesClassifier.load('../classifier.json', null, function(err, classifier) {
   //     if (err) {
   //       console.log(err)
   //     }
-  //     console.log('classifier is loaded')
+  //     console.log('classifier is loaded',text)
   //     var category= classifier.classify(text)
   //     category.clipCategory= category
+  //   })
+  // },
   loadClassifier: function() {
     natural.BayesClassifier.load('../classifier.json', null, function(err, classifier) {
 
     });
-      console.log(category.clipCategory);
+      //console.log(category.clipCategory);
   },
 
   trainClassifier: function() {

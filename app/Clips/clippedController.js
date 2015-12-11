@@ -85,6 +85,7 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside'])
     AuthService.logOut();
   };
 
+
   $scope.clipToggle = function() {
     if ($scope.clipShow === false) {
       $scope.clipShow = true;
