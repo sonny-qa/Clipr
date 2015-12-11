@@ -7,7 +7,12 @@ body {
 
 .status {
     font-family: 'Anton', sans-serif;
-    color: #144684;
-    background-color: #FFFDF7;
+    color: #0A2342;
     font-size: 12px;
+        }
+
+.title {
+    font-family: 'Anton', sans-serif;
+    color: #0A2342;
+    font-size: 14px;
         }
