@@ -1,7 +1,3 @@
-Css 
-
-
-
 /*body {
     background-color: white;
 }*/
@@ -54,7 +50,7 @@ h6 {
     background-color: #55acee;
     border-color: rgba(0, 0, 0, 0.2);
     position: absolute;
-    top: 100px;
+    top: 200px;
     left: 10px;
 }
 
@@ -63,7 +59,7 @@ h6 {
     background-color: #3b5998;
     border-color: rgba(0, 0, 0, 0.2);
     position: absolute;
-    top: 100px;
+    top: 200px;
     left: 50px;
 }
 
@@ -98,9 +94,9 @@ a.editable-click {
     color: black;
 }
 
-#suggestionOverlay:hover{
+#suggestionOverlay:hover {
     background: black;
-    opacity:.7;
+    opacity: .7;
     height: 191px;
     width: 291px;
     left: 0px;
@@ -146,6 +142,12 @@ a.editable-click {
     border-right: 5px solid #D06E00;
 }
 
+#modalButton {
+    width: 100%;
+    height: 60px;
+    margin-top: 10px;
+}
+
 #clipEdit.Shopping {
     width: 250px;
     height: 500px;
@@ -164,7 +166,7 @@ a.editable-click {
     border-right: 5px solid #008404;
 }
 
-button{
+button {
     margin-left: 10px;
 }
 
@@ -187,12 +189,12 @@ button{
 }
 
 #modalImg {
-    width: 250px;
+    width: 650px;
     height: 195px;
     background-size: 100%;
     position: absolute;
     top: 0px;
-    left: 0px;
+    right: 0px;
 }
 
 .btn.btn-primary {
@@ -203,37 +205,31 @@ button{
     height: 200px;
     width: 100%;
     padding: 0px;
-    background-color: white;
+    background-color: #0a2432;
 }
 
 .modal-header.Shopping {
     border-bottom: 5px solid #D00063;
-    border-left: 5px solid #D00063;
 }
 
 .modal-header.Food {
     border-bottom: 5px solid #D03800;
-    border-left: 5px solid #D03800;
 }
 
 .modal-header.Politics {
     border-bottom: 5px solid #1700D0;
-    border-left: 5px solid #1700D0;
 }
 
 .modal-header.Technology {
     border-bottom: 5px solid #00D0B6;
-    border-left: 5px solid #00D0B6;
 }
 
 .modal-header.Science {
     border-bottom: 5px solid #008404;
-    border-left: 5px solid #008404;
 }
 
 .modal-header.Travel {
     border-bottom: 5px solid #D06E00;
-    border-left: 5px solid #D06E00;
 }
 
 #modal {
@@ -555,7 +551,6 @@ a#articleTitle {
     width: 10%;
 }
 
-
 #header.head {
     background-color: #0A2342;
     color: white;
@@ -580,10 +575,14 @@ a#articleTitle {
 }
 
 #clipModalTitle {
-    left: 270px;
-    font-size: 30px;
-    padding-right: 10px;
-    color: #0A2342;
+    top: 10px;
+    width: 250px;
+    text-align: center;
+    font-size: 25px;
+    left: 0px;
+    color: white;
+    padding-right: 5px;
+    padding-left: 5px;
     font-family: 'Raleway', sans-serif;
     position: absolute;
 }
@@ -683,6 +682,8 @@ a:hover {
 
 #dropdownCategory {
     position: relative;
+    width: 100%;
+    margin-top:10px;
 }
 
 
@@ -1067,8 +1068,6 @@ video {
         margin-bottom: 0;
     }
 }
-
-
 
 footer {
     padding: 50px 0;

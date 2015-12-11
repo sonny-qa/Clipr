@@ -2,13 +2,12 @@
     <div class="modal-header {{item.category}}">
         <div id="modalImg" style="background-image: url('{{item.imgUrl}}')"></div>
         <a ng-href='{{item.clipUrl}}' target="_blank" id="clipModalTitle">{{ item.title }}</a>
-        <h3 class="clipModalHeader" style="position: absolute; left: 498px; font-size: 20px; top: 150px; color: white">Suggested Sites</h3>
     </div>
     <div class="modal-body" ng-init="display()">
         <div id="clipEdit" class="{{item.category}}">
             <div class="btn-group" id="dropdownCategory">
-               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{item.category}} <span class="caret"></span>
+               <button  id="modalButton" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Change Category <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li id="dropdown" ng-click="changeCategory('Politics', item)">Politics</li>
@@ -26,7 +25,7 @@
             </div>
         </br> </br>
             <div class="btn-group" id="dropdownCategory">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="modalButton" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Add To List <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
