@@ -121,6 +121,8 @@ module.exports = function(grunt) {
           'app/bower_components/angular-aside/dist/js/angular-aside.js',
           'app/bower_components/angular-sanitize/angular-sanitize.js',
           'app/bower_components/angular-touch/angular-touch.js',
+          "node_modules/moment/moment.js",
+          "node_modules/angular-moment/angular-moment.js",
           'app/app.js',
           'app/Services/services.js',
           'app/categories/categoriesController.js',

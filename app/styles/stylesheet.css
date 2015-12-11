@@ -696,6 +696,14 @@ a:hover {
     size: 50%;
 
 }*/
+#overlayTime {
+    position: absolute;
+    float: right;
+    bottom: 0;
+    color: white;
+    right: 6px;
+}
+
 
 #overlayTitle {
     opacity: 1;
