@@ -555,22 +555,7 @@ a#articleTitle {
     width: 10%;
 }
 
-<<<<<<< HEAD
-=======
-.navbar-left {
-    position: absolute;
-    right: 2%;
-    top: 18%;
 
-}
-
-/*#chrome-button {
-        background-color: #0A2342;
-        border-color: #0A2342;
-        color: white;
-}*/
-
->>>>>>> [fix]: updated chrome install button & ext
 #header.head {
     background-color: #0A2342;
     color: white;
