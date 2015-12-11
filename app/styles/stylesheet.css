@@ -521,6 +521,19 @@ a#articleTitle {
     width: 10%;
 }
 
+.navbar-left {
+    position: absolute;
+    right: 2%;
+    top: 18%;
+
+}
+
+#chrome-button {
+        background-color: #0A2342;
+        border-color: #0A2342;
+        color: white;
+}
+
 #header.head {
     background-color: #0A2342;
     color: white;

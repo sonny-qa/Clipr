@@ -316,6 +316,7 @@ module.exports = {
       });
     }).catch(function(error) {
 
+
       if (error === "DUP CLIP FOR USER") {
         res.send("hey, you already have this clip!")
       } else {

@@ -17,6 +17,7 @@ var app = module.exports= express();
 var routes = require('./router.js');
 
 // classifier.trainClassifier();
+classifier.loadClassifier()
 app.use(compression());
 app.use(express.static(__dirname + '../../app/dist'));
 
