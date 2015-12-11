@@ -192,7 +192,7 @@ button{
     background-size: 100%;
     position: absolute;
     top: 0px;
-    left: 0px;
+    right: 0px;
 }
 
 .btn.btn-primary {
@@ -580,10 +580,13 @@ a#articleTitle {
 }
 
 #clipModalTitle {
-    left: 270px;
-    font-size: 30px;
-    padding-right: 10px;
-    color: #0A2342;
+    top: 10px;
+    width: 30%;
+    text-align: center;
+    font-size: 25px;
+    left:0px;
+    padding-right: 5px;
+    padding-left: 5px;
     font-family: 'Raleway', sans-serif;
     position: absolute;
 }
