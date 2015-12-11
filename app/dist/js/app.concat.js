@@ -79145,6 +79145,10 @@ angular
     AuthService.logOut();
   };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> [fix]: updated chrome install button & ext
   $scope.clipToggle = function() {
     if ($scope.clipShow === false) {
       $scope.clipShow = true;
