@@ -61,6 +61,7 @@
                 <a ng-click="incrementCount(clip.title)" ng-href="{{clip.clipUrl}}" target="_blank">
                     <div id="clipOverlay">
                         <h4 id="overlayTitle" title='{{clip.title}}'> {{clip.title}}</h4>
+                        <h6 id="overlayTime"><span>added </span><span am-time-ago="clip.timeAdded"></span></h6>
                     </div>
                 </a>
             </div>

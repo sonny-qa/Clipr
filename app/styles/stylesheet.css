@@ -680,6 +680,14 @@ a:hover {
     color: white;
 }
 
+#overlayTime {
+    position: absolute;
+    float: right;
+    bottom: 0;
+    color: white;
+    right: 6px;
+}
+
 .fa-trash-o {
     position: relative;
     float: left;
