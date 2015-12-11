@@ -10,48 +10,43 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
 
 
   $scope.submit = function() {
-    console.log('in submit')
     Clips.addCollection($scope.collection);
     $scope.collection = "";
-
-  }
+  };
 
   $scope.mostVisited = function() {
     $scope.categoryDisplay = 'Your Most Visited Clips:';
 
     Clips.mostVisited();
-  }
+  };
 
   $scope.incrementCount = function(clipTitle) {
     Clips.incrementCount(clipTitle);
-  }
+  };
 
   $scope.recentlyAdded = function() {
     $scope.categoryDisplay = 'Your Recently Added Clips:';
-
     Clips.recentlyAdded();
-  }
+  };
 
   $scope.showCollectionClips = function(collection) {
-    console.log('in show colllection clips', collection)
     Clips.showCollectionClips(collection);
-  }
+  };
 
   $scope.loadClipsByCategory = function(category) {
     Clips.loadClipsByCategory(category);
     if (category === 'all') {
-      console.log('true')
       $scope.categoryDisplay = 'Your Clips:';
-      console.log($scope.categoryDisplay)
+      console.log($scope.categoryDisplay);
     } else {
       $scope.categoryDisplay = 'Your ' + category + ' clips:';
     }
-    $state.go('main')
-  }
+    $state.go('main');
+  };
 
   $scope.navToClips = function() {
     Clips.loadAllClips($cookies.get('clipr'));
-    $state.go('main')
+    $state.go('main');
   };
 
   $scope.loadAllClips = function() {
@@ -62,9 +57,8 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
   $scope.changeCategory = function(event, ui, item_id) {
     // console.log(event);
     var clipTitle = ui.draggable.find("h4").attr('title').toString();
-    console.log('itemID', item_id);
     var category = item_id.toString();
-    Clips.changeCategory(category, clipTitle)
+    Clips.changeCategory(category, clipTitle);
 
   };
 
@@ -78,7 +72,8 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
 
   $scope.loadCollections = function() {
     Clips.loadCollections();
-  }
+  };
+
   $scope.loadCollections();
 
   $scope.logOut = function() {
@@ -95,8 +90,8 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
   };
 
   $scope.delete = function(clipTitle) {
-    Clips.deleteClip(clipTitle)
-  }
+    Clips.deleteClip(clipTitle);
+  };
 
 
   $scope.showModal = function(clip, size) {
@@ -151,12 +146,11 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
 }]);
 
 var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, $window) {
-  $scope.collections = Clips.clips.collections
-  $scope.item = item.clip
+  $scope.collections = Clips.clips.collections;
+  $scope.item = item.clip;
   
 
   $scope.windowOpen= function(clipUrl){
-    console.log("windowOpen");
     $window.open('https://twitter.com/intent/tweet?hashtags=clipr&text=' + clipUrl, 'height=300, width=400');
   };
 
@@ -171,33 +165,16 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, $w
   };
 
   $scope.addToCollection = function(collection, clip) {
-    console.log(collection)
-    console.log(clip)
     Clips.addToCollection(collection, clip);
-  }
+  };
 
   $scope.changeCategory = function(category, clip) {
     clip.category = category;
     Clips.changeCategory(category, clip.title);
-  }
+  };
 
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
 
-  //On 'save', make call to server with notes and site url
-  //fetch Notes and display it
-  // $scope.save = function(userNotes) {
-  //   $scope.NoteAndUrl = {
-  //     note: userNotes,
-  //     url: $scope.item.clipUrl
-  //   };
-  //   console.log('Notes being passed to server', $scope.NoteAndUrl);
-  //   Notes.addNotes($scope.NoteAndUrl);
-  // };
-
-  // $scope.display = function() {
-  //   console.log('display function!!!');
-  //   Notes.loadNotes($scope.item.clipUrl);
-  // };
 };
