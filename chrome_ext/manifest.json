@@ -1,7 +1,7 @@
 {
   "name": "Clipr",
-  "version": "1.1",
-  "description": "A browser action with a popup dump of all bookmarks, including search, add, edit and delete.",
+  "version": "1.2",
+  "description": "Boookmarks - but better.",
   "permissions": [
     "tabs", "activeTab", "http://*/*", "https://*/*", "file://*/*", "bookmarks", "<all_urls>", "identity", "identity.email"
   ],
@@ -13,14 +13,18 @@
     "client_id": "313073444392-hcbme8h90e4m4vef5aqev4q2p0t4nugo.apps.googleusercontent.com",
     "scopes": ["https://www.googleapis.com/auth/plus.login"]
   },
+    "externally_connectable" : {
+    "matches" :[
+    "https://clipr-app-1.herokuapp.com/#/clips"]
+    },
   "icons": {
-    "16": "apple-icon-precomposed.png",
-    "42": "apple-icon-precomposed.png",
-    "128": "apple-icon-precomposed.png"
+    "16": "new_logo_ss.png",
+    "42": "new_logo_ss.png",
+    "128": "new_logo_ss.png"
   },
   "browser_action": {
     "default_title": "Clipr",
-    "default_icon": "apple-icon-precomposed.png",
+    "default_icon": "new_logo_ss.png",
     "default_popup": "popup.html"
 
   },
