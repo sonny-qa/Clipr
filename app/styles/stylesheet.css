@@ -205,32 +205,26 @@ button{
 
 .modal-header.Shopping {
     border-bottom: 5px solid #D00063;
-    border-left: 5px solid #D00063;
 }
 
 .modal-header.Food {
     border-bottom: 5px solid #D03800;
-    border-left: 5px solid #D03800;
 }
 
 .modal-header.Politics {
     border-bottom: 5px solid #1700D0;
-    border-left: 5px solid #1700D0;
 }
 
 .modal-header.Technology {
     border-bottom: 5px solid #00D0B6;
-    border-left: 5px solid #00D0B6;
 }
 
 .modal-header.Science {
     border-bottom: 5px solid #008404;
-    border-left: 5px solid #008404;
 }
 
 .modal-header.Travel {
     border-bottom: 5px solid #D06E00;
-    border-left: 5px solid #D06E00;
 }
 
 #modal {
