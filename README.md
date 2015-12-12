@@ -21,9 +21,13 @@ Web app and Chrome extension that improves bookmarks through smart categorizatio
 - Visualization of bookmarks with preview images
 - Recommendations of related content for each bookmark
 
+## Flow Chart
+
 ## Installation
 
 ## Download Chrome Extension
+
+<img src="readmeChromeExt.png" />
 
 ## Built With
 
@@ -37,7 +41,9 @@ Web app and Chrome extension that improves bookmarks through smart categorizatio
 
 ## APIs
 
-- Faroo 
+- Faroo
+- Cloudinary
+- Google OAuth2
 
 ## Contribution Guide
 
