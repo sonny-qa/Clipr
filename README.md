@@ -2,7 +2,7 @@
 
 ============
 [![Build Status](https://travis-ci.org/BitsPleaseMKS/Clipr.svg?branch=dev)](https://travis-ci.org/BitsPleaseMKS/Clipr)
-<!-- [![Build Status](https://travis-ci.org/sindresorhus/pageres.svg?branch=master)](https://travis-ci.org/sindresorhus/pageres) -->
+
 ## Description of Project
 
 ## Demo Screenshot of clicking on Chrome Ext
@@ -21,7 +21,15 @@
 
 ## Download Chrome Extension
 
+## Built With
+
 ## Contribution Guide
+
+1. [Fork it](https://github.com/BitsPleaseMKS/Clipr/fork)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
 
 ## Demo
 
