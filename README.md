@@ -1,4 +1,5 @@
-# clipr
+# CLIPR
+============
 
 ## Description of Project
 
