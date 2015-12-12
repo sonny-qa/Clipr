@@ -1,7 +1,7 @@
 <img src="readmeLogo.png" align="center" />
 
 ============
-[![Build Status](https://travis-ci.org/BitsPleaseMKS/Clipr/branch=dev)](https://travis-ci.org/BitsPleaseMKS/Clipr)
+[![Build Status](https://travis-ci.org/BitsPleaseMKS/Clipr.svg?branch=dev)](https://travis-ci.org/BitsPleaseMKS/Clipr)
 <!-- [![Build Status](https://travis-ci.org/sindresorhus/pageres.svg?branch=master)](https://travis-ci.org/sindresorhus/pageres) -->
 ## Description of Project
 
