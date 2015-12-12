@@ -82659,7 +82659,7 @@ angular
       return b.clickCount - a.clickCount;
     })
     console.log('MOSTVISITED', sortedClips)
-    clips.clips = sortedClips.slice(0, 9);
+    clips.clips = sortedClips
   
   }
 
@@ -82671,7 +82671,7 @@ angular
       return b.timeAdded - a.timeAdded;
     })
     console.log(sortedClips)
-    clips.clips = sortedClips.slice(0, 9);
+    clips.clips = sortedClips
   }
 
   var incrementCount = function(clipTitle) {
@@ -82699,7 +82699,7 @@ angular
         categorizedClips.push(clips.categories[topic][key]);
       }
     }
-    clips.clips = categorizedClips;
+    clips.clips = categorizedClips;    
   };
 
   var loadAllClips = function(cookie) {
@@ -82811,8 +82811,8 @@ angular
       }
     }).then(function(response) {
       loadAllClips($cookies.get('clipr')).then(function(response) {
-        loadClipsByCategory(category);
-      });
+      loadClipsByCategory(category);
+      })
     })
   }
 
@@ -82886,10 +82886,14 @@ angular
 
 }]);angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angularMoment'])
 
+<<<<<<< d9ee8a65be9b7bff80e7d52b64fc9dcfc75e4fce
 .controller('ClipController', ['$scope', 'Clips', '$modal', 'AuthService', '$aside', '$cookies', '$state', '$window', function($scope, Clips, $modal, AuthService, $aside, $cookies, $state, $window) {
+=======
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'AuthService', '$aside', '$cookies', '$state','$timeout', function($scope, Clips, $modal, AuthService, $aside, $cookies, $state, $timeout) {
+>>>>>>> [style] Add back button to clips
 
   $scope.clips = Clips.clips;
-  $scope.clipShow = false;
+  $scope.allClips = false;
   $scope.categories = Clips.clips;
   $scope.collection = "";
   $scope.categoryDisplay;
@@ -82901,8 +82905,6 @@ angular
   };
 
   $scope.mostVisited = function() {
-    $scope.categoryDisplay = 'Your Most Visited Clips:';
-
     Clips.mostVisited();
   };
 
@@ -82911,7 +82913,10 @@ angular
   };
 
   $scope.recentlyAdded = function() {
+<<<<<<< d9ee8a65be9b7bff80e7d52b64fc9dcfc75e4fce
     $scope.categoryDisplay = 'Your Recently Added Clips:';
+=======
+>>>>>>> [style] Add back button to clips
     Clips.recentlyAdded();
   };
 
@@ -82922,10 +82927,18 @@ angular
   $scope.loadClipsByCategory = function(category) {
     Clips.loadClipsByCategory(category);
     if (category === 'all') {
+<<<<<<< d9ee8a65be9b7bff80e7d52b64fc9dcfc75e4fce
       $scope.categoryDisplay = 'Your Clips:';
       console.log($scope.categoryDisplay);
+=======
+
+      $scope.allClips= true;
+      $scope.categoryDisplay = 'All Clips:';
+     
+>>>>>>> [style] Add back button to clips
     } else {
-      $scope.categoryDisplay = 'Your ' + category + ' clips:';
+       $scope.allClips= false;
+      $scope.categoryDisplay = category + ' clips:';
     }
     $state.go('main');
   };
@@ -82936,7 +82949,8 @@ angular
   };
 
   $scope.loadAllClips = function() {
-    $scope.categoryDisplay= 'Your Clips';
+    $scope.allClips= true;
+    $scope.categoryDisplay = 'All Clips:';
     Clips.loadAllClips($cookies.get('clipr'));
   };
 
@@ -82944,7 +82958,14 @@ angular
     // console.log(event);
     var clipTitle = ui.draggable.find("h4").attr('title').toString();
     var category = item_id.toString();
+<<<<<<< d9ee8a65be9b7bff80e7d52b64fc9dcfc75e4fce
     Clips.changeCategory(category, clipTitle);
+=======
+   Clips.changeCategory(category, clipTitle);
+
+   $timeout(function(){
+    $scope.categoryDisplay = category + ' clips:'}, 2100, category);
+>>>>>>> [style] Add back button to clips
 
   };
 
@@ -83031,6 +83052,7 @@ angular
 
 }]);
 
+<<<<<<< d9ee8a65be9b7bff80e7d52b64fc9dcfc75e4fce
 var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, $window) {
   $scope.collections = Clips.clips.collections;
   $scope.item = item.clip;
@@ -83038,12 +83060,21 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, $w
 
   $scope.twitShare = function (clipUrl) { 
     $window.open('https://twitter.com/intent/tweet?hashtags=clippr&text=' + clipUrl, 'height=300, width=400');
+=======
+var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item) {
+  $scope.collections = Clips.clips.collections
+  $scope.item = item.clip
+
+
+  $scope.windowOpen = function(clipUrl) {
+    $window.open('https://twitter.com/intent/tweet?hashtags=clipr&text=' + clipUrl, 'height=300, width=400');
+>>>>>>> [style] Add back button to clips
   };
 
-  $scope.fbShare = function (url, title, winWidth, winHeight) {
+  $scope.fbShare = function(url, title, winWidth, winHeight) {
     var winTop = (screen.height / 4) - (winHeight / 2);
     var winLeft = (screen.width / 4) - (winWidth / 2);
-    window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[url]=' + url +  'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
+    window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[url]=' + url + 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
   };
 
   $scope.gooShare = function (url, title, winWidth, winHeight) {

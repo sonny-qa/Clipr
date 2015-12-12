@@ -14,38 +14,21 @@
 <div id="about">
 </div> -->
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-    <div class="container topnav">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand topnav" href="#">Clippr</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#about">About</a>
-                </li>
-                <li>
-                    <a href="#services">Download</a>
-                </li>
-                <li>
-                    <a href="/auth/google" id="googlebox">
-                        <span id="googlebutton"><i class="fa fa-google-plus-square fa"></i></span> Sign in
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
+<div ng-controller="ClipController" id="header" class="head navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" id="navbrand" href="#/">clippr</a> <img id="cliprLogoNav" src="../images/cliprinverte.png">
     </div>
-    <!-- /.container -->
-</nav>
+    <nav class="collapse navbar-collapse" id="js-navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li id="navLi"><a id="navLink" href="#/about">About</a></li>
+            <li id="navLi">
+                <a id="navLink" href="/auth/google" id="googlebox">
+                    <span id="googlebutton"><i class="fa fa-google-plus-square fa"></i>Sign in</span> 
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 <!-- Header -->
 <a name="about"></a>
 <div class="intro-header">
@@ -61,17 +44,17 @@
                     <img src="../images/transparentlogo.png" style="height:100px;">
                     <h1>Clippr</h1>
                     <h2>Bookmarks, but better.</h2>
-                     <ul class="list-inline intro-social-buttons">
-                            <li>
-                                <a href="/auth/google" id="googlebox" class="btn btn-default btn-lg"><i class="fa fa-google-plus-square fa"></i><span class="network-name">  Sign in with Google</span></a>
-                            </li>
-                            <!-- <li>
+                    <ul class="list-inline intro-social-buttons">
+                        <li>
+                            <a class="btn btn-default btn-lg chrome" rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ccgfgdnpcafmblafaojcahhjedhbnjal" onclick="chrome.webstore.install()"> <i class="fa fa-chrome fa-fw"></i><span class="network-name"> Add to Chrome</span></a>
+                        </li>
+                        <!-- <li>
                                 <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
                             </li>
                             <li>
                                 <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
                             </li> -->
-                        </ul>
+                    </ul>
                 </div>
             </div>
         </div>

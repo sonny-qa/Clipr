@@ -31,7 +31,7 @@ angular.module('clipr.services', ['ngCookies'])
       return b.clickCount - a.clickCount;
     })
     console.log('MOSTVISITED', sortedClips)
-    clips.clips = sortedClips.slice(0, 9);
+    clips.clips = sortedClips
   
   }
 
@@ -43,7 +43,7 @@ angular.module('clipr.services', ['ngCookies'])
       return b.timeAdded - a.timeAdded;
     })
     console.log(sortedClips)
-    clips.clips = sortedClips.slice(0, 9);
+    clips.clips = sortedClips
   }
 
   var incrementCount = function(clipTitle) {
@@ -71,7 +71,7 @@ angular.module('clipr.services', ['ngCookies'])
         categorizedClips.push(clips.categories[topic][key]);
       }
     }
-    clips.clips = categorizedClips;
+    clips.clips = categorizedClips;    
   };
 
   var loadAllClips = function(cookie) {
@@ -183,8 +183,8 @@ angular.module('clipr.services', ['ngCookies'])
       }
     }).then(function(response) {
       loadAllClips($cookies.get('clipr')).then(function(response) {
-        loadClipsByCategory(category);
-      });
+      loadClipsByCategory(category);
+      })
     })
   }
 
