@@ -264,11 +264,31 @@
     padding-left: 100px;
 }*/
     
+    #search {
+        position: relative;
+        bottom: 30px;
+        width: 90%;
+        left: 5px;
+    }
+    
+    #navLi.chrome {
+        background-color: white;
+        margin-right: 5px;
+    }
+    
+    #navLink.chrome {
+        color: #0a2342;
+    }
+    
+    #navLink.chrome:hover {
+        color: white;
+    }
+    
     #cliprLogoNav {
-        height: 50px;
+        height: 45px;
         position: absolute;
-        top: 4.5px;
-        left: 125px;
+        top: 6px;
+        left: 115px;
     }
     
     #categoryBox.Food {
@@ -303,6 +323,7 @@
         font-size: 20px;
         color: #0A2342;
         left: 50px;
+        top: 20px;
     }
     
     #sortlabel {
@@ -599,9 +620,11 @@ table tr:nth-child(even) {
     #navbrand {
         font-family: "Raleway", sans-serif;
         color: white;
-        margin-bottom: 2px;
         background-color: #0A2342;
-        font-size: 50px;
+        font-size: 45px;
+        margin-bottom: 3px;
+        position: relative;
+        bottom: 3px;
     }
     
     #navLink {
@@ -642,10 +665,6 @@ table tr:nth-child(even) {
     
     #navLink:hover {
         cursor: pointer;
-    }
-    
-    #navbrand:hover {
-        color: #2CA58D;
     }
     
     #brand {
@@ -831,10 +850,23 @@ table tr:nth-child(even) {
         font-size: 60px;
     }
     
-    #googlebutton.fa.fa-google-plus-square {
-        position: absolute;
-        background-color: white;
-        color: #0A2342;
+    .btn.chrome {
+        border: 2px solid #0a2342;
+    }
+    
+    .fa-chrome {
+        color: #0a2342;
+    }
+    
+    .network-name {
+        font-family: "Raleway", sans-serif;
+    }
+    
+    .fa-google-plus-square {
+        color: white;
+        /* font-size: 20px; */
+        position: relative;
+        right: 7px;
     }
     
     #googlebutton.fa.fa-google-plus-square:hover {
@@ -898,8 +930,8 @@ table tr:nth-child(even) {
     li.search {
         padding-left: 10px;
     }
-
-    .btn.sort:focus{
+    
+    .btn.sort:focus {
         border-color: #0a2342;
     }
     
@@ -961,10 +993,6 @@ table tr:nth-child(even) {
         padding: 10px;
     }
     /*---------------------START OF LANDING PAGE CSS----------------*/
-    
-    .fa-google-plus-square {
-        color: #D64837;
-    }
     
     .topnav {
         font-size: 18px;
@@ -1031,6 +1059,11 @@ table tr:nth-child(even) {
     .navbar-default .navbar-nav>li>a,
     .navbar-default .navbar-text {
         color: white;
+        border: none;
+    }
+    
+    .navbar-default {
+        border: none;
     }
     
     .intro-divider {

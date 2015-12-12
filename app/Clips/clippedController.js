@@ -1,9 +1,10 @@
 angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angularMoment'])
 
-.controller('ClipController', ['$scope', 'Clips', '$modal', 'AuthService', '$aside', '$cookies', '$state', '$window', function($scope, Clips, $modal, AuthService, $aside, $cookies, $state, $window) {
+
+.controller('ClipController', ['$scope', 'Clips', '$modal', 'AuthService', '$aside', '$cookies', '$state', '$timeout', function($scope, Clips, $modal, AuthService, $aside, $cookies, $state, $timeout) {
 
   $scope.clips = Clips.clips;
-  $scope.clipShow = false;
+  $scope.allClips = false;
   $scope.categories = Clips.clips;
   $scope.collection = "";
   $scope.categoryDisplay;
@@ -15,8 +16,6 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
   };
 
   $scope.mostVisited = function() {
-    $scope.categoryDisplay = 'Your Most Visited Clips:';
-
     Clips.mostVisited();
   };
 
@@ -25,7 +24,6 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
   };
 
   $scope.recentlyAdded = function() {
-    $scope.categoryDisplay = 'Your Recently Added Clips:';
     Clips.recentlyAdded();
   };
 
@@ -36,10 +34,11 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
   $scope.loadClipsByCategory = function(category) {
     Clips.loadClipsByCategory(category);
     if (category === 'all') {
-      $scope.categoryDisplay = 'Your Clips:';
-      console.log($scope.categoryDisplay);
+      $scope.categoryDisplay = 'All Clips:';
+      $scope.allClips = true;
     } else {
-      $scope.categoryDisplay = 'Your ' + category + ' clips:';
+      $scope.allClips = false;
+      $scope.categoryDisplay = category + ' clips:';
     }
     $state.go('main');
   };
@@ -50,7 +49,8 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
   };
 
   $scope.loadAllClips = function() {
-    $scope.categoryDisplay= 'Your Clips';
+    $scope.allClips = true;
+    $scope.categoryDisplay = 'All Clips:';
     Clips.loadAllClips($cookies.get('clipr'));
   };
 
@@ -60,13 +60,11 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
     var category = item_id.toString();
     Clips.changeCategory(category, clipTitle);
 
-  };
+    $timeout(function() {
+      $scope.categoryDisplay = category + ' clips:'
+    }, 2100, category);
 
-  // $scope.changeCategory = function(category, clip) {
-  //   console.log('in change category')
-  //   clip.category = category;
-  //   Clips.changeCategory(category, clip.title);
-  // }
+  };
 
   $scope.loadAllClips();
 
@@ -124,47 +122,34 @@ angular.module('clipr.clipped', ['ui.router', 'ui.bootstrap', 'ngAside', 'angula
     });
   };
 
-  $scope.openAside = function(position) {
-    console.log('inside asiiiiideee');
-    $aside.open({
-      templateUrl: 'html/categorySuggestionsView.html',
-      placement: position,
-      backdrop: false,
-      controller: function($scope, $modalInstance) {
-        $scope.ok = function(e) {
-          $modalInstance.close();
-          e.stopPropagation();
-        };
-        $scope.cancel = function(e) {
-          $modalInstance.dismiss();
-          e.stopPropagation();
-        };
-      }
-    });
-  };
 
 }]);
 
 var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, $window) {
   $scope.collections = Clips.clips.collections;
   $scope.item = item.clip;
-  
 
-  $scope.twitShare = function (clipUrl) { 
+
+  $scope.twitShare = function(clipUrl) {
     $window.open('https://twitter.com/intent/tweet?hashtags=clippr&text=' + clipUrl, 'height=300, width=400');
+  }
+  
+  $scope.windowOpen = function(clipUrl) {
+    $window.open('https://twitter.com/intent/tweet?hashtags=clipr&text=' + clipUrl, 'height=300, width=400');
   };
 
-  $scope.fbShare = function (url, title, winWidth, winHeight) {
+  $scope.fbShare = function(url, title, winWidth, winHeight) {
     var winTop = (screen.height / 4) - (winHeight / 2);
     var winLeft = (screen.width / 4) - (winWidth / 2);
-    window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[url]=' + url +  'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
+    window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[url]=' + url + 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
   };
 
-  $scope.gooShare = function (url, title, winWidth, winHeight) {
-    var w = 480; var h = 380;
-    var x = Number((window.screen.width - w)/2);
-    var y = Number((window.screen.height - h)/2);
-    $window.open('https://plusone.google.com/share?hl=en&url=' + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) +'','width='+ w + ',height='+ h +',left='+ x +',top='+ y +',scrollbars=no');
+  $scope.gooShare = function(url, title, winWidth, winHeight) {
+    var w = 480;
+    var h = 380;
+    var x = Number((window.screen.width - w) / 2);
+    var y = Number((window.screen.height - h) / 2);
+    $window.open('https://plusone.google.com/share?hl=en&url=' + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) + '', 'width=' + w + ',height=' + h + ',left=' + x + ',top=' + y + ',scrollbars=no');
 
   };
 
