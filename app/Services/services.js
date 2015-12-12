@@ -24,7 +24,7 @@ angular.module('clipr.services', ['ngCookies'])
   };
 
   var mostVisited = function() {
-    loadClipsByCategory('all');
+    // loadClipsByCategory('all');
     var sortedClips = clips.clips.sort(function(a, b) {
       a.clickCount = a.clickCount || null;
       b.clickCount = b.clickCount || null;
@@ -36,7 +36,7 @@ angular.module('clipr.services', ['ngCookies'])
   }
 
   var recentlyAdded = function() {
-    loadClipsByCategory('all')
+    // loadClipsByCategory('all')
     var sortedClips = clips.clips.sort(function(a, b) {
       a.timeAdded = a.timeAdded || null;
       b.timeAdded = b.timeAdded || null;

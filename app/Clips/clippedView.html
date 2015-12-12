@@ -1,16 +1,15 @@
 <div ng-controller="ClipController" id="header" class="head navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-header">
-        <a class="navbar-brand" id="navbrand" href="#/">CLIPPR</a>
+        <a class="navbar-brand" id="navbrand" href="#/">clippr</a> <img id="cliprLogoNav" src="../images/cliprinverte.png">
     </div>
     <nav class="collapse navbar-collapse" id="js-navbar-collapse">
         <ul class="nav navbar-nav">
-            <li><a id="navLink" ng-click='loadClipsByCategory("all")'>All Clips</a></li>
-            <li><a id="navLink" ng-click='logOut()'>Logout</a></li>
-            <li><a id="navLink" rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ccgfgdnpcafmblafaojcahhjedhbnjal" onclick="chrome.webstore.install()" target="_blank" >Add to Chrome</a></li>
+            <li id="navLi"><a id="navLink" ng-click='loadClipsByCategory("all")'>All Clips</a></li>
+            <li id="navLi"><a id="navLink" ng-click='logOut()'>Logout</a></li>
+            <li id="navLi"><a id="navLink" rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ccgfgdnpcafmblafaojcahhjedhbnjal" onclick="chrome.webstore.install()">Add to Chrome</a></li>
         </ul>
     </nav>
 </div>
-
 <div id="container-fluid" style="padding-top:50px;">
     <div class="col-lg-2">
         <nav class="navmenu navmenu-default" role="navigation" id="navMenu">
@@ -20,8 +19,6 @@
                         <input ng-model="searchText">
                     </label>
                 </li>
-                <li class="active"><a ng-click="recentlyAdded()">Recently Added</a></li>
-                <li><a ng-click="mostVisited()">Most Visited</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-autohide="false" data-toggle="dropdown"> Categories <b class="caret"></b></a>
                     <ul class="dropdown-menu navmenu-nav" role="menu" ng-repeat="(category,values) in categories.categories">
@@ -49,18 +46,24 @@
     Clips
     <!--         <div class="page-content">
  -->
+        <div id="sortButtons">
+        <a id="catLink" class='{{categoryDisplay}}'>{{categoryDisplay}}</a>
+            <div id="sortlabel">Sort by: </div>
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" ng-click="recentlyAdded()" class="btn btn-default sort">Date Added</button>
+                <button type="button" ng-click="mostVisited()" class="btn btn-default sort">Most Visited</button>
+            </div>
+        </div>
     <div class="col-lg-10" id="clipHolder">
-     <a id="catLink" class='{{categoryDisplay}}'>{{categoryDisplay}}</a>
-
         <div ng-repeat="clip in clips.clips | filter:searchText">
             <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{placeholder:true, animate:true}" class="col-lg-3 {{clip.category}}" id="clipBox" style="background-image: url('{{clip.imgUrl}}')">
-                <i ng-click="delete(clip.title)" confirm="Are you sure you want to delete {{clip.title}}?" confirm-title="Confirm Delete" confirm-ok="Yes" confirm-cancel="No" class="fa fa-trash-o"></i><i ng-click="showModal(clip,'lg')" class="fa fa-ellipsis-h"></i>
-                <a ng-click="incrementCount(clip.title)" ng-href="{{clip.clipUrl}}" target="_blank">
-                    <div id="clipOverlay">
+                <div id="clipOverlay">
+                    <i ng-click="delete(clip.title)" confirm="Are you sure you want to delete {{clip.title}}?" confirm-title="Confirm Delete" confirm-ok="Yes" confirm-cancel="No" class="fa fa-trash-o"></i><i ng-click="showModal(clip,'lg')" class="fa fa-plus-circle"></i>
+                    <h6 id="overlayTime"><span>added </span><span am-time-ago="clip.timeAdded"></span></h6>
+                    <a ng-click="incrementCount(clip.title)" ng-href="{{clip.clipUrl}}" target="_blank">
                         <h4 id="overlayTitle" title='{{clip.title}}'> {{clip.title}}</h4>
-                         <h6 id="overlayTime"><span>added </span><span am-time-ago="clip.timeAdded"></span></h6>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
         <!-- </div> -->

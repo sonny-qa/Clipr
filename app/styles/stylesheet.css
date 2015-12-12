@@ -1,524 +1,548 @@
-/*body {
+    /*body {
     background-color: white;
 }*/
-
-
-/*body {
+    /*body {
     padding-top: 50px;
     overflow-y: auto;
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
 }*/
-
-body,
-html {
-    width: 100%;
-    height: 100%;
-}
-
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: "Raleway", sans-serif;
-    font-weight: 700;
-}
-
-#clipEdit {
-    width: 250px;
-    height: 500px;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    z-index: 2;
-}
-
-.fa-pencil-square-o#editButton {
-    position: relative;
-}
-
-#js-navbar-collapse {
-    position: absolute;
-    right: 0;
-}
-
-.btn-twitter {
-    color: #fff;
-    background-color: #55acee;
-    border-color: rgba(0, 0, 0, 0.2);
-    position: absolute;
-    top: 200px;
-    left: 10px;
-}
-
-.btn-facebook {
-    color: #fff;
-    background-color: #3b5998;
-    border-color: rgba(0, 0, 0, 0.2);
-    position: absolute;
-    top: 200px;
-    left: 50px;
-}
-
-.btn-social-icon {
-    position: absolute;
-    text-align: left;
-    height: 34px;
-    width: 34px;
-}
-
-
-/*.editable-wrap{
+    
+    body,
+    html {
+        width: 100%;
+        height: 100%;
+    }
+    
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Raleway", sans-serif;
+        font-weight: 700;
+    }
+    
+    #clipEdit {
+        width: 250px;
+        height: 500px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: 2;
+    }
+    
+    .fa-pencil-square-o#editButton {
+        position: relative;
+    }
+    
+    #js-navbar-collapse {
+        position: absolute;
+        right: 0;
+    }
+    
+    .btn-twitter {
+        color: #fff;
+        background-color: #55acee;
+        border-color: rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 200px;
+        left: 10px;
+    }
+    
+    .btn-facebook {
+        color: #fff;
+        background-color: #3b5998;
+        border-color: rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 200px;
+        left: 50px;
+    }
+    
+    .btn-social-icon {
+        position: absolute;
+        text-align: left;
+        height: 34px;
+        width: 34px;
+    }
+    /*.editable-wrap{
     width: 250px;
     font-size: 12px;
     overflow: scroll;
     text-decoration: none;
 }*/
-
-#clipEditText {
-    color: white;
-    font-size: 15px;
-}
-
-a.editable-click {
-    font-size: 15px;
-    color: white;
-    border-bottom: none;
-    text-decoration: none;
-}
-
-.editable-controls>input {
-    color: black;
-}
-
-#suggestionOverlay:hover {
-    background: black;
-    opacity: .7;
-    height: 191px;
-    width: 291px;
-    left: 0px;
-    position: absolute;
-}
-
-#suggestionOverlay {
-    background: -webkit-linear-gradient(transparent, black);
-    height: 191px;
-    width: 291px;
-    left: 0px;
-    position: absolute;
-}
-
-#suggestionTitle {
-    position: absolute;
-    bottom: 2px;
-    color: white;
-    font-size: 15px;
-}
-
-.add-btn {
-    height: auto;
-    text-align: center;
-    width: auto;
-}
-
-#clipEdit.Food {
-    width: 250px;
-    height: 500px;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    border-right: 5px solid #D03800;
-}
-
-#clipEdit.Travel {
-    width: 250px;
-    height: 500px;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    border-right: 5px solid #D06E00;
-}
-
-#modalButton {
-    width: 100%;
-    height: 60px;
-    margin-top: 10px;
-}
-
-#clipEdit.Shopping {
-    width: 250px;
-    height: 500px;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    border-right: 5px solid #D00063;
-}
-
-#clipEdit.Science {
-    width: 250px;
-    height: 500px;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    border-right: 5px solid #008404;
-}
-
-button {
-    margin-left: 10px;
-}
-
-#clipEdit.Technology {
-    width: 250px;
-    height: 500px;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    border-right: 5px solid #00D0B6;
-}
-
-#clipEdit.Politics {
-    width: 250px;
-    height: 500px;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    border-right: 5px solid #1700D0;
-}
-
-#modalImg {
-    width: 650px;
-    height: 195px;
-    background-size: 100%;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-}
-
-.btn.btn-primary {
-    background-color: #2CA58D;
-}
-
-.modal-header {
-    height: 200px;
-    width: 100%;
-    padding: 0px;
-    background-color: #0a2432;
-}
-
-.modal-header.Shopping {
-    border-bottom: 5px solid #D00063;
-}
-
-.modal-header.Food {
-    border-bottom: 5px solid #D03800;
-}
-
-.modal-header.Politics {
-    border-bottom: 5px solid #1700D0;
-}
-
-.modal-header.Technology {
-    border-bottom: 5px solid #00D0B6;
-}
-
-.modal-header.Science {
-    border-bottom: 5px solid #008404;
-}
-
-.modal-header.Travel {
-    border-bottom: 5px solid #D06E00;
-}
-
-#modal {
-    background-color: white;
-    height: 700px;
-}
-
-#categories {
-    margin-top: 20px;
-    padding-bottom: 20px;
-}
-
-#iconBar {
-    position: absolute;
-    width: 300px;
-    top: 300px;
-}
-
-
-/*#clipHolder {
+    
+    #clipEditText {
+        color: white;
+        font-size: 15px;
+    }
+    
+    a.editable-click {
+        font-size: 15px;
+        color: white;
+        border-bottom: none;
+        text-decoration: none;
+    }
+    
+    .editable-controls>input {
+        color: black;
+    }
+    
+    #suggestionOverlay:hover {
+        background: black;
+        opacity: .7;
+        height: 191px;
+        width: 291px;
+        left: 0px;
+        position: absolute;
+    }
+    
+    #suggestionOverlay {
+        background: -webkit-linear-gradient(transparent, black);
+        height: 191px;
+        width: 291px;
+        border-radius: 5px;
+        left: 0px;
+        position: absolute;
+    }
+    
+    #suggestionTitle {
+        position: absolute;
+        bottom: 2px;
+        color: white;
+        font-size: 15px;
+    }
+    
+    .add-btn {
+        height: auto;
+        text-align: center;
+        width: auto;
+    }
+    
+    #clipEdit.Food {
+        width: 250px;
+        height: 500px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-right: 5px solid #D03800;
+    }
+    
+    #clipEdit.Travel {
+        width: 250px;
+        height: 500px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-right: 5px solid #D06E00;
+    }
+    
+    #modalButton {
+        width: 100%;
+        height: 60px;
+        margin-top: 10px;
+    }
+    
+    #clipEdit.Shopping {
+        width: 250px;
+        height: 500px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-right: 5px solid #D00063;
+    }
+    
+    #clipEdit.Science {
+        width: 250px;
+        height: 500px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-right: 5px solid #008404;
+    }
+    
+    button {
+        margin-left: 10px;
+    }
+    
+    #clipEdit.Technology {
+        width: 250px;
+        height: 500px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-right: 5px solid #00D0B6;
+    }
+    
+    #clipEdit.Politics {
+        width: 250px;
+        height: 500px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border-right: 5px solid #1700D0;
+    }
+    
+    #modalImg {
+        width: 650px;
+        height: 195px;
+        background-size: 100%;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+    
+    .btn.btn-primary {
+        background-color: #2CA58D;
+    }
+    
+    .modal-header {
+        height: 200px;
+        width: 100%;
+        padding: 0px;
+        background-color: #0a2432;
+    }
+    
+    .modal-header.Shopping {
+        border-bottom: 5px solid #D00063;
+    }
+    
+    .modal-header.Food {
+        border-bottom: 5px solid #D03800;
+    }
+    
+    .modal-header.Politics {
+        border-bottom: 5px solid #1700D0;
+    }
+    
+    .modal-header.Technology {
+        border-bottom: 5px solid #00D0B6;
+    }
+    
+    .modal-header.Science {
+        border-bottom: 5px solid #008404;
+    }
+    
+    .modal-header.Travel {
+        border-bottom: 5px solid #D06E00;
+    }
+    
+    #modal {
+        background-color: white;
+        height: 700px;
+    }
+    
+    #categories {
+        margin-top: 20px;
+        padding-bottom: 20px;
+    }
+    
+    #iconBar {
+        position: absolute;
+        width: 300px;
+        top: 300px;
+    }
+    /*#clipHolder {
     padding-left: 100px;
 }*/
-
-#categoryBox.Food {
-    background-image: url('../../images/food.jpg');
-    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
-    color: white;
-}
-
-#navMenu {
-    background-color: white;
-    margin-left: 0px;
-    padding-top: 60px;
-    z-index: -1;
-    overflow-y: auto;
-}
-
-#catLink {
-    color: #0A2342;
-}
-
-#catLink.Food {
-    color: #D03800
-}
-
-#catLink.Shopping {
-    color: #D00063;
-}
-
-#catLink.Politics {
-    color: #1700D0;
-}
-
-#catLink.Travel {
-    color: #D06E00;
-}
-
-#catLink.Sports {
-    color: #CCD000;
-}
-
-#catLink.Technology {
-    color: #00D0B6;
-}
-
-#catLink.Science {
-    color: #008404;
-}
-
-#clipBox.Food {
-    background-color: #D03800;
-}
-
-#colorBox.Food {
-    background-color: #D03800;
-}
-
-.fa-ellipsis-h {
-    float: right;
-    position: relative;
-    top: 200px;
-}
-
-#categoryBox.Politics {
-    background-image: url('../../images/obama-podium.jpg');
-    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
-    color: white;
-}
-
-#categoryBox.Travel {
-    background-image: url('../../images/Travel.jpg');
-    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
-    color: white;
-}
-
-#clipBox.Politics {
-    border: 5px solid #1700D0;
-}
-
-#colorBox.Politics {
-    background-color: #1700D0;
-}
-
-#clipBox.Travel {
-    border: 5px solid #D06E00;
-}
-
-label {
-    margin-left: 10px;
-    width: 100%;
-}
-
-#colorBox.Travel {
-    background-color: #D06E00;
-}
-
-#clipOverlay:hover {
-    height: 191px;
-    width: 291px;
-    left: 0px;
-    position: absolute;
-    background-color: #000;
-    opacity: .7;
-}
-
-#clipOverlay {
-    height: 191px;
-    width: 291px;
-    left: 0px;
-    padding-left: 5px;
-    padding-right: 5px;
-    position: absolute;
-    background-color: #000;
-    opacity: 0;
-}
-
-#clipBox {
-    opacity: .8;
-    position: absolute;
-    left: -0px;
-    top: 0px;
-    margin-top: 10px;
-    height: 100px;
-    width: 300px;
-    margin-bottom: 10px;
-}
-
-#colorBox {
-    opacity: .7;
-    position: absolute;
-    left: -0px;
-    height: 150px;
-    width: 100%;
-    margin-bottom: 10px;
-    z-index: 3;
-}
-
-#colorBox:hover {
-    border: 5px solid white;
-}
-
-#categoryBox.Technology {
-    background-image: url('../../images/Obama-tech-advisors.jpg');
-    -webkit-filter: grayscale(0.6) sepia(0.1);
-    color: white;
-}
-
-#colorBox.Technology {
-    background-color: #00D0B6;
-}
-
-#clipBox.Food {
-    border: 5px solid #D03800;
-}
-
-#clipBox.Technology {
-    border: 5px solid #00D0B6;
-}
-
-#categoryBox.Sports {
-    background-image: url('../../images/sports-Kobe.jpg');
-    -webkit-filter: grayscale(0.6) sepia(0.1);
-    color: white;
-}
-
-#colorBox.Sports {
-    background-color: #CCD000;
-}
-
-#clipBox.Sports {
-    border: 5px solid #CCD000;
-}
-
-#categoryBox.Shopping {
-    background-image: url('../../images/shopping.jpg');
-    -webkit-filter: grayscale(0.6) sepia(0.1);
-    color: white;
-}
-
-#colorBox.Shopping {
-    background-color: #D00063;
-}
-
-#clipBox.Shopping {
-    border: 5px solid #D00063;
-}
-
-#categoryBox.Health {
-    background-image: url('../../images/health.jpg');
-    -webkit-filter: grayscale(0.6) sepia(0.1);
-    color: white;
-}
-
-#colorBox.Health {
-    background-color: #D00A00;
-}
-
-#clipBox.Health {
-    border: 5px solid #D00A00;
-}
-
-#categoryBox.Science {
-    background-image: url('../../images/science.jpg');
-    -webkit-filter: grayscale(0.6) sepia(0.1);
-    color: white;
-}
-
-#colorBox.Science {
-    background-color: #008404;
-}
-
-#clipBox.Science {
-    border: 5px solid #008404;
-}
-
-#categoryBox {
-    height: 150px;
-    width: 100%;
-    position: relative;
-    color: white;
-}
-
-
-/*table tr:nth-child(odd) {
+    
+    #cliprLogoNav {
+        height: 50px;
+        position: absolute;
+        top: 4.5px;
+        left: 125px;
+    }
+    
+    #categoryBox.Food {
+        background-image: url('../../images/food.jpg');
+        -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+        color: white;
+    }
+    
+    #navLi:hover {
+        background-color: #2CA58D;
+    }
+    
+    #navLi {
+        height: 40px;
+        position: relative;
+        border-radius: 5px;
+        top: 5px;
+        margin-left: 10px;
+        border: 2px solid white;
+    }
+    
+    #navMenu {
+        background-color: white;
+        margin-left: 0px;
+        padding-top: 60px;
+        z-index: -1;
+        overflow-y: auto;
+    }
+    
+    #catLink {
+        position: absolute;
+        font-size: 20px;
+        color: #0A2342;
+        left: 50px;
+    }
+    
+    #sortlabel {
+        position: relative;
+        right: -500px;
+    }
+    
+    #catLink.Food {
+        color: #D03800
+    }
+    
+    #catLink.Shopping {
+        color: #D00063;
+    }
+    
+    #catLink.Politics {
+        color: #1700D0;
+    }
+    
+    #catLink.Travel {
+        color: #D06E00;
+    }
+    
+    #catLink.Sports {
+        color: #CCD000;
+    }
+    
+    #catLink.Technology {
+        color: #00D0B6;
+    }
+    
+    #catLink.Science {
+        color: #008404;
+    }
+    
+    #clipBox.Food {
+        background-color: #D03800;
+    }
+    
+    #colorBox.Food {
+        background-color: #D03800;
+    }
+    
+    .fa-plus-circle {
+        left: 40px;
+        position: absolute;
+        bottom: 8px;
+        font-size: 25px;
+        z-index: 4;
+        color: #fff;
+    }
+    
+    #categoryBox.Politics {
+        background-image: url('../../images/obama-podium.jpg');
+        -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+        color: white;
+    }
+    
+    #categoryBox.Travel {
+        background-image: url('../../images/Travel.jpg');
+        -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+        color: white;
+    }
+    
+    #clipBox.Politics {
+        border: 5px solid #1700D0;
+    }
+    
+    #colorBox.Politics {
+        background-color: #1700D0;
+    }
+    
+    #clipBox.Travel {
+        border: 5px solid #D06E00;
+    }
+    
+    label {
+        margin-left: 10px;
+        width: 100%;
+    }
+    
+    #colorBox.Travel {
+        background-color: #D06E00;
+    }
+    
+    #clipOverlay:hover {
+        height: 191px;
+        width: 291px;
+        left: 0px;
+        position: absolute;
+        background-color: #000;
+        opacity: .7;
+    }
+    
+    #clipOverlay {
+        height: 191px;
+        border-radius: 5px;
+        width: 291px;
+        left: 0px;
+        padding-left: 5px;
+        padding-right: 5px;
+        position: absolute;
+        background-color: #000;
+        opacity: 0;
+    }
+    
+    #clipBox {
+        opacity: .8;
+        position: absolute;
+        left: -0px;
+        top: 0px;
+        margin-top: 10px;
+        height: 100px;
+        width: 300px;
+        margin-bottom: 10px;
+    }
+    
+    #colorBox {
+        opacity: .7;
+        position: absolute;
+        left: -0px;
+        height: 75px;
+        width: 100%;
+        margin-bottom: 10px;
+        z-index: 3;
+    }
+    
+    #colorBox:hover {
+        border: 5px solid white;
+    }
+    
+    #categoryBox.Technology {
+        background-image: url('../../images/Obama-tech-advisors.jpg');
+        -webkit-filter: grayscale(0.6) sepia(0.1);
+        color: white;
+    }
+    
+    #colorBox.Technology {
+        background-color: #00D0B6;
+    }
+    
+    #clipBox.Food {
+        border: 5px solid #D03800;
+    }
+    
+    #clipBox.Technology {
+        border: 5px solid #00D0B6;
+    }
+    
+    #categoryBox.Sports {
+        background-image: url('../../images/sports-Kobe.jpg');
+        -webkit-filter: grayscale(0.6) sepia(0.1);
+        color: white;
+    }
+    
+    #colorBox.Sports {
+        background-color: #CCD000;
+    }
+    
+    #clipBox.Sports {
+        border: 5px solid #CCD000;
+    }
+    
+    #categoryBox.Shopping {
+        background-image: url('../../images/shopping.jpg');
+        -webkit-filter: grayscale(0.6) sepia(0.1);
+        color: white;
+    }
+    
+    #colorBox.Shopping {
+        background-color: #D00063;
+    }
+    
+    #clipBox.Shopping {
+        border: 5px solid #D00063;
+    }
+    
+    #categoryBox.Health {
+        background-image: url('../../images/health.jpg');
+        -webkit-filter: grayscale(0.6) sepia(0.1);
+        color: white;
+    }
+    
+    #colorBox.Health {
+        background-color: #D00A00;
+    }
+    
+    #clipBox.Health {
+        border: 5px solid #D00A00;
+    }
+    
+    #categoryBox.Science {
+        background-image: url('../../images/science.jpg');
+        -webkit-filter: grayscale(0.6) sepia(0.1);
+        color: white;
+    }
+    
+    #colorBox.Science {
+        background-color: #008404;
+    }
+    
+    #clipBox.Science {
+        border: 5px solid #008404;
+    }
+    
+    #categoryBox {
+        height: 75px;
+        width: 100%;
+        position: relative;
+        color: white;
+    }
+    /*table tr:nth-child(odd) {
   background-color: #f1f1f1;
 }
 table tr:nth-child(even) {
   background-color: #ffffff;
 }*/
-
-#categoryText {
-    color: white;
-    position: absolute;
-    bottom: 2px;
-    left: 2px;
-    z-index: 4;
-    font-size: 15px;
-}
-
-#showMore {
-    position: absolute;
-    bottom: 2%;
-    left: 75px;
-}
-
-a#articleTitle {
-    color: white;
-    position: absolute;
-    top: 100px;
-    left: 50px;
-    text-align: center;
-    font-size: 15px;
-}
-
-#articleTitle:hover {
-    text-decoration: underline;
-}
-
-#suggestion {
-    font-size: 15px;
-}
-
-#clipHolder {
-    left: 100px;
-    z-index: 2;
-}
-
-
-/*
+    
+    #categoryText {
+        color: #fff;
+        position: absolute;
+        font-size: 30px;
+        font-weight: 100;
+        bottom: 2px;
+        left: 2px;
+        z-index: 4;
+    }
+    
+    #showMore {
+        position: absolute;
+        bottom: 2%;
+        left: 75px;
+    }
+    
+    a#articleTitle {
+        color: white;
+        position: absolute;
+        top: 100px;
+        left: 50px;
+        text-align: center;
+        font-size: 15px;
+    }
+    
+    #articleTitle:hover {
+        text-decoration: underline;
+    }
+    
+    #suggestion {
+        font-size: 15px;
+    }
+    
+    #clipHolder {
+        left: 100px;
+        z-index: 2;
+    }
+    /*
 #suggestions {
     position: fixed;
     color: #0A2342;
@@ -529,165 +553,166 @@ a#articleTitle {
     background-color: #01A2A6;
     overflow: hidden;
 }*/
-
-#suggestTitle {
-    color: #0A2342;
-}
-
-#clipTitle {
-    font-size: 15px;
-}
-
-#landing {
-    width: 100%;
-    height: auto;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    z-index: -1;
-}
-
-.navbar-header {
-    width: 10%;
-}
-
-#header.head {
-    background-color: #0A2342;
-    color: white;
-}
-
-#navbrand {
-    font-family: "Helvetica Neue", sans-serif;
-    color: white;
-    background-color: #0A2342;
-    font-size: 50px;
-}
-
-#navLink {
-    color: white;
-}
-
-#slogan {
-    top: 100px;
-    left: -70px;
-    color: #0A2342;
-    position: relative;
-}
-
-#clipModalTitle {
-    top: 10px;
-    width: 250px;
-    text-align: center;
-    font-size: 25px;
-    left: 0px;
-    color: white;
-    padding-right: 5px;
-    padding-left: 5px;
-    font-family: 'Raleway', sans-serif;
-    position: absolute;
-}
-
-#clipModalHeader {
-    position: absolute;
-    left: 498px;
-    font-size: 20px;
-    top: 150px;
-    color: #0A2342;
-    font-family: 'Raleway', sans-serif;
-}
-
-#navLink:hover {
-    color: #2CA58D;
-    cursor: pointer;
-}
-
-#navbrand:hover {
-    color: #2CA58D;
-}
-
-#brand {
-    font-family: 'Raleway', sans-serif;
-    position: absolute;
-    top: 5%;
-    left: 2%;
-    color: white;
-    font-size: 100px;
-}
-
-#brand:hover {
-    color: #0A2342;
-    font-family: 'Raleway', sans-serif;
-    position: absolute;
-    color: #0A2342;
-}
-
-#brand:hover {
-    color: #0A2342;
-}
-
-#clipSelectWebsite {
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-}
-
-a {
-    color: #0A2342;
-}
-
-#container-fluid {
-    padding-left: 0px;
-    margin-left: -9%;
-    margin-right: -9%;
-}
-
-a:hover {
-    color: #01A2A6;
-}
-
-#suggestions {
-    width: 650px;
-    height: 500px;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    text-align: center;
-}
-
-#suggestions .row {
-    margin-bottom: 9px;
-}
-
-#suggestions .row img {
-    border: 1px solid black;
-    padding: 0px;
-    margin-left: 5px;
-    margin-top: 1px;
-}
-
-#suggestions .row a {
-    padding-top: 55px;
-    margin: auto
-}
-
-.clipShowWrapper {
-    position: absolute;
-    left: 25%;
-}
-
-.clipShowWrapper {
-    position: absolute;
-    left: 25%;
-}
-
-#dropdownCategory {
-    position: relative;
-    width: 100%;
-    margin-top:10px;
-}
-
-
-/*#clipBackground {
+    
+    #suggestTitle {
+        color: #0A2342;
+    }
+    
+    #clipTitle {
+        font-size: 15px;
+    }
+    
+    #landing {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: -1;
+    }
+    
+    .navbar-header {
+        width: 10%;
+    }
+    
+    #header.head {
+        background-color: #0A2342;
+        color: white;
+    }
+    
+    #navbrand {
+        font-family: "Raleway", sans-serif;
+        color: white;
+        margin-bottom: 2px;
+        background-color: #0A2342;
+        font-size: 50px;
+    }
+    
+    #navLink {
+        color: white;
+        position: relative;
+        top: -5px;
+        margin-left: 5px;
+    }
+    
+    #slogan {
+        top: 100px;
+        left: -70px;
+        color: #0A2342;
+        position: relative;
+    }
+    
+    #clipModalTitle {
+        top: 10px;
+        width: 250px;
+        text-align: center;
+        font-size: 25px;
+        left: 0px;
+        color: white;
+        padding-right: 5px;
+        padding-left: 5px;
+        font-family: 'Raleway', sans-serif;
+        position: absolute;
+    }
+    
+    #clipModalHeader {
+        position: absolute;
+        left: 498px;
+        font-size: 20px;
+        top: 150px;
+        color: #0A2342;
+        font-family: 'Raleway', sans-serif;
+    }
+    
+    #navLink:hover {
+        cursor: pointer;
+    }
+    
+    #navbrand:hover {
+        color: #2CA58D;
+    }
+    
+    #brand {
+        font-family: 'Raleway', sans-serif;
+        position: absolute;
+        top: 5%;
+        left: 2%;
+        color: white;
+        font-size: 100px;
+    }
+    
+    #brand:hover {
+        color: #0A2342;
+        font-family: 'Raleway', sans-serif;
+        position: absolute;
+        color: #0A2342;
+    }
+    
+    #brand:hover {
+        color: #0A2342;
+    }
+    
+    #clipSelectWebsite {
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+    }
+    
+    a {
+        color: #0A2342;
+    }
+    
+    #container-fluid {
+        padding-left: 0px;
+        margin-left: -9%;
+        margin-right: -9%;
+    }
+    
+    a:hover {
+        color: #01A2A6;
+    }
+    
+    #suggestions {
+        width: 650px;
+        height: 500px;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        text-align: center;
+    }
+    
+    #suggestions .row {
+        margin-bottom: 9px;
+    }
+    
+    #suggestions .row img {
+        border: 1px solid black;
+        padding: 0px;
+        margin-left: 5px;
+        margin-top: 1px;
+    }
+    
+    #suggestions .row a {
+        padding-top: 55px;
+        margin: auto
+    }
+    
+    .clipShowWrapper {
+        position: absolute;
+        left: 25%;
+    }
+    
+    .clipShowWrapper {
+        position: absolute;
+        left: 25%;
+    }
+    
+    #dropdownCategory {
+        position: relative;
+        width: 100%;
+        margin-top: 10px;
+    }
+    /*#clipBackground {
     width: 144px;
     height: 153.6px;
     position: relative;
@@ -696,392 +721,407 @@ a:hover {
     size: 50%;
 
 }*/
-#overlayTime {
-    position: absolute;
-    float: right;
-    bottom: 0;
-    color: white;
-    right: 6px;
-}
-
-
-#overlayTitle {
-    opacity: 1;
-    color: white;
-}
-
-.fa-trash-o {
-    position: relative;
-    float: left;
-    top: 200px;
-}
-
-#dropdown:hover {
-    background-color: #0A2342;
-    color: white;
-}
-
-#clipBox {
-    font-size: 14px;
-    position: relative;
-    background-color: white;
-    background-size: 100%;
-    color: #0A2342;
-    display: inline-block;
-    text-align: center;
-    margin-right: 10px;
-    height: 200px;
-    width: 300px;
-    /*    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
-*/
-}
-
-#clipBox:hover {
-    cursor: pointer;
-}
-
-#googlebox.btn.btn-block.btn-social.btn-google {
-    width: 15%;
-    background-color: white;
-    color: #0A2342;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    text-align: center;
-    z-index: 1;
-}
-
-#googlebox.btn.btn-block.btn-social.btn-google:hover {
-    background-color: #2CA58D;
-    color: white;
-    cursor: pointer;
-}
-
-#scrollBtn {
-    position: absolute;
-    bottom: 0px;
-    right: 50%;
-    color: white;
-    z-index: 1;
-    width: 30px;
-    height: auto;
-    font-size: 50px;
-}
-
-#scrollBtn:hover {
-    font-size: 60px;
-}
-
-#googlebutton.fa.fa-google-plus-square {
-    position: absolute;
-    background-color: white;
-    color: #0A2342;
-}
-
-#googlebutton.fa.fa-google-plus-square:hover {
-    color: #2CA58D;
-}
-
-#wrapper {
-    min-height: 100%;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0;
-    display: inline-block;
-}
-
-#main-wrapper {
-    height: 100%;
-    overflow-y: auto;
-    float: center;
-    padding: 50px 0 0 0;
-    position: relative;
-    padding-top: 5%;
-    padding-left: 15%;
-}
-
-#main {
-    position: relative;
-    height: 100%;
-    overflow-y: auto;
-    padding: 0 15px;
-}
-
-#sidebar-wrapper {
-    height: 100%;
-    padding: 50px 0 0px 0;
-    position: fixed;
-    border-radius: 20px;
-    border: #2CA58D;
-    background-color: white;
-    border-top: 20px;
-}
-
-#sidebar {
-    position: relative;
-    height: 100%;
-    overflow: hidden;
-}
-
-.nav.list-group {
-    padding-top: 20px;
-}
-
-
-/* This is for the sidebar nav menu */
-
-nav#navMenu.navmenu.navmenu-default {
-    padding-left: 10px;
-}
-
-
-/* Search bar inside sidebar nav menu*/
-
-li.search {
-    padding-left: 10px;
-}
-
-#sidebar .list-group-item {
-    border-radius: 0;
-    border-left: 0;
-    border-right: 0;
-    border-top: 0;
-    min-height: 100%;
-    background-color: #0A2342;
-    border-radius: 0;
-    border-left: 0;
-    border-right: 0;
-    border-top: 0;
-    background-color: white;
-    color: #0A2342;
-}
-
-#sidebar .list-group-item:hover {
-    color: #2CA58D;
-    cursor: pointer;
-}
-
-h3 {
-    color: white;
-}
-
-@media (max-width: 992px) {
-    body {
-        padding-top: 0px;
-    }
-}
-
-@media (min-width: 992px) {
-    #main-wrapper {
+    
+    #overlayTime {
+        position: absolute;
         float: right;
+        bottom: 0;
+        color: white;
+        right: 6px;
     }
-}
-
-@media (max-width: 992px) {
-    #main-wrapper {
-        padding-top: 0px;
+    
+    #overlayTitle {
+        opacity: 1;
+        color: white;
     }
-}
-
-@media (max-width: 992px) {
-    #sidebar-wrapper {
-        position: static;
+    
+    .btn-group {
+        position: relative;
+        right: -500px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    #sortButtons {
+        position: relative;
+        left: 300px;
+    }
+    
+    .fa-trash-o {
+        left: 5px;
+        position: absolute;
+        bottom: 8px;
+        font-size: 25px;
+        z-index: 4;
+        color: #fff;
+    }
+    
+    #dropdown:hover {
+        background-color: #0A2342;
+        color: white;
+    }
+    
+    #clipBox {
+        font-size: 14px;
+        position: relative;
+        border-radius: 10px;
+        background-color: white;
+        background-size: 100%;
+        color: #0A2342;
+        display: inline-block;
+        text-align: center;
+        margin-right: 10px;
+        height: 200px;
+        width: 300px;
+        /*    -webkit-filter: grayscale(0.6) opacity(0.9) sepia(0.1);
+*/
+    }
+    
+    #clipBox:hover {
+        cursor: pointer;
+    }
+    
+    #googlebox.btn.btn-block.btn-social.btn-google {
+        width: 15%;
+        background-color: white;
+        color: #0A2342;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        text-align: center;
+        z-index: 1;
+    }
+    
+    #googlebox.btn.btn-block.btn-social.btn-google:hover {
+        background-color: #2CA58D;
+        color: white;
+        cursor: pointer;
+    }
+    
+    #scrollBtn {
+        position: absolute;
+        bottom: 0px;
+        right: 50%;
+        color: white;
+        z-index: 1;
+        width: 30px;
         height: auto;
-        border-right: 0;
+        font-size: 50px;
+    }
+    
+    #scrollBtn:hover {
+        font-size: 60px;
+    }
+    
+    #googlebutton.fa.fa-google-plus-square {
+        position: absolute;
+        background-color: white;
+        color: #0A2342;
+    }
+    
+    #googlebutton.fa.fa-google-plus-square:hover {
+        color: #2CA58D;
+    }
+    
+    #wrapper {
+        min-height: 100%;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0;
+        display: inline-block;
+    }
+    
+    #main-wrapper {
+        height: 100%;
+        overflow-y: auto;
+        float: center;
+        padding: 50px 0 0 0;
+        position: relative;
+        padding-top: 5%;
+        padding-left: 15%;
+    }
+    
+    #main {
+        position: relative;
+        height: 100%;
+        overflow-y: auto;
+        padding: 0 15px;
+    }
+    
+    #sidebar-wrapper {
+        height: 100%;
+        padding: 50px 0 0px 0;
+        position: fixed;
+        border-radius: 20px;
+        border: #2CA58D;
+        background-color: white;
         border-top: 20px;
     }
-}
-
-.footer {
-    background-color: #ffffff;
-    bottom: 0;
-    position: fixed;
-    padding: 10px;
-}
-
-
-/*---------------------START OF LANDING PAGE CSS----------------*/
-
-.fa-google-plus-square {
-    color: #D64837;
-}
-
-.topnav {
-    font-size: 18px;
-    color: white;
-    background-color: #0a2342;
-}
-
-.topnav.navbar-brand {
-    color: white;
-}
-
-a.topnav {
-    color: white;
-}
-
-.lead {
-    font-size: 18px;
-    font-weight: 400;
-}
-
-.intro-header {
-    padding-top: 50px;
-    /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-    padding-bottom: 50px;
-    text-align: center;
-    width: 100%;
-    height: 1000px;
-    color: #f8f8f8;
-    /*    background: url(../images/intro-bg.jpg) no-repeat center center;
-*/
-}
-
-.video-container {
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-}
-
-video {
-    position: absolute;
-    z-index: -1;
-    left: 0px;
-    opacity: 0.78;
-}
-
-.intro-message {
-    position: relative;
-    padding-top: 10%;
-    padding-bottom: 20%;
-    color: #0a2342;
-}
-
-.intro-message > h1 {
-    margin: 0;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, .6);
-    font-size: 150px;
-    color: #0a2342;
-}
-
-.navbar-default .navbar-nav>li>a,
-.navbar-default .navbar-text {
-    color: white;
-}
-
-.intro-divider {
-    width: 400px;
-    border-top: 1px solid #f8f8f8;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.intro-message > h3 {
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
-}
-
-@media(max-width:767px) {
-    .intro-message {
-        padding-bottom: 15%;
+    
+    #sidebar {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
     }
-    .intro-message > h1 {
-        font-size: 3em;
+    
+    .nav.list-group {
+        padding-top: 20px;
     }
-    ul.intro-social-buttons > li {
-        display: block;
-        margin-bottom: 20px;
-        padding: 0;
+    /* This is for the sidebar nav menu */
+    
+    nav#navMenu.navmenu.navmenu-default {
+        padding-left: 10px;
+        border-radius: 5px;
     }
-    ul.intro-social-buttons > li:last-child {
-        margin-bottom: 0;
+    /* Search bar inside sidebar nav menu*/
+    
+    li.search {
+        padding-left: 10px;
     }
-    .intro-divider {
+
+    .btn.sort:focus{
+        border-color: #0a2342;
+    }
+    
+    #sidebar .list-group-item {
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        min-height: 100%;
+        background-color: #0A2342;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        background-color: white;
+        color: #0A2342;
+    }
+    
+    #sidebar .list-group-item:hover {
+        color: #2CA58D;
+        cursor: pointer;
+    }
+    
+    h3 {
+        color: white;
+    }
+    
+    @media (max-width: 992px) {
+        body {
+            padding-top: 0px;
+        }
+    }
+    
+    @media (min-width: 992px) {
+        #main-wrapper {
+            float: right;
+        }
+    }
+    
+    @media (max-width: 992px) {
+        #main-wrapper {
+            padding-top: 0px;
+        }
+    }
+    
+    @media (max-width: 992px) {
+        #sidebar-wrapper {
+            position: static;
+            height: auto;
+            border-right: 0;
+            border-top: 20px;
+        }
+    }
+    
+    .footer {
+        background-color: #ffffff;
+        bottom: 0;
+        position: fixed;
+        padding: 10px;
+    }
+    /*---------------------START OF LANDING PAGE CSS----------------*/
+    
+    .fa-google-plus-square {
+        color: #D64837;
+    }
+    
+    .topnav {
+        font-size: 18px;
+        color: white;
+        background-color: #0a2342;
+    }
+    
+    .topnav.navbar-brand {
+        color: white;
+    }
+    
+    a.topnav {
+        color: white;
+    }
+    
+    .lead {
+        font-size: 18px;
+        font-weight: 400;
+    }
+    
+    .intro-header {
+        padding-top: 50px;
+        /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+        padding-bottom: 50px;
+        text-align: center;
         width: 100%;
+        height: 1000px;
+        color: #f8f8f8;
+        /*    background: url(../images/intro-bg.jpg) no-repeat center center;
+*/
     }
-}
-
-.network-name {
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 2px;
-}
-
-.content-section-a {
-    padding: 50px 0;
-    background-color: #f8f8f8;
-}
-
-.content-section-b {
-    padding: 50px 0;
-    border-top: 1px solid #e7e7e7;
-    border-bottom: 1px solid #e7e7e7;
-}
-
-.section-heading {
-    margin-bottom: 30px;
-}
-
-.section-heading-spacer {
-    float: left;
-    width: 200px;
-    border-top: 3px solid #e7e7e7;
-}
-
-.banner {
-    padding: 100px 0;
-    color: #f8f8f8;
-    background: url(../images/banner-bg.jpg) no-repeat center center;
-    background-size: cover;
-}
-
-.banner h2 {
-    margin: 0;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
-    font-size: 3em;
-}
-
-.banner ul {
-    margin-bottom: 0;
-}
-
-.banner-social-buttons {
-    float: right;
-    margin-top: 0;
-}
-
-@media(max-width:1199px) {
-    ul.banner-social-buttons {
+    
+    .video-container {
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    video {
+        position: absolute;
+        z-index: -1;
+        left: 0px;
+        opacity: 0.78;
+    }
+    
+    .intro-message {
+        position: relative;
+        padding-top: 10%;
+        padding-bottom: 20%;
+        color: #0a2342;
+    }
+    
+    .intro-message > h1 {
+        margin: 0;
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, .6);
+        font-size: 150px;
+        color: #0a2342;
+    }
+    
+    .navbar-default .navbar-nav>li>a,
+    .navbar-default .navbar-text {
+        color: white;
+    }
+    
+    .intro-divider {
+        width: 400px;
+        border-top: 1px solid #f8f8f8;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    
+    .intro-message > h3 {
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    }
+    
+    @media(max-width:767px) {
+        .intro-message {
+            padding-bottom: 15%;
+        }
+        .intro-message > h1 {
+            font-size: 3em;
+        }
+        ul.intro-social-buttons > li {
+            display: block;
+            margin-bottom: 20px;
+            padding: 0;
+        }
+        ul.intro-social-buttons > li:last-child {
+            margin-bottom: 0;
+        }
+        .intro-divider {
+            width: 100%;
+        }
+    }
+    
+    .network-name {
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 2px;
+    }
+    
+    .content-section-a {
+        padding: 50px 0;
+        background-color: #f8f8f8;
+    }
+    
+    .content-section-b {
+        padding: 50px 0;
+        border-top: 1px solid #e7e7e7;
+        border-bottom: 1px solid #e7e7e7;
+    }
+    
+    .section-heading {
+        margin-bottom: 30px;
+    }
+    
+    .section-heading-spacer {
         float: left;
-        margin-top: 15px;
+        width: 200px;
+        border-top: 3px solid #e7e7e7;
     }
-}
-
-@media(max-width:767px) {
+    
+    .banner {
+        padding: 100px 0;
+        color: #f8f8f8;
+        background: url(../images/banner-bg.jpg) no-repeat center center;
+        background-size: cover;
+    }
+    
     .banner h2 {
         margin: 0;
         text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
         font-size: 3em;
     }
-    ul.banner-social-buttons > li {
-        display: block;
-        margin-bottom: 20px;
-        padding: 0;
-    }
-    ul.banner-social-buttons > li:last-child {
+    
+    .banner ul {
         margin-bottom: 0;
     }
-}
-
-footer {
-    padding: 50px 0;
-    background-color: #f8f8f8;
-}
-
-p.copyright {
-    margin: 15px 0 0;
-}
+    
+    .banner-social-buttons {
+        float: right;
+        margin-top: 0;
+    }
+    
+    @media(max-width:1199px) {
+        ul.banner-social-buttons {
+            float: left;
+            margin-top: 15px;
+        }
+    }
+    
+    @media(max-width:767px) {
+        .banner h2 {
+            margin: 0;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+            font-size: 3em;
+        }
+        ul.banner-social-buttons > li {
+            display: block;
+            margin-bottom: 20px;
+            padding: 0;
+        }
+        ul.banner-social-buttons > li:last-child {
+            margin-bottom: 0;
+        }
+    }
+    
+    footer {
+        padding: 50px 0;
+        background-color: #f8f8f8;
+    }
+    
+    p.copyright {
+        margin: 15px 0 0;
+    }
