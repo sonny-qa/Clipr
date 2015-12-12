@@ -23,6 +23,19 @@
 
 ## Built With
 
+- Angular
+- Node
+- Express
+- Neo4J
+- Grunt
+- Passport (for authentication)
+- Cloudinary (for hosting images)
+
+## APIs
+
+- Faroo 
+- Watson 
+
 ## Contribution Guide
 
 1. [Fork it](https://github.com/BitsPleaseMKS/Clipr/fork)
