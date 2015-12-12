@@ -1,34 +1,13 @@
-<<<<<<< 9ffe1b87728f17b514957f9db2797061dfc49dbc
-<<<<<<< f25f373f3dd96c779f61ab77b6dacd07cb57612a
-=======
->>>>>>> [fix]: social buttons working properly
 <div id="modal">
     <div class="modal-header {{item.category}}">
         <div id="modalImg" style="background-image: url('{{item.imgUrl}}')"></div>
         <a ng-href='{{item.clipUrl}}' target="_blank" id="clipModalTitle">{{ item.title }}</a>
-<<<<<<< d124b5c42c444c8ae6e34a8213ba2f0c401e550b
-<<<<<<< 9ffe1b87728f17b514957f9db2797061dfc49dbc
-=======
-        <h3 class="clipModalHeader" style="position: absolute; left: 498px; font-size: 20px; top: 150px; color: white">Suggested Sites</h3>
->>>>>>> [fix]: social buttons working properly
-=======
->>>>>>> [feat]: implement google share button, move category/list, and made 3 social buttons in a row
     </div>
     <div class="modal-body" ng-init="display()">
         <div id="clipEdit" class="{{item.category}}">
             <div class="btn-group" id="dropdownCategory">
-<<<<<<< d124b5c42c444c8ae6e34a8213ba2f0c401e550b
-<<<<<<< 9ffe1b87728f17b514957f9db2797061dfc49dbc
                <button  id="modalButton" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Change Category <span class="caret"></span>
-=======
-               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{item.category}} <span class="caret"></span>
->>>>>>> [fix]: social buttons working properly
-=======
-               <button  id="modalButton" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Change Category <span class="caret"></span>
->>>>>>> [feat]: implement google share button, move category/list, and made 3 social buttons in a row
                 </button>
                 <ul class="dropdown-menu">
                     <li id="dropdown" ng-click="changeCategory('Politics', item)">Politics</li>
@@ -46,15 +25,7 @@
             </div>
         </br> </br>
             <div class="btn-group" id="dropdownCategory">
-<<<<<<< d124b5c42c444c8ae6e34a8213ba2f0c401e550b
-<<<<<<< 9ffe1b87728f17b514957f9db2797061dfc49dbc
                 <button id="modalButton" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-=======
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
->>>>>>> [fix]: social buttons working properly
-=======
-                <button id="modalButton" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
->>>>>>> [feat]: implement google share button, move category/list, and made 3 social buttons in a row
                     Add To List <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -62,37 +33,9 @@
                 </ul>
             </div>
         </div>
-<<<<<<< d124b5c42c444c8ae6e34a8213ba2f0c401e550b
-<<<<<<< 9ffe1b87728f17b514957f9db2797061dfc49dbc
-        <!-- Twitter Button -->
-        <div class='twitter'>
-            <a class="btn btn-social-icon btn-twitter" ng-click="windowOpen(item.clipUrl)">
-                <span class="fa fa-twitter"></span>
-            </a>
-        </div>
-        <!-- FaceBook button -->
-        <div class="facebook">
-            <a class="btn btn-social-icon btn-facebook" ng-click="fbShare(item.clipUrl, item.title, 520, 350)">
-                <span class="fa fa-facebook"></span>
-            </a>
-        </div>
-        <div id="suggestions" class="container">
-            <h4> Discover more: </h4>
-            <div id="suggestionBox" ng-repeat="suggestion in item.suggestions">
-                <div class="col-lg-2 {{item.category}}" id="clipBox" style="background-image: url('{{suggestion.suggestionImg}}')">
-                    <div id="suggestionOverlay">
-                        <a href="{{suggestion.suggestionUrl}}" target="_blank"><h4 id="suggestionTitle" title='{{clip.title}}'> {{suggestion.suggestionTitle}}</h4></a>
-                    </div>
-                    </a>
-                </div>
-=======
-        <!-- Twitter Buttom -->
-            <a  id="twitter" class="btn btn-social-icon btn-twitter" ng-click="windowOpen(item.clipUrl)">
-=======
 
             <!-- Twitter Buttom -->
             <a class="btn btn-social-icon btn-twitter" ng-click="twitShare(item.clipUrl)">
->>>>>>> [feat]: implement google share button, move category/list, and made 3 social buttons in a row
                 <span class="fa fa-twitter"></span>
             </a>
 
@@ -107,12 +50,6 @@
               </a>
 
         <div id="suggestions" class="container">
-<<<<<<< d124b5c42c444c8ae6e34a8213ba2f0c401e550b
-            <div ng-repeat="suggestion in item.suggestions" class="row">
-                <div><img src="{{suggestion.suggestionImg}}" class="img-rounded col-md-5" alt="Cinque Terre" height="160px" , width="100px"></div>
-                <div><a id="suggestion" href="{{suggestion.suggestionUrl}}" class="col-md-5"> {{suggestion.suggestionTitle}}</a></div>
->>>>>>> [fix]: social buttons working properly
-=======
             <h4> Discover more: </h4>
             <div id="suggestionBox" ng-repeat="suggestion in item.suggestions">
                 <div class="col-lg-2 {{item.category}}" id="clipBox" style="background-image: url('{{suggestion.suggestionImg}}')">
@@ -121,13 +58,7 @@
                     </div>
                     </a>
                 </div>
->>>>>>> [feat]: implement google share button, move category/list, and made 3 social buttons in a row
             </div>
         </div>
     </div>
 </div>
-<<<<<<< 9ffe1b87728f17b514957f9db2797061dfc49dbc
-=======
->>>>>>> [fix]: facebook and twitter buttons are in correct postion
-=======
->>>>>>> [fix]: social buttons working properly
