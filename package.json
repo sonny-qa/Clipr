@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "angular-confirm": "^1.2.1",
+    "angular-moment": "^0.10.3",
     "async": "^1.5.0",
     "asynquence": "^0.8.2",
     "bluebird": "^3.0.5",
@@ -66,6 +67,7 @@
     "joi": "^7.0.0",
     "keyword-extractor": "0.0.12",
     "lodash": "^3.10.1",
+    "moment": "^2.10.6",
     "natural": "^0.2.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^0.2.0",
