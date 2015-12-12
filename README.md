@@ -1,6 +1,7 @@
 <img src="readmeLogo.png" align="center" />
 
 ============
+[![Build Status](https://travis-ci.org/BitsPleaseMKS/Clipr/branchesbranch=dev)]
 ## Description of Project
 
 ## Demo Screenshot of clicking on Chrome Ext
@@ -12,6 +13,8 @@
 <img src="cliprScreen.png" />
 
 ## Table of Contents
+
+## Features
 
 ## Installation
 
