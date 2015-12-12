@@ -98,7 +98,7 @@ module.exports = function(grunt) {
         }]
       }
     },
-    
+
     concat: {
       options: {
         separator: ';'
@@ -148,23 +148,23 @@ module.exports = function(grunt) {
         dest: 'app/dist/js/app.min.js'
       }
     },
+
     // Minify CSS
     cssmin: {
       build: {
         files: {
           // target file : src files
-            'app/dist/css/stylesheet.min.css': [
-              'app/bower_components/bootstrap/dist/css/bootstrap.min.css',
-              'app/bower_components/bootstrap-social/bootstrap-social.css',
-              'app/bower_components/font-awesome/css/font-awesome.min.css',
-              'app/bower_components/angular-xeditable/css/xeditable.css',
-              'app/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css',
-              'app/styles/stylesheet.css'
-            ]
-          }
+          'app/dist/css/stylesheet.min.css': [
+          'app/bower_components/bootstrap/dist/css/bootstrap.min.css',
+          'app/bower_components/bootstrap-social/bootstrap-social.css',
+          'app/bower_components/font-awesome/css/font-awesome.min.css',
+          'app/bower_components/angular-xeditable/css/xeditable.css',
+          'app/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css',
+          'app/styles/stylesheet.css'
+          ]
         }
-      },
-
+      }
+    },
 
     //Compress Images
     imagemin: {
