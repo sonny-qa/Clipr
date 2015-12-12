@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/BitsPleaseMKS/Clipr.svg?branch=dev)](https://travis-ci.org/BitsPleaseMKS/Clipr)
 
 Web app and Chrome extension that improves bookmarks through smart categorization, easy visualization and recommendations
+============
 
 <img src="readmeExt.png" />
 
