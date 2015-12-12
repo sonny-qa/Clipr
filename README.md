@@ -5,6 +5,8 @@
 
 ## Demo Screenshot of clicking on Chrome Ext
 
+<img src="readmeExt.png" />
+
 ## Demo Screenshot of clips page
 
 ## Table of Contents
