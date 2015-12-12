@@ -23,7 +23,14 @@ Web app and Chrome extension that improves bookmarks through smart categorizatio
 
 ## Flow Chart
 
-## Installation
+## Install and Run Locally
+
+``` 
+$ npm install
+$ grunt build
+$ node server/server.js
+$ open localhost:3000
+```
 
 ## Download Chrome Extension
 
