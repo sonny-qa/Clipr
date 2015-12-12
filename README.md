@@ -17,6 +17,10 @@ Web app and Chrome extension that improves bookmarks through smart categorizatio
 
 ## Features
 
+- Automatic categorization of bookmarks
+- Visualization of bookmarks with preview images
+- Recommendations of related content for each bookmark
+
 ## Installation
 
 ## Download Chrome Extension
@@ -34,7 +38,6 @@ Web app and Chrome extension that improves bookmarks through smart categorizatio
 ## APIs
 
 - Faroo 
-- Watson 
 
 ## Contribution Guide
 
