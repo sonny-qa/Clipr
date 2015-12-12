@@ -83035,7 +83035,7 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, $w
 
 
     $scope.twitShare = function(clipUrl) {
-        $window.open('https://twitter.com/intent/tweet?hashtags=clippr&text=' + clipUrl, 'height=300, width=400'); === === =
+        $window.open('https://twitter.com/intent/tweet?hashtags=clippr&text=' + clipUrl, 'height=300, width=400'); 
         var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item) {
           $scope.collections = Clips.clips.collections
           $scope.item = item.clip

@@ -149,14 +149,14 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, $w
 
 
     $scope.twitShare = function(clipUrl) {
-        $window.open('https://twitter.com/intent/tweet?hashtags=clippr&text=' + clipUrl, 'height=300, width=400'); 
-        var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item) {
+        $window.open('https://twitter.com/intent/tweet?hashtags=clippr&text=' + clipUrl, 'height=300, width=400');
+                var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item) {
           $scope.collections = Clips.clips.collections
           $scope.item = item.clip
 
 
           $scope.windowOpen = function(clipUrl) {
-            $window.open('https://twitter.com/intent/tweet?hashtags=clipr&text=' + clipUrl, 'height=300, width=400'); >>> >>> > [style] Add back button to clips
+            $window.open('https://twitter.com/intent/tweet?hashtags=clipr&text=' + clipUrl, 'height=300, width=400');
           };
 
           $scope.fbShare = function(url, title, winWidth, winHeight) {
