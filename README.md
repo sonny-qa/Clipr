@@ -11,13 +11,24 @@ Web app and Chrome extension that improves bookmarks through smart categorizatio
 
 ## Table of Contents
 
+- [Features](#Features)
+- [Flow Chart](#Flow Chart)
+- [Install](#Install and Run Locally)
+- [Chrome Extension](#Download Chrome Extension)
+- [Built With](#Built With)
+- [APIs](#APIs)
+- [Contribution Guide](#Contribution Guide)
+- [Demo](#Demo)
+- [Team](#Team)
+- [License](#License)
+
 ## Features
 
 - Automatic categorization of bookmarks
 - Visualization of bookmarks with preview images
 - Recommendations of related content for each bookmark
 
-## Flow Chart
+## Flow Chart (prob change this name but Flow chart will go here)
 
 ## Install and Run Locally
 
