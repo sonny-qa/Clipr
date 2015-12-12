@@ -5,11 +5,12 @@
 
 Web app and Chrome extension that improves bookmarks through smart categorization, easy visualization and recommendations
 
----
+
 
 <img src="readmeExt.png" />
 
 <img src="cliprScreen.png" />
+
 
 
 ## Table of Contents
