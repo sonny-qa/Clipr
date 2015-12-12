@@ -1,6 +1,8 @@
 # CLIPR
 ============
 
+<img src="readmeLogo.png" align="center" />
+
 ## Description of Project
 
 ## Demo Screenshot of clicking on Chrome Ext
@@ -30,23 +32,3 @@ alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 ## License 
 
 This project is licensed under the terms of the MIT license.
-
-
-## Installing Chrome Extension
-
-- Open Chrome Extension by typing 'chrome://extensions' in the browser.
-- Click 'Load uppacked extension...' button.
-- Navigate to Clipr/chrome_ext folder and click 'Select'
-
-## Build & development
-
-- Run bower install
-- Run npm install
-- Run `grunt dev' in 1 shell window
-- Run 'grunt server' in another shell window
-  - Grunt server will open browser at http://localhost:3000/#/clips, start server, and run watch.
-
-
-## Testing
-
-COMING SOON
