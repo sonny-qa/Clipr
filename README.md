@@ -1,5 +1,6 @@
 <img src="readmeLogo.png" align="center" />
 
+============
 ## Description of Project
 
 ## Demo Screenshot of clicking on Chrome Ext
