@@ -18,9 +18,9 @@
 
 ## Team
 
-[![Chris Puskar](https://avatars0.githubusercontent.com/u/5401197?v=3&s=120)](https://github.com/cjpuskar) | [![Cyrus Gomez](https://avatars2.githubusercontent.com/u/13814682?v=3&s=120)](https://github.com/cygomez)
----|---
-[Chris Puskar](https://github.com/cjpuskar) | [Cyrus Gomez](https://github.com/cygomez)
+[![Chris Puskar](https://avatars0.githubusercontent.com/u/5401197?v=3&s=120)](https://github.com/cjpuskar) | [![Cyrus Gomez](https://avatars2.githubusercontent.com/u/13814682?v=3&s=120)](https://github.com/cygomez) | [![Sonny Parsonage](https://avatars2.githubusercontent.com/u/13169991?v=3&s=120)](https://github.com/sonny-qa) | [![Alex Kim](https://avatars1.githubusercontent.com/u/10258122?v=3&s=120)](https://github.com/minseokim) | [![Rachel Lader](https://avatars0.githubusercontent.com/u/13043589?v=3&s=120)](https://github.com/RachelLader)
+---|---|---|---|---|
+[Chris Puskar](https://github.com/cjpuskar) | [Cyrus Gomez](https://github.com/cygomez) | [Sonny Parsonage](https://github.com/sonny-qa) | [Alex Kim](https://github.com/minseokim) | [Rachel Lader](https://github.com/RachelLader)
 
 ## License
 
