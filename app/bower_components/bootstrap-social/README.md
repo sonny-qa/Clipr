@@ -1,7 +1,5 @@
 Social Buttons for Bootstrap
 ============================
-[![npm version](https://badge.fury.io/js/bootstrap-social.svg)](https://badge.fury.io/js/bootstrap-social)
-[![Bower version](https://badge.fury.io/bo/bootstrap-social.svg)](https://badge.fury.io/bo/bootstrap-social)
 
 Social Buttons made in pure CSS based on
 [Bootstrap](http://twbs.github.io/bootstrap/) and
@@ -46,12 +44,12 @@ Examples
 
 ```html
 <a class="btn btn-block btn-social btn-twitter">
-  <span class="fa fa-twitter"></span>
+  <i class="fa fa-twitter"></i>
   Sign in with Twitter
 </a>
 
 <a class="btn btn-social-icon btn-twitter">
-  <span class="fa fa-twitter"></span>
+  <i class="fa fa-twitter"></i>
 </a>
 ```
 
