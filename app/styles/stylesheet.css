@@ -244,6 +244,9 @@
         top: 300px;
     }
     /*#clipHolder {
+ top: 0px;
+    border-right: 5px solid #D00063;
+}
     padding-left: 100px;
 }*/
     
@@ -858,6 +861,7 @@ table tr:nth-child(even) {
         background-color: white;
         border-top: 20px;
     }
+<<<<<<< d124b5c42c444c8ae6e34a8213ba2f0c401e550b
     
     #sidebar {
         position: relative;

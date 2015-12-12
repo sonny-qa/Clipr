@@ -4,9 +4,15 @@
     </div>
     <nav class="collapse navbar-collapse" id="js-navbar-collapse">
         <ul class="nav navbar-nav">
+<<<<<<< d124b5c42c444c8ae6e34a8213ba2f0c401e550b
             <li id="navLi"><a id="navLink" ng-click='loadClipsByCategory("all")'>All Clips</a></li>
             <li id="navLi"><a id="navLink" ng-click='logOut()'>Logout</a></li>
             <li id="navLi"><a id="navLink" rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ccgfgdnpcafmblafaojcahhjedhbnjal" onclick="chrome.webstore.install()">Add to Chrome</a></li>
+=======
+            <li><a id="navLink" ng-click='loadClipsByCategory("all")'>All Clips</a></li>
+            <li><a id="navLink" ng-click='logOut()'>Logout</a></li>
+            <li><a id="navLink" rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ccgfgdnpcafmblafaojcahhjedhbnjal" onclick="chrome.webstore.install()" target="_blank" >Add to Chrome</a></li>
+>>>>>>> [feat]: implement google share button, move category/list, and made 3 social buttons in a row
         </ul>
     </nav>
 </div>
@@ -62,8 +68,14 @@
                     <h6 id="overlayTime"><span>added </span><span am-time-ago="clip.timeAdded"></span></h6>
                     <a ng-click="incrementCount(clip.title)" ng-href="{{clip.clipUrl}}" target="_blank">
                         <h4 id="overlayTitle" title='{{clip.title}}'> {{clip.title}}</h4>
+<<<<<<< d124b5c42c444c8ae6e34a8213ba2f0c401e550b
                     </a>
                 </div>
+=======
+                         <h6 id="overlayTime"><span>added </span><span am-time-ago="clip.timeAdded"></span></h6>
+                    </div>
+                </a>
+>>>>>>> [feat]: implement google share button, move category/list, and made 3 social buttons in a row
             </div>
         </div>
         <!-- </div> -->

@@ -150,14 +150,22 @@ var ModalInstanceCtrl = function($scope, $modalInstance, Clips, $modal, item, $w
   $scope.item = item.clip;
   
 
-  $scope.windowOpen= function(clipUrl){
-    $window.open('https://twitter.com/intent/tweet?hashtags=clipr&text=' + clipUrl, 'height=300, width=400');
+  $scope.twitShare = function (clipUrl) { 
+    $window.open('https://twitter.com/intent/tweet?hashtags=clippr&text=' + clipUrl, 'height=300, width=400');
   };
 
   $scope.fbShare = function (url, title, winWidth, winHeight) {
     var winTop = (screen.height / 4) - (winHeight / 2);
     var winLeft = (screen.width / 4) - (winWidth / 2);
     window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[url]=' + url +  'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
+  };
+
+  $scope.gooShare = function (url, title, winWidth, winHeight) {
+    var w = 480; var h = 380;
+    var x = Number((window.screen.width - w)/2);
+    var y = Number((window.screen.height - h)/2);
+    $window.open('https://plusone.google.com/share?hl=en&url=' + encodeURIComponent(url) + '&title=' + encodeURIComponent(title) +'','width='+ w + ',height='+ h +',left='+ x +',top='+ y +',scrollbars=no');
+
   };
 
   $scope.ok = function() {
