@@ -735,7 +735,7 @@ table tr:nth-child(even) {
         color: white;
     }
     
-    .btn-group {
+    .btn-group.sort {
         position: relative;
         right: -500px;
         display: inline-block;
