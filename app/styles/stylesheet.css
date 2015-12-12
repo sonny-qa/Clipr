@@ -6,8 +6,7 @@
     overflow-y: auto;
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
-}*/
-    
+}*/    
     body,
     html {
         width: 100%;
@@ -48,8 +47,10 @@
         background-color: #55acee;
         border-color: rgba(0, 0, 0, 0.2);
         position: absolute;
-        top: 200px;
-        left: 10px;
+        top: 15px;
+        left: 135px;
+        z-index: 9999;
+        display: inline-block;
     }
     
     .btn-facebook {
@@ -57,15 +58,27 @@
         background-color: #3b5998;
         border-color: rgba(0, 0, 0, 0.2);
         position: absolute;
-        top: 200px;
-        left: 50px;
+        top: 15px;
+        left: 97px;
+        z-index: 9999;
+        display: inline-block;
+    }
+
+    .btn-google {
+        color: #fff;
+        background-color: #dd4b39;
+        border-color: rgba(0, 0, 0, 0.2);
+        left: 59px;
+        top: 15px;
+        display: inline-block;
+        z-index: 9999;
     }
     
     .btn-social-icon {
         position: absolute;
         text-align: left;
         height: 34px;
-        width: 34px;
+        width: 33px;
     }
     /*.editable-wrap{
     width: 250px;
@@ -142,7 +155,8 @@
     #modalButton {
         width: 100%;
         height: 60px;
-        margin-top: 10px;
+        margin-top: -15px;
+        top: 69px;
     }
     
     #clipEdit.Shopping {
@@ -245,6 +259,9 @@
         top: 300px;
     }
     /*#clipHolder {
+ top: 0px;
+    border-right: 5px solid #D00063;
+}
     padding-left: 100px;
 }*/
     
@@ -780,16 +797,16 @@ table tr:nth-child(even) {
     #clipBox:hover {
         cursor: pointer;
     }
-    
+
     #googlebox.btn.btn-block.btn-social.btn-google {
-        width: 15%;
-        background-color: white;
-        color: #0A2342;
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        text-align: center;
-        z-index: 1;
+      width: 15%;
+      background-color: white;
+      color: #0A2342;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      text-align: center;
+      z-index: 1;
     }
     
     #googlebox.btn.btn-block.btn-social.btn-google:hover {
@@ -995,6 +1012,7 @@ table tr:nth-child(even) {
         opacity: 0.78;
     }
     
+
     .intro-message {
         position: relative;
         padding-top: 10%;
