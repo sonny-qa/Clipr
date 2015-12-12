@@ -33,18 +33,22 @@
                 </ul>
             </div>
         </div>
-        <!-- Twitter Button -->
-        <div class='twitter'>
-            <a class="btn btn-social-icon btn-twitter" ng-click="windowOpen(item.clipUrl)">
+
+            <!-- Twitter Buttom -->
+            <a class="btn btn-social-icon btn-twitter" ng-click="twitShare(item.clipUrl)">
                 <span class="fa fa-twitter"></span>
             </a>
-        </div>
-        <!-- FaceBook button -->
-        <div class="facebook">
+
+            <!-- FaceBook Button -->
             <a class="btn btn-social-icon btn-facebook" ng-click="fbShare(item.clipUrl, item.title, 520, 350)">
                 <span class="fa fa-facebook"></span>
             </a>
-        </div>
+
+                          <!-- Google Button -->
+              <a class="btn btn-social-icon btn-google" ng-click="gooShare(item.clipUrl, item.title, 520, 350)">
+                <span class="fa fa-google-plus"></span>
+              </a>
+
         <div id="suggestions" class="container">
             <h4> Discover more: </h4>
             <div id="suggestionBox" ng-repeat="suggestion in item.suggestions">
