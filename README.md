@@ -1,6 +1,3 @@
-# CLIPR
-============
-
 <img src="readmeLogo.png" align="center" />
 
 ## Description of Project
