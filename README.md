@@ -9,6 +9,8 @@
 
 ## Demo Screenshot of clips page
 
+<img src="cliprScreen.png" />
+
 ## Table of Contents
 
 ## Installation
