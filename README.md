@@ -28,7 +28,7 @@ alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 ---|---|---|---|---|
 [Chris Puskar](https://github.com/cjpuskar) | [Cyrus Gomez](https://github.com/cygomez) | [Sonny Parsonage](https://github.com/sonny-qa) | [Alex Kim](https://github.com/minseokim) | [Rachel Lader](https://github.com/RachelLader)
 
-## License [!(http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)][license]
+## License 
 
 This project is licensed under the terms of the MIT license.
 
