@@ -44,7 +44,7 @@
     <!--         <div class="page-content">
  -->
     <div id="sortButtons">
-        <p id="catLink" class='{{categoryDisplay}}'><i ng-hide="allClips" ng-click="loadClipsByCategory('all')" class="fa fa-chevron-circle-left"></i>  {{categoryDisplay}}</p>
+        <p id="catLink" ng-click="loadClipsByCategory('all')" class='{{categoryDisplay}}'><i ng-hide="allClips" ng-click="loadClipsByCategory('all')" class="fa fa-chevron-circle-left"></i>  {{categoryDisplay}}</p>
         <div id="sortlabel">Sort by: </div>
         <div class="btn-group sort" role="group" aria-label="...">
             <button type="button" ng-click="recentlyAdded()" class="btn btn-default sort">Date Added</button>
