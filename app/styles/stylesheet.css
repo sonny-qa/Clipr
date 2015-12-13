@@ -326,6 +326,10 @@
         top: 20px;
     }
     
+    #catLink:hover {
+        cursor: pointer;
+    }
+    
     #sortlabel {
         position: relative;
         right: -500px;
